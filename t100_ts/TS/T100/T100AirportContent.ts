@@ -7,6 +7,10 @@ module AST {
         private t100OriginPanel: T100OriginPanel = null;
         private t100DestPanel: T100AirportPanel = null;
         private t100MapControl: T100MapControl = null;
+
+        // UK CAA Data Dest Panel
+        private ukDestPanel: UkData.UkDestPanel = null;
+
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
         private rightTopDiv: HTMLElement = null;
@@ -29,6 +33,8 @@ module AST {
             this.t100DestPanel = T100AirportPanel.createT100AirportPanel();
             this.t100DestPanel.destDialogBuddy = dialogT100DestBar;
             dialogT100DestBar.hide();
+
+            this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
 
             this.t100OriginPanel.destPanelBuddy = this.t100DestPanel;
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;

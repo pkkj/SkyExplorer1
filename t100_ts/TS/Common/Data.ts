@@ -93,6 +93,16 @@
         public routeGeomO: Array<OpenLayers.Feature.Vector>; // Geometry in OpenLayers 
     }
 
+    export class RouteRecord {
+        public airline: AirlineBase = null;
+        public departure: number = null;
+        public pax: number = null;
+        public freight: number = null;
+        public monthDeparture: Array<number> = null;
+        public monthPax: Array<number> = null;
+        public monthFreight: Array<number> = null;
+    }
+
     export enum AirlineType {
         Passenger, CargoOnly
     }

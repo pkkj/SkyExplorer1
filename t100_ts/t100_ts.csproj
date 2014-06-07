@@ -82,6 +82,7 @@
     <Content Include="Pages\AboutApp.html" />
     <Content Include="Pages\AboutT100.html" />
     <Content Include="Pages\AirportReport.html" />
+    <Content Include="Pages\CaaPart.html" />
     <Content Include="Pages\Introduction.html" />
     <Content Include="Pages\main.html" />
     <Content Include="Pages\openstreettest.html" />
@@ -153,6 +154,11 @@
     <TypeScriptCompile Include="TS\T100\T100Common.ts" />
     <TypeScriptCompile Include="TS\T100\T100DataQuery.ts" />
     <TypeScriptCompile Include="TS\Common\Utils.ts" />
+    <TypeScriptCompile Include="TS\UK\I18n\Strings.enUS.ts" />
+    <TypeScriptCompile Include="TS\UK\I18n\Strings.zhCN.ts" />
+    <TypeScriptCompile Include="TS\UK\UkCommon.ts" />
+    <TypeScriptCompile Include="TS\UK\UkDataQuery.ts" />
+    <TypeScriptCompile Include="TS\UK\UkDestPanel.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Data\CarrierDataENUS.cs" />
@@ -163,5 +169,6 @@
   <ItemGroup>
     <Content Include="App_Code\Localization.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

@@ -74,7 +74,7 @@
 
             }
 
-            static queryRoute(year: string, origin: string, dest: string, callback: (data: Array<T100RouteAirlineRecord>, distInfo: DistInfo) => any) {
+            static queryRoute(year: string, origin: string, dest: string, callback: (data: Array<RouteRecord>, distInfo: DistInfo) => any) {
                 var onSuccessCallback = function (jsonText: string) {
                     var data = [];
                     if (jsonText == "") {
@@ -82,7 +82,7 @@
                     }
                     var jsonObj: Object = $.parseJSON(jsonText);
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
-                        var route = new T100.T100RouteAirlineRecord();
+                        var route = new RouteRecord();
                         route.airline = new AirlineBase(jsonObj["routes"][i]["AIRLINE"], jsonObj["routes"][i]["AIRLINE_NAME"]);
                         route.departure = parseInt(jsonObj["routes"][i]["DEPARTURE"]);
                         route.pax = parseInt(jsonObj["routes"][i]["PAX"]);

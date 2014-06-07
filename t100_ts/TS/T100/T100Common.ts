@@ -98,17 +98,6 @@
 
             }
         }
-
-        export class T100RouteAirlineRecord {
-            public airline: AirlineBase = null;
-            public departure: number;
-            public pax: number;
-            public freight: number;
-            public monthDeparture: Array<number> = null;
-            public monthPax: Array<number> = null;
-            public monthFreight: Array<number> = null;
-            
-        }
         
     }
 }

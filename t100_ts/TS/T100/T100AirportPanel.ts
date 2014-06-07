@@ -30,7 +30,7 @@
 
         // Data
         private dataType = T100.T100DataType.Passenger;
-        private routeData: Array<T100.T100RouteAirlineRecord> = null;
+        private routeData: Array<RouteRecord> = null;
         private distInfo: DistInfo = null;
 
         // Map buddy
@@ -106,7 +106,7 @@
             }
         }
 
-        private setRouteData(data : Array<T100.T100RouteAirlineRecord>, distInfo: DistInfo) {
+        private setRouteData(data : Array<RouteRecord>, distInfo: DistInfo) {
             this.routeData = data;
             this.distInfo = distInfo;
             this.createRouteInfo();
@@ -508,6 +508,7 @@
 
             this.mapBuddy.activateOpenLayersControl();
         }
+
         static createT100AirportPanel(): T100AirportPanel {
             var t100DestPanel = new AST.T100AirportPanel();
             t100DestPanel._cityName = document.getElementById("destBarCityName");

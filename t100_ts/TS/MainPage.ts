@@ -35,6 +35,8 @@ module AST {
         private prepareData() {
             T100.T100DataMeta.prepareData(this.postDataPreparation);
             T100.T100Localization.init();
+
+            UkData.UkLocalization.init();
         }
 
         private postDataPreparation = () => {
