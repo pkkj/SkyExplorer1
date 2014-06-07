@@ -34,7 +34,7 @@
         public code: string;
         public name: string;
         public getDisplayName(): string {
-            return this.name + "(" + this.code + ")";
+            return this.name + " (" + this.code + ")";
         }
         constructor(code: string, name: string) {
             this.code = code;
@@ -83,6 +83,7 @@
         }
     }
 
+    /// The destination with route geometry and basic statistic
     export class DestInfo {
         public airport: Airport = null;
         public dataSource: string = "";

@@ -74,7 +74,7 @@
 
             }
 
-            static queryRoute(year: string, origin: string, dest: string, callback: (data: any, distInfo: DistInfo) => any) {
+            static queryRoute(year: string, origin: string, dest: string, callback: (data: Array<T100RouteAirlineRecord>, distInfo: DistInfo) => any) {
                 var onSuccessCallback = function (jsonText: string) {
                     var data = [];
                     if (jsonText == "") {
@@ -82,17 +82,16 @@
                     }
                     var jsonObj: Object = $.parseJSON(jsonText);
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
-                        var item: any = {
-                            "airline": jsonObj["routes"][i]["AIRLINE_NAME"] + " (" + jsonObj["routes"][i]["AIRLINE"] + ")",
-                            "departure": jsonObj["routes"][i]["DEPARTURE"]
-                        };
-                        item.pax = jsonObj["routes"][i]["PAX"];
-                        item.freight = jsonObj["routes"][i]["FREIGHT"];
-                        item.montthDeparture = $.parseJSON(jsonObj["routes"][i]["MONTH_DEPARTURE"]);
-                        item.monthPax = $.parseJSON(jsonObj["routes"][i]["MONTH_PAX"]);
-                        item.monthFreight = $.parseJSON(jsonObj["routes"][i]["MONTH_FREIGHT"]);
+                        var route = new T100.T100RouteAirlineRecord();
+                        route.airline = new AirlineBase(jsonObj["routes"][i]["AIRLINE"], jsonObj["routes"][i]["AIRLINE_NAME"]);
+                        route.departure = parseInt(jsonObj["routes"][i]["DEPARTURE"]);
+                        route.pax = parseInt(jsonObj["routes"][i]["PAX"]);
+                        route.freight = parseInt(jsonObj["routes"][i]["FREIGHT"]);
+                        route.monthDeparture = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_DEPARTURE"]);
+                        route.monthPax = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_PAX"]);
+                        route.monthFreight = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_FREIGHT"]);
 
-                        data.push(item);
+                        data.push(route);
                     }
                     var distInfo = new DistInfo(jsonObj["distKm"], jsonObj["distNm"], jsonObj["distMile"]);
 

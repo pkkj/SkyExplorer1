@@ -3,5 +3,6 @@
 *.config
 t100_ts/obj
 *.map
+*.suo
 *.nupkg
 t100_ts/bin

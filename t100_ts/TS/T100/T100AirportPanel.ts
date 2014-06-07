@@ -30,7 +30,7 @@
 
         // Data
         private dataType = T100.T100DataType.Passenger;
-        private routeData = null;
+        private routeData: Array<T100.T100RouteAirlineRecord> = null;
         private distInfo: DistInfo = null;
 
         // Map buddy
@@ -106,7 +106,7 @@
             }
         }
 
-        private setRouteData(data, distInfo: DistInfo) {
+        private setRouteData(data : Array<T100.T100RouteAirlineRecord>, distInfo: DistInfo) {
             this.routeData = data;
             this.distInfo = distInfo;
             this.createRouteInfo();
@@ -119,9 +119,9 @@
             var totalDeparture = 0, totalPax = 0, totalFreight = 0;
 
             for (var i = 0; i < this.routeData.length; i++) {
-                totalDeparture += parseInt(this.routeData[i].departure);
-                totalPax += parseInt(this.routeData[i].pax);
-                totalFreight += parseInt(this.routeData[i].freight);
+                totalDeparture += this.routeData[i].departure;
+                totalPax += this.routeData[i].pax;
+                totalFreight += this.routeData[i].freight;
             }
 
             this._totalFlow.innerHTML = Localization.strings.totalDepartures + totalDeparture;
@@ -173,14 +173,14 @@
 
                 var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
                 tr.appendChild(AST.Utils.createElement("td", { "class": "rowIndex", "text": (i + 1).toString(), "rowSpan": 2 }));
-                tr.appendChild(AST.Utils.createElement("td", { "class": "rowName", "text": data[i].airline, "colSpan": 4 }));
+                tr.appendChild(AST.Utils.createElement("td", { "class": "rowName", "text": data[i].airline.getDisplayName(), "colSpan": 4 }));
 
                 tableBody.appendChild(tr);
 
                 tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
 
                 tr.appendChild(AST.Utils.createElement("td", { "class": "rowItemIndex", "text": Localization.strings.departureFreq }));
-                tr.appendChild(AST.Utils.createElement("td", { "class": "rowItem", "text": data[i].departure }));
+                tr.appendChild(AST.Utils.createElement("td", { "class": "rowItem", "text": data[i].departure.toString() }));
                 var itemName = this.dataType == T100.T100DataType.Passenger ? Localization.strings.passengerFreq : Localization.strings.freightFreq;
                 tr.appendChild(AST.Utils.createElement("td", { "class": "rowItemIndex", "text": itemName }));
 
@@ -233,18 +233,15 @@
             var totalFlow = 0;
 
             for (var i = 0; i < this.routeData.length; i++) {
-                var airlineName = this.routeData[i].airline;
-                if (airlineName.lastIndexOf("(") != -1) {
-                    airlineName = airlineName.substring(0, airlineName.lastIndexOf("(") - 1);
-                }
+                var airlineName = this.routeData[i].airline.name;
 
                 if (this.dataType == T100.T100DataType.Passenger) {
-                    _data.push([airlineName, parseInt(this.routeData[i].pax)]);
-                    totalFlow += parseInt(this.routeData[i].pax);
+                    _data.push([airlineName, this.routeData[i].pax]);
+                    totalFlow += this.routeData[i].pax;
                 }
                 else {
-                    _data.push([airlineName, parseInt(this.routeData[i].freight)]);
-                    totalFlow += parseInt(this.routeData[i].freight);
+                    _data.push([airlineName, this.routeData[i].freight]);
+                    totalFlow += this.routeData[i].freight;
                 }
             }
 
@@ -306,13 +303,12 @@
                 tickIdx.push([i, Localization.strings.monthName[i]]);
             }
             for (i = 0; i < this.routeData.length; i++) {
-                var yearFlow = 0;
-                var airlineName = this.routeData[i].airline;
-                airlineName = airlineName.substring(0, airlineName.lastIndexOf("(") - 1);
+                var yearFlow: number = 0;
+                var airlineName = this.routeData[i].airline.name;
 
                 if (this.dataType == T100.T100DataType.Passenger) {
                     for (j = 0; j < 12; j++) {
-                        yearFlow += parseInt(this.routeData[i].monthPax[j]);
+                        yearFlow += this.routeData[i].monthPax[j];
                     }
                     if (yearFlow > 0) {
                         var dataItem = {};
@@ -322,14 +318,14 @@
                             if (T100.T100DataMeta.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100DataMeta.dataTo.month && j + 1 > 2) {
                                 break;
                             }
-                            dataItem['data'].push([j, parseInt(this.routeData[i].monthPax[j])]);
+                            dataItem['data'].push([j, this.routeData[i].monthPax[j]]);
                         }
                         _data.push(dataItem);
                     }
                 }
                 else {
                     for (j = 0; j < 12; j++) {
-                        yearFlow += parseInt(this.routeData[i].monthFreight[j]);
+                        yearFlow += this.routeData[i].monthFreight[j];
                     }
                     if (yearFlow > 0) {
                         var dataItem = {};
@@ -339,7 +335,7 @@
                             if (T100.T100DataMeta.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100DataMeta.dataTo.month && j + 1 > 2) {
                                 break;
                             }
-                            dataItem['data'].push([j, parseInt(this.routeData[i].monthFreight[j])]);
+                            dataItem['data'].push([j, this.routeData[i].monthFreight[j]]);
                         }
                         _data.push(dataItem);
                     }
