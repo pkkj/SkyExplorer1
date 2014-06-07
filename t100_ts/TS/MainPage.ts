@@ -16,7 +16,7 @@ module AST {
             Localization.init();
         }
 
-        public adjustSize = ()=> {
+        public adjustSize = () => {
             var defaultMargin: number = 5;
             var titleBarHeight: number = 60;
             var leftBarWidth: number = 340;
@@ -37,13 +37,15 @@ module AST {
             T100.T100Localization.init();
         }
 
-        private postDataPreparation = () => {           
-            this.dataSrcControl = new AST.DataSrcControl();
-            this.dataSrcControl.showT100DataContent();
-            this.adjustSize();
+        private postDataPreparation = () => {
+            T100.T100HTMLPageData.loadHTMLData().done(() => {
+                this.dataSrcControl = new AST.DataSrcControl();
+                this.dataSrcControl.showT100DataContent();
+                this.adjustSize();
 
-            // set up other UI
-            this.initUi();
+                // set up other UI
+                this.initUi();
+            })
         }
         public main() {
             // Create the data source panel
@@ -59,8 +61,8 @@ module AST {
             MapUtils.createBaseMap(App.mapControl);
             MapUtils.initMapScale(App.mapControl);
 
-            this.prepareData();            
-        }        
+            this.prepareData();
+        }
 
     }
 }

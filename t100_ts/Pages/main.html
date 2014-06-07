@@ -107,101 +107,14 @@
 
                     <div style="height: 5px"></div>
                     <div id="t100DestBar">
-                        <div>
-                            <div style="margin-bottom:5px">
-                                <img src="../Images/Icon/arrive.gif" style="float: left; border:1px solid #808080"/>
-                                <div style="float: left; margin-left: 8px; width: 275px">
-                                    <div id="t100DataPanelAirportName"></div>
-                                    <div id="t100DataPanelCityName"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            
-                            <div id="t100DataPanelDistance"></div> 
-                            <div id="t100DataPanelTotalFlow"></div> 
-                            <div style="height: 5px"></div>                            
-                                
-                            <form>
-                                <div>
-                                    <div style="float: left; margin-right: 10px; padding: 0.15em" id="t100DestBarShowInfoForText">Show info for:</div>
-                                    <div style="float: left" id="radioFlowType">
-                                        <input type="radio" id="t100DataPanelShowPassenger" name="radio" checked="checked" /><label for="t100DataPanelShowPassenger">Passenger</label>
-                                        <input type="radio" id="t100DataPanelShowFreight" name="radio" /><label for="t100DataPanelShowFreight">Freight</label>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </form>                           
-                            
-
-                            <div style="height: 5px"></div>
-                            <div id="t100DataPanelTabs">
-
-                                <ul>
-                                    <li id="liT100DataPanelTabSummary"><a href="#t100DataPanelTabSummary">Statistic</a></li>
-                                    <li id="liT100DataPanelTabsShare"><a href="#t100DataPanelTabsShare">Share Split</a></li>
-                                    <li id="liT100DataPanelTabTimeSeries"><a href="#t100DataPanelTabTimeSeries">Time Series</a></li>
-                                </ul>
-                                <div id="t100DataPanelTabSummary">
-
-                                </div>
-                                <div id="t100DataPanelTabsShare" style="overflow: hidden">
-                                    <div style="height: 4px"></div>
-                                    <div id="t100DataPanelTabShareTitle" class="t100DataPanelTabTitle"></div>
-                                    <div id="t100DataPanelPieChart" style="margin-left: -30px;"></div>
-                                    <div id="t100DataPanelTabShareFootNote"></div>
-                                </div>
-                                <div id="t100DataPanelTabTimeSeries" style="overflow: hidden">
-                                    <div style="height: 4px"></div>
-                                    <div id="t100DataPanelTabTimeSeriesTitle" class="t100DataPanelTabTitle"></div>
-                                    <div style="height: 5px"></div>
-                                    <div id="t100DataPanelTabTimeSeriesChart" style="width: 310px; height: 240px;"></div>
-									<div id="t100DataPanelTabTimeSeriesLegend"></div>
-                                    <div id="t100DataPanelTabTimeSeriesFootNote"></div>
-
-                                </div>
-                            </div>
-                            <div id="t100DataPanelDetailReportFootNote" style="color:red"></div>
-                            <div>
-								<a id="t100DataPanelDetailReportBtn" href="#">Route Detail Report</a> &middot; <span id="t100DataPanelTabsMatricDataText">Metric data: </span><a id="rightBottomPanelAboutT100" href="#">BTS RITA T100</a>
-                            </div>
-
-                        </div>
+                        <!--T100 Destination : Load from external -->
                     </div>
-
                 </div>
 
 
                 <div id="t100AirlineContent" style="display:none" class="leftBar">
                     <div id="t100AirlinePanel">
-                        <div>
-                            <div>
-                                <div style="float:left">
-                                    <div id="t100AirlinePanelCountryFilterText">Country filter</div>
-                                    <select id="t100AirlineCountrySel" style="width:180px"></select>
-                                </div>
-                                <div style="float:left; margin-left:30px">
-                                    <div id="t100AirlinePanelTypeFilterText">Type filter</div>
-                                    <select id="t100AirlineTypeSel" style="width:102px"></select>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div style="height: 5px"></div>
-                            <div>
-                                <span id="t100AirlinePanelAirlineText" style="margin-right:3px">Airline</span>
-                                <select id="t100AirlineAirlineSel" style="width:150px"></select>
-                                <span id="t100AirlinePanelYearText" style="margin-left: 10px; margin-right: 3px">Year</span>
-                                <select id="t100AirlineYearSel" style="width:70px"></select>
-                            </div>
-                            <div style="height: 5px"></div>
-                            <div id="t100AirlinePanelTitle" class="pinPanelInnerTitle"></div>
-                            <div id="t100AirlinePanelAirlineNote"></div>
-                            <div style="height: 5px"></div>
-                            <div id="t100AirlienRouteTable"></div>
-                            <div id="t100AirlineRouteFooter"></div>
-							<div id="t100AirlineRouteNote">Only the top 400 routes in flow will be shown.</div>
-                            <div id="t100AirlineRouteAvailabilityNote" style="color:red"></div>
-							<div id="t100AirlineRouteAirlineWikiLink"></div>
-                        </div>
+                        <!--T100 Airline : Load from external -->
                     </div>
                 </div>
             </div>

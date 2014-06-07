@@ -62,6 +62,23 @@
             }
         }
 
+        export class T100HTMLPageData {
+            static loadHTMLData() {
+                var deferred = $.Deferred();
+
+                var deferred1 = $.Deferred();
+                var deferred2 = $.Deferred();
+
+                $.when(deferred1, deferred2).then(function () {
+                    deferred.resolve();
+                });
+
+                $("#t100DestBar").load("T100Part.html #t100DestBarContent", () => { deferred1.resolve(); });
+                $("#t100AirlinePanel").load("T100Part.html #t100AirlinePanelExtContent", () => { deferred2.resolve(); });
+                return deferred.promise();
+            }
+        }
+
         export enum T100DataType {
             Passenger, Freight
         }
