@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Airport Report</title>
+    <link rel="stylesheet" href="../styles/office.css">
+    <link rel="stylesheet" href="../styles/MyControl.css">
+    <link rel="stylesheet" href="../styles/jquery-ui.css" />
+    <link rel="stylesheet" href="../styles/RouteReport.css">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript" src="../JS/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="../TS/RouteReport.All.js"></script>
+    <!--<script type="text/javascript" src="../JS/Utils.js"></script>
+    <script type="text/javascript" src="../JS/MyControl.js"></script>
+    <script type="text/javascript" src="../JS/T100DataQuery.js"></script>
+    <script type="text/javascript" src="../JS/RouteReport.js"></script>-->
+</head>
+<body>
+    <div>
+        <div style="float:left">
+            <img src="../Images/Icon/depart.gif" style="float: left; border:1px solid #808080; margin-right: 10px" />
+            <div style="float: left">
+                <div>
+                    <span id="airportTitleFromText" class="airportTitle">From: </span>
+                    <span class="airportTitle" id="fromAirportCode"></span>
+                    <span style="margin-left: 20px" class="airportTitle" id="fromAirportCity"></span>
+                </div>
+                <div id="fromAirportName" class="aiportName"></div>
+            </div>            
+        </div>
+        <div style="float:left; margin-left:80px">
+            <img src="../Images/Icon/arrive.gif" style="float: left; border: 1px solid #808080; margin-right: 10px" />
+            <div style="float: left">
+                <div>
+                    <span id="airportTitleToText" class="airportTitle">To: </span>
+                    <span class="airportTitle" id="toAirportCode"></span>
+                    <span style="margin-left: 20px" class=" airportTitle" id="toAirportCity"></span>
+                </div>
+                <div id="toAirportName" class="aiportName"></div>
+            </div>            
+        </div>
+        <div class="clear"></div>
+        <div id="timeAvailabilityNote" style="color:red"></div>
+    </div>
+    
+    
+    <div style="height: 5px"></div>
+    <div id="mainTab">
+
+        <ul>
+            <li id="liSummary"><a href="#tabSummary">Aircraft Usage</a></li>
+            <li id="liTimeSeries"><a href="#tabTimeSeries">Time series of flow</a></li>
+            <li id="liSeatTimeSeries"><a href="#tabSeatTimeSeries">Time series of seat</a></li>
+        </ul>
+        <div id="tabSummary">
+            <div style="height: 5px"></div>
+            <div id="summaryTotal"></div>
+            <div style="height: 5px"></div>
+            <div>
+                <div id="tabSummaryYearText" style="float: left; margin-right: 10px">Year:</div>
+                <div style="float: left; margin-right: 10px" id="summaryYearSel"></div>
+                <div id="tabSummaryAirlineText" style="float: left; margin-right: 10px">Airline:</div>
+                <div style="float: left; margin-right: 10px" id="summaryAirlineSel"></div>
+                <div class="clear"></div>
+            </div>
+            <div style="height: 5px"></div>
+            <div>
+                <div style="height: 520px;">
+                    <div style="float:left">
+                        <div id="tabSummaryAircraftShareDeparture" class="chartTitle">Aircraft Market Share by Departure</div>
+                        <div id="airlineShareDepartureChart" class="googleChart" style="width: 390px; height: 230px"></div>
+                        <div style="width: 5px; height: 5px"></div>
+                        <div id="airlineShareDeparture" class="mysimpletable"></div>
+                    </div>
+                    <div style="float: left; width: 15px; height: 50px"></div>
+                    <div style="float:left">
+                        <div id="tabSummaryAircraftSharePassenger" class="chartTitle">Aircraft Market Share by Departing Passenger</div>
+                        <div id="airlineSharePaxChart" class="googleChart" style="width: 390px; height: 230px"></div>
+                        <div style="width: 5px; height: 5px"></div>
+                        <div id="airlineSharePax" class="mysimpletable"></div>
+                    </div>
+                    <div style="float: left; width: 15px; height: 50px"></div>
+                    <div style="float:left">
+                        <div id="tabSummaryAircraftShareFreight" class="chartTitle">Aircraft Market Share by Departing Freight</div>
+                        <div id="airlineShareFreightChart" class="googleChart" style="width: 390px; height: 230px"></div>
+                        <div style="width: 5px; height: 5px"></div>
+                        <div id="airlineShareFreight" style="float: left" class="mysimpletable"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div style="height: 5px"></div>
+                    <div id="summaryTotalFootNote"></div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div id="tabTimeSeries" style="overflow: hidden">
+            <form>
+                <div style="margin-top: 5px; margin-bottom: 5px">
+                    <div id="tabTimeSeriesShowChartByText" style="float: left; margin-right: 10px; padding: 0.15em">Show chart by </div>
+                    <div style="float: left; margin-right: 20px; " id="timeSeriesTimeScale">
+                        <input type="radio" id="timeScaleYear" name="radio" checked="checked" /><label for="timeScaleYear">Year</label>
+                        <input type="radio" id="timeScaleQuarter" name="radio" /><label for="timeScaleQuarter">Quarter</label>
+                        <input type="radio" id="timeScaleMonth" name="radio" /><label for="timeScaleMonth">Month</label>
+                    </div>
+
+                    <div id ="tabTimeSeriesAirlineByText" style="float: left; margin-right: 10px; padding: 0.15em">Airline:</div>
+                    <div style="float: left; margin-right: 10px; padding: 0.15em" id="timeSeriesAirlineSel"></div>
+
+                    <div id="tabTimeSeriesSliderYearRangeText" style="float: left; margin-left: 30px; padding: 0.15em">Year range: </div>
+                    <div style="float: left; margin-left: 30px; padding: 0.15em" id="timeSeriesSliderYearRange">1990 - 2013 </div>
+                    <div style="float: left; width: 300px; margin-left: 30px; margin-top: 6px;" id="timeSeriesSlider"></div>
+
+                    <div class="clear"></div>
+                </div>
+            </form>
+            
+			<div style="margin-top:3px;margin-bottom:3px">
+				<span id ="paxTimeSeriesChartTitle" class="chartTitle">Total Passenger in T100 ()</span>
+                <span id="paxTimeSeriesChartSubTitle" style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;This chart show the statistics collected from T100 database in thousand people.</span>
+			</div>
+
+            <div id="paxTimeSeries" style="width: 1220px; height: 225px; position: relative; "></div>
+            <div id="paxTimeSeriesLegend"></div>
+
+            <div style="height: 10px"></div>
+
+			<div style="margin-top:3px;margin-bottom:3px">
+				<span id ="freightTimeSeriesChartTitle" class="chartTitle">Total Freight in T100 ()</span>
+                <span id="freightTimeSeriesChartSubTitle" style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;This chart show the statistics collected from T100 database in tons.</span>
+			</div>
+
+            <div id="freightTimeSeries" style="width: 1220px; height: 225px; position: relative; "></div>
+            <div id="freightTimeSeriesLegend"></div>
+        </div>
+
+        <div id="tabSeatTimeSeries" style="overflow: hidden">
+            <form>
+                <div style="margin-top: 5px; margin-bottom: 5px">
+                    <div id="tabSeatTimeSeriesShowChartByText" style="float: left; margin-right: 10px; padding: 0.15em">Show chart by </div>
+                    <div style="float: left; margin-right: 20px; " id="seatTimeSeriesTimeScale">
+                        <input type="radio" id="seatTimeScaleYear" name="radio" checked="checked" /><label for="seatTimeScaleYear">Year</label>
+                        <input type="radio" id="seatTimeScaleQuarter" name="radio" /><label for="seatTimeScaleQuarter">Quarter</label>
+                        <input type="radio" id="seatTimeScaleMonth" name="radio" /><label for="seatTimeScaleMonth">Month</label>
+                    </div>
+                    <div id ="tabSeatTimeSeriesAirlineByText" style="float: left; margin-right: 10px; padding: 0.15em">Airline:</div>
+                    <div style="float: left; margin-right: 10px; padding: 0.15em" id="seatTimeSeriesAirlineSel"></div>
+
+                    <div id="tabSeatTimeSeriesSliderYearRangeText" style="float: left; margin-left: 30px; padding: 0.15em">Year range: </div>
+                    <div style="float: left; margin-left: 30px; padding: 0.15em" id="seatTimeSeriesSliderYearRange">1990 - 2013 </div>
+                    <div style="float: left; width: 300px; margin-left: 30px; margin-top: 6px" id="seatTimeSeriesSlider"></div>
+                    <div class="clear"></div>
+                </div>
+            </form>
+            
+            <div style="margin-top:3px;margin-bottom:3px">
+                <span id="loadTimeSeriesChartTitle" class="chartTitle">Aircraft Passenger Load Factor in T100</span>
+                <span id="loadTimeSeriesChartSubTitle" style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;This chart show the load, calculated by [Pax] / [Available Seat].</span>
+            </div>
+
+            <div id="loadTimeSeries" style="width: 1220px; height: 225px; position: relative; "></div>
+            <div id="loadTimeSeriesLegend"></div>
+
+            <div style="height: 10px"></div>
+
+            <div style="margin-top:3px;margin-bottom:3px">
+                <span id="seatTimeSeriesChartTitle" class="chartTitle">Available Seats vs. Actual Passengers T100</span>
+                <span style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+
+            <div id="seatTimeSeries" style="width: 1220px; height: 225px; position: relative; "></div>
+            <div id="seatTimeSeriesLegend"></div>
+
+        </div>
+
+    </div>
+    <div><a id="linkReverseRoute" href="#"></a></div>
+</body>
+</html>

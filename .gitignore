@@ -1,0 +1,6 @@
+*.js
+*.dll
+*.config
+t100_ts/obj
+*.map
+*.nupkg

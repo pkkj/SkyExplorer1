@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{2AC15AB1-139A-4A88-A949-7F3222C33905}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>t100_ts</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2848</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2848/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="ASTData.asmx" />
+    <Content Include="Images\Icon\418.gif" />
+    <Content Include="Images\Icon\419.gif" />
+    <Content Include="Images\Icon\about.png" />
+    <Content Include="Images\Icon\airline.png" />
+    <Content Include="Images\Icon\airport.png" />
+    <Content Include="Images\Icon\arrive.gif" />
+    <Content Include="Images\Icon\depart.gif" />
+    <Content Include="Images\logo_cas.png" />
+    <Content Include="Images\logo_cura.jpg" />
+    <Content Include="Images\logo_geo.png" />
+    <Content Include="Images\Style\dd_arrow.gif" />
+    <Content Include="Images\Style\title-bg.gif" />
+    <Content Include="Images\Style\ui-icons_222222_256x240.png" />
+    <Content Include="Images\Style\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Images\Style\ui-icons_454545_256x240.png" />
+    <Content Include="Images\Style\ui-icons_888888_256x240.png" />
+    <Content Include="Images\Style\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="JS\AirportReport.js" />
+    <Content Include="JS\jquery.flot.min.js" />
+    <Content Include="JS\maptest.js" />
+    <Content Include="JS\MapUtils.js" />
+    <Content Include="JS\MyControl.js" />
+    <Content Include="JS\OpenLayers.debug.js" />
+    <Content Include="JS\OpenLayers.js" />
+    <Content Include="JS\OpenLayers_testing.js" />
+    <Content Include="JS\RouteReport.js" />
+    <Content Include="JS\T100AirlineContent.js" />
+    <Content Include="JS\T100DataQuery.js" />
+    <Content Include="JS\T100DataViewer.js" />
+    <Content Include="JS\T100OriginPanel.js" />
+    <Content Include="JS\t100test.js" />
+    <Content Include="JS\Utils.js" />
+    <Content Include="Pages\AboutApp_zhCN.html" />
+    <Content Include="Pages\AboutApp.html" />
+    <Content Include="Pages\AboutT100.html" />
+    <Content Include="Pages\AirportReport.html" />
+    <Content Include="Pages\Introduction.html" />
+    <Content Include="Pages\main.html" />
+    <Content Include="Pages\openstreettest.html" />
+    <Content Include="Pages\RouteReport.html" />
+    <Content Include="Styles\AirportReport.css" />
+    <Content Include="Styles\jquery-ui.css" />
+    <Content Include="Styles\layout.css" />
+    <Content Include="Styles\MainPage.css" />
+    <Content Include="Styles\MyControl.css" />
+    <Content Include="Styles\office.css" />
+    <Content Include="Styles\RouteReport.css" />
+    <Content Include="Styles\T100DataViewer.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="packages.config" />
+    <Content Include="TS\build.bat" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Airport.cs" />
+    <Content Include="App_Code\ASTData.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\Carrier.cs" />
+    <Content Include="App_Code\T100Data.cs" />
+    <Content Include="App_Code\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\typings\flot\jquery.flot.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery.ui.layout\jquery.ui.layout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="TS\AirportReport.ts" />
+    <TypeScriptCompile Include="TS\CommonDataContent.ts" />
+    <TypeScriptCompile Include="TS\Common\Data.ts" />
+    <TypeScriptCompile Include="TS\Common\Draw.ts" />
+    <TypeScriptCompile Include="TS\Common\Global.ts" />
+    <TypeScriptCompile Include="TS\Common\ReportPageUtils.ts" />
+    <TypeScriptCompile Include="TS\I18n\Strings.enUS.ts" />
+    <TypeScriptCompile Include="TS\I18n\Strings.zhCN.ts" />
+    <TypeScriptCompile Include="TS\Ref\google.d.ts" />
+    <TypeScriptCompile Include="TS\MainPage.ts" />
+    <TypeScriptCompile Include="TS\Common\MapUtils.ts" />
+    <TypeScriptCompile Include="TS\MyControls\CollapseTable.ts" />
+    <TypeScriptCompile Include="TS\MyControls\DropDown.ts" />
+    <TypeScriptCompile Include="TS\MyControls\PinPanel.ts" />
+    <TypeScriptCompile Include="TS\MyControls\RankTable.ts" />
+    <TypeScriptCompile Include="TS\MyControls\SimpleTable.ts" />
+    <TypeScriptCompile Include="TS\MainPageUi.ts" />
+    <TypeScriptCompile Include="TS\DataSrcControl.ts" />
+    <TypeScriptCompile Include="TS\Ref\openlayers.d.ts" />
+    <TypeScriptCompile Include="TS\RouteReport.ts" />
+    <TypeScriptCompile Include="TS\I18n\Strings.jaJP.ts" />
+    <TypeScriptCompile Include="TS\T100\I18n\Strings.zhCN.ts" />
+    <TypeScriptCompile Include="TS\T100\I18n\Strings.enUS.ts" />
+    <TypeScriptCompile Include="TS\T100\T100AirlineContent.ts" />
+    <TypeScriptCompile Include="TS\T100\T100AirlinePanel.ts" />
+    <TypeScriptCompile Include="TS\T100\T100AirportContent.ts" />
+    <TypeScriptCompile Include="TS\T100\T100AirportPanel.ts" />
+    <TypeScriptCompile Include="TS\T100\T100MapControl.ts" />
+    <TypeScriptCompile Include="TS\T100\T100OriginPanel.ts" />
+    <TypeScriptCompile Include="TS\T100\T100Common.ts" />
+    <TypeScriptCompile Include="TS\T100\T100DataQuery.ts" />
+    <TypeScriptCompile Include="TS\Common\Utils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Data\CarrierDataENUS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Data\CarrierDataZHCN.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Localization.cs" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>

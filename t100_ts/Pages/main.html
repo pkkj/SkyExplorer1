@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords"
+          content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
+    <title>Sky Explorer - T100</title>
+
+    <link rel="stylesheet" href="../styles/layout.css">
+    
+    <link rel="stylesheet" href="../styles/office.css">
+    <link rel="stylesheet" href="../styles/MyControl.css">
+    <link rel="stylesheet" href="../styles/jquery-ui.css" />
+    <link rel="stylesheet" href="../styles/T100DataViewer.css" />
+    <link rel="stylesheet" href="../styles/MainPage.css">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../JS/OpenLayers.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript" src="../JS/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="../TS/main.js"></script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34405945-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+</head>
+
+<body>
+
+    <div id="mainContainer">
+        <div id="titleBar" class="shadow roundedCorners">
+            <div id="curaLogoBar">
+                CENTER FOR <b>URBAN</b> <br /> AND <b>REGIONAL ANALYSIS</b>
+            </div>
+            <div id="appTitleContainer">
+                <div id="appTitle">Sky Explorer</div>
+                <div id="appSubTitle">A powerful WebGIS for investigating air traffic data. <a href="../../info/skyexplorer_t100.html" style="text-decoration:underline">(More info)</a></div>
+            </div>
+            
+            <div id="dataViewPanel" style="margin-left: 50px; margin-top:4px; float: left">
+                <div id="labelViewDataBy">View data by: &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>
+                    <button id="dataSrcT100Airport" type="button" style="float: left; padding-left: 5px; padding-right: 7px; padding-top: 2px; ">
+                        <img src="../Images/Icon/airport.png">&nbsp;&nbsp;<span id="dataSrcT100AirportText">Airport view</span>
+                    </button>
+                    <button id="dataSrcT100Airline" type="button" style="float: left; padding-left: 5px; padding-right: 7px; padding-top: 2px; margin-left: 10px; ">
+                        <img src="../Images/Icon/airline.png">&nbsp;&nbsp;<span id="dataSrcT100AirlineText">Airline view</span>
+                    </button>
+                    <button id="btnAboutApp" type="button" style="float: left; padding-left: 5px; padding-right: 7px; padding-top: 2px; margin-left: 10px; ">
+                        <img src="../Images/Icon/about.png">&nbsp;&nbsp;<span id="dataSrcAboutApp">About</span>
+                    </button>
+                </div> 
+                
+            </div>
+            <div id="languageBar" style="margin-right:15px; margin-top: 35px; float: right">(Language)</div>
+        </div>
+        <div class="clear"></div>
+
+        <div id="subContainer">           
+            
+            <div id="uiLeft" style="float: left">
+                <!-- The interface of T100 data panel-->
+                <div id="t100AirportContent" class="leftBar" style="display:none">
+                    <div id="t100OriginBar">
+                        <div>                            
+                            <div>
+                                <div id="t100AirportOriginAirportTitleBar" style="display:none">
+                                    <img src="../Images/Icon/depart.gif" style="float: left; border:1px solid #808080" />
+                                    <div style="float: left; margin-left: 8px; width: 275px">
+                                        <div id="t100OriginPanelAirportName"></div>
+                                        <div id="t100OriginPanelCityName"></div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                                                
+                                <div style="height: 5px"></div>
+                                <div style="float: left; line-height:20px" id="t100OriginBarAirportLabel">Airport:</div>
+                                <input style="float: left; height: 21px; margin-right: 5px" type="text" id="dataSrcPanelFindAirport" name="fname" />
+                                <button type="button" style="float: left; height: 21px; margin-right: 25px; margin-left:5px" id="dataSrcPanelFindAirportBtn">Search</button>                                
+                                <div style="float: left; margin-right: 10px" id="dataSrcPanelDataSrcSel"></div>
+                                <div style="float: left; margin-right: 10px; line-height: 20px" id="t100OriginBarYearLabel">Year:</div>
+                                <div style="float: left; margin-right: 10px" id="dataSrcPanelYearSel"></div>    
+                                                            
+                                <div class="clear"></div>
+                            </div>
+                            <div style="height: 2px"></div>
+                            <div>
+                                <div id="dataSrcPanelFlowDir">Destination:</div>
+                                <div style="float: left" id="dataSrcPanelDestSel"></div>
+                                <div class="clear"></div>
+                            </div>
+                            <div style="height: 5px"></div>
+                        </div>
+
+                    </div>
+
+                    <div style="height: 5px"></div>
+                    <div id="t100DestBar">
+                        <div>
+                            <div style="margin-bottom:5px">
+                                <img src="../Images/Icon/arrive.gif" style="float: left; border:1px solid #808080"/>
+                                <div style="float: left; margin-left: 8px; width: 275px">
+                                    <div id="t100DataPanelAirportName"></div>
+                                    <div id="t100DataPanelCityName"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            
+                            <div id="t100DataPanelDistance"></div> 
+                            <div id="t100DataPanelTotalFlow"></div> 
+                            <div style="height: 5px"></div>                            
+                                
+                            <form>
+                                <div>
+                                    <div style="float: left; margin-right: 10px; padding: 0.15em" id="t100DestBarShowInfoForText">Show info for:</div>
+                                    <div style="float: left" id="radioFlowType">
+                                        <input type="radio" id="t100DataPanelShowPassenger" name="radio" checked="checked" /><label for="t100DataPanelShowPassenger">Passenger</label>
+                                        <input type="radio" id="t100DataPanelShowFreight" name="radio" /><label for="t100DataPanelShowFreight">Freight</label>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </form>                           
+                            
+
+                            <div style="height: 5px"></div>
+                            <div id="t100DataPanelTabs">
+
+                                <ul>
+                                    <li id="liT100DataPanelTabSummary"><a href="#t100DataPanelTabSummary">Statistic</a></li>
+                                    <li id="liT100DataPanelTabsShare"><a href="#t100DataPanelTabsShare">Share Split</a></li>
+                                    <li id="liT100DataPanelTabTimeSeries"><a href="#t100DataPanelTabTimeSeries">Time Series</a></li>
+                                </ul>
+                                <div id="t100DataPanelTabSummary">
+
+                                </div>
+                                <div id="t100DataPanelTabsShare" style="overflow: hidden">
+                                    <div style="height: 4px"></div>
+                                    <div id="t100DataPanelTabShareTitle" class="t100DataPanelTabTitle"></div>
+                                    <div id="t100DataPanelPieChart" style="margin-left: -30px;"></div>
+                                    <div id="t100DataPanelTabShareFootNote"></div>
+                                </div>
+                                <div id="t100DataPanelTabTimeSeries" style="overflow: hidden">
+                                    <div style="height: 4px"></div>
+                                    <div id="t100DataPanelTabTimeSeriesTitle" class="t100DataPanelTabTitle"></div>
+                                    <div style="height: 5px"></div>
+                                    <div id="t100DataPanelTabTimeSeriesChart" style="width: 310px; height: 240px;"></div>
+									<div id="t100DataPanelTabTimeSeriesLegend"></div>
+                                    <div id="t100DataPanelTabTimeSeriesFootNote"></div>
+
+                                </div>
+                            </div>
+                            <div id="t100DataPanelDetailReportFootNote" style="color:red"></div>
+                            <div>
+								<a id="t100DataPanelDetailReportBtn" href="#">Route Detail Report</a> &middot; <span id="t100DataPanelTabsMatricDataText">Metric data: </span><a id="rightBottomPanelAboutT100" href="#">BTS RITA T100</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div id="t100AirlineContent" style="display:none" class="leftBar">
+                    <div id="t100AirlinePanel">
+                        <div>
+                            <div>
+                                <div style="float:left">
+                                    <div id="t100AirlinePanelCountryFilterText">Country filter</div>
+                                    <select id="t100AirlineCountrySel" style="width:180px"></select>
+                                </div>
+                                <div style="float:left; margin-left:30px">
+                                    <div id="t100AirlinePanelTypeFilterText">Type filter</div>
+                                    <select id="t100AirlineTypeSel" style="width:102px"></select>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div style="height: 5px"></div>
+                            <div>
+                                <span id="t100AirlinePanelAirlineText" style="margin-right:3px">Airline</span>
+                                <select id="t100AirlineAirlineSel" style="width:150px"></select>
+                                <span id="t100AirlinePanelYearText" style="margin-left: 10px; margin-right: 3px">Year</span>
+                                <select id="t100AirlineYearSel" style="width:70px"></select>
+                            </div>
+                            <div style="height: 5px"></div>
+                            <div id="t100AirlinePanelTitle" class="pinPanelInnerTitle"></div>
+                            <div id="t100AirlinePanelAirlineNote"></div>
+                            <div style="height: 5px"></div>
+                            <div id="t100AirlienRouteTable"></div>
+                            <div id="t100AirlineRouteFooter"></div>
+							<div id="t100AirlineRouteNote">Only the top 400 routes in flow will be shown.</div>
+                            <div id="t100AirlineRouteAvailabilityNote" style="color:red"></div>
+							<div id="t100AirlineRouteAirlineWikiLink"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="mapContainer" class="shadow roundedCorners" >
+                <div id="openLayerMap"></div>
+
+            </div>
+
+            <div id="rightBottomPanel">
+                <div>
+					<div class="legendTitle" id="legendTitleAirportText">Airport</div>
+					<canvas id="baseMapLegendCanvas" width="280" height="80"></canvas>
+				</div>
+				<div style="height: 5px"></div>
+				<div id="contentLegend">
+				</div>
+				<!--<div style="height: 5px"></div>-->
+                <div><span id="developedByText">Developed by </span><a href="#" onclick="window.open('http://www.linkedin.com/pub/kejing-peng/32/867/87a', '_blank'); return false;">Kejing Peng</a></div>
+                <div>
+                    <span id="copyRightText">Copyright 2014, </span><a href="#" onclick="window.open('http://cura.osu.edu', '_blank'); return false;">Center for Urban and Regional Analysis</a>
+                    <br /><a href="#" onclick="window.open('http://www.geography.osu.edu/', '_blank'); return false;"><span id="departmentOfGeographyOSU">Department of Geography, The Ohio State University</span></a>.
+                </div>
+                <div><span id="mapDataText"> Map data: </span><a href="#" onclick="window.open('http://www.esri.com/data/basemaps', '_blank'); return false;">ESRI</a></div>
+            </div>
+            
+            <div id="rightTopPanel">
+                <div id="t100AirportContentAirlineFilter" style="width: 220px">
+                    <div class="pinPanelInnerTitle" id="t100AirlineFilterRouteFilterText">Route filter</div>
+                    <div id="t100AirlineFilterFilterTheRouteText">Filter the routes by airline.</div>
+                    <select id="t100AirportContentAirlineSelector" style="width:210px"></select>
+                    
+                    <div id="t100AirportContentFFRouteDiv">
+                        <div style="height: 8px"></div>
+                        <form>
+                            <div style="float:left"><input type="checkbox" id="t100AirportFFRouteFilter"> </div>
+                            <div style="float:left;padding-top:2px" id="t100AirlineFilterShowForeignRouteText">Show foreign routes for US carriers</div>
+                            <div class="clear"></div>
+                            <div style="height: 3px"></div>
+                            <div id="t100AirlineFilterRouteDashLineText">These routes will be shown as dash lines in the map.</div>
+                        </form>
+                    </div>       
+                    
+                </div>
+
+                <div id="t100AirlineContentRightTopPanel" style="display:none">
+                    <form>
+                        <div id="t100AirlineContentRightTopPanelRegionalFilterText">Regional filter</div>
+                        <div id="t100AirlineContentRegionFilter" style="margin-top: 3px; margin-bottom: 3px">
+                            <input type="radio" id="t100AirlineContentRegionFilterAll" name="radio" checked="checked" /><label for="t100AirlineContentRegionFilterAll">All</label>
+                            <input type="radio" id="t100AirlineContentRegionFilterUS" name="radio" /><label for="t100AirlineContentRegionFilterUS">US Domestic</label>
+                            <input type="radio" id="t100AirlineContentRegionFilterIntl" name="radio" /><label for="t100AirlineContentRegionFilterIntl">International</label>
+                        </div>
+                    </form>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="clear"></div>
+
+    </div>
+
+</body>
+
+</html>

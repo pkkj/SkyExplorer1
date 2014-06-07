@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Airport Report</title>
+    <link rel="stylesheet" href="../Styles/office.css">
+    <link rel="stylesheet" href="../Styles/MyControl.css">
+    <link rel="stylesheet" href="../Styles/jquery-ui.css" />
+    <link rel="stylesheet" href="../Styles/AirportReport.css">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript" src="../JS/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="../TS/AirportReport.All.js"></script>
+    <!--<script type="text/javascript" src="../JS/Utils.js"></script>
+    <script type="text/javascript" src="../JS/MyControl.js"></script>
+    <script type="text/javascript" src="../JS/T100DataQuery.js"></script>
+    <script type="text/javascript" src="../JS/AirportReport.js"></script>-->
+</head>
+<body>
+    <div id="aiportName"></div>
+    <div><span id="airportCode"></span> <span id="airportCity"></span></div>
+    <div id="airportNote"></div>
+    <div style="height: 5px"></div>
+    <div id="mainTab">
+
+        <ul>
+            <li id="liSummary"><a href="#tabSummary">Basic statistic</a></li>
+            <li id="liTimeSeries"><a href="#tabTimeSeries">Time series</a></li>
+        </ul>
+        <div id="tabSummary">
+            <div style="height: 5px"></div>
+            <div id="summaryTotal"></div>
+            <div style="height: 5px"></div>
+            <div>
+                <div id="tabSummaryYearText" style="float: left; margin-right: 10px">Year:</div>
+                <div style="float: left; margin-right: 10px" id="summaryYearSel"></div>
+                <div id="tabSummaryRegionText" style="float: left; margin-right: 10px">Region:</div>
+                <div style="float: left; margin-right: 10px" id="summaryRegionSel"></div>
+                <div class="clear"></div>
+            </div>
+            <div style="height: 5px"></div>
+            <div>
+                <div style="float: left; height: 530px">
+                    <div id="tabSummaryTop10DestPassengerText" class="chartTitle">Top 10 destinations (passenger)</div>
+                    <div id="paxRank" class="myRank" style="width: 260px"></div>
+                </div>
+
+                <div style="float: left; width: 15px; height: 530px"></div>
+
+                <div style="float: left; height: 530px">
+                    <div id="tabSummaryTop10DestFreightText" class="chartTitle">Top 10 destinations (freight in tons)</div>
+                    <div id="freightRank" class="myRank" style="width: 260px"></div>
+                </div>
+                
+                <div style="float: left; width: 15px; height: 530px"></div>
+
+                <div style="float: left; width: 650px; height: 530px">
+                    <div>
+                        <div id="tabSummaryCarrierShareByPassengerText" class="chartTitle">Carrier share by departing passenger</div>
+ 
+                        <div>
+                            <div id="airlineSharePaxChart" class="googleChart" style="float: left; width: 370px; height: 230px"></div>
+                            <div style="float: left; width: 5px; height: 240px"></div>
+                            <div id="airlineSharePax" style="float: left" class="mysimpletable"></div>                            
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="tabSummaryCarrierShareByFreightText" class="chartTitle">Carrier share by departing freight</div>
+
+                        <div>
+                            <div id="airlineShareFreightChart" class="googleChart" style="float: left; width: 370px; height: 230px"></div>
+                            <div style="float: left; width: 5px; height: 240px"></div>
+                            <div id="airlineShareFreight" style="float: left" class="mysimpletable"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="tabTimeSeries" style="overflow: hidden">  
+            <form>
+                <div style="margin-bottom: 10px; margin-top: 10px">
+                    <div id="tabTimeSeriesShowChartByText" style="float: left; margin-right: 10px; padding: 0.15em">Show chart by </div>
+                    <div style="float: left" id="timeSeriesTimeScale">
+                        <input type="radio" id="timeScaleYear" name="radio" checked="checked" /><label for="timeScaleYear">Year</label>
+                        <input type="radio" id="timeScaleQuarter" name="radio" /><label for="timeScaleQuarter">Quarter</label>
+                        <input type="radio" id="timeScaleMonth" name="radio" /><label for="timeScaleMonth">Month</label>
+                    </div>
+                    <div style="float: left; margin-left: 30px;" id="timeSeriesSliderYearRangeText">Year range: </div>
+                    <div style="float: left; margin-left: 30px;" id="timeSeriesSliderYearRange">1990 - 2013 </div>
+                    <div style="float: left; width: 300px; margin-left: 30px; margin-top: 3px;" id="timeSeriesSlider"></div>
+                    <div class="clear"></div>
+                </div>
+            </form>
+            
+            <div style="margin-top:3px;margin-bottom:3px">
+                <span id="paxTimeSeriesChartTitle" class="chartTitle">Total Passenger in T100 ()</span>
+                <span id="paxTimeSeriesChartSubTitle" style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;This chart show the quarterly statistics collected from T100 database in thousand people.</span>
+            </div>
+            <div id="paxTimeSeries" style="width: 1220px; height: 220px; position: relative; "></div>
+
+            <div style="height: 10px"></div>
+
+            <div style="margin-top:3px;margin-bottom:3px">
+                <span id="freightTimeSeriesChartTitle" class="chartTitle">Total Freight in T100 ()</span>
+                <span id="freightTimeSeriesChartSubTitle" style="font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;This chart show the quarterly statistics collected from T100 database in tons.</span>
+            </div>
+            <div id="freightTimeSeries" style="width: 1220px; height: 220px; position: relative; "></div>
+            <div style="height: 10px"></div>
+            <div id="timeSeriesNote"></div>
+        </div>
+
+    </div>
+</body>
+</html>

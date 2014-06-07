@@ -1,0 +1,323 @@
+﻿
+.ddTitle {
+
+	font-size: 9pt;
+	cursor: default;
+	border: 1px solid rgb(184, 184, 184);
+	background: url("../images/style/title-bg.gif") repeat-x scroll left
+		top rgb(226, 226, 228);
+	overflow-x: hidden;
+	position: relative;
+	display: inline-block;
+	height: 14px;
+    
+}
+
+.ddTitleText {
+	width: 100%;
+	display: block;
+}
+
+.ddTitleDivider {
+	border-left: 1px solid #c3c3c3;
+	border-right: 1px solid #fff;
+	right: 24px;
+	width: 0;
+	height: 100%;
+	position: absolute;
+}
+
+.ddDefaultTitleText {
+	font-size: 9pt;
+	padding-left: 4px;
+	padding-top: 2px;
+	padding-bottom: 1px;
+}
+
+.ddDividerArrow {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	right: 4px;
+	width: 16px;
+	height: 16px;
+	margin-top: -8px;
+	background: url(../images/style/dd_arrow.gif) no-repeat;
+}
+
+.ddDividerArrow:hover {
+	background-position: 0 100%;
+}
+
+.ddItemContainer {
+	cursor: default;
+	position: absolute;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border: 1px solid rgb(184, 184, 184);
+	z-index: 9999;
+}
+
+.ddItem {
+	font-size: 9pt;
+	overflow-x: hidden;
+	text-overflow: clip;
+}
+
+.ddCountry {
+	font-size: 10pt;
+	padding-left: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+.ddItemContainer .ddCommonItem {
+	border: 1px solid rgb(255, 255, 255);
+	font-size: 9pt;
+}
+
+
+
+.ddItemContainer .ddSelectedCommonItem 
+{
+    border: 1px solid #7eB4ea;
+	background: #e5f1fc;
+	font-size: 9pt;
+}
+
+.ddItemContainer .ddCommonItem:hover {
+	/*border-color: #7eB4ea;*/
+	background: #e5f2f6;
+}
+
+.ddCommonItemSpan {
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.ddAirportCode {
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 90px;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.ddAirportCity {
+	padding-top: 1px;
+	padding-bottom: 2px;
+	width: 205px;
+	white-space: nowrap;
+	display: inline-block;
+	
+}
+
+.pinPanelBorder {
+	border: 2px solid rgb(184, 184, 184);
+}
+
+.pinPanelContent {
+	margin: 5px 7px 7px 7px;
+}
+
+.pinPanelTitleBar {
+	height: 26px;
+	width: 100%;
+	background-color: rgb(112, 112, 112);
+	color: rgb(255, 255, 255);
+}
+
+.pinPanelTitleBarText {
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	font-size: 11pt;
+	text-align: left;
+	/*font-weight: bold;*/
+	padding: 3px 10px;
+}
+
+.pinPanelInnerTitle {
+	font-size: 12pt;
+}
+
+.myDialog {
+    position: fixed;
+    border: 2px solid rgb(184, 184, 184);
+    padding: 0.2em;
+    background-color: rgb(255, 255, 255);
+}
+
+.myDialogTitleBar {
+    position: relative;
+    padding: .4em 1em;
+	background-color: rgb(112, 112, 112);
+	color: rgb(255, 255, 255);
+}
+
+.myDialogTitleBarText {
+	font-size: 10pt;
+	text-align: left;
+	font-weight: bold;
+}
+
+.myDialogCloseButton {
+    position: absolute;
+    right: 0.3em;
+    top: 50%;
+    width: 21px;
+    margin: -10px 0px 0px;
+    padding: 1px;
+    height: 20px;
+}
+
+.dialogIframe {
+    border: 0px solid rgb(184, 184, 184);
+    display: block;
+    margin-top: 5px ;
+    margin-bottom: 5px ;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+.myRank{
+    font-size: 9pt;
+}
+
+.myRank .myRankItem{
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 0 1px 0 1px;
+    position: relative;
+    height: 36px;
+}
+
+.myRank .myRankColorIndicator{
+    height: 36px; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+}
+
+.myRank .myrankItemHBorder{
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 1px 0 0 0;
+}
+
+.myRank .myrankItemVBorder{
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 0 1px 0 0;
+    float: left;
+    height: 36px;
+
+}
+.myRank .myrankItemLeft{
+    float: left;
+    height: 36px;
+}
+
+.myRank .myrankItemRight{
+    float: left;
+    margin-left: 10px; 
+    height: 30px; 
+    line-height: 30px; 
+    margin: 3px 6px 3px;
+}
+
+.myRank .myRankItemName{
+    height: 30px; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    margin: 3px 6px 3px;
+}
+
+.myRank .myRankItemNameInnerA{
+    height: 15px; 
+    line-height: 15px; 
+    font-weight:bold;
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+.myRank .myRankItemNameInnerB{
+    height: 15px; 
+    line-height: 15px; 
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+.simpleTable  {
+}
+
+.simpleTable .simpleTableHBorder{
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 1px 0 0 0;
+}
+
+.simpleTable .simpleTableItem{
+    padding-top:0px;
+    padding-bottom:1px;
+    border-width: 0 1px 0 1px;
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+}
+.simpleTable  div.alt {
+	background-color: rgb(211, 211, 211);
+}
+
+
+.collapseTitle {
+	font-size: 9pt;
+	cursor: pointer;
+	border-left: 1px solid rgb(184, 184, 184);
+    border-right: 1px solid rgb(184, 184, 184);
+	overflow-x: hidden;
+	position: relative;
+}
+
+.collapseTitleText {
+	width: 100%;
+	display: block;
+}
+
+.collapseTitleDivider {
+	border-left: 1px solid #c3c3c3;
+	border-right: 1px solid #fff;
+	right: 24px;
+	width: 0;
+	height: 100%;
+	position: absolute;
+}
+
+.collapseTitleDividerArrow {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	right: 4px;
+	width: 16px;
+	height: 16px;
+	margin-top: -8px;
+	background: url(../images/style/dd_arrow.gif) no-repeat;
+}
+
+.collapseTitleDividerArrow:hover {
+	background-position: 0 100%;
+}
+
+
+.collapseTableItemHBorder{
+    border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 1px 0 0 0;
+}

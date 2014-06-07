@@ -1,0 +1,160 @@
+﻿
+#mainContainer {
+	height: 100%;
+	width: 100%;
+}
+
+#titleBar {
+	border: solid 1px #A8A8A8;
+	overflow: hidden;
+	height: 55px;
+	margin: 5px;
+	background-color: rgb(112, 112, 112);
+	color: rgb(255, 255, 255);
+	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif, 'Microsoft YaHei', Meiryo;
+}
+
+#titleBar a{
+    color: white;
+}
+#curaLogoBar {
+	padding-top: 5px;
+	padding-left: 10px;
+	color: rgb(255, 255, 255);
+	font-size: 12pt;
+	text-align: left;
+	float: left;
+}
+
+#curaLogoBar b {
+	font-weight: 700;
+}
+
+#appTitleContainer{
+    padding-top: 1px;
+	margin-left: 140px;
+    float: left;
+}
+
+#appTitle {
+	color: rgb(255, 255, 255);
+	font-size: 18pt;
+	text-align: left;
+	font-weight: 700;	
+	color: yellow;
+	/*text-shadow: 0px 1px 0px rgb(229, 229, 238);*/
+}
+
+#appSubTitle {
+    padding-top: 1px;
+	color: rgb(255, 255, 255);
+	font-size: 9pt;
+	text-align: left;
+	color: white;
+	/*text-shadow: 0px 1px 0px rgb(229, 229, 238);*/
+}
+
+
+#titleAirportInfo {
+	margin-left: 35px;
+	height: 50px;
+	display: inline-block;
+	float: left;
+}
+
+#titleBarAirportName {
+	padding-top: 7px;
+	color: rgb(255, 255, 255);
+	font-size: 13pt;
+	text-align: left;
+	font-weight: 700;
+}
+
+#titleBarAirportCity {
+	font-size: 10pt;
+	color: rgb(255, 255, 255);
+}
+
+#subContainer {
+	margin-left: 5px;
+}
+
+.leftBar {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	float: left;
+	width: 340px;
+	height: 100%;
+	margin-top: 0px;
+}
+
+#mapContainer {
+	border: 2px solid rgb(184, 184, 184);
+	float: left;
+	margin-left: 8px;
+	height: 100%;
+}
+
+#openLayerMap {
+	height: 100%;
+	width: 100%;
+}
+
+
+#dataSrcPanelFindAirport
+{
+    margin-left: 10px;
+    width: 50px;
+}
+
+.t100AirlineRouteItemA{
+    padding:2px 5px 2px;
+}
+
+.t100AirlineRouteItemB{    
+    font-size: 9pt;
+    border-left: 1px solid rgb(184, 184, 184);
+    border-right: 1px solid rgb(184, 184, 184);
+    border-top: 1px solid rgb(184, 184, 184);
+}
+
+.t100AirlineRouteItemBInner{    
+    margin:2px 5px 2px;
+}
+
+.t100AirlineRouteHeader{    
+    border-left: 1px solid rgb(184, 184, 184);
+    border-right: 1px solid rgb(184, 184, 184);
+    padding:2px 5px 2px;
+}
+
+#t100AirlineRouteFooter a{    
+    cursor:pointer;
+}
+
+#rightBottomPanel {
+	bottom:10px; 
+	right:13px;
+	position: absolute;
+	z-index:999;
+	background-color: #FFFFFF;
+	border: 1px solid rgb(184, 184, 184);
+	padding: 5px 10px;
+    opacity: .8;
+}
+#rightBottomPanel  .legendTitle {
+	font-size: 10pt;	
+	font-weight: bold;
+}
+
+#rightTopPanel{
+    top:75px;
+    right:13px;
+	position: absolute;
+	z-index:999;
+	background-color: #FFFFFF;
+	border: 1px solid rgb(184, 184, 184);
+	padding: 5px 10px;
+    opacity: .8;
+}
+
