@@ -166,7 +166,7 @@ module AST {
 
             var currentDataQuery = T100.T100DataQuery;
             if (currentDataQuery && currentDataQuery.queryDestByOrigin) {
-                var callback = (fromAirport: Airport, allAirports: Array<T100.T100Dest>) => {
+                var callback = (fromAirport: Airport, allAirports: Array<DestInfo>) => {
 
                     if (!fromAirport) {
                         this.clearOriginAirport();
@@ -174,7 +174,7 @@ module AST {
                     }
                     GlobalStatus.originAirport = fromAirport;
 
-                    var airports: Array<T100.T100Dest> = [];
+                    var airports: Array<DestInfo> = [];
                     var hasFFRoute = false, hasNoDataRoute = false;
                     for (var i = 0; i < allAirports.length; i++) {
                         // Handle the geomtry
@@ -213,7 +213,7 @@ module AST {
 
                     this.setOriginAirport(fromAirport);
 
-                    var airportWithData: Array<T100.T100Dest> = [];
+                    var airportWithData: Array<DestInfo> = [];
                     for (var i = 0; i < airports.length; i++) {
                         if (airports[i].dataSource == "T100") {
                             airportWithData.push(airports[i]);
@@ -309,11 +309,11 @@ module AST {
                 this.queryOriginAirport(GlobalStatus.originAirport.iata, AST.QueryAirportType.Iata, panTo);
         }
 
-        private createDestList(destinations: Array<T100.T100Dest>) {
+        private createDestList(destinations: Array<DestInfo>) {
             var curDataView = this.destPanelBuddy;
             if (!curDataView || !curDataView.createAirportItem)
                 return;
-            var compareAirport = function (a: T100.T100Dest, b: T100.T100Dest) {
+            var compareAirport = function (a: DestInfo, b: DestInfo) {
                 if (a.airport.country != b.airport.country) {
                     if (a.airport.country == AST.GlobalStatus.originAirport.country)
                         return -1;

@@ -82,15 +82,7 @@
             }
         }
         /// The destination with route and basic statistic
-        export class T100Dest {
-            public airport: Airport = null;
-            public dataSource: string = "";
-            public sumPax: number;
-            public sumFreight: number;
-            public routeGeomS: string; // Geometry in string
-            public routeGeomO: Array<OpenLayers.Feature.Vector>; // Geometry in OpenLayers 
-
-        }
+        
 
         export class T100RouteAirlineRecord {
             public airline: AirlineBase = null;

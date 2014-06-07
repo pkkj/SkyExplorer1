@@ -435,7 +435,7 @@
             (<HTMLElement> document.getElementById("liT100DataPanelTabTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
         }
 
-        createAirportItem(dest: T100.T100Dest) {
+        createAirportItem(dest: DestInfo) {
             var item = AST.Utils.createElement("div", {
                 "class": "ddCommonItem"
             });
@@ -462,7 +462,7 @@
             this.mapBuddy.layerOrigin.addFeatures(originPt);
         }
 
-        public updateMap(airports: Array<T100.T100Dest>) {
+        public updateMap(airports: Array<DestInfo>) {
             if (!AST.GlobalStatus.originAirport)
                 return;
             this.mapBuddy.clearDestFeatures();

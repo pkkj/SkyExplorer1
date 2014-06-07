@@ -23,7 +23,7 @@
                 var onSuccessCallback = function (jsonMsg) {
                     setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
 
-                    var airports: Array<T100Dest> = [];
+                    var airports: Array<DestInfo> = [];
                     if (jsonMsg == "") {
                         callback(null, []);
                         return;
@@ -38,7 +38,7 @@
 
                     var lstDestJson = jsonMsg["routes"];
                     for (var i = 0; i < lstDestJson.length; i++) {
-                        var dest = new T100Dest();
+                        var dest = new DestInfo();
                         var destPoint = new AST.Point(
                             parseFloat(lstDestJson[i]["Geometry"].split(",")[0]),
                             parseFloat(lstDestJson[i]["Geometry"].split(",")[1])

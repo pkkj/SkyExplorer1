@@ -4,3 +4,4 @@
 t100_ts/obj
 *.map
 *.nupkg
+t100_ts/bin

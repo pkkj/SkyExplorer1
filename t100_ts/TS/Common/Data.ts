@@ -83,6 +83,15 @@
         }
     }
 
+    export class DestInfo {
+        public airport: Airport = null;
+        public dataSource: string = "";
+        public sumPax: number;
+        public sumFreight: number;
+        public routeGeomS: string; // Geometry in string
+        public routeGeomO: Array<OpenLayers.Feature.Vector>; // Geometry in OpenLayers 
+    }
+
     export enum AirlineType {
         Passenger, CargoOnly
     }
