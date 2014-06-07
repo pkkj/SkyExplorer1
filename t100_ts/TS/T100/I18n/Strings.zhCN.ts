@@ -9,6 +9,7 @@
             public onlyUSRouteAvailable = "备注：该海外路线仅有美国航空公司的数据";
             public onlyTheDataOfRoutesTowardUS = "备注：只有前往美国境内机场的路线的数据";
             public noOutBoundFlights = "该机场没有离港航班数据。但可能有其他入港航班。";
+            public noAvailableDataForThisAirport = "该机场无T100数据。";
 
             private getTimeScaleText(timeScale: string) {
                 if (timeScale == "Year")

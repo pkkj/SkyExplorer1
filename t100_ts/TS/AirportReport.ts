@@ -92,7 +92,7 @@
 
             T100.T100DataQuery.queryT100AirportInfo(this.airportIata, (airport) => {
                 if (airport == null) {
-                    document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">No T100 data available for this airport.</span>';
+                    document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + T100.T100Localization.strings.noAvailableDataForThisAirport + '</span>';
                     return;
                 }
                 this.airport = airport;

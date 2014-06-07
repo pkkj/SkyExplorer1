@@ -8,6 +8,7 @@
             public onlyUSRouteAvailable = "Note: only data of US carriers is available for this foreign route.";
             public onlyTheDataOfRoutesTowardUS = "Note: only the data of routes toward United States is available";
             public noOutBoundFlights = "There is no outbound flights data available for this airport. But it might have inbound traffic.";
+            public noAvailableDataForThisAirport = "No T100 data available for this airport.";
 
             public timeSeriesTotalPassengerInT100ByTimeScale(dataType: T100DataType, timeScale: string): string {
 
