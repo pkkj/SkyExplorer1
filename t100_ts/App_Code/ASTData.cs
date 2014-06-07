@@ -19,13 +19,13 @@ namespace AST {
         public ASTData() {
 
         }
-		
-		[WebMethod]
+
+        [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-		public string MatchAirport( string input, string locale ) {
+        public string MatchAirport( string input, string locale ) {
             return T100Data.MatchAirport( input, locale );
-		}
-		
+        }
+
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryAirportInfo( string airportCode, string codeType, string locale ) {
@@ -36,7 +36,7 @@ namespace AST {
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryT100AirportInfo( string airportCode, string codeType, string locale ) {
             string res = T100Data.QueryT100AirportInfo( airportCode, codeType, locale );
-            return res; 
+            return res;
         }
 
         [WebMethod]
@@ -64,7 +64,7 @@ namespace AST {
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryAirportStat( string year, string airport, string locale ) {
-            string res = T100Data.QueryAirportStat( year, airport, locale);
+            string res = T100Data.QueryAirportStat( year, airport, locale );
             return res;
         }
 
@@ -84,30 +84,30 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAllAirlines(string locale) {
+        public string QueryAllAirlines( string locale ) {
             string res = T100Data.QueryAllAirlines( locale );
             return res;
         }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryByAirlines( string year, string airline, string region,string locale, int limit = 100 ) {
+        public string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             string res = T100Data.QueryByAirlines( year, airline, region, locale, limit );
             return res;
         }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryRouteAircraftStat( string year, string origin, string dest , string locale) {
+        public string QueryRouteAircraftStat( string year, string origin, string dest, string locale ) {
             string res = T100AircraftStat.QueryRouteAircraftStat( year, origin, dest, locale );
             return res;
         }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string ReadFileTest() {
-            string text = System.IO.File.ReadAllText( @"test.txt" );
-            return text;
+        public string UkDataQueryByRoute( string year, string origin, string dest, string locale ) {
+            string res = UkData.QueryByRoute( year, origin, dest, locale );
+            return res;
         }
     }
 }

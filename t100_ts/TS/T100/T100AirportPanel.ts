@@ -41,7 +41,7 @@
             this.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
         }
 
-        public onSizeChange = ()=> {
+        public onSizeChange = () => {
             var t100DestBar = document.getElementById("t100DestBar");
             var destBarHeight = parseInt(t100DestBar.style.height);
             this._tabSummary.summaryTable.style.maxHeight = (destBarHeight - 300) + "px";
@@ -79,7 +79,7 @@
             innerHTML += airport.iata + " / " + airport.icao;
             this.destDialogBuddy.setTitleText(innerHTML);
             this._cityName.innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
-            this._cityName.title = airport.cityEn + ", " +  airport.countryEn;
+            this._cityName.title = airport.cityEn + ", " + airport.countryEn;
             this._airportName.innerHTML = AST.Utils.compressAirportName(airport.name);
             this._airportName.title = airport.nameEn;
             this.detailReportFootNote.innerHTML = "";
@@ -106,7 +106,7 @@
             }
         }
 
-        private setRouteData(data : Array<RouteRecord>, distInfo: DistInfo) {
+        private setRouteData(data: Array<RouteRecord>, distInfo: DistInfo) {
             this.routeData = data;
             this.distInfo = distInfo;
             this.createRouteInfo();
@@ -215,7 +215,7 @@
         }
 
         // Trigger when the destination of T100OriginPanel change
-        public onDestChange =()=> {
+        public onDestChange = () => {
             this.querySegment();
         }
 
@@ -299,7 +299,7 @@
             }
             var _data = [];
             var tickIdx = [];
-            for (i = 0; i < 12; i+=2) {
+            for (i = 0; i < 12; i += 2) {
                 tickIdx.push([i, Localization.strings.monthName[i]]);
             }
             for (i = 0; i < this.routeData.length; i++) {
@@ -499,11 +499,11 @@
                     "airportGeom": airports[i].airport.geomO
                 };
                 feature.attributes.iata = airports[i].airport.iata;
-                if (airports[i].dataSource == "CAA") {
-                    this.mapBuddy.layerDestInactive.addFeatures(feature);
-                } else {
+                //if (airports[i].dataSource == "CAA") {
+                //    this.mapBuddy.layerDestInactive.addFeatures(feature);
+                //} else {
                     this.mapBuddy.layerDest.addFeatures(feature);
-                }
+                //}
             }
 
             this.mapBuddy.activateOpenLayersControl();

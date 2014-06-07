@@ -27,6 +27,7 @@ module AST {
         public originDialogBuddy: PinPanel = null;
         public destDialogBuddy: PinPanel = null;
         public airportContent: T100AirportContent = null;
+        public ukDataDestPanel: UkData.UkDestPanel = null;
 
         // Airline selector
         public airlineSelector: HTMLSelectElement = null;
@@ -82,6 +83,8 @@ module AST {
                 if (currentDataView && currentDataView.onDestChange) {
                     currentDataView.onDestChange();
                 }
+                // CAA Data
+                this.ukDataDestPanel.onDestChange();
 
                 this.destDialogBuddy.show();
                 if (this.onDestChange) {
@@ -182,7 +185,7 @@ module AST {
                         allAirports[i].airport.geomO = new OpenLayers.Geometry.Point(allAirports[i].airport.geom.x, allAirports[i].airport.geom.y).transform(AST.MapUtils.projWGS84, AST.MapUtils.projMercator);
                         if (allAirports[i].dataSource == "CAA") {
                             airports.push(allAirports[i]);
-                            hasNoDataRoute = true
+                            //hasNoDataRoute = true
                         } else {
                             if (!this.ffRouteFilter.checked && GlobalStatus.originAirport.countryEn != T100.T100DataMeta.currentCountry) {
                                 if (allAirports[i].airport.countryEn == T100.T100DataMeta.currentCountry)
@@ -215,9 +218,9 @@ module AST {
 
                     var airportWithData: Array<DestInfo> = [];
                     for (var i = 0; i < airports.length; i++) {
-                        if (airports[i].dataSource == "T100") {
+                        //if (airports[i].dataSource == "T100") {
                             airportWithData.push(airports[i]);
-                        }
+                        //}
                     }
 
                     if (airportWithData.length == 0) {

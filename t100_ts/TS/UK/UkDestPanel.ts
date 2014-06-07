@@ -16,8 +16,15 @@
             private _tabTimeSeriesFootNote: HTMLElement = null;
             private _divTimeSeriesChart: HTMLElement = null;
 
+            private routeData: Array<RouteRecord> = null;
+            private distInfo: DistInfo = null;
+
             constructor() {
                 
+            }
+
+            public onDestChange() {
+                this.querySegment();
             }
 
             public initUI() {
@@ -50,7 +57,32 @@
                 if (AST.GlobalStatus.year == null || AST.GlobalStatus.originAirport == null
                     || AST.GlobalStatus.destAirport == null)
                     return;
+                UkData.UkDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
+                    AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
+                        this.setRouteData(routeData, distInfo);
+                    });
+                
+            }
 
+            private setRouteData(data: Array<RouteRecord>, distInfo: DistInfo) {
+                this.routeData = data;
+                this.distInfo = distInfo;
+                this.createRouteInfo();
+                this._totalFlow.innerHTML = "Total passenger flow in this year: " + this.routeData[0].pax;
+            }
+
+            private createRouteInfo() {
+                var activeTab = $("#ukDestTabs").tabs("option", "active");
+                this.createSummaryTable();
+
+                if (activeTab == 1) {
+                    
+                }
+
+   
+            }
+
+            private createSummaryTable() {
             }
 
             static createUkDestPanel(): UkDestPanel {

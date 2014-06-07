@@ -37,6 +37,7 @@ module AST {
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
 
             this.t100OriginPanel.destPanelBuddy = this.t100DestPanel;
+            this.t100OriginPanel.ukDataDestPanel = this.ukDestPanel;
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
             this.t100OriginPanel.airportContent = this;
