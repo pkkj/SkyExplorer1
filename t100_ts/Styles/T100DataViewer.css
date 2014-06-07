@@ -5,10 +5,10 @@
 }
 
 
-#t100DataPanelAirportName{
+#destBarAirportName{
 	font-size: 11pt;
 }
-#t100DataPanelDistance{
+#destBarDistance{
 	font-size: 9pt;
 	font-style: italic;
 	color: #336699;

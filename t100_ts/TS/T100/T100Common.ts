@@ -73,7 +73,7 @@
                     deferred.resolve();
                 });
 
-                $("#t100DestBar").load("T100Part.html #t100DestBarContent", () => { deferred1.resolve(); });
+                $("#t100DestBarInnerDiv").load("T100Part.html #t100DestBarContent", () => { deferred1.resolve(); });
                 $("#t100AirlinePanel").load("T100Part.html #t100AirlinePanelExtContent", () => { deferred2.resolve(); });
                 return deferred.promise();
             }

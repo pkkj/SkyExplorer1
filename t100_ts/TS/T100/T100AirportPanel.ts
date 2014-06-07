@@ -510,9 +510,9 @@
         }
         static createT100AirportPanel(): T100AirportPanel {
             var t100DestPanel = new AST.T100AirportPanel();
-            t100DestPanel._cityName = document.getElementById("t100DataPanelCityName");
-            t100DestPanel._airportName = document.getElementById("t100DataPanelAirportName");
-            t100DestPanel._routeDist = document.getElementById("t100DataPanelDistance");
+            t100DestPanel._cityName = document.getElementById("destBarCityName");
+            t100DestPanel._airportName = document.getElementById("destBarAirportName");
+            t100DestPanel._routeDist = document.getElementById("destBarDistance");
             t100DestPanel._totalFlow = document.getElementById("t100DataPanelTotalFlow");
 
             t100DestPanel._tabs = document.getElementById("t100DataPanelTabs");
