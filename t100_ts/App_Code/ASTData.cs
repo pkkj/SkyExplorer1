@@ -109,5 +109,11 @@ namespace AST {
             string res = UkData.QueryByRoute( year, origin, dest, locale );
             return res;
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string locale ) {
+            return DataQuery.QueryByOrigin( year, origin, dest, airline, queryType, locale );
+        }
     }
 }

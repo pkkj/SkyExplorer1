@@ -46,6 +46,13 @@ namespace AST
             double dis = Math.Acos( Math.Sin( p11 ) * Math.Sin( p21 ) + Math.Cos( p11 ) * Math.Cos( p21 ) * Math.Cos( p20 - p10 ) ) * R;
             return dis;
         }
+
+        public static string ProcessWktGeometryString( string geom ) {
+            geom = geom.Replace( "MULTILINESTRING", "" );
+            geom = geom.Replace( "(", "[" );
+            geom = geom.Replace( ")", "]" );
+            return geom;
+        }
     }
 
     public static class T100DB{
@@ -89,7 +96,7 @@ namespace AST
             return b.Value.CompareTo( a.Value );
         }
 
-
+        
     }
 
     public class Global {

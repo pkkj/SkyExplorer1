@@ -57,5 +57,42 @@ namespace AST {
             res = "{" + res + "}";
             return res;
         }
+
+
+        public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
+            List<DestInfo> res = new List<DestInfo>();
+
+            NpgsqlConnection conn = null;
+            try {
+                conn = new NpgsqlConnection( T100DB.connString );
+                conn.Open();
+
+                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
+                string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
+                fields += ", \"TOTAL_PAX\"";
+                fields += ", ST_AsText(\"GEOM\") AS \"GEOM\"";
+
+                string sql = "SELECT " + fields + " FROM \"CaaSummary\"" + where;
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    DestInfo destInfo = new DestInfo();
+                    destInfo.Airport = dr[ origin != "" ? "DEST" : "ORIGIN" ].ToString();
+                    destInfo.TotalPax = Convert.ToInt32( dr[ "TOTAL_PAX" ].ToString() );
+                    destInfo.TotalFreight = null;
+                    destInfo.DataSource = "UkData";
+                    destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
+
+                    res.Add( destInfo );
+                }
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+
+            return res;
+        }
     }
 }

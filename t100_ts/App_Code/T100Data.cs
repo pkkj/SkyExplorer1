@@ -104,6 +104,8 @@ namespace AST {
 
         public static string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string locale ) {
             string res = "";
+            
+            // Verify the parameter
             string keyword = origin != "" ? origin : dest;
             if ( queryType == "iata" ) {
                 if ( AirportData.Query( keyword ) == null ) {
@@ -130,11 +132,11 @@ namespace AST {
                 dest = keyword;
 
             NpgsqlConnection conn = null;
-
             try {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
 
+                // Query T100 Data
                 string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
@@ -160,8 +162,8 @@ namespace AST {
                     res += json;
 
                 }
-                // DARK FEATURE
-
+                
+                // Query UK CAA Data 
                 fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", \"TOTAL_PAX\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\"";
@@ -636,6 +638,40 @@ namespace AST {
             return "";
         }
 
+        public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
+            List<DestInfo> res = new List<DestInfo>();
+
+            NpgsqlConnection conn = null;
+            try {
+                conn = new NpgsqlConnection( T100DB.connString );
+                conn.Open();
+
+                // Query T100 Data
+                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
+                string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
+                fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\", SUM(\"FREIGHT\") AS \"SUM_FREIGHT\"    ";
+                string sql = "SELECT " + fields + " FROM \"T100Summary\"" + where + groupby;
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    DestInfo destInfo = new DestInfo();
+                    destInfo.Airport = dr[ origin != "" ? "DEST" : "ORIGIN" ].ToString();
+                    destInfo.TotalPax = Convert.ToInt32( dr[ "SUM_PAX" ].ToString() );
+                    destInfo.TotalFreight = Convert.ToInt32( dr[ "SUM_FREIGHT" ].ToString() );
+                    destInfo.DataSource = "T100";
+                    destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString());
+
+                    res.Add(destInfo);
+                }
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+
+            return res;
+        }
 
     }
 
@@ -762,6 +798,8 @@ namespace AST {
             }
             return "";
         }
+
+        
     }
 
 }

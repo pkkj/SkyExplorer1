@@ -46,7 +46,6 @@
                 $("#ukDestTabs").tabs({
                     activate: (event, ui) => {
                         if (ui.newTab[0].id == "liUkDestTabTimeSeries") {
-                            
                         }
                     }
 

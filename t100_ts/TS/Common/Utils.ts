@@ -189,64 +189,6 @@
         }
     }
 
-    export class DataQuery {
-        static ajaxQuery(params: Object, func: string, callback): XMLHttpRequest {
-            /// Function that handles the returned AJAX request
-            var onRequestStatusChange = function () {
-                if (httpRequest.readyState == 4) {
-                    var succussRequest = false;
-
-                    // IE9 hack. readyState will remain 4 even the request is aborted
-                    // Check whether the request is canceled. If canceled, just return.
-                    try {
-                        switch (httpRequest.status) {
-                            case 200:
-                                succussRequest = true;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    catch (err) {
-                        err;
-                    }
-
-                    if (succussRequest) {
-                        var xDoc = httpRequest.responseXML;
-
-                        try {
-                            var jsonMsg = "";
-                            for (var i = 0; i < xDoc.getElementsByTagName('string')[0].childNodes.length; i++) {
-                                jsonMsg += xDoc.getElementsByTagName('string')[0].childNodes[i].nodeValue;
-                            }
-                            if (callback)
-                                callback(jsonMsg);
-
-                        } catch (e) {
-                            e;
-                        }
-                    }
-                    httpRequest = null;
-                }
-            };
-
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.onreadystatechange = onRequestStatusChange;
-            //httpRequest.timeout = 25000;
-            var url = "../ASTData.asmx/" + func;
-            httpRequest.open("POST", url, true);
-            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-            var requestData = "";
-            for (var key in params) {
-                if (requestData != "")
-                    requestData += "&";
-                requestData += key + "=" + params[key];
-            }
-            httpRequest.send(requestData);
-            return httpRequest;
-
-        }
-    }
+    
 
 }

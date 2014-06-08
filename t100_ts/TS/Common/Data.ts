@@ -91,6 +91,18 @@
         public sumFreight: number;
         public routeGeomS: string; // Geometry in string
         public routeGeomO: Array<OpenLayers.Feature.Vector>; // Geometry in OpenLayers 
+        public availableData: Array<DataSrcDestInfo>;
+    }
+
+    export class DataSrcDestInfo {
+        public dataSrcName: string;
+        public totalPax: number;
+        public totalFreight: number;
+        constructor(dataSrcName, totalPax, totalFreight) {
+            this.dataSrcName = dataSrcName;
+            this.totalPax = totalPax;
+            this.totalFreight = totalFreight;
+        }
     }
 
     export class RouteRecord {
