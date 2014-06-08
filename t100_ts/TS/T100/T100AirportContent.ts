@@ -5,11 +5,11 @@
 module AST {
     export class T100AirportContent extends CommonDataContent  {
         private t100OriginPanel: T100OriginPanel = null;
-        private t100DestPanel: T100AirportPanel = null;
         private t100MapControl: T100MapControl = null;
 
         // UK CAA Data Dest Panel
         private ukDestPanel: UkData.UkDestPanel = null;
+        private t100DestPanel: T100AirportPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -36,7 +36,7 @@ module AST {
 
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
 
-            this.t100OriginPanel.destPanelBuddy = this.t100DestPanel;
+            this.t100OriginPanel.t100DestPanel = this.t100DestPanel;
             this.t100OriginPanel.ukDataDestPanel = this.ukDestPanel;
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
@@ -44,6 +44,7 @@ module AST {
 
             this.t100MapControl = new AST.T100MapControl(map, this.t100OriginPanel);
             this.t100DestPanel.mapBuddy = this.t100MapControl;
+            this.t100OriginPanel.mapControl = this.t100MapControl;
         }
 
         public reset() {

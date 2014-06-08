@@ -1,8 +1,6 @@
 ﻿module AST {
 
     export class T100AirportPanel {
-        private _cityName: HTMLElement = null;
-        private _airportName = null;
         private _routeDist = null;
         private _tabs = null;
 
@@ -52,13 +50,6 @@
                 || AST.GlobalStatus.destAirport == null || AST.GlobalStatus.flowDir == null)
                 return;
 
-            var flowDir;
-            if (AST.GlobalStatus.flowDir == AST.FlowDirection.To)
-                flowDir = AST.FlowDirection.From;
-            else
-                flowDir = AST.FlowDirection.To;
-
-            this.setAirportInfo(AST.GlobalStatus.destAirport, flowDir);
 
             T100.T100DataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
                 AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
@@ -66,28 +57,13 @@
                 });
 
             this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
-        }
-
-        private setAirportInfo(airport: Airport, direction) {
-            if (airport == null)
-                return;
-            var innerHTML = "";
-            if (direction == AST.FlowDirection.To)
-                innerHTML = "<b>" + Localization.strings.to + " : </b>";
-            else
-                innerHTML = "<b>" + Localization.strings.from + " : </b>";
-            innerHTML += airport.iata + " / " + airport.icao;
-            this.destDialogBuddy.setTitleText(innerHTML);
-            this._cityName.innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
-            this._cityName.title = airport.cityEn + ", " + airport.countryEn;
-            this._airportName.innerHTML = AST.Utils.compressAirportName(airport.name);
-            this._airportName.title = airport.nameEn;
             this.detailReportFootNote.innerHTML = "";
-            if (airport.countryEn != T100.T100DataMeta.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100DataMeta.currentCountry) {
+            if (AST.GlobalStatus.destAirport.countryEn != T100.T100DataMeta.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100DataMeta.currentCountry) {
                 this.detailReportFootNote.innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
             }
         }
 
+        
         private createRouteInfo() {
             this._routeDist.innerHTML = Localization.strings.directDistance + this.distInfo.distKm +
             " km &#8901; " + this.distInfo.distMile + " miles &#8901; " + this.distInfo.distNm + " nm";
@@ -452,67 +428,11 @@
             return item;
         }
 
-        private updateOriginPosition(numDest) {
-            var geom = AST.GlobalStatus.originAirport.geom;
-            var originPt = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(geom.x, geom.y).transform(MapUtils.projWGS84, MapUtils.projMercator));
-            this.mapBuddy.layerOrigin.addFeatures(originPt);
-        }
-
-        public updateMap(airports: Array<DestInfo>) {
-            if (!AST.GlobalStatus.originAirport)
-                return;
-            this.mapBuddy.clearDestFeatures();
-            this.updateOriginPosition(airports.length);
-
-            // draw the routes        
-            for (var i = 0; i < airports.length; i++) {
-                for (var j = 0; j < airports[i].routeGeomO.length; j++) {
-                    airports[i].routeGeomO[j].style = {};
-
-                    if (airports[i].dataSource == "CAA") {
-                        airports[i].routeGeomO[j].style.strokeColor = "#A0A0A0";
-                        airports[i].routeGeomO[j].style.strokeOpacity = .3;
-                    }
-                    else if (airports[i].dataSource == "T100") {
-                        if (airports[i].airport.countryEn != T100.T100DataMeta.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100DataMeta.currentCountry)
-                            airports[i].routeGeomO[j].style.strokeDashstyle = "dash";
-                        if (airports[i].sumPax != 0) {
-                            airports[i].routeGeomO[j].style.strokeColor = "#0066FF";
-                        } else {
-                            airports[i].routeGeomO[j].style.strokeColor = "#6600FF";
-                        }
-                        airports[i].routeGeomO[j].style.strokeOpacity = .6;
-                    }
-                }
-                this.mapBuddy.layerRoute.addFeatures(airports[i].routeGeomO);
-            }
-
-            // draw the destination        
-            for (var i = 0; i < airports.length; i++) {
-                var feature: any = new OpenLayers.Feature.Vector(airports[i].airport.geomO);
-                feature.airport = {
-                    "iata": airports[i].airport.iata,
-                    "icao": airports[i].airport.icao,
-                    "city": airports[i].airport.city,
-                    "country": airports[i].airport.country,
-                    "name": airports[i].airport.name,
-                    "airportGeom": airports[i].airport.geomO
-                };
-                feature.attributes.iata = airports[i].airport.iata;
-                //if (airports[i].dataSource == "CAA") {
-                //    this.mapBuddy.layerDestInactive.addFeatures(feature);
-                //} else {
-                    this.mapBuddy.layerDest.addFeatures(feature);
-                //}
-            }
-
-            this.mapBuddy.activateOpenLayersControl();
-        }
+        
 
         static createT100AirportPanel(): T100AirportPanel {
             var t100DestPanel = new AST.T100AirportPanel();
-            t100DestPanel._cityName = document.getElementById("destBarCityName");
-            t100DestPanel._airportName = document.getElementById("destBarAirportName");
+
             t100DestPanel._routeDist = document.getElementById("destBarDistance");
             t100DestPanel._totalFlow = document.getElementById("t100DataPanelTotalFlow");
 
