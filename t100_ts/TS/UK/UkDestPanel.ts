@@ -68,7 +68,7 @@
                 this.routeData = data;
                 this.distInfo = distInfo;
                 this.createRouteInfo();
-                this._totalFlow.innerHTML = "Total passenger flow in this year: " + this.routeData[0].pax;
+                this._totalFlow.innerHTML = "Total passenger flow in this year: " + Utils.formatNumber(this.routeData[0].pax);
             }
 
             private createRouteInfo() {
@@ -83,6 +83,34 @@
             }
 
             private createSummaryTable() {
+                if (this.routeData == null) {
+                    return;
+                }
+
+                while (this._tabSummary.summaryTable.firstChild) {
+                    this._tabSummary.summaryTable.removeChild(this._tabSummary.summaryTable.firstChild);
+                }
+
+                var tableBody = document.createElement("tbody");
+                this._tabSummary.summaryTable.appendChild(tableBody);
+
+                var trHeader = document.createElement("tr");
+                trHeader.appendChild(AST.Utils.createElement("th", { "class": "header1", "width": "110px", "height": "0px", "text": "Month" }));
+                trHeader.appendChild(AST.Utils.createElement("th", { "class": "header1", "width": "170px", "height": "0px", "text" : "Passenger (in both direction)" }));
+                trHeader.style.height = "20px";
+                tableBody.appendChild(trHeader);
+
+                var data: RouteRecord = this.routeData[0];
+                for (var i = 0; i < 12; i++) {
+                    var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
+                    tr.appendChild(AST.Utils.createElement("td", { "class": "rowIndex", "text": (i + 1).toString() }));
+                    tr.appendChild(AST.Utils.createElement("td", {
+                        "class": "rowName",
+                        "text": Utils.formatNumber(data.monthPax[i])
+                    }));
+
+                    tableBody.appendChild(tr);
+                }
             }
 
             static createUkDestPanel(): UkDestPanel {
