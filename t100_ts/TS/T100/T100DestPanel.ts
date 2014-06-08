@@ -1,6 +1,6 @@
 ﻿module AST {
 
-    export class T100AirportPanel {
+    export class T100DestPanel {
         private _routeDist = null;
         private _tabs = null;
 
@@ -430,8 +430,8 @@
 
         
 
-        static createT100AirportPanel(): T100AirportPanel {
-            var t100DestPanel = new AST.T100AirportPanel();
+        static createT100AirportPanel(): T100DestPanel {
+            var t100DestPanel = new AST.T100DestPanel();
 
             t100DestPanel._routeDist = document.getElementById("destBarDistance");
             t100DestPanel._totalFlow = document.getElementById("t100DataPanelTotalFlow");

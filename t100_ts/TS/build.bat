@@ -4,7 +4,7 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
 .\MyControls\CollapseTable.ts .\MyControls\DropDown.ts .\MyControls\PinPanel.ts .\MyControls\RankTable.ts ^
 .\MyControls\SimpleTable.ts .\T100\T100AirlineContent.ts .\T100\T100AirlinePanel.ts ^
-.\T100\T100AirportContent.ts .\T100\T100Common.ts .\T100\T100AirportPanel.ts ^
+.\T100\T100AirportContent.ts .\T100\T100Common.ts .\T100\T100DestPanel.ts ^
 .\T100\T100DataQuery.ts .\T100\T100MapControl.ts .\T100\T100OriginPanel.ts ^
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
 .\UK\I18n\Strings.enUS.ts .\UK\I18n\Strings.zhCN.ts ^

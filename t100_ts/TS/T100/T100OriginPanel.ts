@@ -32,7 +32,7 @@ module AST {
         public airportContent: T100AirportContent = null;
 
         // Panels for destination information from different data sources
-        public t100DestPanel: T100AirportPanel = null;
+        public t100DestPanel: T100DestPanel = null;
         public ukDataDestPanel: UkData.UkDestPanel = null;
 
         // Airline selector

@@ -148,7 +148,7 @@
     <TypeScriptCompile Include="TS\T100\T100AirlineContent.ts" />
     <TypeScriptCompile Include="TS\T100\T100AirlinePanel.ts" />
     <TypeScriptCompile Include="TS\T100\T100AirportContent.ts" />
-    <TypeScriptCompile Include="TS\T100\T100AirportPanel.ts" />
+    <TypeScriptCompile Include="TS\T100\T100DestPanel.ts" />
     <TypeScriptCompile Include="TS\T100\T100MapControl.ts" />
     <TypeScriptCompile Include="TS\T100\T100OriginPanel.ts" />
     <TypeScriptCompile Include="TS\T100\T100Common.ts" />

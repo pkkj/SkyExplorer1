@@ -9,7 +9,7 @@ module AST {
 
         // UK CAA Data Dest Panel
         private ukDestPanel: UkData.UkDestPanel = null;
-        private t100DestPanel: T100AirportPanel = null;
+        private t100DestPanel: T100DestPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -30,7 +30,7 @@ module AST {
             this.t100OriginPanel = T100OriginPanel.createT100OriginPanel();
 
             var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "T-100 Airport - Destination");
-            this.t100DestPanel = T100AirportPanel.createT100AirportPanel();
+            this.t100DestPanel = T100DestPanel.createT100AirportPanel();
             this.t100DestPanel.destDialogBuddy = dialogT100DestBar;
             dialogT100DestBar.hide();
 
