@@ -98,8 +98,10 @@
                     for (var j = 0; j < lstDestJson[i]["AvailableData"].length; j++) {
                         var dataItem = new DataSrcDestInfo(
                             lstDestJson[i]["AvailableData"][j]["DataSource"],
-                            parseInt( lstDestJson[i]["AvailableData"][j]["TotalPax"]),
-                            parseInt(lstDestJson[i]["AvailableData"][j]["TotalFreight"]));
+                            parseInt(lstDestJson[i]["AvailableData"][j]["TotalPax"]),
+                            parseInt(lstDestJson[i]["AvailableData"][j]["TotalFreight"]),
+                            lstDestJson[i]["AvailableData"][j]["PartialData"]
+                            );
                         dest.availableData.push(dataItem);
                     }
                     destinations.push(dest);

@@ -92,16 +92,39 @@
         public routeGeomS: string; // Geometry in string
         public routeGeomO: Array<OpenLayers.Feature.Vector>; // Geometry in OpenLayers 
         public availableData: Array<DataSrcDestInfo>;
+
+        constructor() {
+            this.availableData = [];
+        }
+        public hasPaxFlow(): boolean {
+            for (var i = 0; i < this.availableData.length; i++) {
+                if (this.availableData[i].totalPax) {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public isPartialData(): boolean {
+            for (var i = 0; i < this.availableData.length; i++) {
+                if (!this.availableData[i].partialData) {
+                    return false;
+                }
+                return true;
+            }
+        }
     }
 
     export class DataSrcDestInfo {
         public dataSrcName: string;
         public totalPax: number;
         public totalFreight: number;
-        constructor(dataSrcName, totalPax, totalFreight) {
+        public partialData: boolean
+        constructor(dataSrcName, totalPax, totalFreight, partialData) {
             this.dataSrcName = dataSrcName;
             this.totalPax = totalPax;
             this.totalFreight = totalFreight;
+            this.partialData = partialData;
         }
     }
 
@@ -117,5 +140,29 @@
 
     export enum AirlineType {
         Passenger, CargoOnly
+    }
+
+    export class DataSoureInfo {
+        public name: string;
+        public shortInfo: string;
+        public fullInfo: string;
+        constructor(name: string, shortInfo: string, fullInfo: string) {
+            this.name = name;
+            this.shortInfo = shortInfo;
+            this.fullInfo = fullInfo;
+        }
+    }
+
+    export class DataSourceRegister {
+        static nameMap = {};
+        static lstDataSrc: Array<DataSoureInfo> = [];
+        static registerDataSource(name: string, info: DataSoureInfo) {
+            DataSourceRegister.lstDataSrc.push(info);
+            DataSourceRegister.nameMap[name] = info;
+        }
+
+        static queryInfo(name: string): DataSoureInfo {
+            return DataSourceRegister.nameMap[name];
+        }
     }
 }

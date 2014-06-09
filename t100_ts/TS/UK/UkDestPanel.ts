@@ -8,6 +8,7 @@
         }
 
         export class UkDestPanel{
+            private mainDiv: HTMLElement = null;
             private _tabSummary: SummaryTab = null;
             private _totalFlow: HTMLElement = null;
             private _tabs: HTMLElement = null;
@@ -15,6 +16,7 @@
             private _tabTimeSeriesTitle: HTMLElement = null;
             private _tabTimeSeriesFootNote: HTMLElement = null;
             private _divTimeSeriesChart: HTMLElement = null;
+            private panelFootNote: HTMLElement= null;
 
             private routeData: Array<RouteRecord> = null;
             private distInfo: DistInfo = null;
@@ -46,10 +48,17 @@
                 $("#ukDestTabs").tabs({
                     activate: (event, ui) => {
                         if (ui.newTab[0].id == "liUkDestTabTimeSeries") {
+
                         }
                     }
 
                 });
+
+                this.localizeUi();
+            }
+
+            private localizeUi() {
+                this.panelFootNote.innerHTML = UkData.UkLocalization.strings.allDataAreInBothDirection;
             }
 
             private querySegment() {
@@ -111,8 +120,17 @@
                 }
             }
 
+            public hide() {
+                this.mainDiv.style.display = "none";
+            }
+
+            public show() {
+                this.mainDiv.style.display = "block";
+            }
+
             static createUkDestPanel(): UkDestPanel {
                 var destPanel = new AST.UkData.UkDestPanel();
+                destPanel.mainDiv = document.getElementById("ukDestBarInnerDiv");
                 destPanel._totalFlow = document.getElementById("ukDestTotalFlow");
 
                 destPanel._tabs = document.getElementById("ukDestTabs");
@@ -124,6 +142,7 @@
                 destPanel._tabTimeSeriesFootNote = document.getElementById("ukDestTabTimeSeriesFootNote");
                 destPanel._divTimeSeriesChart = document.getElementById("ukDestTabTimeSeriesChart");
 
+                destPanel.panelFootNote = document.getElementById("ukDestFootNote");
                 destPanel.initUI();
                 return destPanel;
             }

@@ -5,6 +5,8 @@
             }
 
             public passengerFlowMonthlyStat = "Passenger Flow Monthly Statistic";
+            public allDataAreInBothDirection = "All data are in both directions (arrival/departure).";
+
         }
     }
 } 

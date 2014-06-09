@@ -660,6 +660,13 @@ namespace AST {
                     destInfo.Airport = dr[ origin != "" ? "DEST" : "ORIGIN" ].ToString();
                     destInfo.TotalPax = Convert.ToInt32( dr[ "SUM_PAX" ].ToString() );
                     destInfo.TotalFreight = Convert.ToInt32( dr[ "SUM_FREIGHT" ].ToString() );
+                    
+                    // Determine the dataSource of airport
+                    Airport airport1 = AirportData.Query( destInfo.Airport );
+                    Airport airport2 = AirportData.Query( origin != "" ? origin : dest);
+                    if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY )
+                        destInfo.PartialData = true;
+                    
                     destInfo.DataSource = "T100";
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString());
 

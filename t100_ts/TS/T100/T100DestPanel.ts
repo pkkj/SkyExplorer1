@@ -1,6 +1,7 @@
 ﻿module AST {
 
     export class T100DestPanel {
+        private mainDiv: HTMLElement = null;
         private _routeDist = null;
         private _tabs = null;
 
@@ -395,7 +396,7 @@
             this.localizeUi();
         }
 
-        localizeUi() {
+        private localizeUi() {
             document.getElementById("t100DestBarShowInfoForText").innerHTML = Localization.strings.showInfoFor;
             document.getElementById("t100DataPanelTabsMatricDataText").innerHTML = Localization.strings.metricData;
             $("#t100DataPanelShowPassenger").button("option", "label", Localization.strings.passenger);
@@ -407,32 +408,17 @@
             (<HTMLElement> document.getElementById("liT100DataPanelTabTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
         }
 
-        createAirportItem(dest: DestInfo) {
-            var item = AST.Utils.createElement("div", {
-                "class": "ddCommonItem"
-            });
-            if (dest.sumPax == 0) {
-                item.style.color = "#6600FF";
-            }
-            var ddAirportCode = AST.Utils.createElement("span", {
-                "class": "ddAirportCode",
-                "text": dest.airport.iata + "/" + dest.airport.icao
-            });
-            var ddAirportCity = AST.Utils.createElement("span", {
-                "class": "ddAirportCity",
-                "text": dest.airport.city
-            });
-
-            item.appendChild(ddAirportCode);
-            item.appendChild(ddAirportCity);
-            return item;
+        public hide() {
+            this.mainDiv.style.display = "none";
         }
 
-        
+        public show() {
+            this.mainDiv.style.display = "block";
+        }
 
         static createT100AirportPanel(): T100DestPanel {
             var t100DestPanel = new AST.T100DestPanel();
-
+            t100DestPanel.mainDiv = document.getElementById("t100DestBarInnerDiv");
             t100DestPanel._routeDist = document.getElementById("destBarDistance");
             t100DestPanel._totalFlow = document.getElementById("t100DataPanelTotalFlow");
 

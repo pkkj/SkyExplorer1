@@ -36,8 +36,12 @@ module AST {
 
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
 
-            this.t100OriginPanel.t100DestPanel = this.t100DestPanel;
-            this.t100OriginPanel.ukDataDestPanel = this.ukDestPanel;
+            // Register the data source information
+            DataSourceRegister.registerDataSource("T100", new DataSoureInfo("T100", "US T100", "US BTS T100 Data"));
+            DataSourceRegister.registerDataSource("UkData", new DataSoureInfo("UkData", "UK CAA", "UK CAA Data"));
+            this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
+            this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
+
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
             this.t100OriginPanel.airportContent = this;

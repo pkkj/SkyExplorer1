@@ -19,6 +19,7 @@ namespace AST {
         public int? TotalPax = null;
         public int? TotalFreight = null;
         public string DataSource = "";
+        public bool PartialData = false;
     }
 
     public class DestItem {
@@ -51,7 +52,10 @@ namespace AST {
                     return "";
                 }
             }
-
+            if ( origin != "" ) 
+                origin = keyword; 
+            else 
+                dest = keyword;
             List<DestInfo> destInfo = new List<DestInfo>();
             // Query USA T100 Data
             destInfo.AddRange( T100Data.QueryDestByOrigin( year, origin, dest, airline, locale ) );
@@ -83,7 +87,7 @@ namespace AST {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
 
-                string sql = string.Format( "SELECT \"IATA\" FROM \"T100Airport\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
+                string sql = string.Format( "SELECT \"IATA\" FROM \"AllAvailableAirport\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
