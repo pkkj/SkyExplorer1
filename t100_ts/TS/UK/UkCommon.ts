@@ -15,5 +15,20 @@
 
             }
         }
+
+        export class UkHTMLPageData {
+            static loadHTMLData() {
+                var deferred = $.Deferred();
+
+                var deferred1 = $.Deferred();
+
+                $.when(deferred1).then(function () {
+                    deferred.resolve();
+                });
+
+                $("#ukDestBarInnerDiv").load("UkPart.html #ukDestBarInnerDivContent", () => { deferred1.resolve(); });
+                return deferred.promise();
+            }
+        }
     }
 } 

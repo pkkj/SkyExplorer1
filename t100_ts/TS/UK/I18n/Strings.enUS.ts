@@ -5,8 +5,9 @@
             }
 
             public passengerFlowMonthlyStat = "Passenger Flow Monthly Statistic";
-            public allDataAreInBothDirection = "All data are in both directions (arrival/departure).";
-
+            public allDataAreInBothDirection = "Note: All data are in both directions (arrival/departure).";
+            public totalPassengerInThisYear = "Total passenger in this year: ";
+            public monthInSummaryTable = "Month";
         }
     }
 } 

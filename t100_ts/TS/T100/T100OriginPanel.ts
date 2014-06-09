@@ -193,7 +193,7 @@ module AST {
 
             Utils.removeChildren(this.destBarAvailableDataSrc);
             if (otherDataSrc.length > 0) {
-                this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": "View data from other sources in this route: " }));
+                this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSources }));
                 for (var i = 0; i < otherDataSrc.length; i++) {
                     var dataSrcName = otherDataSrc[i];
                     if (i > 0)
@@ -493,8 +493,12 @@ module AST {
             else
                 innerHTML = "<b>" + Localization.strings.from + " : </b>";
             innerHTML += airport.iata + " / " + airport.icao;
-            innerHTML += Utils.createSpace(5) + " (" + dataSrc + ")";
-            this.destDialogBuddy.setTitleText(innerHTML);
+            innerHTML += Utils.createSpace(6);
+            var titleBar = document.createElement("div");
+            titleBar.appendChild(Utils.createElement("span", { "text": innerHTML }));
+            titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
+
+            this.destDialogBuddy.setTitleBar(titleBar);
             this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
             this.destAirportCity.title = airport.cityEn + ", " + airport.countryEn;
             this.destAirportName.innerHTML = AST.Utils.compressAirportName(airport.name);

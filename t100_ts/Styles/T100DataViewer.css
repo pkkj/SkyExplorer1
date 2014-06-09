@@ -103,10 +103,19 @@
     font-size: 11pt;
 }
 
+.destBarTitleDataSrc {
+    font-size: 12px;
+}
+
 #ukDestSummaryTable th {
     border-color: rgb(192, 192, 192);
 	border-style: solid;
 	border-width: 1px 0px 0px 0px;
+    text-align: left;
+}
+
+#ukDestSummaryTable th.leftColumn {
+    text-align: center;
 }
 
 #ukDestSummaryTable tr.alt .rowName {
@@ -139,4 +148,9 @@
 	border-collapse: collapse;
 	border-spacing: 0;
     border-width: 1px 0px 1px 0px;
+}
+
+.ukDestTabTitle {
+	font-size: 11pt;
+    width: 310px;
 }

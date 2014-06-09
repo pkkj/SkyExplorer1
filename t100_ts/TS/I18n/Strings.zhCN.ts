@@ -75,6 +75,7 @@
         public passengerFreq = "旅客人次";
         public freightFreq = "货运运量";
         public tons = "吨";
+        public viewDataFromOtherSources = "查看此路线其它数据源的数据： ";
 
         public routeFilter = "路线筛选";
         public filterRouteByAirline = "根据航空公司筛选数据";
@@ -217,6 +218,9 @@
 
         public makeChangeLanguageDiv(div: HTMLElement) {
             div.innerHTML = "语言: <a href='main.html'>English</a>，中文";
+        }
+        public constructYearMonth(year: string, month: number) {
+            return year + "年" + this.monthName[month];
         }
     }
 } 

@@ -82,7 +82,7 @@
     <Content Include="Pages\AboutApp.html" />
     <Content Include="Pages\AboutT100.html" />
     <Content Include="Pages\AirportReport.html" />
-    <Content Include="Pages\CaaPart.html" />
+    <Content Include="Pages\UkPart.html" />
     <Content Include="Pages\Introduction.html" />
     <Content Include="Pages\main.html" />
     <Content Include="Pages\openstreettest.html" />

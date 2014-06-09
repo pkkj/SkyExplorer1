@@ -76,6 +76,7 @@
         public passengerFreq = "Passenger";
         public freightFreq = "Freight";
         public tons = "tons";
+        public viewDataFromOtherSources = "View data from other sources in this route: ";
 
         public routeFilter = "Route filter";
         public filterRouteByAirline = "Filter the routes by airline";
@@ -217,6 +218,10 @@
 
         public makeChangeLanguageDiv(div: HTMLElement) {
             div.innerHTML = "Language: English, <a href='main.html?locale=zhCN'>Chinese</a>";
+        }
+
+        public constructYearMonth(year: string, month: number) {
+            return this.monthName[month] + " " + year;
         }
     }
 }

@@ -35,19 +35,20 @@ module AST {
         private prepareData() {
             T100.T100DataMeta.prepareData(this.postDataPreparation);
             T100.T100Localization.init();
-
             UkData.UkLocalization.init();
         }
 
         private postDataPreparation = () => {
             T100.T100HTMLPageData.loadHTMLData().done(() => {
-                this.dataSrcControl = new AST.DataSrcControl();
-                this.dataSrcControl.showT100DataContent();
-                this.adjustSize();
+                UkData.UkHTMLPageData.loadHTMLData().done(() => {
+                    this.dataSrcControl = new AST.DataSrcControl();
+                    this.dataSrcControl.showT100DataContent();
+                    this.adjustSize();
 
-                // set up other UI
-                this.initUi();
-            })
+                    // set up other UI
+                    this.initUi();
+                });
+            });
         }
         public main() {
             // Create the data source panel
