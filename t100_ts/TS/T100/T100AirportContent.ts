@@ -21,6 +21,10 @@ module AST {
             this.legendDiv = document.getElementById('contentLegend');
             this.rightTopDiv = document.getElementById("rightTopPanel");
             this.airlineSelector = document.getElementById("t100AirportContentAirlineFilter");
+
+            $("#rightTopPanel").accordion({
+                collapsible: true
+            });
         }
 
         public init(map: OpenLayers.Map) {

@@ -78,7 +78,7 @@
         public tons = "tons";
         public viewDataFromOtherSources = "View data from other sources in this route: ";
 
-        public routeFilter = "Route filter";
+        public selectDataSource = "Select data source";
         public filterRouteByAirline = "Filter the routes by airline";
         public showForeignRouteForUsCarriers = "Show foreign routes for US carriers";
         public thisRoutesWillBeShownAsDashLines = "These routes will be shown as dash lines in the map.";

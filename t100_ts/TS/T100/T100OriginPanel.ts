@@ -426,11 +426,9 @@ module AST {
             this.airlineSelectorReady = true;
 
             // Localization
-            document.getElementById("t100AirlineFilterRouteFilterText").innerHTML = Localization.strings.routeFilter;
+            document.getElementById("airportViewDataSrcFilterText").innerHTML = Localization.strings.selectDataSource;
             document.getElementById("t100AirlineFilterFilterTheRouteText").innerHTML = Localization.strings.filterRouteByAirline;
             document.getElementById("t100AirlineFilterShowForeignRouteText").innerHTML = Localization.strings.showForeignRouteForUsCarriers;
-            document.getElementById("t100AirlineFilterRouteDashLineText").innerHTML = Localization.strings.thisRoutesWillBeShownAsDashLines;
-
         }
 
         private createAirlineSelector() {

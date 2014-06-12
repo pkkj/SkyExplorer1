@@ -162,36 +162,38 @@
                 <div><span id="mapDataText"> Map data: </span><a href="#" onclick="window.open('http://www.esri.com/data/basemaps', '_blank'); return false;">ESRI</a></div>
             </div>
             
-            <div id="rightTopPanel">
-                <div id="t100AirportContentAirlineFilter" style="width: 220px">
-                    <div class="pinPanelInnerTitle" id="t100AirlineFilterRouteFilterText">Route filter</div>
-                    <div id="t100AirlineFilterFilterTheRouteText">Filter the routes by airline.</div>
-                    <select id="t100AirportContentAirlineSelector" style="width:210px"></select>
-                    
-                    <div id="t100AirportContentFFRouteDiv">
-                        <div style="height: 8px"></div>
-                        <form>
-                            <div style="float:left"><input type="checkbox" id="t100AirportFFRouteFilter"> </div>
-                            <div style="float:left;padding-top:2px" id="t100AirlineFilterShowForeignRouteText">Show foreign routes for US carriers</div>
-                            <div class="clear"></div>
-                            <div style="height: 3px"></div>
-                            <div id="t100AirlineFilterRouteDashLineText">These routes will be shown as dash lines in the map.</div>
-                        </form>
-                    </div>       
-                    
-                </div>
+            <div id="rightTopPanel" style="width:300px">
+                <h3>Data Sources and Airlines</h3>
+                <div>
+                    <div id="t100AirportContentAirlineFilter" style="width: 220px">
+                        <div id="airportViewDataSrcFilterText">Route filter</div>
 
-                <div id="t100AirlineContentRightTopPanel" style="display:none">
-                    <form>
-                        <div id="t100AirlineContentRightTopPanelRegionalFilterText">Regional filter</div>
-                        <div id="t100AirlineContentRegionFilter" style="margin-top: 3px; margin-bottom: 3px">
-                            <input type="radio" id="t100AirlineContentRegionFilterAll" name="radio" checked="checked" /><label for="t100AirlineContentRegionFilterAll">All</label>
-                            <input type="radio" id="t100AirlineContentRegionFilterUS" name="radio" /><label for="t100AirlineContentRegionFilterUS">US Domestic</label>
-                            <input type="radio" id="t100AirlineContentRegionFilterIntl" name="radio" /><label for="t100AirlineContentRegionFilterIntl">International</label>
+                        <div id="t100AirlineFilterFilterTheRouteText">Filter the routes by airline.</div>
+                        <select id="t100AirportContentAirlineSelector" style="width:210px"></select>
+
+                        <div id="t100AirportContentFFRouteDiv">
+                            <div style="height: 8px"></div>
+                            <form>
+                                <div style="float:left"><input type="checkbox" id="t100AirportFFRouteFilter"> </div>
+                                <div style="float:left;padding-top:2px" id="t100AirlineFilterShowForeignRouteText">Show foreign routes for US carriers</div>
+                                <div class="clear"></div>
+                                <div style="height: 3px"></div>
+                            </form>
                         </div>
-                    </form>
+
+                    </div>
+
+                    <div id="t100AirlineContentRightTopPanel" style="display:none">
+                        <form>
+                            <div id="t100AirlineContentRightTopPanelRegionalFilterText">Regional filter</div>
+                            <div id="t100AirlineContentRegionFilter" style="margin-top: 3px; margin-bottom: 3px">
+                                <input type="radio" id="t100AirlineContentRegionFilterAll" name="radio" checked="checked" /><label for="t100AirlineContentRegionFilterAll">All</label>
+                                <input type="radio" id="t100AirlineContentRegionFilterUS" name="radio" /><label for="t100AirlineContentRegionFilterUS">US Domestic</label>
+                                <input type="radio" id="t100AirlineContentRegionFilterIntl" name="radio" /><label for="t100AirlineContentRegionFilterIntl">International</label>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                
                 
             </div>
         </div>
