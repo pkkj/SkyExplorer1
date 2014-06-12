@@ -1,6 +1,6 @@
 tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.ts ^
 .\Common\Data.ts .\Common\Draw.ts .\Common\Global.ts .\Common\MapUtils.ts .\Common\Utils.ts ^
-.\Common\DataQuery.ts ^
+.\Common\DataQuery.ts .\Common\DestPanel.ts ^
 .\I18n\Strings.enUS.ts .\I18n\Strings.zhCN.ts .\I18n\Strings.jaJP.ts ^
 .\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
 .\MyControls\CollapseTable.ts .\MyControls\DropDown.ts .\MyControls\PinPanel.ts .\MyControls\RankTable.ts ^

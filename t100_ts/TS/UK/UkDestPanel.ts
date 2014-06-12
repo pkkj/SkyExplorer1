@@ -7,8 +7,7 @@
             footnote;
         }
 
-        export class UkDestPanel {
-            private mainDiv: HTMLElement = null;
+        export class UkDestPanel extends DestPanel {
             private _tabSummary: SummaryTab = null;
             private _totalFlow: HTMLElement = null;
             private _tabs: HTMLElement = null;
@@ -18,11 +17,8 @@
             private divTimeSeriesChart: HTMLElement = null;
             private panelFootNote: HTMLElement = null;
 
-            private routeData: Array<RouteRecord> = null;
-            private distInfo: DistInfo = null;
-
             constructor() {
-
+                super();
             }
 
             public onDestChange() {
@@ -77,6 +73,7 @@
             private setRouteData(data: Array<RouteRecord>, distInfo: DistInfo) {
                 this.routeData = data;
                 this.distInfo = distInfo;
+                this.setRouteDistInfo();
                 this.createRouteInfo();
                 this._totalFlow.innerHTML = UkData.UkLocalization.strings.totalPassengerInThisYear + Utils.formatNumber(this.routeData[0].pax);
             }
@@ -88,7 +85,6 @@
                 if (activeTab == 1) {
                     this.createTimeSeriesChart();
                 }
-
             }
 
             private createSummaryTable() {
@@ -151,17 +147,10 @@
                 this._tabTimeSeriesTitle.innerHTML = Localization.strings.timeSerierByPassenger;
             }
 
-            public hide() {
-                this.mainDiv.style.display = "none";
-            }
-
-            public show() {
-                this.mainDiv.style.display = "block";
-            }
-
             static createUkDestPanel(): UkDestPanel {
                 var destPanel = new AST.UkData.UkDestPanel();
                 destPanel.mainDiv = document.getElementById("ukDestBarInnerDiv");
+                destPanel.routeDistText = document.getElementById("destBarDistance");
                 destPanel._totalFlow = document.getElementById("ukDestTotalFlow");
 
                 destPanel._tabs = document.getElementById("ukDestTabs");

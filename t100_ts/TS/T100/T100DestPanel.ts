@@ -1,10 +1,8 @@
 ﻿module AST {
 
-    export class T100DestPanel {
-        private mainDiv: HTMLElement = null;
-        private _routeDist = null;
-        private _tabs = null;
+    export class T100DestPanel extends DestPanel{
 
+        private _tabs = null;
         private _tabSummary = null;
 
         // Share split
@@ -29,14 +27,13 @@
 
         // Data
         private dataType = T100.T100DataType.Passenger;
-        private routeData: Array<RouteRecord> = null;
-        private distInfo: DistInfo = null;
 
         // Map buddy
         public mapBuddy: T100MapControl = null;
         public destDialogBuddy = null;
 
         constructor() {
+            super();
             this.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
         }
 
@@ -50,7 +47,6 @@
             if (AST.GlobalStatus.year == null || AST.GlobalStatus.originAirport == null
                 || AST.GlobalStatus.destAirport == null || AST.GlobalStatus.flowDir == null)
                 return;
-
 
             T100.T100DataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
                 AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
@@ -66,8 +62,7 @@
 
         
         private createRouteInfo() {
-            this._routeDist.innerHTML = Localization.strings.directDistance + this.distInfo.distKm +
-            " km &#8901; " + this.distInfo.distMile + " miles &#8901; " + this.distInfo.distNm + " nm";
+            
             var activeTab = $("#t100DataPanelTabs").tabs("option", "active");
             this.getTotalData();
             this.createSummaryTable();
@@ -86,6 +81,7 @@
         private setRouteData(data: Array<RouteRecord>, distInfo: DistInfo) {
             this.routeData = data;
             this.distInfo = distInfo;
+            this.setRouteDistInfo();
             this.createRouteInfo();
         }
 
@@ -408,18 +404,10 @@
             (<HTMLElement> document.getElementById("liT100DataPanelTabTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
         }
 
-        public hide() {
-            this.mainDiv.style.display = "none";
-        }
-
-        public show() {
-            this.mainDiv.style.display = "block";
-        }
-
         static createT100AirportPanel(): T100DestPanel {
             var t100DestPanel = new AST.T100DestPanel();
             t100DestPanel.mainDiv = document.getElementById("t100DestBarInnerDiv");
-            t100DestPanel._routeDist = document.getElementById("destBarDistance");
+            t100DestPanel.routeDistText = document.getElementById("destBarDistance");
             t100DestPanel._totalFlow = document.getElementById("t100DataPanelTotalFlow");
 
             t100DestPanel._tabs = document.getElementById("t100DataPanelTabs");

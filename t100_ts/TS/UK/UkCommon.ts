@@ -41,7 +41,7 @@
             }
 
             static currentCountry = "United Kingdom";
-            static hasMonthData = false;
+            static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
             static dataTo = new YearMonth(2013, 12);
 
