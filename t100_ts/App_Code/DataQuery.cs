@@ -31,7 +31,7 @@ namespace AST {
         }
     }
     public static class DataQuery {
-        public static string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string locale ) {
+        public static string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             // Verify the parameter
             string keyword = origin != "" ? origin : dest;
             if ( queryType == "iata" ) {
@@ -57,10 +57,15 @@ namespace AST {
             else 
                 dest = keyword;
             List<DestInfo> destInfo = new List<DestInfo>();
+            HashSet<string> validSrc = new HashSet<string>( dataSource.Split( ',' ) );
             // Query USA T100 Data
-            destInfo.AddRange( T100Data.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            if ( validSrc.Contains( "T100" ) || validSrc.Contains( "T100FF" ) || dataSource == "" ) {
+                destInfo.AddRange( T100Data.QueryDestByOrigin( year, origin, dest, airline, dataSource, locale ) );
+            }
             // Query UK CAA Data
-            destInfo.AddRange( UkData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            if ( validSrc.Contains( "UkData" ) || dataSource == "" ) {
+                destInfo.AddRange( UkData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            }
 
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {

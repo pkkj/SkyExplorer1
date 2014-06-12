@@ -638,7 +638,8 @@ namespace AST {
             return "";
         }
 
-        public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
+        public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string dataSource, string locale ) {
+            HashSet<string> validSrc = new HashSet<string>( dataSource.Split( ',' ) );
             List<DestInfo> res = new List<DestInfo>();
 
             NpgsqlConnection conn = null;
@@ -664,15 +665,18 @@ namespace AST {
                     // Determine the dataSource of airport
                     Airport airport1 = AirportData.Query( destInfo.Airport );
                     Airport airport2 = AirportData.Query( origin != "" ? origin : dest);
+                    destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
+
                     if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY ) {
                         destInfo.PartialData = true;
                         destInfo.DataSource = "T100FF";
                     } else {
                         destInfo.DataSource = "T100";
                     }
-                    destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString());
 
-                    res.Add(destInfo);
+                    if ( validSrc.Contains( destInfo.DataSource ) || dataSource == "" ) {
+                        res.Add( destInfo );
+                    }
                 }
             } catch ( NpgsqlException e ) {
             } finally {
