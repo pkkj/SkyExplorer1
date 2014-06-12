@@ -103,28 +103,28 @@
             optionTop.text = Localization.strings.pleaseSelectAnAirline;
             this.airlineSel.add(optionTop, null);
 
-            for (var i = 0; i < T100.T100DataMeta.airlineInfo.length; i++) {
+            for (var i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
                 if (type != Localization.strings._airlineTypeAll) {
                     var airlineType: AirlineType =
                         type == Localization.strings._airlineTypePassenger ? AirlineType.Passenger : AirlineType.CargoOnly;
-                    if (T100.T100DataMeta.airlineInfo[i].type != airlineType)
+                    if (T100.T100MetaData.airlineInfo[i].type != airlineType)
                         continue;
                 }
                 if (country != "All") {
-                    if (T100.T100DataMeta.airlineInfo[i].country != country)
+                    if (T100.T100MetaData.airlineInfo[i].country != country)
                         continue;
                 }
                 var option: any = document.createElement("option");
-                option.text = T100.T100DataMeta.airlineInfo[i].name;
-                option.airline = T100.T100DataMeta.airlineInfo[i];
+                option.text = T100.T100MetaData.airlineInfo[i].name;
+                option.airline = T100.T100MetaData.airlineInfo[i];
                 this.airlineSel.add(option, null);
             }
         }
         private initCountrySel() {
             var i;
             var countryDict = {};
-            for (i = 0; i < T100.T100DataMeta.airlineInfo.length; i++) {
-                countryDict[T100.T100DataMeta.airlineInfo[i].country] = true;
+            for (i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
+                countryDict[T100.T100MetaData.airlineInfo[i].country] = true;
             }
             var countryList = ["All"];
             for (var key in countryDict) {
@@ -312,7 +312,7 @@
                     this.updateMap();
 
                     // Set the availability note
-                    if (item.airline.country == T100.T100DataMeta.currentCountry && T100.T100DataMeta.has28ISFFData(parseInt(year))) {
+                    if (item.airline.country == T100.T100MetaData.currentCountry && T100.T100FFMetaData.has28ISFFData(parseInt(year))) {
                         this.availabilityNote.innerHTML = T100.T100Localization.strings.routeNotLimitToUs;
                     } else {
                         this.availabilityNote.innerHTML = T100.T100Localization.strings.routeLimitToUs;
@@ -397,9 +397,9 @@
             var basePaxFlow = 0;
             var basePaxUnit = 2000;
             var baseFreightUnit = 10000;
-            if (this.yearSel[this.yearSel.selectedIndex].innerHTML == T100.T100DataMeta.dataTo.year.toString()) {
-                baseFreightFlow = T100.T100DataMeta.dataTo.month * basePaxUnit;
-                basePaxFlow = T100.T100DataMeta.dataTo.month * baseFreightUnit;
+            if (this.yearSel[this.yearSel.selectedIndex].innerHTML == T100.T100MetaData.dataTo.year.toString()) {
+                baseFreightFlow = T100.T100MetaData.dataTo.month * basePaxUnit;
+                basePaxFlow = T100.T100MetaData.dataTo.month * baseFreightUnit;
             } else {
                 baseFreightFlow = 12 * basePaxUnit;
                 basePaxFlow = 12 * baseFreightUnit;

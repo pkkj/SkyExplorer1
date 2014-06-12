@@ -30,35 +30,68 @@
 
         }
 
-        export class T100DataMeta { // Change to MetaData later
-            static availablity: string[] = ["2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
-                "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];
-            static airlineInfo: Array<Airline> = null;
-            static airlineDict: Object;
-            static currentCountry = "United States";
+        export class T100MetaData extends AST.DataSourceMetaData {
+            constructor() {
+                super();
 
-            // Available date
+                this.name = "T100";
+                this.shortInfo = "US T100";
+                this.fullInfo = "US BTS T100 Data";
+            }
+            static currentCountry = "United States";
+            static hasMonthData = true;
             static dataFrom = new YearMonth(1990, 1);
             static dataTo = new YearMonth(2013, 11);
+            static availablity: string[] = ["2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
+                "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];
 
-            static data28ISFFFrom = new YearMonth(2003, 1);
-            static data28ISFFTo = new YearMonth(2009, 12);
+            private static _instance = null;
+            static instance(): T100MetaData {
+                if (!T100MetaData._instance)
+                    T100MetaData._instance = new T100MetaData();
+                return T100MetaData._instance;
+            }
 
-            static prepareData(callback: () => any) {
+            static airlineInfo: Array<Airline> = null;
+            static airlineDict: Object;
+            static prepareAirlineData(callback: () => any) {
                 T100DataQuery.queryAllAirlines(function (data: Array<Airline>) {
-                    T100DataMeta.airlineInfo = data;
-                    T100DataMeta.airlineDict = {};
-                    for (var i = 0; i < T100DataMeta.airlineInfo.length; i++) {
-                        T100DataMeta.airlineDict[T100DataMeta.airlineInfo[i].code] = T100DataMeta.airlineInfo[i];
+                    T100MetaData.airlineInfo = data;
+                    T100MetaData.airlineDict = {};
+                    for (var i = 0; i < T100MetaData.airlineInfo.length; i++) {
+                        T100MetaData.airlineDict[T100MetaData.airlineInfo[i].code] = T100MetaData.airlineInfo[i];
                     }
-                    T100DataMeta.airlineInfo.sort(function (a: Airline, b: Airline) {
+                    T100MetaData.airlineInfo.sort(function (a: Airline, b: Airline) {
                         return Localization.strings.compareStr(a.name, b.name);
                     });
                     callback();
                 });
             }
-            static has28ISFFData(year: number) {
-                return year >= T100DataMeta.data28ISFFFrom.year && year <= T100DataMeta.data28ISFFTo.year;
+
+        }
+
+        export class T100FFMetaData extends AST.DataSourceMetaData {
+            constructor() {
+                super();
+
+                this.name = "T100FF";
+                this.shortInfo = "US T100(FF)";
+                this.fullInfo = "US BTS T100(FF) Data";
+            }
+
+            static currentCountry = "United States";
+            static hasMonthData = true;
+            static dataFrom = new YearMonth(2003, 1);
+            static dataTo = new YearMonth(2009, 12);
+
+            private static _instance = null;
+            static instance(): T100FFMetaData {
+                if (!T100FFMetaData._instance)
+                    T100FFMetaData._instance = new T100FFMetaData();
+                return T100FFMetaData._instance;
+            }
+            static has28ISFFData(year: number):boolean {
+                return year >= T100FFMetaData.dataFrom.year && year <= T100FFMetaData.dataTo.year;
             }
         }
 

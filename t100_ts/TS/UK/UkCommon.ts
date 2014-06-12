@@ -30,5 +30,28 @@
                 return deferred.promise();
             }
         }
+
+        export class UkMetaData extends AST.DataSourceMetaData {
+            constructor() {
+                super();
+
+                this.name = "UkData";
+                this.shortInfo = "UK CAA";
+                this.fullInfo = "UK CAA Data";
+            }
+
+            static currentCountry = "United Kingdom";
+            static hasMonthData = false;
+            static dataFrom = new YearMonth(2010, 1);
+            static dataTo = new YearMonth(2013, 12);
+
+            private static _instance = null;
+            static instance() {
+                if (!UkMetaData._instance)
+                    UkMetaData._instance = new UkMetaData();
+                return UkMetaData._instance;
+            }
+
+        }
     }
 } 

@@ -67,9 +67,9 @@
 
             $("#timeSeriesSlider").slider({
                 range: true,
-                min: T100.T100DataMeta.dataFrom.year,
-                max: T100.T100DataMeta.dataTo.year,
-                values: [T100.T100DataMeta.dataFrom.year, T100.T100DataMeta.dataTo.year],
+                min: T100.T100MetaData.dataFrom.year,
+                max: T100.T100MetaData.dataTo.year,
+                values: [T100.T100MetaData.dataFrom.year, T100.T100MetaData.dataTo.year],
                 slide: (event, ui) => {
                     if (this.timeSeriesData == null)
                         return;
@@ -274,11 +274,11 @@
                 this.summaryRegionSel.clearAllItem();
 
                 var regionItems = [], regionDisplayText = [];
-                if (T100.T100DataMeta.currentCountry == this.airport.countryEn) {
+                if (T100.T100MetaData.currentCountry == this.airport.countryEn) {
                     regionDisplayText = [Localization.strings.regionAll, Localization.strings.regionUnitedStates, Localization.strings.regionInternational];
                     regionItems = ["All", "United States", "International"];
                 } else {
-                    if (T100.T100DataMeta.has28ISFFData(parseInt(year))) {
+                if (T100.T100FFMetaData.has28ISFFData(parseInt(year))) {
                         if (this.airportStat["United States"].totalPax != "0" || this.airportStat["United States"].totalFreight != "0") {
                             regionDisplayText.push(Localization.strings.regionAllCarrierUsDest);
                             regionItems.push("All Carrier - US Destinations");
@@ -319,7 +319,7 @@
                 return;
             }
 
-            var inputIdx = (yearFrom - T100.T100DataMeta.dataFrom.year) * 12;;
+            var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;;
             var outputIdx = 0;
             var tickIdx = [];
 
@@ -327,11 +327,11 @@
             var data = [];
             for (year = yearFrom; year <= yearTo; year++) {
                 var monthStart = 1;
-                if (year == T100.T100DataMeta.dataFrom.year)
-                    monthStart = T100.T100DataMeta.dataFrom.month;
+                if (year == T100.T100MetaData.dataFrom.year)
+                    monthStart = T100.T100MetaData.dataFrom.month;
                 var monthEnd = 12;
-                if (year == T100.T100DataMeta.dataTo.year)
-                    monthEnd = T100.T100DataMeta.dataTo.month;
+                if (year == T100.T100MetaData.dataTo.year)
+                    monthEnd = T100.T100MetaData.dataTo.month;
 
                 var yearAccumulate = 0;
                 var yearAccumulateMonth = 0;

@@ -9,6 +9,7 @@
             public allDataAreInBothDirection = "备注：所有的数据都是双向统计数据（入港及出港）";
             public totalPassengerInThisYear = "该年旅客总人数: ";
             public monthInSummaryTable = "时间";
+            public ukCaaData = "英国CAA数据";
         }
     }
 }

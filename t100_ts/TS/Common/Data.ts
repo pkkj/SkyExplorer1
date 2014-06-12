@@ -142,27 +142,26 @@
         Passenger, CargoOnly
     }
 
-    export class DataSoureInfo {
-        public name: string;
-        public shortInfo: string;
-        public fullInfo: string;
-        constructor(name: string, shortInfo: string, fullInfo: string) {
-            this.name = name;
-            this.shortInfo = shortInfo;
-            this.fullInfo = fullInfo;
-        }
-    }
-
+    
     export class DataSourceRegister {
         static nameMap = {};
-        static lstDataSrc: Array<DataSoureInfo> = [];
-        static registerDataSource(name: string, info: DataSoureInfo) {
+        static lstDataSrc: Array<DataSourceMetaData> = [];
+        static registerDataSource(name: string, info: DataSourceMetaData) {
             DataSourceRegister.lstDataSrc.push(info);
             DataSourceRegister.nameMap[name] = info;
         }
 
-        static queryInfo(name: string): DataSoureInfo {
+        static queryInfo(name: string): DataSourceMetaData {
             return DataSourceRegister.nameMap[name];
+        }
+    }
+
+    export class DataSourceMetaData {
+        public name: string;
+        public shortInfo: string;
+        public fullInfo: string;
+
+        constructor() {
         }
     }
 }

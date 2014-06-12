@@ -59,7 +59,7 @@
 
             this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
             this.detailReportFootNote.innerHTML = "";
-            if (AST.GlobalStatus.destAirport.countryEn != T100.T100DataMeta.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100DataMeta.currentCountry) {
+            if (AST.GlobalStatus.destAirport.countryEn != T100.T100MetaData.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100MetaData.currentCountry) {
                 this.detailReportFootNote.innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
             }
         }
@@ -292,7 +292,7 @@
                         dataItem['data'] = [];
                         dataItem['label'] = airlineName;
                         for (j = 0; j < 12; j++) {
-                            if (T100.T100DataMeta.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100DataMeta.dataTo.month && j + 1 > 2) {
+                            if (T100.T100MetaData.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100MetaData.dataTo.month && j + 1 > 2) {
                                 break;
                             }
                             dataItem['data'].push([j, this.routeData[i].monthPax[j]]);
@@ -309,7 +309,7 @@
                         dataItem['data'] = [];
                         dataItem['label'] = airlineName;
                         for (j = 0; j < 12; j++) {
-                            if (T100.T100DataMeta.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100DataMeta.dataTo.month && j + 1 > 2) {
+                            if (T100.T100MetaData.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100MetaData.dataTo.month && j + 1 > 2) {
                                 break;
                             }
                             dataItem['data'].push([j, this.routeData[i].monthFreight[j]]);

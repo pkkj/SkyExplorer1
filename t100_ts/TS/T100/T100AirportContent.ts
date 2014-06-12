@@ -37,9 +37,8 @@ module AST {
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
 
             // Register the data source information
-            DataSourceRegister.registerDataSource("T100", new DataSoureInfo("T100", "US T100", "US BTS T100 Data"));
-            DataSourceRegister.registerDataSource("UkData", new DataSoureInfo("UkData", "UK CAA", "UK CAA Data"));
             this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
+            this.t100OriginPanel.registerDestBar("T100FF", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
 
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
@@ -101,7 +100,7 @@ module AST {
             AST.Draw.drawText(ctx, 65, 33, "12px Arial", '#000000', Localization.strings.freightOnlyRoute);
             var hOffset = 50;
             if (options) {
-                if (options.hasFFRoute) {
+                if (options.hasPartialDataRoute) {
                     AST.Draw.drawSegment(ctx, 0, hOffset, 8, hOffset, 2, 'rgba(0,102,255,.6)');
                     AST.Draw.drawSegment(ctx, 13, hOffset, 21, hOffset, 2, 'rgba(0,102,255,.6)');
                     AST.Draw.drawSegment(ctx, 26, hOffset, 34, hOffset, 2, 'rgba(102,0,255,.6)');

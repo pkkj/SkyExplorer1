@@ -664,10 +664,12 @@ namespace AST {
                     // Determine the dataSource of airport
                     Airport airport1 = AirportData.Query( destInfo.Airport );
                     Airport airport2 = AirportData.Query( origin != "" ? origin : dest);
-                    if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY )
+                    if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY ) {
                         destInfo.PartialData = true;
-                    
-                    destInfo.DataSource = "T100";
+                        destInfo.DataSource = "T100FF";
+                    } else {
+                        destInfo.DataSource = "T100";
+                    }
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString());
 
                     res.Add(destInfo);

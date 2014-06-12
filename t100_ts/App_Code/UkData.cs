@@ -84,7 +84,7 @@ namespace AST {
                     destInfo.TotalFreight = null;
                     destInfo.DataSource = "UkData";
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
-
+                    destInfo.PartialData = false;
                     res.Add( destInfo );
                 }
             } catch ( NpgsqlException e ) {

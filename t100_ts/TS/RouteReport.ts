@@ -43,11 +43,11 @@
             });
 
             var yearIdx = 0;
-            for (i = 0; i < T100.T100DataMeta.availablity.length; i++) {
-                if (this.initYear == T100.T100DataMeta.availablity[i])
+            for (i = 0; i < T100.T100MetaData.availablity.length; i++) {
+                if (this.initYear == T100.T100MetaData.availablity[i])
                     yearIdx = i;
-                item = this.summaryYearSel.createItem(T100.T100DataMeta.availablity[i]);
-                this.summaryYearSel.insertItem(item, T100.T100DataMeta.availablity[i]);
+                item = this.summaryYearSel.createItem(T100.T100MetaData.availablity[i]);
+                this.summaryYearSel.insertItem(item, T100.T100MetaData.availablity[i]);
             }
             this.summaryYearSel.setSelectedIndex(yearIdx);
 
@@ -112,11 +112,11 @@
         }
 
         private getYearAvailability() {
-            this.yearAvailableFrom = T100.T100DataMeta.dataFrom;
-            this.yearAvailableTo = T100.T100DataMeta.dataTo;
-            if (this.originAirport.CountryEn != T100.T100DataMeta.currentCountry && this.destAirport.CountryEn != T100.T100DataMeta.currentCountry) {
-                this.yearAvailableFrom = T100.T100DataMeta.data28ISFFFrom;
-                this.yearAvailableTo = T100.T100DataMeta.data28ISFFTo;
+            this.yearAvailableFrom = T100.T100MetaData.dataFrom;
+            this.yearAvailableTo = T100.T100MetaData.dataTo;
+            if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry) {
+                this.yearAvailableFrom = T100.T100FFMetaData.dataFrom;
+                this.yearAvailableTo = T100.T100FFMetaData.dataTo;
             }
         }
 
@@ -333,7 +333,7 @@
             document.getElementById("toAirportCode").innerHTML = this.destAirport.Iata + "/" + this.destAirport.Icao;
             document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.Country, this.destAirport.City);
             document.getElementById("toAirportName").innerHTML = this.destAirport.FullName;
-            if (this.originAirport.CountryEn != T100.T100DataMeta.currentCountry && this.destAirport.CountryEn != T100.T100DataMeta.currentCountry)
+            if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry)
                 document.getElementById("timeAvailabilityNote").innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
             else
                 document.getElementById("timeAvailabilityNote").innerHTML = "";
@@ -383,17 +383,17 @@
             var data = [];
             for (var airlineIdx = 0; airlineIdx < airlines.length; airlineIdx++) {
 
-                var inputIdx = (yearFrom - T100.T100DataMeta.dataFrom.year) * 12;
+                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;
                 var outputIdx = 0;
                 var timeData = timeSeriesData[dataType][airlines[airlineIdx]];
                 var localData = [];
                 for (var year = yearFrom; year <= yearTo; year++) {
                     var monthStart = 1;
-                    if (year == T100.T100DataMeta.dataFrom.year)
-                        monthStart = T100.T100DataMeta.dataFrom.month;
+                    if (year == T100.T100MetaData.dataFrom.year)
+                        monthStart = T100.T100MetaData.dataFrom.month;
                     var monthEnd = 12;
-                    if (year == T100.T100DataMeta.dataTo.year)
-                        monthEnd = T100.T100DataMeta.dataTo.month;
+                    if (year == T100.T100MetaData.dataTo.year)
+                        monthEnd = T100.T100MetaData.dataTo.month;
 
                     var yearAccumulate = 0;
                     var yearAccumulateMonth = 0;
@@ -443,18 +443,18 @@
         private loadTimeSeriesDataGenerator(timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo) {
             var data = [];
             for (var airlineIdx = 0; airlineIdx < airlines.length; airlineIdx++) {
-                var inputIdx = (yearFrom - T100.T100DataMeta.dataFrom.year) * 12;
+                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;
                 var outputIdx = 0;
                 var paxTimeData = timeSeriesData["pax"][airlines[airlineIdx]];
                 var seatTimeData = timeSeriesData["seat"][airlines[airlineIdx]];
                 var localData = [];
                 for (var year = yearFrom; year <= yearTo; year++) {
                     var monthStart = 1;
-                    if (year == T100.T100DataMeta.dataFrom.year)
-                        monthStart = T100.T100DataMeta.dataFrom.month;
+                    if (year == T100.T100MetaData.dataFrom.year)
+                        monthStart = T100.T100MetaData.dataFrom.month;
                     var monthEnd = 12;
-                    if (year == T100.T100DataMeta.dataTo.year)
-                        monthEnd = T100.T100DataMeta.dataTo.month;
+                    if (year == T100.T100MetaData.dataTo.year)
+                        monthEnd = T100.T100MetaData.dataTo.month;
 
                     var yearPaxAccumulate = 0;
                     var yearSeatAccumulate = 0;
@@ -513,7 +513,7 @@
             var flowStat = [];
             for (var airline in timeSeriesData[dataType]) {
                 var totalFlow = 0;
-                var inputIdx = (yearFrom - T100.T100DataMeta.dataFrom.year) * 12;;
+                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;;
                 for (var year = yearFrom; year <= yearTo; year++) {
                     for (var month = 0; month < 12; month++) {
                         if (inputIdx >= timeSeriesData[dataType][airline].length)
@@ -562,11 +562,11 @@
 
             for (year = yearFrom; year <= yearTo; year++) {
                 var monthStart = 1;
-                if (year == T100.T100DataMeta.dataFrom.year)
-                    monthStart = T100.T100DataMeta.dataFrom.month;
+                if (year == T100.T100MetaData.dataFrom.year)
+                    monthStart = T100.T100MetaData.dataFrom.month;
                 var monthEnd = 12;
-                if (year == T100.T100DataMeta.dataTo.year)
-                    monthEnd = T100.T100DataMeta.dataTo.month;
+                if (year == T100.T100MetaData.dataTo.year)
+                    monthEnd = T100.T100MetaData.dataTo.month;
 
                 var yearAccumulate = 0;
                 var yearAccumulateMonth = 0;

@@ -50,8 +50,8 @@ module AST {
 
         private setDataSrcAvailability() {
             this.yearDropDown.clearAllItem();
-            for (var i = 0; i < T100.T100DataMeta.availablity.length; i++) {
-                var year = T100.T100DataMeta.availablity[i];
+            for (var i = 0; i < T100.T100MetaData.availablity.length; i++) {
+                var year = T100.T100MetaData.availablity[i];
                 var item = this.yearDropDown.createItem(year);
                 this.yearDropDown.insertItem(item, year);
             }
@@ -66,10 +66,6 @@ module AST {
             });
             this.yearDropDown.onChangeHandler = () => {
                 GlobalStatus.year = this.yearDropDown.selectedData;
-                if (T100.T100DataMeta.has28ISFFData(parseInt(this.yearDropDown.selectedData)))
-                    this.ffRouteFilterDiv.style.display = "block";
-                else
-                    this.ffRouteFilterDiv.style.display = "none";
                 this.updateDestList(true /*panTo*/);
             };
 
@@ -128,7 +124,7 @@ module AST {
                             response($.map(data, function (item) {
 
 		                    return {
-                                label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], item[1] ),
+                                    label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], item[1]),
                                     value: item[0]
                                 }
 		                }));
@@ -177,9 +173,11 @@ module AST {
 
             if (availableData["T100"]) {
                 this.switchDestBar("T100");
+            } else if (availableData["T100FF"]) {
+                this.switchDestBar("T100FF");
             } else if (availableData["UkData"]) {
                 this.switchDestBar("UkData");
-            }            
+            }
         }
 
         private createOtherSrcDiv() {
@@ -198,7 +196,7 @@ module AST {
                     var dataSrcName = otherDataSrc[i];
                     if (i > 0)
                         this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": ", " }));
-                    var info: DataSoureInfo = DataSourceRegister.queryInfo(dataSrcName);
+                    var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrcName);
                     var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.shortInfo });
                     anchor.href = "#";
                     anchor.onclick = () => {
@@ -222,7 +220,7 @@ module AST {
 
             this.dictDestPanel[dataSrc].show();
             this.dictDestPanel[dataSrc].onDestChange();
-            var info: DataSoureInfo = DataSourceRegister.queryInfo(dataSrc);
+            var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrc);
             this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.fullInfo);
             this.createOtherSrcDiv();
         }
@@ -241,13 +239,19 @@ module AST {
                 }
                 GlobalStatus.originAirport = fromAirport;
 
+                var hasPartialDataRoute: boolean = false;
                 for (var i = 0; i < destinations.length; i++) {
                     // Handle the geomtry
                     destinations[i].routeGeomO = AST.MapUtils.parseMultiLineString(destinations[i].routeGeomS);
                     destinations[i].airport.geomO = new OpenLayers.Geometry.Point(destinations[i].airport.geom.x, destinations[i].airport.geom.y).transform(AST.MapUtils.projWGS84, AST.MapUtils.projMercator);
+                    var isPartialDataDest: boolean = true;
+                    for (var j = 0; j < destinations[i].availableData.length; j++) {
+                        isPartialDataDest = isPartialDataDest && destinations[i].availableData[j].partialData;
+                    }
+                    hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
                 }
 
-                this.airportContent.setRouteLegend({ hasFFRoute: false, hasNoDataRoute: false });
+                this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: false });
                 this.destDialogBuddy.hide();
                 if (panTo) {
                     this.mapControl.panTo(fromAirport.geom);
@@ -437,10 +441,10 @@ module AST {
             optionAll.airline = { code: "" };
             this.airlineSelector.add(optionAll, null);
 
-            for (var i = 0; i < T100.T100DataMeta.airlineInfo.length; i++) {
+            for (var i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
                 var option: any = document.createElement("option");
-                option.text = T100.T100DataMeta.airlineInfo[i].name;
-                option.airline = T100.T100DataMeta.airlineInfo[i];
+                option.text = T100.T100MetaData.airlineInfo[i].name;
+                option.airline = T100.T100MetaData.airlineInfo[i];
                 this.airlineSelector.add(option, null);
             }
         }

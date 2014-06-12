@@ -33,9 +33,14 @@ module AST {
         }
 
         private prepareData() {
-            T100.T100DataMeta.prepareData(this.postDataPreparation);
+            T100.T100MetaData.prepareAirlineData(this.postDataPreparation);
+            
             T100.T100Localization.init();
             UkData.UkLocalization.init();
+
+            DataSourceRegister.registerDataSource("T100", T100.T100MetaData.instance());
+            DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
+            DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
         }
 
         private postDataPreparation = () => {
@@ -50,6 +55,7 @@ module AST {
                 });
             });
         }
+
         public main() {
             // Create the data source panel
             Utils.addEvent(window, "resize", this.adjustSize);
