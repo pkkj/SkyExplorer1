@@ -119,7 +119,7 @@ module AST {
                 source: function (request, response) {
                     $.ajax({
                         url: "../ASTData.asmx/MatchAirport",
-                        data: "input=" + request.term,
+                        data: "input=" + request.term + "&locale=" + Localization.locale,
                         type: "POST",
 
                         success: function (data) {
@@ -128,7 +128,7 @@ module AST {
                             response($.map(data, function (item) {
 
 		                    return {
-                                    label: item[0] + ", " + item[1] + ", " + item[2],
+                                label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], item[1] ),
                                     value: item[0]
                                 }
 		                }));
