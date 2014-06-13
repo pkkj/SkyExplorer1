@@ -54,6 +54,9 @@
                 if (params["id"]) {
                     dom.setAttribute("id", params["id"]);
                 }
+                if (params["type"]) {
+                    dom.setAttribute("type", params["type"]);
+                }
             }
             return dom;
         }

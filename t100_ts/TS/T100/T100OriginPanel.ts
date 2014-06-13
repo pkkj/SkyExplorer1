@@ -69,9 +69,6 @@ module AST {
                 this.updateDestList(true /*panTo*/);
             };
 
-            this.ffRouteFilter.onclick = () => {
-                this.updateDestList(false /*panTo*/);
-            };
             this.setDataSrcAvailability();
 
             this.destDropDown = new DropDown(this._destSel, {
@@ -94,7 +91,7 @@ module AST {
 
             var btnFindAirport_onclick = () => {
                 var iata = this._txtOriginAirport.value.toUpperCase();
-                this.queryOriginAirport(iata, QueryAirportType.Iata, true /*panTo*/);
+                this.queryOriginAirport(iata, QueryAirportType.Iata, GlobalStatus.dataSource, true /*panTo*/);
             };
 
             // Find airport button
@@ -229,7 +226,7 @@ module AST {
             this.dictDestPanel[dataSrc] = destPanel;
         }
 
-        public queryOriginAirport(keyword, queryAirportType, panTo: boolean) {
+        public queryOriginAirport(keyword, queryAirportType, dataSrc: string, panTo: boolean) {
 
             var callback = (fromAirport: Airport, destinations: Array<DestInfo>) => {
 
@@ -292,7 +289,7 @@ module AST {
             var airline = this.airlineSelector[this.airlineSelector.selectedIndex].airline.code;
             if (airline == null)
                 airline = "";
-            DataQuery.queryDestByOrigin(GlobalStatus.year, keyword, airline, queryAirportType, callback);
+            DataQuery.queryDestByOrigin(GlobalStatus.year, keyword, airline, queryAirportType, dataSrc, callback);
 
         }
 
@@ -353,9 +350,10 @@ module AST {
             }
         }
 
-        private updateDestList(panTo: boolean) {
-            if (GlobalStatus.originAirport)
-                this.queryOriginAirport(GlobalStatus.originAirport.iata, AST.QueryAirportType.Iata, panTo);
+        public updateDestList(panTo: boolean) {
+            if (GlobalStatus.originAirport) {
+                this.queryOriginAirport(GlobalStatus.originAirport.iata, AST.QueryAirportType.Iata, GlobalStatus.dataSource, panTo);
+            }
         }
 
         private createDestList(destinations: Array<DestInfo>) {
@@ -427,8 +425,7 @@ module AST {
 
             // Localization
             document.getElementById("airportViewDataSrcFilterText").innerHTML = Localization.strings.selectDataSource;
-            document.getElementById("t100AirlineFilterFilterTheRouteText").innerHTML = Localization.strings.filterRouteByAirline;
-            document.getElementById("t100AirlineFilterShowForeignRouteText").innerHTML = Localization.strings.showForeignRouteForUsCarriers;
+            document.getElementById("airportViewFilterTheRouteText").innerHTML = Localization.strings.filterRouteByAirline;
         }
 
         private createAirlineSelector() {
@@ -524,9 +521,8 @@ module AST {
             originPanel._destSel = document.getElementById("dataSrcPanelDestSel");
             originPanel._txtOriginAirport = <HTMLInputElement> document.getElementById("dataSrcPanelFindAirport");
             originPanel._btnFindAirport = <HTMLButtonElement> document.getElementById("dataSrcPanelFindAirportBtn");
-            originPanel.airlineSelector = <HTMLSelectElement>document.getElementById("t100AirportContentAirlineSelector");
+            originPanel.airlineSelector = <HTMLSelectElement>document.getElementById("airportViewAirlineSelector");
             originPanel.ffRouteFilterDiv = document.getElementById("t100AirportContentFFRouteDiv");
-            originPanel.ffRouteFilter = <HTMLInputElement> document.getElementById("t100AirportFFRouteFilter");
 
             originPanel.initUI();
             return originPanel;

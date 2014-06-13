@@ -145,12 +145,14 @@
     
     export class DataSourceRegister {
         static nameMap = {};
-        static lstDataSrc: Array<DataSourceMetaData> = [];
+        static dataSrcList: Array<DataSourceMetaData> = [];
+
         static registerDataSource(name: string, info: DataSourceMetaData) {
-            DataSourceRegister.lstDataSrc.push(info);
+            DataSourceRegister.dataSrcList.push(info);
             DataSourceRegister.nameMap[name] = info;
         }
 
+        
         static queryInfo(name: string): DataSourceMetaData {
             return DataSourceRegister.nameMap[name];
         }

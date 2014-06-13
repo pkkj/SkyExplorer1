@@ -3,7 +3,7 @@
 */
 
 module AST {
-    export class T100AirportContent extends CommonDataContent  {
+    export class T100AirportContent extends CommonDataContent {
         private t100OriginPanel: T100OriginPanel = null;
         private t100MapControl: T100MapControl = null;
 
@@ -14,17 +14,19 @@ module AST {
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
         private rightTopDiv: HTMLElement = null;
-        private airlineSelector: HTMLElement = null;
+        private dataSrcControlerDiv: HTMLElement = null;
+        private dataSrcFilter: HTMLTableElement = null;
+        private dataSrcCheckBoxRegister: { [dataSrc: string]: HTMLInputElement};
 
         constructor() {
             super();
             this.legendDiv = document.getElementById('contentLegend');
-            this.rightTopDiv = document.getElementById("rightTopPanel");
-            this.airlineSelector = document.getElementById("t100AirportContentAirlineFilter");
+            this.rightTopDiv = document.getElementById("airportViewDataSrcControlerPanel");
+            this.dataSrcControlerDiv = document.getElementById("airportViewDataSrcControlerDiv");
+            this.dataSrcFilter = <HTMLTableElement>document.getElementById("airportViewDataSrcFilterTable");
 
-            $("#rightTopPanel").accordion({
-                collapsible: true
-            });
+            this.dataSrcCheckBoxRegister = {};
+
         }
 
         public init(map: OpenLayers.Map) {
@@ -52,23 +54,29 @@ module AST {
             this.t100MapControl = new AST.T100MapControl(map, this.t100OriginPanel);
             this.t100DestPanel.mapBuddy = this.t100MapControl;
             this.t100OriginPanel.mapControl = this.t100MapControl;
+
+            // Set up the data source panel
+            this.setDataSourcePanel();
+            $("#airportViewDataSrcControlerPanel").accordion({
+                collapsible: true
+            });
         }
 
         public reset() {
             this.t100OriginPanel.reset();
             this.t100DestPanel.mapBuddy.deactivate();
-            this.airlineSelector.style.display = "none";
+            this.dataSrcControlerDiv.style.display = "none";
             this.rightTopDiv.style.display = "none";
         }
 
         public activateMap() {
             this.t100DestPanel.mapBuddy.activate();
             this.setRouteLegend({});
-            this.airlineSelector.style.display = "block";
+            this.dataSrcControlerDiv.style.display = "block";
             this.rightTopDiv.style.display = "block";
         }
 
-        public resize = ()=> {
+        public resize = () => {
             var barMargin = 5;
             var subContainerHeight = document.getElementById("subContainer").offsetHeight;
             var t100OriginBarHeight = document.getElementById("t100OriginBar").offsetHeight;
@@ -80,6 +88,43 @@ module AST {
                 var t100DestBar = document.getElementById("t100DestBar");
                 t100DestBar.style.height = (subContainerHeight - t100OriginBarHeight - barMargin * 2).toString() + 'px';
                 this.t100DestPanel.onSizeChange();
+            }
+        }
+
+        private dataSrcSelectionChanged() {
+            var availableDataSrc = "";
+            for (var key in this.dataSrcCheckBoxRegister) {
+                if (this.dataSrcCheckBoxRegister[key].checked) {
+                    if (availableDataSrc != "")
+                        availableDataSrc += ",";
+                    availableDataSrc += key;
+                }
+            }
+            GlobalStatus.dataSource = availableDataSrc;
+            this.t100OriginPanel.updateDestList(false /*panTo*/);
+        }
+
+        private createDataSrcCheckBox(dataSrc: DataSourceMetaData) {
+            var td = document.createElement("td");
+            var checkBox: HTMLInputElement = <HTMLInputElement>AST.Utils.createElement("input", { "type": "checkbox" });
+            checkBox.checked = true;
+            td.appendChild(checkBox);
+            td.appendChild(AST.Utils.createElement("span", { "text": dataSrc.shortInfo }));
+            this.dataSrcCheckBoxRegister[dataSrc.name] = checkBox;
+            checkBox.onchange = () => {
+                this.dataSrcSelectionChanged();
+            }
+            return td;
+        }
+
+        private setDataSourcePanel() {
+            for (var i = 0; i < DataSourceRegister.dataSrcList.length; i += 2) {
+                var tr = document.createElement("tr");
+                tr.appendChild(this.createDataSrcCheckBox(DataSourceRegister.dataSrcList[i]));
+                if (i + 1 < DataSourceRegister.dataSrcList.length) {
+                    tr.appendChild(this.createDataSrcCheckBox(DataSourceRegister.dataSrcList[i + 1]));
+                }
+                this.dataSrcFilter.appendChild(tr);
             }
         }
 

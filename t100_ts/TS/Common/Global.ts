@@ -6,6 +6,7 @@
         static originAirport: Airport = null;
         static destIata:string = null;
         static destAirport: Airport = null;
+        static dataSource: string = "";
         static year = null;
     }
 

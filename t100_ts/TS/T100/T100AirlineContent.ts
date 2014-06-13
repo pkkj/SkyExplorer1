@@ -14,7 +14,7 @@
 
             this.t100AirlinePanel = new AST.T100AirlinePanel();
             this.t100AirlinePanel.init(mapControl);
-            this.rightTopPanel = document.getElementById("rightTopPanel");
+            this.rightTopPanel = document.getElementById("t100AirlineContentRightTopPanel");
             this.regionFilterPanel = document.getElementById("t100AirlineContentRightTopPanel");
         }
 

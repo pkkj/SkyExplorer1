@@ -48,13 +48,6 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string T100QueryDestByOrigin( string year, string origin, string dest, string airline, string queryType, string locale ) {
-            string res = T100Data.QueryByOrigin( year, origin, dest, airline, queryType, locale );
-            return res;
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryByRoute( string year, string origin, string dest, string locale ) {
             string res = T100Data.QueryByRoute( year, origin, dest, locale );
             return res;

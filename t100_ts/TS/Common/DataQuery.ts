@@ -58,7 +58,7 @@
         }
         
         // TODO: Add data source filter support to this function.
-        static queryDestByOrigin(year: string, origin: string, airline: string, queryType, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
+        static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
 
@@ -111,7 +111,7 @@
                     callback(fromAirport, destinations);
 
             };
-            var params = { "year": year, "origin": origin, "dest": "", "airline": airline, "queryType": queryType, "dataSource" : "", "locale": Localization.locale };
+            var params = { "year": year, "origin": origin, "dest": "", "airline": airline, "queryType": queryType, "dataSource": dataSrc, "locale": Localization.locale };
             var http = AST.DataQuery.ajaxQuery(params, "QueryByOrigin", onSuccessCallback);
             setTimeout(function () {
                 if (http.readyState != 4 || http.status != 200)

@@ -34,16 +34,16 @@ module AST {
 
         private prepareData() {
             T100.T100MetaData.prepareAirlineData(this.postDataPreparation);
-            
+        }
+
+        private postDataPreparation = () => {
             T100.T100Localization.init();
             UkData.UkLocalization.init();
 
             DataSourceRegister.registerDataSource("T100", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
-        }
 
-        private postDataPreparation = () => {
             T100.T100HTMLPageData.loadHTMLData().done(() => {
                 UkData.UkHTMLPageData.loadHTMLData().done(() => {
                     this.dataSrcControl = new AST.DataSrcControl();

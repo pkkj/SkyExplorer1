@@ -173,7 +173,7 @@
             var gpA = this.mapControl.getLonLatFromPixel(pA).transform(MapUtils.projMercator, MapUtils.projWGS84);
             var gpB = this.mapControl.getLonLatFromPixel(pB).transform(MapUtils.projMercator, MapUtils.projWGS84);
 
-            this.dataSrcPanel.queryOriginAirport(gpA.lon + "," + gpA.lat + "," + gpB.lon + "," + gpB.lat, AST.QueryAirportType.Geometry, false/*panTo*/);
+            this.dataSrcPanel.queryOriginAirport(gpA.lon + "," + gpA.lat + "," + gpB.lon + "," + gpB.lat, AST.QueryAirportType.Geometry, GlobalStatus.dataSource, false/*panTo*/);
         }
 
         public activate() {

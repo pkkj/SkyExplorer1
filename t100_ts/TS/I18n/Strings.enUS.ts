@@ -80,8 +80,6 @@
 
         public selectDataSource = "Select data source";
         public filterRouteByAirline = "Filter the routes by airline";
-        public showForeignRouteForUsCarriers = "Show foreign routes for US carriers";
-        public thisRoutesWillBeShownAsDashLines = "These routes will be shown as dash lines in the map.";
         public all = "All";
 
         public t100Airline = "T-100 Airline";

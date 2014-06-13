@@ -79,8 +79,6 @@
 
         public selectDataSource = "选择数据源";
         public filterRouteByAirline = "根据航空公司筛选数据";
-        public showForeignRouteForUsCarriers = "显示美国航空公司的海外路线";
-        public thisRoutesWillBeShownAsDashLines = "这些线路在地图上以虚线表示。";
         public all = "全部";
 
         public t100Airline = "T-100 航空公司";
