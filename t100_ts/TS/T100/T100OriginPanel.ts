@@ -436,10 +436,10 @@ module AST {
             optionAll.airline = { code: "" };
             this.airlineSelector.add(optionAll, null);
 
-            for (var i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
+            for (var i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
                 var option: any = document.createElement("option");
-                option.text = T100.T100MetaData.airlineInfo[i].name;
-                option.airline = T100.T100MetaData.airlineInfo[i];
+                option.text = GlobalMetaData.airlineInfo[i].name;
+                option.airline = GlobalMetaData.airlineInfo[i];
                 this.airlineSelector.add(option, null);
             }
         }

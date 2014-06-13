@@ -103,28 +103,28 @@
             optionTop.text = Localization.strings.pleaseSelectAnAirline;
             this.airlineSel.add(optionTop, null);
 
-            for (var i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
+            for (var i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
                 if (type != Localization.strings._airlineTypeAll) {
                     var airlineType: AirlineType =
                         type == Localization.strings._airlineTypePassenger ? AirlineType.Passenger : AirlineType.CargoOnly;
-                    if (T100.T100MetaData.airlineInfo[i].type != airlineType)
+                    if (GlobalMetaData.airlineInfo[i].type != airlineType)
                         continue;
                 }
                 if (country != "All") {
-                    if (T100.T100MetaData.airlineInfo[i].country != country)
+                    if (GlobalMetaData.airlineInfo[i].country != country)
                         continue;
                 }
                 var option: any = document.createElement("option");
-                option.text = T100.T100MetaData.airlineInfo[i].name;
-                option.airline = T100.T100MetaData.airlineInfo[i];
+                option.text = GlobalMetaData.airlineInfo[i].name;
+                option.airline = GlobalMetaData.airlineInfo[i];
                 this.airlineSel.add(option, null);
             }
         }
         private initCountrySel() {
             var i;
             var countryDict = {};
-            for (i = 0; i < T100.T100MetaData.airlineInfo.length; i++) {
-                countryDict[T100.T100MetaData.airlineInfo[i].country] = true;
+            for (i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
+                countryDict[GlobalMetaData.airlineInfo[i].country] = true;
             }
             var countryList = ["All"];
             for (var key in countryDict) {

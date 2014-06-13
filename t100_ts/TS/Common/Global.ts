@@ -36,4 +36,22 @@
         }
         
     }
+
+    export class GlobalMetaData {
+        static airlineInfo: Array<Airline> = null;
+        static airlineDict: Object;
+        static prepareAirlineData(callback: () => any) {
+            DataQuery.queryAllAirlines(function (data: Array<Airline>) {
+                GlobalMetaData.airlineInfo = data;
+                GlobalMetaData.airlineDict = {};
+                for (var i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
+                    GlobalMetaData.airlineDict[GlobalMetaData.airlineInfo[i].code] = GlobalMetaData.airlineInfo[i];
+                }
+                GlobalMetaData.airlineInfo.sort(function (a: Airline, b: Airline) {
+                    return Localization.strings.compareStr(a.name, b.name);
+                });
+                callback();
+            });
+        }
+    }
 }

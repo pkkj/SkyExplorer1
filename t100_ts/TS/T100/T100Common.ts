@@ -52,22 +52,6 @@
                 return T100MetaData._instance;
             }
 
-            static airlineInfo: Array<Airline> = null;
-            static airlineDict: Object;
-            static prepareAirlineData(callback: () => any) {
-                T100DataQuery.queryAllAirlines(function (data: Array<Airline>) {
-                    T100MetaData.airlineInfo = data;
-                    T100MetaData.airlineDict = {};
-                    for (var i = 0; i < T100MetaData.airlineInfo.length; i++) {
-                        T100MetaData.airlineDict[T100MetaData.airlineInfo[i].code] = T100MetaData.airlineInfo[i];
-                    }
-                    T100MetaData.airlineInfo.sort(function (a: Airline, b: Airline) {
-                        return Localization.strings.compareStr(a.name, b.name);
-                    });
-                    callback();
-                });
-            }
-
         }
 
         export class T100FFMetaData extends AST.DataSourceMetaData {

@@ -146,28 +146,6 @@
                 DataQuery.ajaxQuery(params, "T100QueryRouteTimeSeries", onSuccessCallback);
             }
 
-            static queryAllAirlines(callback: (data: any) => any) {
-                var onSuccessCallback = function (jsonMsg) {
-                    setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 500);
-                    var data: Array<Airline> = [];
-                    if (jsonMsg == "") {
-                        return;
-                    }
-                    jsonMsg = $.parseJSON(jsonMsg);
-                    for (var i = 0; i < jsonMsg.length; i++) {
-                        var item: Airline = new Airline(jsonMsg[i][0],
-                            jsonMsg[i][1], jsonMsg[i][2], jsonMsg[i][3],
-                            jsonMsg[i][4], jsonMsg[i][5]);
-                        data.push(item);
-                    }
-                    if (callback != null)
-                        callback(data);
-                };
-                var params = { "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "QueryAllAirlines", onSuccessCallback);
-                DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
-            }
-
             static queryAirlineRoute(year, airline, region, callback: (data: any) => any) {
                 var onSuccessCallback = function (jsonMsg) {
                     setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);

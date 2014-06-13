@@ -57,7 +57,6 @@
             return httpRequest;
         }
         
-        // TODO: Add data source filter support to this function.
         static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
@@ -118,6 +117,28 @@
                     DialogUtils.loadBlockingDialog(Localization.strings.searchingAirportAndLoadingInfo);
             }, 150);
 
+        }
+
+        static queryAllAirlines(callback: (data: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 500);
+                var data: Array<Airline> = [];
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                for (var i = 0; i < jsonMsg.length; i++) {
+                    var item: Airline = new Airline(jsonMsg[i][0],
+                        jsonMsg[i][1], jsonMsg[i][2], jsonMsg[i][3],
+                        jsonMsg[i][4], jsonMsg[i][5]);
+                    data.push(item);
+                }
+                if (callback != null)
+                    callback(data);
+            };
+            var params = { "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryAllAirlines", onSuccessCallback);
+            DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
     }
 }

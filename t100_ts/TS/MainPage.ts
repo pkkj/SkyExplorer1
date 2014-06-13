@@ -33,7 +33,7 @@ module AST {
         }
 
         private prepareData() {
-            T100.T100MetaData.prepareAirlineData(this.postDataPreparation);
+            GlobalMetaData.prepareAirlineData(this.postDataPreparation);
         }
 
         private postDataPreparation = () => {
