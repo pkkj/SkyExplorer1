@@ -66,7 +66,10 @@ namespace AST {
             if ( validSrc.Contains( "UkData" ) || dataSource == "" ) {
                 destInfo.AddRange( UkData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
             }
-
+            // Query Taiwan CAA Data
+            if ( validSrc.Contains( "TwData" ) || dataSource == "" ) {
+                destInfo.AddRange( TwData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            }
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {
                 if ( !destDict.ContainsKey( d.Airport ) ) {

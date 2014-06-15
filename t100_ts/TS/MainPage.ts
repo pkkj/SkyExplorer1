@@ -43,6 +43,7 @@ module AST {
             DataSourceRegister.registerDataSource("T100", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
+            DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
 
             T100.T100HTMLPageData.loadHTMLData().done(() => {
                 UkData.UkHTMLPageData.loadHTMLData().done(() => {

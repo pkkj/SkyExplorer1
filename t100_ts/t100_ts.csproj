@@ -156,6 +156,8 @@
     <TypeScriptCompile Include="TS\T100\T100Common.ts" />
     <TypeScriptCompile Include="TS\T100\T100DataQuery.ts" />
     <TypeScriptCompile Include="TS\Common\Utils.ts" />
+    <TypeScriptCompile Include="TS\TwData\TwDataCommon.ts" />
+    <TypeScriptCompile Include="TS\TwData\TwDataDataQuery.ts" />
     <TypeScriptCompile Include="TS\UK\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\UK\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\UK\UkCommon.ts" />
@@ -176,6 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\DataQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\TwData.cs" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

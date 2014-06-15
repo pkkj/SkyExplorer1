@@ -46,6 +46,7 @@ module AST {
             this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("T100FF", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
+            this.t100OriginPanel.registerDestBar("TwData", this.t100DestPanel);
 
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
