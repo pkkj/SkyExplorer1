@@ -10,15 +10,15 @@
             public noOutBoundFlights = "There is no outbound flights data available for this airport. But it might have inbound traffic.";
             public noAvailableDataForThisAirport = "No T100 data available for this airport.";
 
-            public timeSeriesTotalPassengerInT100ByTimeScale(dataType: T100DataType, timeScale: string): string {
+            public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
 
-                if (dataType == T100DataType.Passenger)
+                if (dataType == FlowType.Passenger)
                     return "Total Passenger in T100 by " + timeScale;
                 else
                     return "Total Freight in T100 by " + timeScale;
             }
 
-            public timeSeriesThisChartShowTimeScaleData(dataType: T100DataType, timeScale: string): string {
+            public timeSeriesThisChartShowTimeScaleData(dataType: FlowType, timeScale: string): string {
                 var timeScaleText;
                 if (timeScale == "Year")
                     timeScaleText = "yearly";
@@ -26,7 +26,7 @@
                     timeScaleText = "quarterly";
                 else
                     timeScaleText = "monthly";
-                if (dataType == T100DataType.Passenger)
+                if (dataType == FlowType.Passenger)
                     if(timeScale != "Month")
                         return "This chart show the " + timeScaleText + " statistics collected from T100 database in thousand people.";
                     else

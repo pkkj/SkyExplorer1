@@ -82,6 +82,7 @@
     <Content Include="Pages\AboutApp.html" />
     <Content Include="Pages\AboutT100.html" />
     <Content Include="Pages\AirportReport.html" />
+    <Content Include="Pages\MainPagePart.html" />
     <Content Include="Pages\UkPart.html" />
     <Content Include="Pages\Introduction.html" />
     <Content Include="Pages\main.html" />
@@ -130,6 +131,7 @@
     <TypeScriptCompile Include="TS\Common\Global.ts" />
     <TypeScriptCompile Include="TS\Common\ReportPageUtils.ts" />
     <TypeScriptCompile Include="TS\Common\DestPanel.ts" />
+    <TypeScriptCompile Include="TS\Common\StandardDestPanel.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\Ref\google.d.ts" />

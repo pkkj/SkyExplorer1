@@ -45,14 +45,16 @@ module AST {
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
 
-            T100.T100HTMLPageData.loadHTMLData().done(() => {
-                UkData.UkHTMLPageData.loadHTMLData().done(() => {
-                    this.dataSrcControl = new AST.DataSrcControl();
-                    this.dataSrcControl.showT100DataContent();
-                    this.adjustSize();
+            MainHTMLPageData.loadHTMLData().done(() => {
+                T100.T100HTMLPageData.loadHTMLData().done(() => {
+                    UkData.UkHTMLPageData.loadHTMLData().done(() => {
+                        this.dataSrcControl = new AST.DataSrcControl();
+                        this.dataSrcControl.showT100DataContent();
+                        this.adjustSize();
 
-                    // set up other UI
-                    this.initUi();
+                        // set up other UI
+                        this.initUi();
+                    });
                 });
             });
         }

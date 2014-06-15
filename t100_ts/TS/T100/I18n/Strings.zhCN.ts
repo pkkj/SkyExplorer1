@@ -20,15 +20,15 @@
                     return "每月";
             }
 
-            public timeSeriesTotalPassengerInT100ByTimeScale(dataType: T100DataType, timeScale: string): string {
-                if (dataType == T100DataType.Passenger)
+            public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
+                if (dataType == FlowType.Passenger)
                     return this.getTimeScaleText(timeScale) + "T100数据旅客人次";
                 else
                     return this.getTimeScaleText(timeScale) + "T100数据货物运量";
             }
 
-            public timeSeriesThisChartShowTimeScaleData(dataType: T100DataType, timeScale: string): string {
-                if (dataType == T100DataType.Passenger) {
+            public timeSeriesThisChartShowTimeScaleData(dataType: FlowType, timeScale: string): string {
+                if (dataType == FlowType.Passenger) {
                     if (timeScale != "Month")
                         return "该时间趋势图显示" + this.getTimeScaleText(timeScale) + "T100客运统计数据（单位：万人）";
                     else

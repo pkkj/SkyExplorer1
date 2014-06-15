@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <!-- Standard Destination bar-->
+    <div id="StadnardDestBarContent">
+        <div id="t100DataPanelTotalFlow"></div>
+        <div style="height: 5px"></div>
+        <form>
+            <div>
+                <div style="float: left; margin-right: 10px; padding: 0.15em" id="t100DestBarShowInfoForText">Show info for:</div>
+                <div style="float: left" id="radioFlowType">
+                    <input type="radio" id="t100DataPanelShowPassenger" name="radio" checked="checked" /><label for="t100DataPanelShowPassenger">Passenger</label>
+                    <input type="radio" id="t100DataPanelShowFreight" name="radio" /><label for="t100DataPanelShowFreight">Freight</label>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </form>
+
+
+        <div style="height: 5px"></div>
+        <div id="t100DataPanelTabs">
+
+            <ul>
+                <li id="liT100DataPanelTabSummary"><a href="#t100DataPanelTabSummary">Statistic</a></li>
+                <li id="liT100DataPanelTabsShare"><a href="#t100DataPanelTabsShare">Share Split</a></li>
+                <li id="liT100DataPanelTabTimeSeries"><a href="#t100DataPanelTabTimeSeries">Time Series</a></li>
+            </ul>
+            <div id="t100DataPanelTabSummary">
+
+            </div>
+            <div id="t100DataPanelTabsShare" style="overflow: hidden">
+                <div style="height: 4px"></div>
+                <div id="t100DataPanelTabShareTitle" class="t100DataPanelTabTitle"></div>
+                <div id="t100DataPanelPieChart" style="margin-left: -30px;"></div>
+                <div id="t100DataPanelTabShareFootNote"></div>
+            </div>
+            <div id="t100DataPanelTabTimeSeries" style="overflow: hidden">
+                <div style="height: 4px"></div>
+                <div id="t100DataPanelTabTimeSeriesTitle" class="t100DataPanelTabTitle"></div>
+                <div style="height: 5px"></div>
+                <div id="t100DataPanelTabTimeSeriesChart" style="width: 310px; height: 240px;"></div>
+                <div id="t100DataPanelTabTimeSeriesLegend"></div>
+                <div id="t100DataPanelTabTimeSeriesFootNote"></div>
+
+            </div>
+        </div>
+        <div id="t100DataPanelDetailReportFootNote" style="color:red"></div>
+        <div>
+            <a id="t100DataPanelDetailReportBtn" href="#">Route Detail Report</a> &middot; <span id="t100DataPanelTabsMatricDataText">Metric data: </span><a id="rightBottomPanelAboutT100" href="#">BTS RITA T100</a>
+        </div>
+
+    </div>
+</body>
+</html>

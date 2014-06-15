@@ -142,7 +142,9 @@
         Passenger, CargoOnly
     }
 
-    
+    export enum FlowType {
+        Passenger, Freight
+    }
     export class DataSourceRegister {
         static nameMap = {};
         static dataSrcList: Array<DataSourceMetaData> = [];

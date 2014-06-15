@@ -84,22 +84,17 @@
                 var deferred = $.Deferred();
 
                 var deferred1 = $.Deferred();
-                var deferred2 = $.Deferred();
 
-                $.when(deferred1, deferred2).then(function () {
+                $.when(deferred1).then(function () {
                     deferred.resolve();
                 });
 
-                $("#t100DestBarInnerDiv").load("T100Part.html #t100DestBarContent", () => { deferred1.resolve(); });
-                $("#t100AirlinePanel").load("T100Part.html #t100AirlinePanelExtContent", () => { deferred2.resolve(); });
+                $("#t100AirlinePanel").load("T100Part.html #t100AirlinePanelExtContent", () => { deferred1.resolve(); });
                 return deferred.promise();
             }
         }
 
-        export enum T100DataType {
-            Passenger, Freight
-        }
-
+        
         export class T100Localization {
             static strings: UiStrings = null;
             static init() {

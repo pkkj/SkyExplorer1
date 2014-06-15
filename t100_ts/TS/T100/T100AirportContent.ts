@@ -36,7 +36,7 @@ module AST {
             this.t100OriginPanel = T100OriginPanel.createT100OriginPanel();
 
             var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "T-100 Airport - Destination");
-            this.t100DestPanel = T100DestPanel.createT100AirportPanel();
+            this.t100DestPanel = T100DestPanel.createT100DestPanel();
             this.t100DestPanel.destDialogBuddy = dialogT100DestBar;
             dialogT100DestBar.hide();
 
