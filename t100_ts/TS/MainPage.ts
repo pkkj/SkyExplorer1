@@ -45,7 +45,7 @@ module AST {
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
 
-            MainHTMLPageData.loadHTMLData().done(() => {
+            TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
                 T100.T100HTMLPageData.loadHTMLData().done(() => {
                     UkData.UkHTMLPageData.loadHTMLData().done(() => {
                         this.dataSrcControl = new AST.DataSrcControl();

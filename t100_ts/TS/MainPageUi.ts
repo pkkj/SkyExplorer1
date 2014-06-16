@@ -23,19 +23,5 @@
             Localization.strings.makeChangeLanguageDiv(document.getElementById("languageBar"));
         }
     }
-    export class MainHTMLPageData {
-        static loadHTMLData() {
-            var deferred = $.Deferred();
-
-            var deferred1 = $.Deferred();
-
-            $.when(deferred1).then(function () {
-                deferred.resolve();
-            });
-
-            $("#t100DestBarInnerDiv").load("MainPagePart.html #StadnardDestBarContent", () => { deferred1.resolve(); });
-            return deferred.promise();
-        }
-    }
 
 }

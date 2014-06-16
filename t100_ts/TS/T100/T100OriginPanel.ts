@@ -172,6 +172,8 @@ module AST {
                 this.switchDestBar("T100");
             } else if (availableData["T100FF"]) {
                 this.switchDestBar("T100FF");
+            } else if (availableData["TwData"]) {
+                this.switchDestBar("TwData");
             } else if (availableData["UkData"]) {
                 this.switchDestBar("UkData");
             }

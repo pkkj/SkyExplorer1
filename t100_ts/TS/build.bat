@@ -8,7 +8,7 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\T100\T100AirportContent.ts .\T100\T100Common.ts .\T100\T100DestPanel.ts ^
 .\T100\T100DataQuery.ts .\T100\T100MapControl.ts .\T100\T100OriginPanel.ts ^
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
-.\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts ^
+.\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
 .\UK\I18n\Strings.enUS.ts .\UK\I18n\Strings.zhCN.ts ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^

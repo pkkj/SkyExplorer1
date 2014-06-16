@@ -45,5 +45,57 @@ namespace AST {
 
             return res;
         }
+
+        public static string QueryByRoute( string year, string origin, string dest, string locale ) {
+            NpgsqlConnection conn = null;
+            string res = "";
+            Airport originAirport = AirportData.Query( origin );
+            Airport destAirport = AirportData.Query( dest );
+            if ( originAirport == null || destAirport == null )
+                return "";
+            double distKm = Utils.DistEarth( originAirport.Geometry.x, originAirport.Geometry.y, destAirport.Geometry.x, destAirport.Geometry.y );
+            double distMile = Math.Round( distKm * 0.621371, 0 );
+            double distNm = Math.Round( distKm * 0.539957, 0 );
+            distKm = Math.Round( distKm, 0 );
+            try {
+                conn = new NpgsqlConnection( T100DB.connString );
+                conn.Open();
+
+                string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
+                string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
+                Utils.DoubleQuoteStr("PAX"), 
+                Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX")};
+
+                string fieldStr = String.Join( ",", fields );
+                string sql = "SELECT " + fieldStr + " FROM \"TwSummary\"" + where;
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    if ( res != "" )
+                        res += ",";
+                    Dictionary<string, string> item = new Dictionary<string, string>();
+                    IDataRecord record = ( IDataRecord ) dr;
+                    for ( int i = 0; i < record.FieldCount; i++ ) {
+                        item.Add( record.GetName( i ), record[ i ].ToString() );
+                    }
+                    Carrier carrier = CarrierData.Query( item[ "AIRLINE" ], locale );
+                    item.Add( "AIRLINE_NAME", carrier.FullName );
+                    string json = new JavaScriptSerializer().Serialize( item );
+                    res += json;
+                }
+
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+
+            res = "\"routes\":[" + res + "],";
+            res += "\"distKm\":" + distKm.ToString() + ",";
+            res += "\"distMile\":" + distMile.ToString() + ",";
+            res += "\"distNm\":" + distNm.ToString();
+            res = "{" + res + "}";
+            return res;
+        }
     }
 }

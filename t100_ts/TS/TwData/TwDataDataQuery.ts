@@ -10,8 +10,14 @@
                     var jsonObj: Object = $.parseJSON(jsonText);
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
                         var route = new RouteRecord();
-                        route.pax = parseInt(jsonObj["routes"][i]["TOTAL_PAX"]);
+                        route.airline = new AirlineBase(jsonObj["routes"][i]["AIRLINE"], jsonObj["routes"][i]["AIRLINE_NAME"]);
+                        route.departure = parseInt(jsonObj["routes"][i]["DEPARTURE"]);
+                        route.pax = parseInt(jsonObj["routes"][i]["PAX"]);
+                        route.freight = parseInt(jsonObj["routes"][i]["FREIGHT"]);
+                        route.monthDeparture = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_DEPARTURE"]);
                         route.monthPax = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_PAX"]);
+                        route.monthFreight = [];
+
                         data.push(route);
                     }
                     var distInfo = new DistInfo(jsonObj["distKm"], jsonObj["distNm"], jsonObj["distMile"]);
@@ -21,7 +27,7 @@
 
                 };
                 var params = { "year": year, "origin": origin, "dest": dest, "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "UkDataQueryByRoute", onSuccessCallback);
+                DataQuery.ajaxQuery(params, "TwDataQueryByRoute", onSuccessCallback);
             }
         }
     }

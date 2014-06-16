@@ -10,6 +10,7 @@ module AST {
         // UK CAA Data Dest Panel
         private ukDestPanel: UkData.UkDestPanel = null;
         private t100DestPanel: T100DestPanel = null;
+        private twDestPanel: TwData.TwDataDestPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -41,12 +42,13 @@ module AST {
             dialogT100DestBar.hide();
 
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
+            this.twDestPanel = TwData.TwDataDestPanel.createTwDataDestPanel();
 
             // Register the data source information
             this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("T100FF", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
-            this.t100OriginPanel.registerDestBar("TwData", this.t100DestPanel);
+            this.t100OriginPanel.registerDestBar("TwData", this.twDestPanel);
 
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
@@ -54,6 +56,8 @@ module AST {
 
             this.t100MapControl = new AST.T100MapControl(map, this.t100OriginPanel);
             this.t100DestPanel.mapBuddy = this.t100MapControl;
+            this.twDestPanel.mapBuddy = this.t100MapControl;
+
             this.t100OriginPanel.mapControl = this.t100MapControl;
 
             // Set up the data source panel

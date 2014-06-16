@@ -18,7 +18,6 @@
         public _tabTimeSeriesFootNote = null;
         public _divTimeSeriesChart = null;
 
-
         public _btnShowFreight = null;
         public _btnShowPassenger = null;
         public _btnDetailReport = null;
@@ -31,14 +30,25 @@
         public mapBuddy: T100MapControl = null;
         public destDialogBuddy = null;
 
+        //
+        public tabMetricDataText = null;
+        public liTabSummary = null;
+        public liTabShare = null;
+        public liTabTimeSeries = null;
+        public timeSeriesLegend = null;
+        public $tab = null;
+        public $$timeSeriesChart = null;
+        public $$$liT100DataPanelTabSummary: string = null;
+        public $$$liTabShare: string = null;
+        public $$$liTabTimeSeries: string = null;
+
         constructor() {
             super();
-            this.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
         }
 
         public onSizeChange = () => {
-            var t100DestBar = document.getElementById("t100DestBar");
-            var destBarHeight = parseInt(t100DestBar.style.height);
+            var destBar = document.getElementById("t100DestBar");
+            var destBarHeight = parseInt(destBar.style.height);
             this._tabSummary.summaryTable.style.maxHeight = (destBarHeight - 300) + "px";
         }
 
@@ -47,7 +57,7 @@
 
         private createRouteInfo() {
 
-            var activeTab = $("#t100DataPanelTabs").tabs("option", "active");
+            var activeTab = this.$tab.tabs("option", "active");
             this.getTotalData();
             this.createSummaryTable();
 
@@ -163,7 +173,7 @@
             }
         }
 
-        private setShowFlowType(flowType) {
+        public setShowFlowType(flowType) {
             if (this.routeData == null)
                 return;
 
@@ -176,7 +186,7 @@
             this.querySegment();
         }
 
-        private createShareSplitChart() {
+        public createShareSplitChart() {
             if (this.routeData == null)
                 return;
             var _data;
@@ -235,7 +245,7 @@
             }
         }
 
-        private createTimeSeriesChart() {
+        public createTimeSeriesChart() {
             if (this.routeData == null)
                 return;
             //this._divTimeSeriesChart.innerHTML = "";
@@ -303,10 +313,11 @@
                 this._tabTimeSeriesTitle.innerHTML = '<span style="font-size: 24pt; color: #D0D0D0">' + Localization.strings.noDataAvailable + '</span>';
                 this._divTimeSeriesChart.innerHTML = "";
                 this._tabTimeSeriesFootNote.innerHTML = "";
-                document.getElementById("t100DataPanelTabTimeSeriesLegend").innerHTML = "";
+                this.timeSeriesLegend.innerHTML = "";
                 return;
             }
-            $.plot("#t100DataPanelTabTimeSeriesChart", _data, {
+
+            $.plot(this.$$timeSeriesChart, _data, {
                 xaxis: {
                     ticks: tickIdx,
                     max: 11
@@ -314,7 +325,7 @@
                 legend: {
                     show: true,
                     noColumns: 2,
-                    container: document.getElementById("t100DataPanelTabTimeSeriesLegend")
+                    container: this.timeSeriesLegend
                 }
             });
 
@@ -328,9 +339,9 @@
 
         public initUI() {
             // Create the summary table tab
-            this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "4px" }));
-            this._tabSummary.innerTitle = AST.Utils.createElement("div", { "id": "t100DataPanelSummaryTitle", "class": "t100DataPanelTabTitle" });
-            this._tabSummary.summaryTable = AST.Utils.createElement("table", { "id": "t100DataPanelSummaryTable" });
+            //this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "4px" }));
+            this._tabSummary.innerTitle = AST.Utils.createElement("div", {"class": "standardDestPanelTabTitle" });
+            this._tabSummary.summaryTable = AST.Utils.createElement("table", { "class": "standardDestPanelSummaryTable" });
             this._tabSummary.summaryTable.style.display = "block";
             this._tabSummary.summaryTable.style.overflow = "auto";
             this._tabSummary.footnote = document.createElement("div");
@@ -341,27 +352,14 @@
             this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "2px" }));
             this._tabSummary.appendChild(this._tabSummary.footnote);
 
-            //this._btnShowPassenger.onclick = this.setShowPassenger;
-            //this._btnShowFreight.onclick = this.setShowFreight;
-            $("#radioFlowType").buttonset();
-            $("#radioFlowType :radio").click((e) => {
-                if (this._btnShowPassenger.checked)
-                    this.setShowFlowType(FlowType.Passenger);
-                else
-                    this.setShowFlowType(FlowType.Freight);
-            });
-
-            // Share split tab
-            //this._shareChart = new google.visualization.PieChart(this._divShareChart);
-
             // Create the Tab in the interface.
 
-            $("#t100DataPanelTabs").tabs({
+            this.$tab.tabs({
                 activate: (event, ui) => {
-                    if (ui.newTab[0].id == "liT100DataPanelTabsShare") {
+                    if (ui.newTab[0].id == this.$$$liTabShare) {
                         this.createShareSplitChart();
                     }
-                    if (ui.newTab[0].id == "liT100DataPanelTabTimeSeries") {
+                    if (ui.newTab[0].id == this.$$$liTabTimeSeries) {
                         this.createTimeSeriesChart();
                     }
                 }
@@ -373,19 +371,16 @@
                     return;
                 T100.T100Common.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
             };
-            this.localizeUi();
         }
 
-        private localizeUi() {
-            document.getElementById("t100DestBarShowInfoForText").innerHTML = Localization.strings.showInfoFor;
-            document.getElementById("t100DataPanelTabsMatricDataText").innerHTML = Localization.strings.metricData;
-            $("#t100DataPanelShowPassenger").button("option", "label", Localization.strings.passenger);
-            $("#t100DataPanelShowFreight").button("option", "label", Localization.strings.freight);
+
+        public localizeUi() {
+            this.tabMetricDataText.innerHTML = Localization.strings.metricData;
+            this.liTabSummary.firstElementChild.innerHTML = Localization.strings.statistic; 
+            this.liTabShare.firstElementChild.innerHTML = Localization.strings.shareSplit; 
+            this.liTabTimeSeries.firstElementChild.innerHTML = Localization.strings.timeSeries; 
             this._btnDetailReport.innerHTML = Localization.strings.routeDetailReport;
 
-            (<HTMLElement> document.getElementById("liT100DataPanelTabSummary").firstElementChild).innerHTML = Localization.strings.statistic;
-            (<HTMLElement> document.getElementById("liT100DataPanelTabsShare").firstElementChild).innerHTML = Localization.strings.shareSplit;
-            (<HTMLElement> document.getElementById("liT100DataPanelTabTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
         }
  
     }

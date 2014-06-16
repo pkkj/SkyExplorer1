@@ -22,6 +22,34 @@
             }
         }
 
+        public initUI() {
+            super.initUI();
+
+            $("#radioFlowType").buttonset();
+            $("#radioFlowType :radio").click((e) => {
+                if (this._btnShowPassenger.checked)
+                    this.setShowFlowType(FlowType.Passenger);
+                else
+                    this.setShowFlowType(FlowType.Freight);
+            });
+
+            this._btnDetailReport.onclick = () => {
+                if (!AST.GlobalStatus.originAirport || !AST.GlobalStatus.destAirport)
+                    return;
+                T100.T100Common.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
+            };
+
+            this.localizeUi();
+        }
+
+        public localizeUi() {
+            super.localizeUi();
+            document.getElementById("t100DestBarShowInfoForText").innerHTML = Localization.strings.showInfoFor;
+            $("#t100DataPanelShowPassenger").button("option", "label", Localization.strings.passenger);
+            $("#t100DataPanelShowFreight").button("option", "label", Localization.strings.freight);
+        }
+        
+
         static createT100DestPanel(): T100DestPanel {
             var destPanel = new T100DestPanel();
             destPanel.mainDiv = document.getElementById("t100DestBarInnerDiv");
@@ -45,6 +73,18 @@
             destPanel._btnDetailReport = document.getElementById("t100DataPanelDetailReportBtn");
             destPanel._btnShowPassenger = document.getElementById("t100DataPanelShowPassenger");
             destPanel._btnShowFreight = document.getElementById("t100DataPanelShowFreight");
+
+            destPanel.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
+            destPanel.tabMetricDataText = document.getElementById("t100DataPanelTabsMetricDataText");
+            destPanel.liTabSummary = document.getElementById("liT100DataPanelTabSummary");
+            destPanel.liTabShare= document.getElementById("liT100DataPanelTabShare");
+            destPanel.liTabTimeSeries = document.getElementById("liT100DataPanelTabTimeSeries");
+            destPanel.timeSeriesLegend = document.getElementById("t100DataPanelTabTimeSeriesLegend");
+            destPanel.$tab = $("#t100DataPanelTabs");
+            destPanel.$$timeSeriesChart = "#t100DataPanelTabTimeSeriesChart";
+            destPanel.$$$liT100DataPanelTabSummary = "liT100DataPanelTabSummary";
+            destPanel.$$$liTabShare = "liT100DataPanelTabShare";
+            destPanel.$$$liTabTimeSeries = "liT100DataPanelTabTimeSeries";
 
 
             destPanel.initUI();

@@ -105,6 +105,14 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string TwDataQueryByRoute( string year, string origin, string dest, string locale ) {
+            string res = TwData.QueryByRoute( year, origin, dest, locale );
+            return res;
+        }
+
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             return DataQuery.QueryByOrigin( year, origin, dest, airline, queryType, dataSource, locale );
         }

@@ -83,6 +83,7 @@
     <Content Include="Pages\AboutT100.html" />
     <Content Include="Pages\AirportReport.html" />
     <Content Include="Pages\MainPagePart.html" />
+    <Content Include="Pages\TwDataPart.html" />
     <Content Include="Pages\UkPart.html" />
     <Content Include="Pages\Introduction.html" />
     <Content Include="Pages\main.html" />
@@ -160,6 +161,7 @@
     <TypeScriptCompile Include="TS\Common\Utils.ts" />
     <TypeScriptCompile Include="TS\TwData\TwDataCommon.ts" />
     <TypeScriptCompile Include="TS\TwData\TwDataDataQuery.ts" />
+    <TypeScriptCompile Include="TS\TwData\TwDataDestPanel.ts" />
     <TypeScriptCompile Include="TS\UK\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\UK\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\UK\UkCommon.ts" />
