@@ -80,8 +80,13 @@
     <Content Include="JS\OpenLayers_testing.js" />
     <Content Include="Pages\AboutApp_zhCN.html" />
     <Content Include="Pages\AboutApp.html" />
-    <Content Include="Pages\AboutT100.html" />
     <Content Include="Pages\AirportReport.html" />
+    <Content Include="Pages\DataSourceInfo\TwData-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\TwData-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\TwData.html" />
+    <Content Include="Pages\DataSourceInfo\UsT100-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\UsT100-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\UsT100.html" />
     <Content Include="Pages\MainPagePart.html" />
     <Content Include="Pages\TwDataPart.html" />
     <Content Include="Pages\UkPart.html" />
@@ -91,6 +96,7 @@
     <Content Include="Pages\RouteReport.html" />
     <Content Include="Pages\T100Part.html" />
     <Content Include="Styles\AirportReport.css" />
+    <Content Include="Styles\DataSourceInfo.css" />
     <Content Include="Styles\jquery-ui.css" />
     <Content Include="Styles\layout.css" />
     <Content Include="Styles\MainPage.css" />
@@ -128,6 +134,7 @@
     <TypeScriptCompile Include="TS\CommonDataContent.ts" />
     <TypeScriptCompile Include="TS\Common\Data.ts" />
     <TypeScriptCompile Include="TS\Common\DataQuery.ts" />
+    <TypeScriptCompile Include="TS\Common\DataSourceInfoPage.ts" />
     <TypeScriptCompile Include="TS\Common\Draw.ts" />
     <TypeScriptCompile Include="TS\Common\Global.ts" />
     <TypeScriptCompile Include="TS\Common\ReportPageUtils.ts" />
@@ -186,5 +193,6 @@
   <ItemGroup>
     <Content Include="App_Code\TwData.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

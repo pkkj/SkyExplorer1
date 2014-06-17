@@ -25,7 +25,9 @@
                 this.querySegment();
             }
 
-            public initUI() {
+            public initUi() {
+                super.initUi();
+
                 this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "4px" }));
                 this._tabSummary.innerTitle = AST.Utils.createElement("div", {
                     "id": "ukDestSummaryTitle", "class": "t100DataPanelTabTitle", "text": UkData.UkLocalization.strings.passengerFlowMonthlyStat
@@ -53,7 +55,8 @@
                 this.localizeUi();
             }
 
-            private localizeUi() {
+            public localizeUi() {
+                super.localizeUi();
                 this.panelFootNote.innerHTML = UkData.UkLocalization.strings.allDataAreInBothDirection;
                 (<HTMLElement> document.getElementById("liUkDestTabSummary").firstElementChild).innerHTML = Localization.strings.statistic;
                 (<HTMLElement> document.getElementById("liUkDestTabTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
@@ -163,7 +166,9 @@
                 destPanel.divTimeSeriesChart = document.getElementById("ukDestTabTimeSeriesChart");
 
                 destPanel.panelFootNote = document.getElementById("ukDestFootNote");
-                destPanel.initUI();
+
+                destPanel.dataSourceMetaData = UkData.UkMetaData.instance();
+                destPanel.initUi();
                 return destPanel;
             }
         }

@@ -164,7 +164,7 @@
         public name: string;
         public shortInfo: string;
         public fullInfo: string;
-
+        public aboutSrcPageUrl: string;
         constructor() {
         }
     }

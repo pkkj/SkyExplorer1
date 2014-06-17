@@ -7,6 +7,7 @@
                 this.name = "TwData";
                 this.shortInfo = "Taiwan CAA";
                 this.fullInfo = "Taiwan CAA Data";
+                this.aboutSrcPageUrl = "DataSourceInfo/TwData.html";
             }
 
             static currentCountry = "Taiwan";
@@ -36,6 +37,7 @@
                 $("#twDataDestBarInnerDiv").load("TwDataPart.html #TwDataDestBarContent", () => { deferred1.resolve(); });
                 return deferred.promise();
             }
+
         }
     }
 }

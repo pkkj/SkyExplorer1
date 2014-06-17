@@ -5,8 +5,8 @@
                 super();
             }
 
-            public initUI() {
-                super.initUI();
+            public initUi() {
+                super.initUi();
                 this.localizeUi();
             }
             public querySegment() {
@@ -21,7 +21,9 @@
 
                 this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
                 this.detailReportFootNote.innerHTML = "";
-
+                this.tabMetricDataText.onclick = () => {
+                    DialogUtils.loadDetailReportDialog("About Taiwan CAA", "AboutT100.html");
+                };
             }
 
             static createTwDataDestPanel(): TwDataDestPanel {
@@ -49,6 +51,7 @@
 
                 destPanel.detailReportFootNote = document.getElementById("twDataDestPanelDetailReportFootNote");
                 destPanel.tabMetricDataText = document.getElementById("twDataDestPanelTabsMetricDataText");
+                destPanel.metricDataAnchor = document.getElementById("twDataDestPanelTabsMetricDataAnchor");
                 destPanel.liTabSummary = document.getElementById("liTwDataPanelTabSummary");
                 destPanel.liTabShare = document.getElementById("liTwDataPanelTabsShare");
                 destPanel.liTabTimeSeries = document.getElementById("liTwDataPanelTabTimeSeries");
@@ -59,7 +62,8 @@
                 destPanel.$$$liTabShare = "liTwDataPanelTabsShare";
                 destPanel.$$$liTabTimeSeries = "liTwDataPanelTabTimeSeries";
 
-                destPanel.initUI();
+                destPanel.dataSourceMetaData = TwData.TwMetaData.instance();
+                destPanel.initUi();
                 return destPanel;
             }
 

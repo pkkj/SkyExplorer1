@@ -30,8 +30,7 @@
         public mapBuddy: T100MapControl = null;
         public destDialogBuddy = null;
 
-        //
-        public tabMetricDataText = null;
+
         public liTabSummary = null;
         public liTabShare = null;
         public liTabTimeSeries = null;
@@ -337,7 +336,9 @@
             }
         }
 
-        public initUI() {
+        public initUi() {
+            super.initUi();
+
             // Create the summary table tab
             //this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "4px" }));
             this._tabSummary.innerTitle = AST.Utils.createElement("div", {"class": "standardDestPanelTabTitle" });
@@ -363,7 +364,6 @@
                         this.createTimeSeriesChart();
                     }
                 }
-
             });
 
             this._btnDetailReport.onclick = () => {
@@ -375,12 +375,13 @@
 
 
         public localizeUi() {
+            super.localizeUi();
+
             this.tabMetricDataText.innerHTML = Localization.strings.metricData;
             this.liTabSummary.firstElementChild.innerHTML = Localization.strings.statistic; 
             this.liTabShare.firstElementChild.innerHTML = Localization.strings.shareSplit; 
             this.liTabTimeSeries.firstElementChild.innerHTML = Localization.strings.timeSeries; 
             this._btnDetailReport.innerHTML = Localization.strings.routeDetailReport;
-
         }
  
     }

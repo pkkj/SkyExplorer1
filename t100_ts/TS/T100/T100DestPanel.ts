@@ -22,8 +22,8 @@
             }
         }
 
-        public initUI() {
-            super.initUI();
+        public initUi() {
+            super.initUi();
 
             $("#radioFlowType").buttonset();
             $("#radioFlowType :radio").click((e) => {
@@ -50,7 +50,7 @@
         }
         
 
-        static createT100DestPanel(): T100DestPanel {
+        static createT100DestPanel(dataSrc: string): T100DestPanel {
             var destPanel = new T100DestPanel();
             destPanel.mainDiv = document.getElementById("t100DestBarInnerDiv");
             destPanel.routeDistText = document.getElementById("destBarDistance");
@@ -75,6 +75,7 @@
             destPanel._btnShowFreight = document.getElementById("t100DataPanelShowFreight");
 
             destPanel.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
+            destPanel.metricDataAnchor = document.getElementById("t100DataPanelTabsMetricDataAnchor");
             destPanel.tabMetricDataText = document.getElementById("t100DataPanelTabsMetricDataText");
             destPanel.liTabSummary = document.getElementById("liT100DataPanelTabSummary");
             destPanel.liTabShare= document.getElementById("liT100DataPanelTabShare");
@@ -86,8 +87,11 @@
             destPanel.$$$liTabShare = "liT100DataPanelTabShare";
             destPanel.$$$liTabTimeSeries = "liT100DataPanelTabTimeSeries";
 
-
-            destPanel.initUI();
+            if(dataSrc == "T100")
+                destPanel.dataSourceMetaData = T100.T100MetaData.instance();
+            else
+                destPanel.dataSourceMetaData = T100.T100FFMetaData.instance();
+            destPanel.initUi();
             return destPanel;
         }
         

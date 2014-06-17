@@ -37,6 +37,7 @@
                 this.name = "T100";
                 this.shortInfo = "US T100";
                 this.fullInfo = "US BTS T100 Data";
+                this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
             }
             static currentCountry = "United States";
             static hasMonthData = true;
@@ -61,6 +62,7 @@
                 this.name = "T100FF";
                 this.shortInfo = "US T100(FF)";
                 this.fullInfo = "US BTS T100(FF) Data";
+                this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
             }
 
             static currentCountry = "United States";

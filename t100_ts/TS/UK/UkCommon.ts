@@ -38,6 +38,7 @@
                 this.name = "UkData";
                 this.shortInfo = "UK CAA";
                 this.fullInfo = "UK CAA Data";
+                this.aboutSrcPageUrl = "DataSourceInfo/UkCaa.html";
             }
 
             static currentCountry = "United Kingdom";

@@ -42,3 +42,5 @@ tsc --out RouteReport.All.js ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
 RouteReport.ts
+
+tsc --out DataSourceInfoPage.js .\Common\DataSourceInfoPage.ts

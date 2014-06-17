@@ -3,10 +3,6 @@
         private btnAboutT100: HTMLButtonElement = null;
         private btnAboutApp: HTMLButtonElement = null;
         constructor() {
-            this.btnAboutT100 = <HTMLButtonElement>document.getElementById("rightBottomPanelAboutT100");
-            this.btnAboutT100.onclick = () => {
-                DialogUtils.loadDetailReportDialog(Localization.strings.aboutT100, "AboutT100.html");
-            };
 
             this.btnAboutApp = <HTMLButtonElement>document.getElementById("btnAboutApp");
             this.btnAboutApp.onclick = function () {

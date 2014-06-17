@@ -10,6 +10,7 @@ module AST {
         // UK CAA Data Dest Panel
         private ukDestPanel: UkData.UkDestPanel = null;
         private t100DestPanel: T100DestPanel = null;
+        private t100FFDestPanel: T100DestPanel = null;
         private twDestPanel: TwData.TwDataDestPanel = null;
 
         //private t100AirlineSelector = null;
@@ -36,9 +37,11 @@ module AST {
             var dialogT100Origin = new PinPanel(document.getElementById("t100OriginBar"), Localization.strings.pleaseSelectInputOrigin);
             this.t100OriginPanel = T100OriginPanel.createT100OriginPanel();
 
-            var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "T-100 Airport - Destination");
-            this.t100DestPanel = T100DestPanel.createT100DestPanel();
+            var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "");
+            this.t100DestPanel = T100DestPanel.createT100DestPanel("T100");
             this.t100DestPanel.destDialogBuddy = dialogT100DestBar;
+            this.t100FFDestPanel = T100DestPanel.createT100DestPanel("T100FF");
+            this.t100FFDestPanel.destDialogBuddy = dialogT100DestBar;
             dialogT100DestBar.hide();
 
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
@@ -46,7 +49,7 @@ module AST {
 
             // Register the data source information
             this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
-            this.t100OriginPanel.registerDestBar("T100FF", this.t100DestPanel);
+            this.t100OriginPanel.registerDestBar("T100FF", this.t100FFDestPanel);
             this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
             this.t100OriginPanel.registerDestBar("TwData", this.twDestPanel);
 
@@ -57,6 +60,7 @@ module AST {
             this.t100MapControl = new AST.T100MapControl(map, this.t100OriginPanel);
             this.t100DestPanel.mapBuddy = this.t100MapControl;
             this.twDestPanel.mapBuddy = this.t100MapControl;
+            this.t100FFDestPanel.mapBuddy = this.t100MapControl;
 
             this.t100OriginPanel.mapControl = this.t100MapControl;
 
