@@ -62,7 +62,7 @@
                 this.name = "T100FF";
                 this.shortInfo = "US T100(FF)";
                 this.fullInfo = "US BTS T100(FF) Data";
-                this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
+                this.aboutSrcPageUrl = "DataSourceInfo/UsT100FF.html";
             }
 
             static currentCountry = "United States";

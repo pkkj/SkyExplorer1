@@ -16,6 +16,14 @@
 
         public show() {
             this.mainDiv.style.display = "block";
+
+            if (this.metricDataAnchor != null) {
+                this.metricDataAnchor.onclick = () => {
+                    var src = this.dataSourceMetaData.aboutSrcPageUrl + "?locale=" + Localization.getLocale();
+                    DialogUtils.loadDetailReportDialog("About Data Source", src);
+
+                };
+            }
         }
 
         public setRouteDistInfo() {
@@ -24,13 +32,7 @@
         }
 
         public initUi() {
-            if (this.metricDataAnchor != null) {
-                this.metricDataAnchor.onclick = () => {
-                    var src = this.dataSourceMetaData.aboutSrcPageUrl + "?locale=" + Localization.getLocale();
-                    DialogUtils.loadDetailReportDialog("About Data Source", src);
-
-                };
-            }
+            
         }
 
         public localizeUi() {
