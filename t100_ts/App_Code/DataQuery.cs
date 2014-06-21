@@ -70,6 +70,10 @@ namespace AST {
             if ( validSrc.Contains( "TwData" ) || dataSource == "" ) {
                 destInfo.AddRange( TwData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
             }
+            // Query Japan MLIT Data
+            if ( validSrc.Contains( "JpData" ) || dataSource == "" ) {
+                destInfo.AddRange( JpData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            }
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {
                 if ( !destDict.ContainsKey( d.Airport ) ) {

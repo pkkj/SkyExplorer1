@@ -44,16 +44,19 @@ module AST {
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
+            DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
 
             TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
                 T100.T100HTMLPageData.loadHTMLData().done(() => {
                     UkData.UkHTMLPageData.loadHTMLData().done(() => {
-                        this.dataSrcControl = new AST.DataSrcControl();
-                        this.dataSrcControl.showT100DataContent();
-                        this.adjustSize();
+                        JpData.JpDataHTMLPageData.loadHTMLData().done(() => {
+                            this.dataSrcControl = new AST.DataSrcControl();
+                            this.dataSrcControl.showT100DataContent();
+                            this.adjustSize();
 
-                        // set up other UI
-                        this.initUi();
+                            // set up other UI
+                            this.initUi();
+                        });
                     });
                 });
             });

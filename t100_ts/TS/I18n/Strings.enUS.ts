@@ -141,6 +141,11 @@
         public aircraftMarketShareByPassenger = "Aircraft Market Share by Departing Passenger";
         public aircraftMarketShareByFreight = "Aircraft Market Share by Departing Freight";
 
+        // Simpale destination panel
+        public passengerFlowMonthlyStat = "Passenger Flow Monthly Statistic";
+        public allDataAreInBothDirection = "Note: All data are in both directions (arrival/departure).";
+        public totalPassengerInThisYear = "Total passenger in this year: ";
+        public monthInSummaryTable = "Month";
 
         public xArlineSummary(airline: string) {
             return airline + " summary : ";

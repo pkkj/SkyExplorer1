@@ -53,8 +53,7 @@
         public totalPax = "总旅客人次: ";
         public totalPassenger = "总旅客人次: ";
         public totalFreight = "总货运运量: ";
-
-        
+ 
         public showInfoFor = "选择要显示的信息";
         public passenger = "客运";
         public freight = "货运";
@@ -139,6 +138,12 @@
         public aircraftMarketShareByDeparture = "不同机型市场份额（根据出发班次）";
         public aircraftMarketShareByPassenger = "不同机型市场份额（根据旅客人次）";
         public aircraftMarketShareByFreight = "不同机型市场份额（根据货物运量）";
+
+        // Simpale destination panel
+        public passengerFlowMonthlyStat = "每月客流统计";
+        public allDataAreInBothDirection = "备注：所有的数据都是双向统计数据（入港及出港）";
+        public totalPassengerInThisYear = "该年旅客总人数: ";
+        public monthInSummaryTable = "时间";
 
         public xArlineSummary(airline: string) {
             return airline + "汇总： ";

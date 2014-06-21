@@ -1,6 +1,6 @@
 tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.ts ^
 .\Common\Data.ts .\Common\Draw.ts .\Common\Global.ts .\Common\MapUtils.ts .\Common\Utils.ts ^
-.\Common\DataQuery.ts .\Common\DestPanel.ts .\Common\StandardDestPanel.ts ^
+.\Common\DataQuery.ts .\Common\DestPanel.ts .\Common\StandardDestPanel.ts .\Common\SimpleDestPanel.ts ^
 .\I18n\Strings.enUS.ts .\I18n\Strings.zhCN.ts .\I18n\Strings.jaJP.ts ^
 .\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
 .\MyControls\CollapseTable.ts .\MyControls\DropDown.ts .\MyControls\PinPanel.ts .\MyControls\RankTable.ts ^
@@ -8,8 +8,9 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\T100\T100AirportContent.ts .\T100\T100Common.ts .\T100\T100DestPanel.ts ^
 .\T100\T100DataQuery.ts .\T100\T100MapControl.ts .\T100\T100OriginPanel.ts ^
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
-.\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
 .\UK\I18n\Strings.enUS.ts .\UK\I18n\Strings.zhCN.ts ^
+.\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
+.\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts .\JpData\JpDestPanel.ts ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^
 ..\Scripts\typings\jquery\jquery.d.ts  ^

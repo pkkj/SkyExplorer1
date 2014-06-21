@@ -87,6 +87,7 @@
     <Content Include="Pages\DataSourceInfo\UsT100-enUS.html" />
     <Content Include="Pages\DataSourceInfo\UsT100-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\UsT100.html" />
+    <Content Include="Pages\JpDataPart.html" />
     <Content Include="Pages\MainPagePart.html" />
     <Content Include="Pages\TwDataPart.html" />
     <Content Include="Pages\UkPart.html" />
@@ -139,9 +140,13 @@
     <TypeScriptCompile Include="TS\Common\Global.ts" />
     <TypeScriptCompile Include="TS\Common\ReportPageUtils.ts" />
     <TypeScriptCompile Include="TS\Common\DestPanel.ts" />
+    <TypeScriptCompile Include="TS\Common\SimpleDestPanel.ts" />
     <TypeScriptCompile Include="TS\Common\StandardDestPanel.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.zhCN.ts" />
+    <TypeScriptCompile Include="TS\JpData\JpDataCommon.ts" />
+    <TypeScriptCompile Include="TS\JpData\JpDataQuery.ts" />
+    <TypeScriptCompile Include="TS\JpData\JpDestPanel.ts" />
     <TypeScriptCompile Include="TS\Ref\google.d.ts" />
     <TypeScriptCompile Include="TS\MainPage.ts" />
     <TypeScriptCompile Include="TS\Common\MapUtils.ts" />
@@ -187,6 +192,8 @@
   <ItemGroup>
     <Content Include="App_Code\TwData.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Code\JpData.cs" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

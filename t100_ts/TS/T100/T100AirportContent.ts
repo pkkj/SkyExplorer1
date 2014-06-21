@@ -12,6 +12,7 @@ module AST {
         private t100DestPanel: T100DestPanel = null;
         private t100FFDestPanel: T100DestPanel = null;
         private twDestPanel: TwData.TwDataDestPanel = null;
+        private jpDestPanel: JpData.JpDestPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -46,12 +47,14 @@ module AST {
 
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
             this.twDestPanel = TwData.TwDataDestPanel.createTwDataDestPanel();
+            this.jpDestPanel = JpData.JpDestPanel.createJpDestPanel();
 
             // Register the data source information
             this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
             this.t100OriginPanel.registerDestBar("T100FF", this.t100FFDestPanel);
             this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
             this.t100OriginPanel.registerDestBar("TwData", this.twDestPanel);
+            this.t100OriginPanel.registerDestBar("JpData", this.jpDestPanel);
 
             this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
             this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;

@@ -114,6 +114,12 @@ namespace AST {
             return res;
         }
 
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string JpDataQueryByRoute( string year, string origin, string dest, string locale ) {
+            string res = JpData.QueryByRoute( year, origin, dest, locale );
+            return res;
+        }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
