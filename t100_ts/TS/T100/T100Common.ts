@@ -38,6 +38,7 @@
                 this.shortInfo = "US T100";
                 this.fullInfo = "US BTS T100 Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
+                this.supportAirportReportPage = true;
             }
             static currentCountry = "United States";
             static hasMonthData = true;
@@ -63,6 +64,7 @@
                 this.shortInfo = "US T100(FF)";
                 this.fullInfo = "US BTS T100(FF) Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100FF.html";
+                this.supportAirportReportPage = true;
             }
 
             static currentCountry = "United States";

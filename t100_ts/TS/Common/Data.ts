@@ -117,7 +117,8 @@
         public dataSrcName: string;
         public totalPax: number;
         public totalFreight: number;
-        public partialData: boolean
+        public partialData: boolean;
+
         constructor(dataSrcName, totalPax, totalFreight, partialData) {
             this.dataSrcName = dataSrcName;
             this.totalPax = totalPax;
@@ -163,7 +164,9 @@
         public shortInfo: string;
         public fullInfo: string;
         public aboutSrcPageUrl: string;
+        public supportAirportReportPage: boolean;
         constructor() {
+            this.supportAirportReportPage = false;
         }
     }
 }

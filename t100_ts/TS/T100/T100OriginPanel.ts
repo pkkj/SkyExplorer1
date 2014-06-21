@@ -11,6 +11,7 @@ module AST {
         private _txtOriginAirport: HTMLInputElement = null;
         private _btnFindAirport: HTMLButtonElement = null;
         private _labelFlowDir: HTMLElement = null;
+
         // Dest
         private destAirportName: HTMLElement = null;
         private destAirportCity: HTMLElement = null;
@@ -222,6 +223,7 @@ module AST {
             var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrc);
             this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.fullInfo);
             this.createOtherSrcDiv();
+            
         }
 
         public registerDestBar(dataSrc: string, destPanel) {
@@ -239,6 +241,7 @@ module AST {
                 GlobalStatus.originAirport = fromAirport;
 
                 var hasPartialDataRoute: boolean = false;
+                var supportAirportReportPage: boolean = false;
                 for (var i = 0; i < destinations.length; i++) {
                     // Handle the geomtry
                     destinations[i].routeGeomO = AST.MapUtils.parseMultiLineString(destinations[i].routeGeomS);
@@ -246,10 +249,11 @@ module AST {
                     var isPartialDataDest: boolean = true;
                     for (var j = 0; j < destinations[i].availableData.length; j++) {
                         isPartialDataDest = isPartialDataDest && destinations[i].availableData[j].partialData;
+                        supportAirportReportPage = supportAirportReportPage || DataSourceRegister.queryInfo(destinations[i].availableData[j].dataSrcName).supportAirportReportPage;
                     }
                     hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
                 }
-
+                
                 this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: false });
                 this.destDialogBuddy.hide();
                 if (panTo) {
@@ -266,7 +270,7 @@ module AST {
                 }
 
                 this.setOriginAirport(fromAirport);
-
+                this.createOriginTitleBar(AST.GlobalStatus.originAirport, supportAirportReportPage);
                 if (destinations.length == 0) {
                     GlobalStatus.destAirport = null;
                     // TODO: add some hint here that there is not destination
@@ -295,19 +299,20 @@ module AST {
 
         }
 
+        private createOriginTitleBar(airport: Airport, showReportPage: boolean = false) {
+            var titleText = document.createElement("span");
+            if (this._flowDir == FlowDirection.From) {
+                titleText.innerHTML = "<b>" + Localization.strings.from + " : </b> " + airport.iata + " / " + airport.icao;
+            }
+            else {
+                titleText.innerHTML = "<b>" + Localization.strings.to + " : </b> " + airport.iata + " / " + airport.icao;
+            }
+            titleText.innerHTML += " &nbsp;&nbsp;&nbsp;&nbsp;"
 
-        private setOriginAirport(airport: Airport) {
-            if (airport) {
-                this._originAirportTitleBar.style.display = "block";
-                this.airportContent.resize();
-                var titleText = document.createElement("span");
-                if (this._flowDir == FlowDirection.From) {
-                    titleText.innerHTML = "<b>" + Localization.strings.from + " : </b> " + airport.iata + " / " + airport.icao;
-                }
-                else {
-                    titleText.innerHTML = "<b>" + Localization.strings.to + " : </b> " + airport.iata + " / " + airport.icao;
-                }
-                titleText.innerHTML += " &nbsp;&nbsp;&nbsp;&nbsp;"
+            var titleBar = document.createElement("div");
+            titleBar.appendChild(titleText);
+
+            if (showReportPage) {
                 var detailReportButton: HTMLAnchorElement = <HTMLAnchorElement> Utils.createElement("a", { "text": "(" + Localization.strings.airportDetailReport + ")", "id": "t100AirportDetailReportBtn" });
                 detailReportButton.href = "#";
                 detailReportButton.onclick = () => {
@@ -315,10 +320,18 @@ module AST {
                         return;
                     T100.T100Common.launchAirportStat(GlobalStatus.originAirport, GlobalStatus.year);
                 };
-                var titleBar = document.createElement("div");
-                titleBar.appendChild(titleText);
                 titleBar.appendChild(detailReportButton);
-                this.originDialogBuddy.setTitleBar(titleBar);
+            }
+
+            this.originDialogBuddy.setTitleBar(titleBar);
+        }
+
+        private setOriginAirport(airport: Airport) {
+            if (airport) {
+                this._originAirportTitleBar.style.display = "block";
+                this.airportContent.resize();
+
+                this.createOriginTitleBar(airport);
 
                 this._airportName.innerHTML = Utils.compressAirportName(airport.name);
                 this._airportName.title = airport.nameEn;
