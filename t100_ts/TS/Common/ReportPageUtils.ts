@@ -10,7 +10,7 @@
             item.appendChild(divData);
 
             divData.appendChild(Utils.createElement("span", { "text": rankType, "class": "shareRankItemIndex" }));
-            divData.appendChild(Utils.createElement("span", { "text": flow, "class": "shareRankItem", "width": "80px" }));
+            divData.appendChild(Utils.createElement("span", { "text": flow, "class": "shareRankItem", "width": "60px" }));
             divData.appendChild(Utils.createElement("span", { "text": airline != "" ? Localization.strings.percentage : "", "class": "shareRankItemIndex" }));
             divData.appendChild(Utils.createElement("span", { "text": percentage, "class": "shareRankItem" }));
             return item;

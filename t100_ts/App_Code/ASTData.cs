@@ -34,15 +34,8 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryT100AirportInfo( string airportCode, string codeType, string locale ) {
-            string res = T100Data.QueryT100AirportInfo( airportCode, codeType, locale );
-            return res;
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryT100AirportByGeometry( double x1, double y1, double x2, double y2, string locale ) {
-            string res = T100Data.QueryT100AirportByGeometry( x1, y1, x2, y2, "json", locale );
+        public string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
+            string res = DataQuery.QueryAirportYearAvailability( airportCode, codeType, dataSrc, locale );
             return res;
         }
 
@@ -80,6 +73,13 @@ namespace AST {
         public string QueryAllAirlines( string locale ) {
             string res = T100Data.QueryAllAirlines( locale );
             return res;
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAvailabieAirlineByDataSrc( string dataSrc ) {
+            HashSet<string> airlines = CarrierData.GetAvailableAirlineInDb_HashSet( dataSrc );
+            return new JavaScriptSerializer().Serialize( airlines.ToList() );
         }
 
         [WebMethod]

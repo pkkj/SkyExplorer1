@@ -90,7 +90,7 @@
             this.airportIata = this.urlParams["iata"];
             this.initYear = this.urlParams["year"];
 
-            T100.T100DataQuery.queryT100AirportInfo(this.airportIata, (airport) => {
+            DataQuery.QueryAirportYearAvailability(this.airportIata, "T100Data", (airport) => {
                 if (airport == null) {
                     document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + T100.T100Localization.strings.noAvailableDataForThisAirport + '</span>';
                     return;

@@ -33,7 +33,7 @@ namespace AST {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
 
-                string sqlIata = "SELECT \"IATA\" FROM \"T100Airport\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                string sqlIata = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
                 NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
                 NpgsqlDataReader drIata = commandIata.ExecuteReader();
                 while ( drIata.Read() ) {
@@ -41,7 +41,7 @@ namespace AST {
                 }
 
                 if ( input.Length >= 3 ) {
-                    string sqlCity = "SELECT \"IATA\" FROM \"T100Airport\" WHERE \"CITY\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                    string sqlCity = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"CITY\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
                     NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
                     NpgsqlDataReader drCity = commandCity.ExecuteReader();
                     while ( drCity.Read() ) {
@@ -65,42 +65,6 @@ namespace AST {
             return res;
         }
 
-        public static string QueryT100AirportInfo( string airportCode, string codeType, string locale ) {
-            NpgsqlConnection conn = null;
-            try {
-                conn = new NpgsqlConnection( T100DB.connString );
-                conn.Open();
-                // Only support IATA code
-                string sqlIata = "SELECT \"T100_AVAILABILITY\" FROM \"T100Airport\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode );
-
-                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
-                NpgsqlDataReader drIata = commandIata.ExecuteReader();
-
-                Airport airport = AirportData.Query( airportCode, locale );
-                if ( airport == null ) return "";
-
-                while ( drIata.Read() ) {
-                    Dictionary<string, object> res = new Dictionary<string, object>() {
-                        {"iata", airport.Iata},
-                        {"icao", airport.Icao},
-                        {"country", airport.Country},
-                        {"city", airport.City},
-                        {"name", airport.FullName},
-                        {"note", airport.Note},
-                        {"countryEn", airport.CountryEn},
-                        {"nameEn", airport.FullNameEn},
-                        {"cityEn", airport.CityEn},
-                        {"yearAvailability", drIata[ "T100_AVAILABILITY" ].ToString()}
-                    };
-                    return new JavaScriptSerializer().Serialize( res );
-                }
-
-            } catch ( NpgsqlException e ) {
-            } finally {
-                conn.Close();
-            }
-            return "";
-        }
 
         public static string QueryByRoute( string year, string origin, string dest, string locale ) {
             NpgsqlConnection conn = null;
@@ -198,8 +162,6 @@ namespace AST {
             }
             return "";
         }
-
-
 
         public static string CreateDestRank( List<T100Route> routes, string region, string locale ) {
             Dictionary<string, int> dictPaxDest = new Dictionary<string, int>();
@@ -418,34 +380,6 @@ namespace AST {
             return "";
         }
 
-        public static string QueryT100AirportByGeometry( double x1, double y1, double x2, double y2, string returnType, string locale ) {
-            NpgsqlConnection conn = null;
-            try {
-                conn = new NpgsqlConnection( T100DB.connString );
-                conn.Open();
-
-                string sql = string.Format( "SELECT \"IATA\" FROM \"T100Airport\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
-                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
-                NpgsqlDataReader dr = command.ExecuteReader();
-                while ( dr.Read() ) {
-                    string iata = dr[ "IATA" ].ToString();
-                    Airport airport = AirportData.Query( iata, locale );
-                    if ( airport == null ) {
-                        return "";
-                    }
-                    if ( returnType == "iata" )
-                        return airport.Iata;
-                    else
-                        return new JavaScriptSerializer().Serialize( airport );
-                }
-
-            } catch ( NpgsqlException e ) {
-
-            } finally {
-                conn.Close();
-            }
-            return "";
-        }
 
         public static string QueryAllAirlines(string locale) {
             string res = "";
@@ -454,17 +388,15 @@ namespace AST {
             foreach ( KeyValuePair<string, Carrier> item in dict ) {
                 if ( res != "" )
                     res += ",";
-                res += string.Format( "[{0}, {1}, {2}, {3}, {4}, {5}]",
+                res += string.Format( "[{0}, {1}, {2}, {3}, {4}]",
                     Utils.DoubleQuoteStr( item.Value.Code ),
                     Utils.DoubleQuoteStr( item.Value.FullName ),
                     Utils.DoubleQuoteStr( item.Value.Country ),
                     Utils.DoubleQuoteStr( item.Value.Type ),
-                    Utils.DoubleQuoteStr( item.Value.Note ),
-                    Utils.DoubleQuoteStr( item.Value.Availablity ) );
+                    Utils.DoubleQuoteStr( item.Value.Note ) );
             }
             return "[" + res + "]";
         }
-
 
         public static string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             NpgsqlConnection conn = null;

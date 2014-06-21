@@ -103,21 +103,6 @@
                 DataQuery.ajaxQuery(params, "T100QueryByRoute", onSuccessCallback);
             }
 
-            static queryT100AirportInfo(airport: string, callback: (jsonMsg: any) => any) {
-                var onSuccessCallback = function (jsonMsg) {
-                    if (jsonMsg == "") {
-                        callback(null)
-                        return;
-                    }
-                    jsonMsg = $.parseJSON(jsonMsg);
-                    if (callback != null)
-                        callback(jsonMsg);
-
-                };
-                var params = { "airportCode": airport, "codeType": "", "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "QueryT100AirportInfo", onSuccessCallback);
-            }
-
             static queryAirportTimeSeries(airport: string, callback: (jsonMsg: any) => any) {
                 var onSuccessCallback = function (jsonMsg) {
                     if (jsonMsg == "") {

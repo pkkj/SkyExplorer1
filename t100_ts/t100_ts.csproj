@@ -176,12 +176,6 @@
     <TypeScriptCompile Include="TS\UK\UkDestPanel.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Data\CarrierDataENUS.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\Data\CarrierDataZHCN.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Code\Localization.cs" />
   </ItemGroup>
   <ItemGroup>

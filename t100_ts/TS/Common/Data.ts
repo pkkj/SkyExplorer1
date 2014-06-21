@@ -48,9 +48,8 @@
         public country: string;
         public type: AirlineType;
         public note: string;
-        public availability: string;
 
-        constructor(code: string, name: string, country: string, type: string, note: string, availability: string) {
+        constructor(code: string, name: string, country: string, type: string, note: string) {
             this.code = code;
             this.name = name;
             this.country = country;
@@ -59,7 +58,6 @@
             else
                 this.type = AirlineType.CargoOnly;
             this.note = note;
-            this.availability = availability;
         }
     }
 

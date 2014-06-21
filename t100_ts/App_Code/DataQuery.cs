@@ -88,14 +88,14 @@ namespace AST {
             return new JavaScriptSerializer().Serialize( resDict );
         }
 
-        // TODO: Create the "Available Airport" table
+        // TODO: Query the AirportAvailability table
         public static string QueryAvailableAirportByGeometry( double x1, double y1, double x2, double y2, string returnType, string locale ) {
             NpgsqlConnection conn = null;
             try {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
 
-                string sql = string.Format( "SELECT \"IATA\" FROM \"AllAvailableAirport\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
+                string sql = string.Format( "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
@@ -117,5 +117,45 @@ namespace AST {
             }
             return "";
         }
+
+        // TODO: Pay attention to T100FF data
+        public static string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale) {
+            NpgsqlConnection conn = null;
+            try {
+                conn = new NpgsqlConnection( T100DB.connString );
+                conn.Open();
+                // Only support IATA code
+                string sqlIata = "SELECT \"AVAILABILITY\" FROM \"AirportAvailability\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode ) 
+                    + " AND \"DATA_SOURCE\" = \'" + dataSrc + "\'";
+
+                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
+                NpgsqlDataReader drIata = commandIata.ExecuteReader();
+
+                Airport airport = AirportData.Query( airportCode, locale );
+                if ( airport == null ) return "";
+
+                while ( drIata.Read() ) {
+                    Dictionary<string, object> res = new Dictionary<string, object>() {
+                        {"iata", airport.Iata},
+                        {"icao", airport.Icao},
+                        {"country", airport.Country},
+                        {"city", airport.City},
+                        {"name", airport.FullName},
+                        {"note", airport.Note},
+                        {"countryEn", airport.CountryEn},
+                        {"nameEn", airport.FullNameEn},
+                        {"cityEn", airport.CityEn},
+                        {"yearAvailability", drIata[ "AVAILABILITY" ].ToString()}
+                    };
+                    return new JavaScriptSerializer().Serialize( res );
+                }
+
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+            return "";
+        }
+
     }
 }

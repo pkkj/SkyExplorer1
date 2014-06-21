@@ -10,7 +10,7 @@
                     var jsonObj: Object = $.parseJSON(jsonText);
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
                         var route = new RouteRecord();
-                        route.pax = parseInt(jsonObj["routes"][i]["TOTAL_PAX"]);
+                        route.pax = parseInt(jsonObj["routes"][i]["PAX"]);
                         route.monthPax = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_PAX"]);
                         data.push(route);
                     }

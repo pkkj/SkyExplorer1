@@ -23,7 +23,7 @@ namespace AST {
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\"   ";
-                string sql = "SELECT " + fields + " FROM \"TwSummary\"" + where + groupby;
+                string sql = "SELECT " + fields + " FROM \"TwDataSummary\"" + where + groupby;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -67,7 +67,7 @@ namespace AST {
                 Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX")};
 
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"TwSummary\"" + where;
+                string sql = "SELECT " + fieldStr + " FROM \"TwDataSummary\"" + where;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();

@@ -130,7 +130,7 @@
                 for (var i = 0; i < jsonMsg.length; i++) {
                     var item: Airline = new Airline(jsonMsg[i][0],
                         jsonMsg[i][1], jsonMsg[i][2], jsonMsg[i][3],
-                        jsonMsg[i][4], jsonMsg[i][5]);
+                        jsonMsg[i][4]);
                     data.push(item);
                 }
                 if (callback != null)
@@ -139,6 +139,22 @@
             var params = { "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryAllAirlines", onSuccessCallback);
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
+        }
+
+        static QueryAirportYearAvailability(airport: string, dataSrc: string, callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    callback(null)
+                        return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+
+            };
+            var params = {
+                "airportCode": airport, "codeType": "", "dataSrc": dataSrc, "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryAirportYearAvailability", onSuccessCallback);
         }
     }
 }
