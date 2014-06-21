@@ -50,8 +50,8 @@ module AST {
 
         private setDataSrcAvailability() {
             this.yearDropDown.clearAllItem();
-            for (var i = 0; i < T100.T100MetaData.availablity.length; i++) {
-                var year = T100.T100MetaData.availablity[i];
+            for (var i = 0; i < GlobalMetaData.availablity.length; i++) {
+                var year = GlobalMetaData.availablity[i];
                 var item = this.yearDropDown.createItem(year);
                 this.yearDropDown.insertItem(item, year);
             }

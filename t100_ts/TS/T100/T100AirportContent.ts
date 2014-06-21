@@ -118,7 +118,13 @@ module AST {
             var checkBox: HTMLInputElement = <HTMLInputElement>AST.Utils.createElement("input", { "type": "checkbox" });
             checkBox.checked = true;
             td.appendChild(checkBox);
-            td.appendChild(AST.Utils.createElement("span", { "text": dataSrc.shortInfo }));
+            var anchor = <HTMLAnchorElement> AST.Utils.createElement("a", { "text": dataSrc.shortInfo });
+            anchor.href = "#";
+            anchor.onclick = () => {
+                var src = dataSrc.aboutSrcPageUrl + "?locale=" + Localization.getLocale();
+                DialogUtils.loadDetailReportDialog("About Data Source", src);
+            }
+            td.appendChild(anchor);
             this.dataSrcCheckBoxRegister[dataSrc.name] = checkBox;
             checkBox.onchange = () => {
                 this.dataSrcSelectionChanged();

@@ -43,9 +43,9 @@
             static hasMonthData = true;
             static dataFrom = new YearMonth(1990, 1);
             static dataTo = new YearMonth(2013, 12);
+            
             static availablity: string[] = ["2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
                 "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];
-
             private static _instance = null;
             static instance(): T100MetaData {
                 if (!T100MetaData._instance)
