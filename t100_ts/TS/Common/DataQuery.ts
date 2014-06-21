@@ -153,8 +153,22 @@
 
             };
             var params = {
-                "airportCode": airport, "codeType": "", "dataSrc": dataSrc, "locale": Localization.locale };
+                "airportCode": airport, "codeType": "", "dataSrc": dataSrc, "locale": Localization.locale
+            };
             DataQuery.ajaxQuery(params, "QueryAirportYearAvailability", onSuccessCallback);
+        }
+
+        static QueryAirlineYearAvailability(dataSrc: string, airline: string, callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") 
+                    callback(null);
+                else
+                    callback(jsonMsg);
+            };
+            var params = {
+                "dataSrc": dataSrc, "airline": airline, "locale": Localization.locale
+            };
+            DataQuery.ajaxQuery(params, "QueryAirlineYearAvailability", onSuccessCallback);
         }
     }
 }

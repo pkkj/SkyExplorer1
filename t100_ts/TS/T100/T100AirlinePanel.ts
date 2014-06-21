@@ -62,7 +62,7 @@
             this.createAirlineSel();
             this.airlineSel.onchange = () => {
                 this.onAirlineChange();
-                this.queryAirlineRoute();
+                
             }
 
             this.yearSel.onchange = () => {
@@ -271,20 +271,24 @@
             if (this.yearSel.selectedIndex != -1)
                 curYear = this.yearSel[this.yearSel.selectedIndex].innerHTML;
             this.yearSel.options.length = 0;
-            var availability = item.airline.availability.split(",");
-            for (var i = 0; i < availability.length; i++) {
-                if (parseInt(availability[i]) >= 90)
-                    availability[i] = "19" + availability[i];
-                else
-                    availability[i] = "20" + availability[i];
-            }
-            availability.sort(function (a, b) {return parseInt(b) - parseInt(a) });
-            for (var i = 0; i < availability.length; i++) {
-                var option = document.createElement("option");
-                option.text = availability[i];
-                this.yearSel.add(option, null);
-            }
-            return true;
+
+            var callback = (availability) => {
+                availability = availability.split(",");
+                for (var i = 0; i < availability.length; i++) {
+                    if (parseInt(availability[i]) >= 90)
+                        availability[i] = "19" + availability[i];
+                    else
+                        availability[i] = "20" + availability[i];
+                }
+                availability.sort(function (a, b) {return parseInt(b) - parseInt(a) });
+                for (var i = 0; i < availability.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = availability[i];
+                    this.yearSel.add(option, null);
+                }
+                this.queryAirlineRoute();
+            };
+            DataQuery.QueryAirlineYearAvailability("T100", item.airline.code, callback);
         }
 
         private getRegionFilter() {

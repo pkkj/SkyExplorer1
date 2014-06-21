@@ -41,17 +41,21 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirlineYearAvailability( string dataSrc, string airline ) {
+            return CarrierData.QueryAirlineYearAvailability( dataSrc, airline );
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryByRoute( string year, string origin, string dest, string locale ) {
-            string res = T100Data.QueryByRoute( year, origin, dest, locale );
-            return res;
+            return T100Data.QueryByRoute( year, origin, dest, locale );
         }
 
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryAirportStat( string year, string airport, string locale ) {
-            string res = T100Data.QueryAirportStat( year, airport, locale );
-            return res;
+            return T100Data.QueryAirportStat( year, airport, locale );
         }
 
         [WebMethod]

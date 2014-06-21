@@ -40,6 +40,13 @@ namespace AST {
             return ret;
         }
 
+        static public string QueryAirlineYearAvailability( string dataSrc, string airline ) {
+            if ( AirlineAvailability.ContainsKey( dataSrc ) && AirlineAvailability[ dataSrc ].ContainsKey( airline ) ) {
+                return AirlineAvailability[ dataSrc ][ airline ];
+            }
+            return "";
+        }
+
         static public HashSet<string> GetAvailableAirlineInDb_HashSet( string dataSrc ) {
             List<string> lstDataSrc;
             if ( dataSrc == "" ) {
@@ -107,9 +114,7 @@ namespace AST {
             string[] lines = System.IO.File.ReadAllLines( Global.DataDir + @"AirlineAvailability\" + dataSrc + ".txt" );
             foreach ( string line in lines ) {
                 string[] items = line.Split( ',' );
-                string year = items[ 0 ];
-                int _year = Convert.ToInt32( year ) % 1000;
-                year = _year.ToString();
+                string year = items[ 0 ].Substring(2);
                 for ( int i = 1; i < items.Length; i++ ) {
                     if ( !AirlineAvailability[ dataSrc ].ContainsKey( items[ i ] ) )
                         AirlineAvailability[ dataSrc ][ items[ i ] ] = "";
