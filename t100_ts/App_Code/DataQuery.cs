@@ -30,6 +30,7 @@ namespace AST {
             AvailableData = new List<DestInfo>();
         }
     }
+
     public static class DataQuery {
         public static string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             // Verify the parameter

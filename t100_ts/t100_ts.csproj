@@ -81,9 +81,15 @@
     <Content Include="Pages\AboutApp_zhCN.html" />
     <Content Include="Pages\AboutApp.html" />
     <Content Include="Pages\AirportReport.html" />
+    <Content Include="Pages\DataSourceInfo\JpData-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\JpData-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\JpData.html" />
     <Content Include="Pages\DataSourceInfo\TwData-enUS.html" />
     <Content Include="Pages\DataSourceInfo\TwData-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\TwData.html" />
+    <Content Include="Pages\DataSourceInfo\UkCaa-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\UkCaa-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\UkCaa.html" />
     <Content Include="Pages\DataSourceInfo\UsT100-enUS.html" />
     <Content Include="Pages\DataSourceInfo\UsT100-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\UsT100.html" />
