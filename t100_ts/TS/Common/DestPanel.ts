@@ -10,6 +10,9 @@
         public distInfo: DistInfo = null;
         public dataSourceMetaData: DataSourceMetaData = null;
 
+        // Map buddy
+        public mapBuddy: MapControl = null;
+
         public hide() {
             this.mainDiv.style.display = "none";
         }

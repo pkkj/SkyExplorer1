@@ -26,10 +26,7 @@
         // Data
         private dataType = FlowType.Passenger;
 
-        // Map buddy
-        public mapBuddy: MapControl = null;
         public destDialogBuddy = null;
-
 
         public liTabSummary = null;
         public liTabShare = null;

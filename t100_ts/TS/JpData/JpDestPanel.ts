@@ -23,6 +23,7 @@
                     AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
                         this.setRouteData(routeData, distInfo);
                     });
+                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
             }
 
             static createJpDestPanel(): JpDestPanel {

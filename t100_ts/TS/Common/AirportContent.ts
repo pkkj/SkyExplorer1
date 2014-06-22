@@ -64,6 +64,8 @@ module AST {
             this.t100DestPanel.mapBuddy = this.mapControl;
             this.twDestPanel.mapBuddy = this.mapControl;
             this.t100FFDestPanel.mapBuddy = this.mapControl;
+            this.ukDestPanel.mapBuddy = this.mapControl;
+            this.jpDestPanel.mapBuddy = this.mapControl;
 
             this.originPanel.mapControl = this.mapControl;
 
