@@ -56,6 +56,14 @@
             public getDestPanelFootNote(): string {
                 return Localization.strings.allDataAreInBothDirection;
             }
+
+            public dateFrom() {
+                return UkMetaData.dataFrom;
+            }
+
+            public dataTo() {
+                return UkMetaData.dataTo;
+            }
         }
     }
 } 

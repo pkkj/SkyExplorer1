@@ -172,5 +172,13 @@
         public getDestPanelFootNote(): string {
             return "";
         }
+
+        public dateFrom() {
+            return GlobalMetaData.dataFrom;
+        }
+
+        public dataTo() {
+            return GlobalMetaData.dataTo;
+        }
     }
 }

@@ -25,6 +25,14 @@
             public getDestPanelFootNote(): string {
                 return Localization.strings.allDataAreInBothDirection;
             }
+
+            public dateFrom() {
+                return JpMetaData.dataFrom;
+            }
+
+            public dataTo() {
+                return JpMetaData.dataTo;
+            }
         }
 
         export class JpDataHTMLPageData {

@@ -22,6 +22,13 @@
                 return TwMetaData._instance;
             }
 
+            public dateFrom() {
+                return TwMetaData.dataFrom;
+            }
+
+            public dataTo() {
+                return TwMetaData.dataTo;
+            }
         }
 
         export class TwDataHTMLPageData {

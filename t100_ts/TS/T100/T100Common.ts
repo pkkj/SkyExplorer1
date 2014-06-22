@@ -54,6 +54,14 @@
                 return T100MetaData._instance;
             }
 
+            public dateFrom() {
+                return T100MetaData.dataFrom;
+            }
+
+            public dataTo() {
+                return T100MetaData.dataTo;
+            }
+
         }
 
         export class T100FFMetaData extends AST.DataSourceMetaData {
@@ -84,6 +92,14 @@
 
             public getDestPanelFootNote(): string {
                 return T100.T100Localization.strings.onlyUSRouteAvailable;;
+            }
+
+            public dateFrom() {
+                return T100FFMetaData.dataFrom;
+            }
+
+            public dataTo() {
+                return T100FFMetaData.dataTo;
             }
         }
 

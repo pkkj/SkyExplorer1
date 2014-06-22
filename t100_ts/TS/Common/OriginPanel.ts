@@ -45,7 +45,8 @@
         // DestBars
         private dictDestPanel = {};
 
-        constructor() {
+        constructor(airportContent: AirportContent) {
+            this.airportContent = airportContent;
         }
 
         private setDataSrcAvailability() {
@@ -66,6 +67,7 @@
             });
             this.yearDropDown.onChangeHandler = () => {
                 GlobalStatus.year = this.yearDropDown.selectedData;
+                this.airportContent.updateDataSrcEnable(GlobalStatus.year);
                 this.updateDestList(true /*panTo*/);
             };
 
@@ -521,8 +523,8 @@
 
 
         // Create the panel and setting the DOM elements
-        static createT100OriginPanel(): OriginPanel {
-            var originPanel = new OriginPanel();
+        static createT100OriginPanel(airportContent: AirportContent): OriginPanel {
+            var originPanel = new OriginPanel(airportContent);
             // Assign the div elements
             originPanel._airportName = document.getElementById("t100OriginPanelAirportName");
             originPanel._airportCity = document.getElementById("t100OriginPanelCityName");

@@ -20,6 +20,7 @@ module AST {
         private dataSrcControlerDiv: HTMLElement = null;
         private dataSrcFilter: HTMLTableElement = null;
         private dataSrcCheckBoxRegister: { [dataSrc: string]: HTMLInputElement};
+        private dataSrcAnchorRegister: { [dataSrc: string]: HTMLAnchorElement };
 
         constructor() {
             super();
@@ -29,14 +30,33 @@ module AST {
             this.dataSrcFilter = <HTMLTableElement>document.getElementById("airportViewDataSrcFilterTable");
 
             this.dataSrcCheckBoxRegister = {};
+            this.dataSrcAnchorRegister = {};
+        }
 
+        public updateDataSrcEnable(year) {
+            for (var src in this.dataSrcAnchorRegister) {
+                var dataFrom = DataSourceRegister.queryInfo(src).dateFrom();
+                var dataTo = DataSourceRegister.queryInfo(src).dataTo();
+                year = parseInt(year);
+                if (year >= dataFrom.year && year <= dataTo.year) {
+                    this.dataSrcCheckBoxRegister[src].disabled = false;
+                    this.dataSrcAnchorRegister[src].disabled = false;
+                }
+                else {
+                    this.dataSrcCheckBoxRegister[src].disabled = true;
+                    this.dataSrcAnchorRegister[src].disabled = true;
+                }
+            }
         }
 
         public init(map: OpenLayers.Map) {
             this.divRoot = document.getElementById("t100AirportContent");
 
             var dialogT100Origin = new PinPanel(document.getElementById("t100OriginBar"), Localization.strings.pleaseSelectInputOrigin);
-            this.originPanel = OriginPanel.createT100OriginPanel();
+            // Set up the data source panel
+            this.setDataSourcePanel();
+
+            this.originPanel = OriginPanel.createT100OriginPanel(this);
 
             var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "");
             this.t100DestPanel = T100DestPanel.createT100DestPanel("T100");
@@ -58,7 +78,6 @@ module AST {
 
             this.originPanel.originDialogBuddy = dialogT100Origin;
             this.originPanel.destDialogBuddy = dialogT100DestBar;
-            this.originPanel.airportContent = this;
 
             this.mapControl = new AST.MapControl(map, this.originPanel);
             this.t100DestPanel.mapBuddy = this.mapControl;
@@ -69,11 +88,12 @@ module AST {
 
             this.originPanel.mapControl = this.mapControl;
 
-            // Set up the data source panel
-            this.setDataSourcePanel();
+
+            
             $("#airportViewDataSrcControlerPanel").accordion({
                 collapsible: true
             });
+
         }
 
         public reset() {
@@ -131,6 +151,7 @@ module AST {
             }
             td.appendChild(anchor);
             this.dataSrcCheckBoxRegister[dataSrc.name] = checkBox;
+            this.dataSrcAnchorRegister[dataSrc.name] = anchor;
             checkBox.onchange = () => {
                 this.dataSrcSelectionChanged();
             }
