@@ -81,6 +81,10 @@
             static has28ISFFData(year: number):boolean {
                 return year >= T100FFMetaData.dataFrom.year && year <= T100FFMetaData.dataTo.year;
             }
+
+            public getDestPanelFootNote(): string {
+                return T100.T100Localization.strings.onlyUSRouteAvailable;;
+            }
         }
 
         export class T100HTMLPageData {

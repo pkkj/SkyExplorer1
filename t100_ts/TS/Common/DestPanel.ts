@@ -9,7 +9,7 @@
         public routeData: Array<RouteRecord> = null;
         public distInfo: DistInfo = null;
         public dataSourceMetaData: DataSourceMetaData = null;
-
+        public panelFootNote: HTMLElement = null;
         // Map buddy
         public mapBuddy: MapControl = null;
 
@@ -27,6 +27,7 @@
 
                 };
             }
+            this.panelFootNote.innerHTML = this.dataSourceMetaData.getDestPanelFootNote();
         }
 
         public setRouteDistInfo() {

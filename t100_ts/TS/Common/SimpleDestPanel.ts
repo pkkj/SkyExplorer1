@@ -14,7 +14,6 @@
         public _tabTimeSeriesTitle: HTMLElement = null;
         public _tabTimeSeriesFootNote: HTMLElement = null;
         public divTimeSeriesChart: HTMLElement = null;
-        public panelFootNote: HTMLElement = null;
 
         public $$liDestTabSummary: string = "";
         public $$liDestTabTimeSeries: string = "";
@@ -58,7 +57,6 @@
 
         public localizeUi() {
             super.localizeUi();
-            this.panelFootNote.innerHTML = Localization.strings.allDataAreInBothDirection;
             (<HTMLElement> document.getElementById(this.$$liDestTabSummary).firstElementChild).innerHTML = Localization.strings.statistic;
             (<HTMLElement> document.getElementById(this.$$liDestTabTimeSeries).firstElementChild).innerHTML = Localization.strings.timeSeries;
         }

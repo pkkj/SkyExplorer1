@@ -16,10 +16,6 @@
                 });
 
             this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
-            this.detailReportFootNote.innerHTML = "";
-            if (AST.GlobalStatus.destAirport.countryEn != T100.T100MetaData.currentCountry && AST.GlobalStatus.originAirport.countryEn != T100.T100MetaData.currentCountry) {
-                this.detailReportFootNote.innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
-            }
         }
 
         public initUi() {
@@ -74,7 +70,7 @@
             destPanel._btnShowPassenger = document.getElementById("t100DataPanelShowPassenger");
             destPanel._btnShowFreight = document.getElementById("t100DataPanelShowFreight");
 
-            destPanel.detailReportFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
+            destPanel.panelFootNote = document.getElementById("t100DataPanelDetailReportFootNote");
             destPanel.metricDataAnchor = document.getElementById("t100DataPanelTabsMetricDataAnchor");
             destPanel.tabMetricDataText = document.getElementById("t100DataPanelTabsMetricDataText");
             destPanel.liTabSummary = document.getElementById("liT100DataPanelTabSummary");

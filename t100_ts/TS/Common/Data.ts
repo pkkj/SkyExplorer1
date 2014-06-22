@@ -168,5 +168,9 @@
         constructor() {
             this.supportAirportReportPage = false;
         }
+
+        public getDestPanelFootNote(): string {
+            return "";
+        }
     }
 }

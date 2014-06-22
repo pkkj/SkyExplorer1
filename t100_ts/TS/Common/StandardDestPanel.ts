@@ -21,7 +21,6 @@
         public _btnShowFreight = null;
         public _btnShowPassenger = null;
         public _btnDetailReport = null;
-        public detailReportFootNote = null;
 
         // Data
         private dataType = FlowType.Passenger;

@@ -22,6 +22,9 @@
                 return JpMetaData._instance;
             }
 
+            public getDestPanelFootNote(): string {
+                return Localization.strings.allDataAreInBothDirection;
+            }
         }
 
         export class JpDataHTMLPageData {

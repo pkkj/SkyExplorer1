@@ -20,7 +20,6 @@
                     });
 
                 this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
-                this.detailReportFootNote.innerHTML = "";
                 this.tabMetricDataText.onclick = () => {
                     DialogUtils.loadDetailReportDialog("About Taiwan CAA", "AboutT100.html");
                 };
@@ -49,7 +48,7 @@
                 destPanel._btnDetailReport = document.getElementById("twDataDestPanelDetailReportBtn");
                 
 
-                destPanel.detailReportFootNote = document.getElementById("twDataDestPanelDetailReportFootNote");
+                destPanel.panelFootNote = document.getElementById("twDataDestPanelDetailReportFootNote");
                 destPanel.tabMetricDataText = document.getElementById("twDataDestPanelTabsMetricDataText");
                 destPanel.metricDataAnchor = document.getElementById("twDataDestPanelTabsMetricDataAnchor");
                 destPanel.liTabSummary = document.getElementById("liTwDataPanelTabSummary");

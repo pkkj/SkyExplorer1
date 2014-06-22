@@ -53,6 +53,9 @@
                 return UkMetaData._instance;
             }
 
+            public getDestPanelFootNote(): string {
+                return Localization.strings.allDataAreInBothDirection;
+            }
         }
     }
 } 
