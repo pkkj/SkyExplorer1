@@ -60,7 +60,6 @@
             destPanel._divShareChart = document.getElementById("t100DataPanelPieChart");
             destPanel._tabShareFootNote = document.getElementById("t100DataPanelTabShareFootNote");
 
-
             destPanel._tabTimeSeries = document.getElementById("t100DataPanelTabTimeSeries");
             destPanel._tabTimeSeriesTitle = document.getElementById("t100DataPanelTabTimeSeriesTitle");
             destPanel._tabTimeSeriesFootNote = document.getElementById("t100DataPanelTabTimeSeriesFootNote");

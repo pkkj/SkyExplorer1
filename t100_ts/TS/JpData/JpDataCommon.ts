@@ -33,6 +33,13 @@
             public dataTo() {
                 return JpMetaData.dataTo;
             }
+
+            public getShortInfoLocalizeName(): string {
+                return Localization.strings.jpDataShortInfo;
+            }
+            public getFullInfoLocalizeName(): string {
+                return Localization.strings.jpDataFullInfo;
+            }
         }
 
         export class JpDataHTMLPageData {

@@ -199,7 +199,7 @@
                     if (i > 0)
                         this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": ", " }));
                     var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrcName);
-                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.shortInfo });
+                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
                     anchor.href = "#";
                     anchor.onclick = () => {
                         this.switchDestBar(dataSrcName);
@@ -223,7 +223,7 @@
             this.dictDestPanel[dataSrc].show();
             this.dictDestPanel[dataSrc].onDestChange();
             var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrc);
-            this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.fullInfo);
+            this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.getFullInfoLocalizeName());
             this.createOtherSrcDiv();
             
         }

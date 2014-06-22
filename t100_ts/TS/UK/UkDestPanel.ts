@@ -42,7 +42,8 @@
                 destPanel.divTimeSeriesChart = document.getElementById("ukDestTabTimeSeriesChart");
 
                 destPanel.panelFootNote = document.getElementById("ukDestFootNote");
-
+                destPanel.tabMetricDataText = document.getElementById("ukDestPanelTabsMetricDataText");
+                destPanel.metricDataAnchor = document.getElementById("ukDestPanelTabsMetricDataAnchor");
                 destPanel.$$liDestTabSummary = "liUkDestTabSummary";
                 destPanel.$$liDestTabTimeSeries = "liUkDestTabTimeSeries";
                 destPanel.$destTab = "#ukDestTabs";

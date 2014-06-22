@@ -173,6 +173,13 @@
             return "";
         }
 
+        public getShortInfoLocalizeName(): string {
+            return "";
+        }
+        public getFullInfoLocalizeName(): string {
+            return "";
+        }
+
         public dateFrom() {
             return GlobalMetaData.dataFrom;
         }

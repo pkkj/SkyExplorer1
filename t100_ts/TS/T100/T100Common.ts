@@ -54,6 +54,13 @@
                 return T100MetaData._instance;
             }
 
+            public getShortInfoLocalizeName(): string {
+                return Localization.strings.usT100ShortInfo;
+            }
+            public getFullInfoLocalizeName(): string {
+                return Localization.strings.usT100FullInfo;
+            }
+
             public dateFrom() {
                 return T100MetaData.dataFrom;
             }
@@ -92,6 +99,13 @@
 
             public getDestPanelFootNote(): string {
                 return T100.T100Localization.strings.onlyUSRouteAvailable;;
+            }
+
+            public getShortInfoLocalizeName(): string {
+                return Localization.strings.usT100FFShortInfo;
+            }
+            public getFullInfoLocalizeName(): string {
+                return Localization.strings.usT100FFFullInfo;
             }
 
             public dateFrom() {

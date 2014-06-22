@@ -39,7 +39,6 @@ module AST {
         private postDataPreparation = () => {
             
             T100.T100Localization.init();
-            UkData.UkLocalization.init();
 
             // Must register MetaData after init the localization object
             DataSourceRegister.registerDataSource("T100", T100.T100MetaData.instance());

@@ -372,12 +372,11 @@
 
         public localizeUi() {
             super.localizeUi();
-
-            this.tabMetricDataText.innerHTML = Localization.strings.metricData;
             this.liTabSummary.firstElementChild.innerHTML = Localization.strings.statistic; 
             this.liTabShare.firstElementChild.innerHTML = Localization.strings.shareSplit; 
             this.liTabTimeSeries.firstElementChild.innerHTML = Localization.strings.timeSeries; 
             this._btnDetailReport.innerHTML = Localization.strings.routeDetailReport;
+            
         }
  
     }

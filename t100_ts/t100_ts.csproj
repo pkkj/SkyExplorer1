@@ -180,8 +180,6 @@
     <TypeScriptCompile Include="TS\TwData\TwDataCommon.ts" />
     <TypeScriptCompile Include="TS\TwData\TwDataDataQuery.ts" />
     <TypeScriptCompile Include="TS\TwData\TwDataDestPanel.ts" />
-    <TypeScriptCompile Include="TS\UK\I18n\Strings.enUS.ts" />
-    <TypeScriptCompile Include="TS\UK\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\UK\UkCommon.ts" />
     <TypeScriptCompile Include="TS\UK\UkDataQuery.ts" />
     <TypeScriptCompile Include="TS\UK\UkDestPanel.ts" />

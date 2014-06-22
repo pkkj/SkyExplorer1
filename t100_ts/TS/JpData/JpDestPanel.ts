@@ -42,6 +42,9 @@
                 destPanel.divTimeSeriesChart = document.getElementById("jpDestTabTimeSeriesChart");
 
                 destPanel.panelFootNote = document.getElementById("jpDestFootNote");
+                destPanel.tabMetricDataText = document.getElementById("jpDestPanelTabsMetricDataText");
+                destPanel.metricDataAnchor = document.getElementById("jpDestPanelTabsMetricDataAnchor");
+
                 destPanel.$$liDestTabSummary = "liJpDestTabSummary";
                 destPanel.$$liDestTabTimeSeries = "liJpDestTabTimeSeries";
                 destPanel.$destTab = "#jpDestTabs";

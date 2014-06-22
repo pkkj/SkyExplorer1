@@ -26,8 +26,10 @@
                     DialogUtils.loadDetailReportDialog("About Data Source", src);
 
                 };
+                this.metricDataAnchor.innerHTML = this.dataSourceMetaData.getFullInfoLocalizeName();
             }
             this.panelFootNote.innerHTML = this.dataSourceMetaData.getDestPanelFootNote();
+            
         }
 
         public setRouteDistInfo() {
@@ -40,6 +42,7 @@
         }
 
         public localizeUi() {
+            this.tabMetricDataText.innerHTML = Localization.strings.metricData;
         }
     }
 } 

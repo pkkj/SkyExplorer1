@@ -228,5 +228,23 @@
 
         // UK Dest Panel
         public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>部分航线可能有中停站。这些中停站并不在地图上显示。";
+        public ukDataShortInfo = "英国CAA";
+        public ukDataFullInfo = "英国CAA数据";
+
+        // US T100 Data Source
+        public usT100ShortInfo = "美国T100";
+        public usT100FullInfo = "美国交通统计局T100数据";
+
+        // US T100FF Data Source
+        public usT100FFShortInfo = "美国T100(FF)";
+        public usT100FFFullInfo = "美国交通统计局T100(FF)数据";
+
+        // Japan Data Source
+        public jpDataShortInfo = "日本MLIT"
+        public jpDataFullInfo = "日本国土交通省数据"
+
+        // Taiwan Data Source
+        public twDataShortInfo = "台湾CAA";
+        public twDataFullInfo = "台湾民用航空局数据";
     }
 } 

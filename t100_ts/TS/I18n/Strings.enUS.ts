@@ -227,7 +227,25 @@
             return this.monthName[month] + " " + year;
         }
 
-        // UK Dest Panel
+        // UK Data Source
         public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>Some routes might have immediate stop, which is not shown in the map.";
+        public ukDataShortInfo = "UK CAA";
+        public ukDataFullInfo = "UK CAA Data";
+
+        // US T100 Data Source
+        public usT100ShortInfo = "US T100";
+        public usT100FullInfo = "US BTS T100 Data";
+
+        // US T100FF Data Source
+        public usT100FFShortInfo = "US T100(FF)";
+        public usT100FFFullInfo = "US BTS T100(FF) Data";
+
+        // Japan Data Source
+        public jpDataShortInfo = "Japan MLIT"
+        public jpDataFullInfo = "Japan MLIT Data"
+
+        // Taiwan Data Source
+        public twDataShortInfo = "Taiwan CAA";
+        public twDataFullInfo = "Taiwan CAA Data";
     }
 }

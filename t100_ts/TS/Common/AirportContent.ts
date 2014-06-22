@@ -143,7 +143,7 @@ module AST {
             var checkBox: HTMLInputElement = <HTMLInputElement>AST.Utils.createElement("input", { "type": "checkbox" });
             checkBox.checked = true;
             td.appendChild(checkBox);
-            var anchor = <HTMLAnchorElement> AST.Utils.createElement("a", { "text": dataSrc.shortInfo });
+            var anchor = <HTMLAnchorElement> AST.Utils.createElement("a", { "text": dataSrc.getShortInfoLocalizeName() });
             anchor.href = "#";
             anchor.onclick = () => {
                 var src = dataSrc.aboutSrcPageUrl + "?locale=" + Localization.getLocale();

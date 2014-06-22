@@ -29,6 +29,13 @@
             public dataTo() {
                 return TwMetaData.dataTo;
             }
+
+            public getShortInfoLocalizeName(): string {
+                return Localization.strings.twDataShortInfo;
+            }
+            public getFullInfoLocalizeName(): string {
+                return Localization.strings.twDataFullInfo;
+            }
         }
 
         export class TwDataHTMLPageData {

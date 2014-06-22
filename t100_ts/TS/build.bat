@@ -9,7 +9,6 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\T100\T100Common.ts .\T100\T100DestPanel.ts ^
 .\T100\T100DataQuery.ts ^
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
-.\UK\I18n\Strings.enUS.ts .\UK\I18n\Strings.zhCN.ts ^
 .\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
 .\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts .\JpData\JpDestPanel.ts ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
