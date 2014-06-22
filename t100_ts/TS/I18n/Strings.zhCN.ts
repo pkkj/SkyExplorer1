@@ -225,5 +225,8 @@
         public constructYearMonth(year: string, month: number) {
             return year + "年" + this.monthName[month];
         }
+
+        // UK Dest Panel
+        public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>部分航线可能有中停站。这些中停站并不在地图上显示。";
     }
 } 

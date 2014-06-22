@@ -54,7 +54,7 @@
             }
 
             public getDestPanelFootNote(): string {
-                return Localization.strings.allDataAreInBothDirection;
+                return Localization.strings.ukDestPanelFootNote;
             }
 
             public dateFrom() {

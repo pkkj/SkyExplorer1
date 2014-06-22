@@ -226,5 +226,8 @@
         public constructYearMonth(year: string, month: number) {
             return this.monthName[month] + " " + year;
         }
+
+        // UK Dest Panel
+        public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>Some routes might have immediate stop, which is not shown in the map.";
     }
 }
