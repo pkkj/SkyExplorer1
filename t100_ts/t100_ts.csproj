@@ -170,10 +170,10 @@
     <TypeScriptCompile Include="TS\T100\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\T100\T100AirlineContent.ts" />
     <TypeScriptCompile Include="TS\T100\T100AirlinePanel.ts" />
-    <TypeScriptCompile Include="TS\T100\T100AirportContent.ts" />
+    <TypeScriptCompile Include="TS\Common\AirportContent.ts" />
     <TypeScriptCompile Include="TS\T100\T100DestPanel.ts" />
-    <TypeScriptCompile Include="TS\T100\T100MapControl.ts" />
-    <TypeScriptCompile Include="TS\T100\T100OriginPanel.ts" />
+    <TypeScriptCompile Include="TS\Common\MapControl.ts" />
+    <TypeScriptCompile Include="TS\Common\OriginPanel.ts" />
     <TypeScriptCompile Include="TS\T100\T100Common.ts" />
     <TypeScriptCompile Include="TS\T100\T100DataQuery.ts" />
     <TypeScriptCompile Include="TS\Common\Utils.ts" />

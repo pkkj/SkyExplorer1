@@ -1,7 +1,7 @@
 ﻿module AST {
-    export class T100MapControl {
+    export class MapControl {
         private mapControl: OpenLayers.Map = null;
-        private dataSrcPanel: T100OriginPanel = null;
+        private dataSrcPanel: OriginPanel = null;
         private baseLayerAirport = null;
         public layerRoute: OpenLayers.Layer.Vector = null;
         public layerDest = null;

@@ -3,9 +3,9 @@
 */
 
 module AST {
-    export class T100AirportContent extends CommonDataContent {
-        private t100OriginPanel: T100OriginPanel = null;
-        private t100MapControl: T100MapControl = null;
+    export class AirportContent extends CommonDataContent {
+        private originPanel: OriginPanel = null;
+        private mapControl: MapControl = null;
 
         // UK CAA Data Dest Panel
         private ukDestPanel: UkData.UkDestPanel = null;
@@ -36,7 +36,7 @@ module AST {
             this.divRoot = document.getElementById("t100AirportContent");
 
             var dialogT100Origin = new PinPanel(document.getElementById("t100OriginBar"), Localization.strings.pleaseSelectInputOrigin);
-            this.t100OriginPanel = T100OriginPanel.createT100OriginPanel();
+            this.originPanel = OriginPanel.createT100OriginPanel();
 
             var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "");
             this.t100DestPanel = T100DestPanel.createT100DestPanel("T100");
@@ -50,22 +50,22 @@ module AST {
             this.jpDestPanel = JpData.JpDestPanel.createJpDestPanel();
 
             // Register the data source information
-            this.t100OriginPanel.registerDestBar("T100", this.t100DestPanel);
-            this.t100OriginPanel.registerDestBar("T100FF", this.t100FFDestPanel);
-            this.t100OriginPanel.registerDestBar("UkData", this.ukDestPanel);
-            this.t100OriginPanel.registerDestBar("TwData", this.twDestPanel);
-            this.t100OriginPanel.registerDestBar("JpData", this.jpDestPanel);
+            this.originPanel.registerDestBar("T100", this.t100DestPanel);
+            this.originPanel.registerDestBar("T100FF", this.t100FFDestPanel);
+            this.originPanel.registerDestBar("UkData", this.ukDestPanel);
+            this.originPanel.registerDestBar("TwData", this.twDestPanel);
+            this.originPanel.registerDestBar("JpData", this.jpDestPanel);
 
-            this.t100OriginPanel.originDialogBuddy = dialogT100Origin;
-            this.t100OriginPanel.destDialogBuddy = dialogT100DestBar;
-            this.t100OriginPanel.airportContent = this;
+            this.originPanel.originDialogBuddy = dialogT100Origin;
+            this.originPanel.destDialogBuddy = dialogT100DestBar;
+            this.originPanel.airportContent = this;
 
-            this.t100MapControl = new AST.T100MapControl(map, this.t100OriginPanel);
-            this.t100DestPanel.mapBuddy = this.t100MapControl;
-            this.twDestPanel.mapBuddy = this.t100MapControl;
-            this.t100FFDestPanel.mapBuddy = this.t100MapControl;
+            this.mapControl = new AST.MapControl(map, this.originPanel);
+            this.t100DestPanel.mapBuddy = this.mapControl;
+            this.twDestPanel.mapBuddy = this.mapControl;
+            this.t100FFDestPanel.mapBuddy = this.mapControl;
 
-            this.t100OriginPanel.mapControl = this.t100MapControl;
+            this.originPanel.mapControl = this.mapControl;
 
             // Set up the data source panel
             this.setDataSourcePanel();
@@ -75,7 +75,7 @@ module AST {
         }
 
         public reset() {
-            this.t100OriginPanel.reset();
+            this.originPanel.reset();
             this.t100DestPanel.mapBuddy.deactivate();
             this.dataSrcControlerDiv.style.display = "none";
             this.rightTopDiv.style.display = "none";
@@ -113,7 +113,7 @@ module AST {
                 }
             }
             GlobalStatus.dataSource = availableDataSrc;
-            this.t100OriginPanel.updateDestList(false /*panTo*/);
+            this.originPanel.updateDestList(false /*panTo*/);
         }
 
         private createDataSrcCheckBox(dataSrc: DataSourceMetaData) {

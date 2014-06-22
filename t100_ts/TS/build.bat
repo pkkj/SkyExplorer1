@@ -1,12 +1,13 @@
 tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.ts ^
 .\Common\Data.ts .\Common\Draw.ts .\Common\Global.ts .\Common\MapUtils.ts .\Common\Utils.ts ^
 .\Common\DataQuery.ts .\Common\DestPanel.ts .\Common\StandardDestPanel.ts .\Common\SimpleDestPanel.ts ^
+.\Common\OriginPanel.ts .\Common\AirportContent.ts  .\Common\MapControl.ts ^
 .\I18n\Strings.enUS.ts .\I18n\Strings.zhCN.ts .\I18n\Strings.jaJP.ts ^
 .\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
 .\MyControls\CollapseTable.ts .\MyControls\DropDown.ts .\MyControls\PinPanel.ts .\MyControls\RankTable.ts ^
 .\MyControls\SimpleTable.ts .\T100\T100AirlineContent.ts .\T100\T100AirlinePanel.ts ^
-.\T100\T100AirportContent.ts .\T100\T100Common.ts .\T100\T100DestPanel.ts ^
-.\T100\T100DataQuery.ts .\T100\T100MapControl.ts .\T100\T100OriginPanel.ts ^
+.\T100\T100Common.ts .\T100\T100DestPanel.ts ^
+.\T100\T100DataQuery.ts ^
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
 .\UK\I18n\Strings.enUS.ts .\UK\I18n\Strings.zhCN.ts ^
 .\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^

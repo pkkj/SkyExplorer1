@@ -14,7 +14,7 @@
                 this.prepareSwitchContent(App.t100AirlineContent);
             };
 
-            App.t100AirportContent = new T100AirportContent();
+            App.t100AirportContent = new AirportContent();
             App.t100AirportContent.init(App.mapControl);
 
             App.t100AirlineContent = new T100AirlineContent();

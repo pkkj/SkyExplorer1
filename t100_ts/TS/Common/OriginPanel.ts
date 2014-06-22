@@ -1,6 +1,5 @@
-﻿/// <reference path="../T100/T100Common.ts"/>
-module AST {
-    export class T100OriginPanel {
+﻿module AST {
+    export class OriginPanel {
         // Controls, the DOMElement in the page
         private _airportName: HTMLElement = null;
         private _airportCity: HTMLElement = null;
@@ -31,7 +30,7 @@ module AST {
 
         public originDialogBuddy: PinPanel = null;
         public destDialogBuddy: PinPanel = null;
-        public airportContent: T100AirportContent = null;
+        public airportContent: AirportContent = null;
 
 
         // Airline selector
@@ -41,7 +40,7 @@ module AST {
         public ffRouteFilter: HTMLInputElement = null;
 
         // MapControl
-        public mapControl: T100MapControl = null;
+        public mapControl: MapControl = null;
 
         // DestBars
         private dictDestPanel = {};
@@ -101,7 +100,6 @@ module AST {
                     btnFindAirport_onclick();
                 }
             };
-
 
             $("#dataSrcPanelFindAirportBtn").button().click((event) => {
                 btnFindAirport_onclick();
@@ -523,8 +521,8 @@ module AST {
 
 
         // Create the panel and setting the DOM elements
-        static createT100OriginPanel(): T100OriginPanel {
-            var originPanel = new T100OriginPanel();
+        static createT100OriginPanel(): OriginPanel {
+            var originPanel = new OriginPanel();
             // Assign the div elements
             originPanel._airportName = document.getElementById("t100OriginPanelAirportName");
             originPanel._airportCity = document.getElementById("t100OriginPanelCityName");

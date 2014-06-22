@@ -5,7 +5,7 @@ module AST {
 
         // Global variable: control
         static mapControl: OpenLayers.Map = null;
-        static t100AirportContent: T100AirportContent = null;
+        static t100AirportContent: AirportContent = null;
         static t100AirlineContent: T100AirlineContent = null;
         static activeContent: CommonDataContent = null;
         public dataSrcControl: DataSrcControl = null;

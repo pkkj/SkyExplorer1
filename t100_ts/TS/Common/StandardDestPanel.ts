@@ -27,7 +27,7 @@
         private dataType = FlowType.Passenger;
 
         // Map buddy
-        public mapBuddy: T100MapControl = null;
+        public mapBuddy: MapControl = null;
         public destDialogBuddy = null;
 
 
