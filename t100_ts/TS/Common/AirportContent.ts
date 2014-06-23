@@ -59,9 +59,9 @@ module AST {
             this.originPanel = OriginPanel.createT100OriginPanel(this);
 
             var dialogT100DestBar = new PinPanel(document.getElementById("t100DestBar"), "");
-            this.t100DestPanel = T100DestPanel.createT100DestPanel("T100");
+            this.t100DestPanel = T100DestPanel.createT100DestPanel();
             this.t100DestPanel.destDialogBuddy = dialogT100DestBar;
-            this.t100FFDestPanel = T100DestPanel.createT100DestPanel("T100FF");
+            this.t100FFDestPanel = T100DestPanel.createT100FFDestPanel();
             this.t100FFDestPanel.destDialogBuddy = dialogT100DestBar;
             dialogT100DestBar.hide();
 

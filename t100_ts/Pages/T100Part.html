@@ -11,7 +11,7 @@
         <form>
             <div>
                 <div style="float: left; margin-right: 10px; padding: 0.15em" id="t100DestBarShowInfoForText">Show info for:</div>
-                <div style="float: left" id="radioFlowType">
+                <div style="float: left" id="t100DestBarRadioFlowType">
                     <input type="radio" id="t100DataPanelShowPassenger" name="radio" checked="checked" /><label for="t100DataPanelShowPassenger">Passenger</label>
                     <input type="radio" id="t100DataPanelShowFreight" name="radio" /><label for="t100DataPanelShowFreight">Freight</label>
                 </div>
@@ -50,6 +50,56 @@
         <div id="t100DataPanelDetailReportFootNote" style="color:red"></div>
         <div>
             <a id="t100DataPanelDetailReportBtn" href="#">Route Detail Report</a> &middot; <span id="t100DataPanelTabsMetricDataText">Metric data: </span><a id="t100DataPanelTabsMetricDataAnchor" href="#">BTS RITA T100</a>
+        </div>
+
+    </div>
+
+    <!-- T100FF Destination bar-->
+    <div id="t100FFDestBarContent">
+        <div id="t100FFDataPanelTotalFlow"></div>
+        <div style="height: 5px"></div>
+        <form>
+            <div>
+                <div style="float: left; margin-right: 10px; padding: 0.15em" id="t100FFDestBarShowInfoForText">Show info for:</div>
+                <div style="float: left" id="t100FFDestBarRadioFlowType">
+                    <input type="radio" id="t100FFDataPanelShowPassenger" name="radio" checked="checked" /><label for="t100FFDataPanelShowPassenger">Passenger</label>
+                    <input type="radio" id="t100FFDataPanelShowFreight" name="radio" /><label for="t100FFDataPanelShowFreight">Freight</label>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </form>
+
+
+        <div style="height: 5px"></div>
+        <div id="t100FFDataPanelTabs">
+
+            <ul>
+                <li id="liT100FFDataPanelTabSummary"><a href="#t100FFDataPanelTabSummary">Statistic</a></li>
+                <li id="liT100FFDataPanelTabShare"><a href="#t100FFDataPanelTabsShare">Share Split</a></li>
+                <li id="liT100FFDataPanelTabTimeSeries"><a href="#t100FFDataPanelTabTimeSeries">Time Series</a></li>
+            </ul>
+            <div id="t100FFDataPanelTabSummary">
+
+            </div>
+            <div id="t100FFDataPanelTabsShare" style="overflow: hidden">
+                <div style="height: 4px"></div>
+                <div id="t100FFDataPanelTabShareTitle" class="t100FFDataPanelTabTitle"></div>
+                <div id="t100FFDataPanelPieChart" style="margin-left: -30px;"></div>
+                <div id="t100FFDataPanelTabShareFootNote"></div>
+            </div>
+            <div id="t100FFDataPanelTabTimeSeries" style="overflow: hidden">
+                <div style="height: 4px"></div>
+                <div id="t100FFDataPanelTabTimeSeriesTitle" class="t100FFDataPanelTabTitle"></div>
+                <div style="height: 5px"></div>
+                <div id="t100FFDataPanelTabTimeSeriesChart" style="width: 310px; height: 240px;"></div>
+                <div id="t100FFDataPanelTabTimeSeriesLegend"></div>
+                <div id="t100FFDataPanelTabTimeSeriesFootNote"></div>
+
+            </div>
+        </div>
+        <div id="t100FFDataPanelDetailReportFootNote" style="color:red"></div>
+        <div>
+            <a id="t100FFDataPanelDetailReportBtn" href="#">Route Detail Report</a> &middot; <span id="t100FFDataPanelTabsMetricDataText">Metric data: </span><a id="t100FFDataPanelTabsMetricDataAnchor" href="#">BTS RITA T100FF</a>
         </div>
 
     </div>

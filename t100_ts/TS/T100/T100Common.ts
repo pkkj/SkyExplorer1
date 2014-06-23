@@ -123,13 +123,15 @@
 
                 var deferred1 = $.Deferred();
                 var deferred2 = $.Deferred();
+                var deferred3 = $.Deferred();
 
-                $.when(deferred1, deferred2).then(function () {
+                $.when(deferred1, deferred2, deferred3).then(function () {
                     deferred.resolve();
                 });
 
                 $("#t100AirlinePanel").load("T100Part.html #t100AirlinePanelExtContent", () => { deferred1.resolve(); });
                 $("#t100DestBarInnerDiv").load("T100Part.html #t100DestBarContent", () => { deferred2.resolve(); });
+                $("#t100FFDestBarInnerDiv").load("T100Part.html #t100FFDestBarContent", () => { deferred3.resolve(); });
                 return deferred.promise();
             }
         }

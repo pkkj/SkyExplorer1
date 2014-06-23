@@ -10,8 +10,12 @@
         public distInfo: DistInfo = null;
         public dataSourceMetaData: DataSourceMetaData = null;
         public panelFootNote: HTMLElement = null;
+
         // Map buddy
         public mapBuddy: MapControl = null;
+
+        constructor() {
+        }
 
         public hide() {
             this.mainDiv.style.display = "none";
@@ -44,5 +48,6 @@
         public localizeUi() {
             this.tabMetricDataText.innerHTML = Localization.strings.metricData;
         }
+        
     }
 } 

@@ -29,7 +29,7 @@
             static currentCountry = "United Kingdom";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
-            static dataTo = new YearMonth(2013, 12);
+            static dataTo = new YearMonth(2014, 4);
 
             private static _instance = null;
             static instance() {
