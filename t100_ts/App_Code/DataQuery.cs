@@ -20,6 +20,7 @@ namespace AST {
         public int? TotalFreight = null;
         public string DataSource = "";
         public bool PartialData = false;
+        public bool NoData = false;
     }
 
     public class DestItem {
@@ -59,6 +60,7 @@ namespace AST {
                 dest = keyword;
             List<DestInfo> destInfo = new List<DestInfo>();
             HashSet<string> validSrc = new HashSet<string>( dataSource.Split( ',' ) );
+            HashSet<string> destSet = new HashSet<string>();
             // Query USA T100 Data
             if ( validSrc.Contains( "T100" ) || validSrc.Contains( "T100FF" ) || dataSource == "" ) {
                 destInfo.AddRange( T100Data.QueryDestByOrigin( year, origin, dest, airline, dataSource, locale ) );
@@ -76,8 +78,19 @@ namespace AST {
                 destInfo.AddRange( JpData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
             }
             // Query Korea Airport Corpartion Data
-            //if ( validSrc.Contains( "JpData" ) || dataSource == "" ) {
+            if ( validSrc.Contains( "KrData" ) || dataSource == "" ) {
                 destInfo.AddRange( KrData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
+            }
+            // Query Wiki connection data
+            //if ( validSrc.Contains( "WikiData" ) || dataSource == "" ) {
+            for ( int i = 0; i < destInfo.Count; i++ )
+                destSet.Add( destInfo[ i ].Airport );
+            List<DestInfo> wikiResult = WikiData.QueryDestByOrigin( year, origin, dest, airline, locale );
+            foreach ( DestInfo _dest in wikiResult ) {
+                if ( !destSet.Contains( _dest.Airport ) )
+                    destInfo.Add( _dest );
+            }
+
             //}
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {

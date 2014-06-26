@@ -100,7 +100,8 @@
                             lstDestJson[i]["AvailableData"][j]["DataSource"],
                             parseInt(lstDestJson[i]["AvailableData"][j]["TotalPax"]),
                             parseInt(lstDestJson[i]["AvailableData"][j]["TotalFreight"]),
-                            lstDestJson[i]["AvailableData"][j]["PartialData"]
+                            lstDestJson[i]["AvailableData"][j]["PartialData"],
+                            lstDestJson[i]["AvailableData"][j]["NoData"]
                             );
                         dest.availableData.push(dataItem);
                     }

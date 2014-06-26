@@ -391,6 +391,8 @@
 
             var preCountry = "";
             for (var i = 0; i < destinations.length; i++) {
+                if (destinations[i].isNoData())
+                    continue;
                 if (destinations[i].airport.country != preCountry) {
                     preCountry = destinations[i].airport.country;
                     var item = document.createElement("div");
@@ -481,10 +483,15 @@
                     destinations[i].routeGeomO[j].style = {};
                     if (destinations[i].isPartialData())
                         destinations[i].routeGeomO[j].style.strokeDashstyle = "dash";
-                    if (destinations[i].hasPaxFlow()) {
-                        destinations[i].routeGeomO[j].style.strokeColor = "#0066FF";
-                    } else {
-                        destinations[i].routeGeomO[j].style.strokeColor = "#6600FF";
+                    if (destinations[i].isNoData()) {
+                        destinations[i].routeGeomO[j].style.strokeColor = "#b3b3b3";
+                    }
+                    else {
+                        if (destinations[i].hasPaxFlow()) {
+                            destinations[i].routeGeomO[j].style.strokeColor = "#0066FF";
+                        } else {
+                            destinations[i].routeGeomO[j].style.strokeColor = "#6600FF";
+                        }
                     }
                     destinations[i].routeGeomO[j].style.strokeOpacity = .6;
                 }
@@ -496,7 +503,10 @@
                 var feature: any = new OpenLayers.Feature.Vector(destinations[i].airport.geomO);
                 feature.airport = destinations[i].airport;
                 feature.attributes.iata = destinations[i].airport.iata;
-                this.mapControl.layerDest.addFeatures(feature);
+                if (destinations[i].isNoData())
+                    this.mapControl.layerDestInactive.addFeatures(feature);
+                else
+                    this.mapControl.layerDest.addFeatures(feature);
             }
 
             this.mapControl.activateOpenLayersControl();

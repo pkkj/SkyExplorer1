@@ -112,8 +112,8 @@
             var myStylesInactive = new OpenLayers.StyleMap({
                 "default": new OpenLayers.Style({
                     pointRadius: 3.5,
-                    fillColor: "#A8A8A8",
-                    strokeColor: "#808080",
+                    fillColor: "#b3b3b3",
+                    strokeColor: "#9a9a9a",
                     strokeWidth: 2,
                     graphicZIndex: 1
                 }),

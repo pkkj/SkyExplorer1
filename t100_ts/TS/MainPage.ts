@@ -47,6 +47,7 @@ module AST {
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
+            DataSourceRegister.registerDataSource("WikiData", WikiData.WikiMetaData.instance());
 
             KrData.KrDataHTMLPageData.loadHTMLData().done(() => {
                 TwData.TwDataHTMLPageData.loadHTMLData().done(() => {

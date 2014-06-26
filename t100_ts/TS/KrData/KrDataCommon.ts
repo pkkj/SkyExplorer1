@@ -23,7 +23,7 @@
             }
 
             public getDestPanelFootNote(): string {
-                return Localization.strings.allDataAreInBothDirection;
+                return "";
             }
 
             public dateFrom() {

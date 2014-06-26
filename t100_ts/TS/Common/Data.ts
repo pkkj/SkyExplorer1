@@ -111,6 +111,14 @@
                 return true;
             }
         }
+        public isNoData(): boolean {
+            for (var i = 0; i < this.availableData.length; i++) {
+                if (!this.availableData[i].noData) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     export class DataSrcDestInfo {
@@ -118,12 +126,14 @@
         public totalPax: number;
         public totalFreight: number;
         public partialData: boolean;
+        public noData: boolean;
 
-        constructor(dataSrcName, totalPax, totalFreight, partialData) {
+        constructor(dataSrcName, totalPax, totalFreight, partialData, noData) {
             this.dataSrcName = dataSrcName;
             this.totalPax = totalPax;
             this.totalFreight = totalFreight;
             this.partialData = partialData;
+            this.noData = noData;
         }
     }
 
