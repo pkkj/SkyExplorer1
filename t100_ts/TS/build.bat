@@ -11,6 +11,7 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\UK\UkDestPanel.ts .\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
 .\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
 .\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts .\JpData\JpDestPanel.ts ^
+.\KrData\KrDataCommon.ts .\KrData\KrDataQuery.ts .\KrData\KrDestPanel.ts ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^
 ..\Scripts\typings\jquery\jquery.d.ts  ^

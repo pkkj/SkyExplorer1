@@ -247,5 +247,9 @@
         // Taiwan Data Source
         public twDataShortInfo = "Taiwan CAA";
         public twDataFullInfo = "Taiwan CAA Data";
+
+        // Korea Data Source
+        public krDataShortInfo = "South Korea KAC"
+        public krDataFullInfo = "Korea Airport Corporation Data"
     }
 }

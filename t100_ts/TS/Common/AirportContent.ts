@@ -13,6 +13,7 @@ module AST {
         private t100FFDestPanel: T100DestPanel = null;
         private twDestPanel: TwData.TwDataDestPanel = null;
         private jpDestPanel: JpData.JpDestPanel = null;
+        private krDestPanel: KrData.KrDestPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -68,6 +69,7 @@ module AST {
             this.ukDestPanel = UkData.UkDestPanel.createUkDestPanel();
             this.twDestPanel = TwData.TwDataDestPanel.createTwDataDestPanel();
             this.jpDestPanel = JpData.JpDestPanel.createJpDestPanel();
+            this.krDestPanel = KrData.KrDestPanel.createKrDestPanel();
 
             // Register the data source information
             this.originPanel.registerDestBar("T100", this.t100DestPanel);
@@ -75,6 +77,7 @@ module AST {
             this.originPanel.registerDestBar("UkData", this.ukDestPanel);
             this.originPanel.registerDestBar("TwData", this.twDestPanel);
             this.originPanel.registerDestBar("JpData", this.jpDestPanel);
+            this.originPanel.registerDestBar("KrData", this.krDestPanel);
 
             this.originPanel.originDialogBuddy = dialogT100Origin;
             this.originPanel.destDialogBuddy = dialogT100DestBar;
@@ -85,6 +88,7 @@ module AST {
             this.t100FFDestPanel.mapBuddy = this.mapControl;
             this.ukDestPanel.mapBuddy = this.mapControl;
             this.jpDestPanel.mapBuddy = this.mapControl;
+            this.krDestPanel.mapBuddy = this.mapControl;
 
             this.originPanel.mapControl = this.mapControl;
 

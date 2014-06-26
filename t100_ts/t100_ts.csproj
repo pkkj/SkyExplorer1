@@ -94,6 +94,7 @@
     <Content Include="Pages\DataSourceInfo\UsT100-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\UsT100.html" />
     <Content Include="Pages\JpDataPart.html" />
+    <Content Include="Pages\KrDataPart.html" />
     <Content Include="Pages\MainPagePart.html" />
     <Content Include="Pages\TwDataPart.html" />
     <Content Include="Pages\UkPart.html" />
@@ -153,6 +154,9 @@
     <TypeScriptCompile Include="TS\JpData\JpDataCommon.ts" />
     <TypeScriptCompile Include="TS\JpData\JpDataQuery.ts" />
     <TypeScriptCompile Include="TS\JpData\JpDestPanel.ts" />
+    <TypeScriptCompile Include="TS\KrData\KrDataCommon.ts" />
+    <TypeScriptCompile Include="TS\KrData\KrDataQuery.ts" />
+    <TypeScriptCompile Include="TS\KrData\KrDestPanel.ts" />
     <TypeScriptCompile Include="TS\Ref\google.d.ts" />
     <TypeScriptCompile Include="TS\MainPage.ts" />
     <TypeScriptCompile Include="TS\Common\MapUtils.ts" />
@@ -198,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\JpData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\KrData.cs" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

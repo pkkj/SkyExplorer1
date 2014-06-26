@@ -246,5 +246,9 @@
         // Taiwan Data Source
         public twDataShortInfo = "台湾CAA";
         public twDataFullInfo = "台湾民用航空局数据";
+
+        // Korea Data Source
+        public krDataShortInfo = "韩国KAC"
+        public krDataFullInfo = "韩国机场集团数据"
     }
 } 

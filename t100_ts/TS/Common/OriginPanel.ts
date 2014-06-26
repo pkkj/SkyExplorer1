@@ -179,6 +179,8 @@
                 this.switchDestBar("UkData");
             } else if (availableData["JpData"]) {
                 this.switchDestBar("JpData");
+            } else if (availableData["KrData"]) {
+                this.switchDestBar("KrData");
             }
         }
 

@@ -37,7 +37,7 @@ module AST {
         }
 
         private postDataPreparation = () => {
-            
+
             T100.T100Localization.init();
 
             // Must register MetaData after init the localization object
@@ -46,17 +46,20 @@ module AST {
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
+            DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
 
-            TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
-                T100.T100HTMLPageData.loadHTMLData().done(() => {
-                    UkData.UkHTMLPageData.loadHTMLData().done(() => {
-                        JpData.JpDataHTMLPageData.loadHTMLData().done(() => {
-                            this.dataSrcControl = new AST.DataSrcControl();
-                            this.dataSrcControl.showT100DataContent();
-                            this.adjustSize();
+            KrData.KrDataHTMLPageData.loadHTMLData().done(() => {
+                TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
+                    T100.T100HTMLPageData.loadHTMLData().done(() => {
+                        UkData.UkHTMLPageData.loadHTMLData().done(() => {
+                            JpData.JpDataHTMLPageData.loadHTMLData().done(() => {
+                                this.dataSrcControl = new AST.DataSrcControl();
+                                this.dataSrcControl.showT100DataContent();
+                                this.adjustSize();
 
-                            // set up other UI
-                            this.initUi();
+                                // set up other UI
+                                this.initUi();
+                            });
                         });
                     });
                 });
