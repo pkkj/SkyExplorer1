@@ -1,0 +1,23 @@
+.People 
+{
+	margin-top:15px;
+	margin-bottom:15px;	
+}
+
+.People  p
+{ margin-top:0;
+	margin-bottom:5px;
+}
+
+.People  .DivPic
+{
+	float:left;
+}
+.People  .Text
+{
+	float:left;
+	padding-left:20px;
+	width:900px;
+}
+
+

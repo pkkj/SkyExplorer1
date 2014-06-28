@@ -1,0 +1,123 @@
+#AirportView {
+	position: absolute;
+	top: 102px;
+	width: 1200px;
+}
+
+#MenuBar {
+	z-index: 30;
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	height: 25px;
+}
+
+#MenuBar li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+	width: 300px;
+	color: rgb(105, 105, 105);
+	font-size: 1.1em;
+}
+
+#MenuBar li .SelectButton0 {
+	display: block;
+	margin-left: 0px;
+	background: rgb(225, 225, 225);
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#MenuBar li .SelectButton0:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#MenuBar li .SelectButton {
+	display: block;
+	margin-left: 5px;
+	background: rgb(225, 225, 225);
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#MenuBar li .SelectButtonUnavailable {
+	display: block;
+	margin-left: 5px;
+	background: rgb(238, 238, 238);
+	color:rgb(192,192,192);
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#MenuBar li .SelectButton:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+#AirportName{
+	color: rgb(105, 105, 105);
+	font-size: 1.6em;
+	line-height: 1.1em;
+	font-weight: bold;
+	font-family: "Trebuchet MS",sans-serif;
+}
+
+#HistoryDataTable 
+{
+	font-size: 14px;
+	width:1175px;
+}
+
+#HistoryDataTable th
+{
+	font-weight:bold;
+	color: rgb(105,105,105);
+	border-color: rgb(192, 192, 192);	
+	border-style: solid;
+	border-width: 1px 0px 1px 0px;
+	font-size:1.1em;
+	padding:5px;
+}
+
+#HistoryDataTable th.Quarter
+{
+	width:65px;
+}
+
+#HistoryDataTable tr
+{
+	border-color: rgb(192, 192, 192);	
+	border-style: solid;
+	border-width: 1px 0px 1px 0px;
+}
+
+#HistoryDataTable td
+{
+	padding:5px;
+	width:12%;
+}
+
+#HistoryDataTable td.Year
+{
+	font-weight:bold;
+
+}
+
+#HistoryDataTable td.alt
+{
+	background-color: rgb(211, 211, 211);
+}

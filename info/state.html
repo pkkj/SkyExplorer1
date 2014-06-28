@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<meta name="keywords"
+	content="Air Access Map, Air Accessibility Map,Air Accessibility Map United State, OSU Air Accessibility Map" />
+
+<title>Air Accessibility Atlas</title>
+<link rel="stylesheet" type="text/css" href="Styles/atlas.css" />
+<link rel="stylesheet" type="text/css" href="Styles/common.css" />
+<link rel="stylesheet" type="text/css" href="Styles/summary.css" />
+<link rel="stylesheet" type="text/css" href="Styles/regionidx.css" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="Scripts/GlobalData.js"></script>
+<script src="Scripts/Path_local.js"></script>
+<script src="Scripts/Utils.js"></script>
+<script src="Scripts/State.js"></script>
+<script src="Scripts/Atlas.js"></script>
+<script src="Scripts/Summary.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34405945-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+	<div id="MainContent">
+		<div id="TitleBar">
+			<span id="PageTitle">Air Accessibility Map</span>
+			<span id="PageSubTitle">Mapping the accessibility for 400+ U.S. airports</span>
+		</div>
+		<div id="NavBar">
+			<a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<a
+				href="accessibility_map.html">Air Accessibility Map</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span
+				id="CurrentPageTitle"></span>
+		</div>
+		<div id="AtlasView">
+
+			<ul id="NavContainer">
+				<li>
+					<div class="SelectButton0" onclick="State.App.showSummary()">Go back to summary</div>
+				</li>
+				
+				<li>
+					<div class="SelectButton" onclick="State.App.showAirportSummary()">Airport Summary View</div>
+				</li>
+
+				<li>
+					<div class="SelectButton" onclick="Utils.PopupMenu.openMenu('DivAirportTable')"
+						onmouseout="Utils.PopupMenu.closeTimer()">Select Airport</div>
+					<div id="DivAirportTable" onmouseover="Utils.PopupMenu.cancelCloseTimer()"
+						onmouseout="Utils.PopupMenu.closeTimer()">
+						<table id="AirportTable">
+						</table>
+					</div>
+				</li>
+				<li>
+					<div class="SelectButton" onclick="Utils.PopupMenu.openMenu('DivQuarterTable')"
+						onmouseout="Utils.PopupMenu.closeTimer()">Select Quarter</div>
+					<div id="DivQuarterTable" onmouseover="Utils.PopupMenu.cancelCloseTimer()"
+						onmouseout="Utils.PopupMenu.closeTimer()"></div>
+				</li>
+			</ul>
+			<div style="clear: both;"></div>
+
+			<div id="Viewer">
+				<div id="ViewerImage"></div>
+				<div id="ViewControl">
+					<div style="height: 250px">
+						<div id="AirportTitle"></div>
+						<div class="TextContent">
+							<h4 class="GreyText" id="AirportIata"></h4>
+							<h4 class="GreyText" id="AirportCity"></h4>
+							<h4 class="GreyText" id="DataSource"></h4>
+						</div>
+					</div>
+					<div id="MoveControlBar">
+						<div class="TextContent">
+							<b>Navigate by Airport</b>
+						</div>
+
+						<div id="PrevAirport" onclick="Quarter.UI.moveAirport('MOVE', -1)">Previous Airport</div>
+						<div id="NextAirport" onclick="Quarter.UI.moveAirport('MOVE',1)">Next Airport</div>
+
+						<div class="TextContent">
+							<b>Navigate by Quarter</b>
+						</div>
+						<div id="PrevQuarter" onclick="Quarter.UI.moveQuarter('MOVE', -1)">Previous Quarter</div>
+						<div id="NextQuarter" onclick="Quarter.UI.moveQuarter('MOVE', 1)">Next Quarter</div>
+
+					</div>
+					<hr />
+					<div class="NormalText">
+						<p>Note: The total passenger number in the map only includes the statistic for non/one/two-stop trips.</p>
+						<p>Copyright &copy;2012, Air Access Team at Department of Geography, The Ohio State
+							University.</p>
+					</div>
+				</div>
+			</div>
+
+			<div style="clear: both;"></div>
+			<hr />
+
+
+		</div>
+
+		<div id="SummaryView">
+
+			<h2>Index of Maps by Quarters</h2>
+			<div id="SummaryDivMapIndex"></div>
+
+			<h2>Basic Statistics</h2>
+			<div id="DivSummary"></div>
+			<p>Note:</p>
+			<ol>
+				<li>Total Pax indicates the total number of passengers traveling from this origin from two
+					databases: <b>DB1B</b> and <b>T100</b>. Differences could exist between these two sources
+					because they are collected in different ways.
+				</li>
+				<li>DB1B is based on a 10% sample of itineraries. For each origin, it only contains the
+					trips that start from the origin and head for a final destination within U.S. territory. That
+					means intermediate stop would not be counted as a departure.</li>
+				<li>Some small regional carriers are not required to report in DB1B. So <b>Total Pax in
+						DB1B</b> shows the estimated departures from the origin airports.
+				</li>
+				<li>T100 data presents the domestic enplanements at each airport. Enplanement is the number
+					of passengers boarding an aircraft at an airport(both starting from that airport or connecting
+					at that airport). However, enplanement does not include '<b>through'</b> passengers (those who
+					stop at an airport and continue their trips on a flight sharing the same flight number with
+					their previous flight).
+				</li>
+				<li><b>Total Pax in T100</b> shows the number of enplanements from the origin airports.</li>
+				<li>The domestic legs of an international trip would appear in T100 data.</li>
+				<li><b>Direct(%)</b> indicates the proportion of passengers that reach destinations
+					directly from this origin in DB1B.</li>
+			</ol>
+
+			<hr />
+
+			<h3>Map Index</h3>
+			<p>You can jump to other regions by selecting them in the table below.</p>
+			<div id="DivMapIndex">
+				<div id="TableMapIndex"></div>
+			</div>
+			<hr />
+			<p>Copyright 2012, Air Access Team at Department of Geography, The Ohio State University.</p>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

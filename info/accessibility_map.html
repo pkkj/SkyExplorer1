@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Air Access Map, Air Accessibility Map, OSU Air Access Map, Air Accessibility Map United State, OSU Air Accessibility Map, US Air Accessibility, Aviation Accessibility" />
+<title>Air Accessibility Map</title>
+<link rel="stylesheet" type="text/css" href="Styles/common.css" />
+<link rel="stylesheet" type="text/css" href="Styles/regionidx.css" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="Scripts/GlobalData.js"></script>
+<script src="Scripts/Utils.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		Utils.createRegionIndex();
+	});
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push([ '_setAccount', 'UA-34405945-2' ]);
+	_gaq.push([ '_trackPageview' ]);
+
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www')
+				+ '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+<body>
+	<div id="MainContent">
+
+		<div id="TitleBar">
+			<span id="PageTitle">Air Accessibility Map</span>
+			<span id="PageSubTitle">Mapping the accessibility for 400+ U.S. airports</span>
+		</div>
+
+		<div id="NavBar">
+			<a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span
+				id="CurrentPageTitle">Air Accessibility Map</span>
+		</div>
+		<div class="TextContent">
+			<h2 class="SectionTitle">INTRODUCTION</h2>
+			<p>
+				This project provides an overview of current US domestic air passenger traffic. It shows the
+				results in detailed maps of the air service accessibility of individual airports (places). The
+				wide range and geographical scope (400+ airports) of the data assure coverage of both large
+				national hubs, as well as many smaller airports in every region. The idea is to use non-stop
+				service as an <b>ACCESSIBILITY INDEX</b> to develop contrasts between levels of service (e.g.
+				non-stop vs. one- and two-stop service). Such an index provides a simple summary measure of the
+				<i>geographical contrasts</i> between places in the current domestic air passenger transport
+				system.
+			</p>
+			<p>
+				The project will illustrate changes in these results <u>over time</u> and so will produce
+				measures of the changes in air accessibility. It is expected that many interesting features of
+				the system will emerge. By providing a comprehensive panorama for all parts of the US, an
+				unusually rich data portrait is given. Each region has individual maps for the airports in that
+				State or Territory. Each map contains information about that particular origin airport's
+				results.
+			</p>
+
+			<h2 class="SectionTitle">THE INDEX OF MAPS</h2>
+			<p>Here is the list of maps of the data. The atlas is organized by states/regions. You can
+				select any of them to investigate the detailed information of each quarter. Currently, we have
+				made 4 quarters in 2011 available, and will update with 2012 as it becomes available.</p>
+			<div id="DivMapIndex">
+				<div id="TableMapIndex"></div>
+			</div>
+
+			<h2 class="SectionTitle">DATA</h2>
+			<p>A key ingredient in these maps is the actual travel patterns observed from the
+				DB1B(Airline Origin and Destination Survey),which is a 10% sample of air tickets for each
+				quarter. Its data includes origin, destination and other itinerary details of passengers
+				transported. The most important information is how many stops are involved on each itinerary. We
+				recover the accessibility indicator from this 0/1/2 stops information. Our first release
+				contains the 2011 results.</p>
+
+
+			<h2 class="SectionTitle">QUESTION</h2>
+			<p>How do the passengers reach their destinations? Here are three major patterns:</p>
+
+			<div class="DivBorder" style="float: left; margin-right: 10px; width: 255px;">
+				<img src="png/info/od-flow.jpg" style="padding: 10px;"></img> <br />
+				<div style="padding: 10px;">
+					<b>Image 1</b>: An illustration of non-stop/one-stop/two-stop flight.
+				</div>
+			</div>
+			<div class="DivBorder" style="float: left">
+				<img src="png/info/cvgtosea.jpg" style="padding: 10px;"></img> <br />
+				<div style="padding: 10px;">
+					<b>Image 2</b>: One-stop flights from CVG to SEA.
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+
+			<p>Another example is presented in image2, showing how passengers travel from Cincinnati(CVG)
+				to Seattle(SEA) via one-stop flights. We can observe lots of detours.</p>
+			<p>In practice, we only focus on zero, one and two stop trips, because they cover about 99%
+				itineraries in the database.</p>
+
+			<h2 class="SectionTitle">METHOD</h2>
+			<p>The method is to examine the distribution of passengers from an ORIGIN to all the
+				DESTINATIONS that they wish to reach. We compute the percentage of passengers who reach their
+				destination directly (i.e. non-stop), those that reach via one stop, and so on. For each origin,
+				the maps show the share going to a particular destination directly using the blue shaded portion
+				of the pie chart. (More blue is better service.) The one stop share is green, and the two stop
+				share is red. We do not include the higher stop itineraries as they are comparatively rare as a
+				share of total passengers. [Such higher indirect flights can of course account for
+				extraordinarily long travel times.]</p>
+			<p>As we develop this site, we will also show aggregate statistics for each origin such as
+				CIRCUITY and share of total passenger miles that are direct.</p>
+
+			<h2 class="SectionTitle">REFERENCES</h2>
+			<p>E.J. Taaffe, H.L. Gauthier, and M.E. O'Kelly, 1996. Geography of Transportation, 2nd
+				edition.</p>
+			<p>
+				Available on Google Books at: <a
+					href="http://books.google.com/books?printsec=frontcover&amp;id=N60qf7WynaEC#v=onepage&amp;q&amp;f=false"
+					class='external free'
+					title="http://books.google.com/books?printsec=frontcover&amp;id=N60qf7WynaEC#v=onepage&amp;q&amp;f=false"
+					rel="nofollow">here</a>.
+			</p>
+
+			<h2 class="SectionTitle">ABOUT</h2>
+			<p>This website is set up and maintained by Kejing Peng under the supervision by Professor
+				Morton O'Kelly.</p>
+			<p>Any suggestion is welcome. You can provide your opinion or suggestion to our team by
+				email: peng.184@osu.edu.</p>
+
+			<h2 class="SectionTitle">ACKNOWLEDGEMENT</h2>
+			<p>Thanks to our funding support:</p>
+			<ul>
+				<li>NSF</li>
+				<li>Center for Aviation Studies</li>
+			</ul>
+			<p>Thanks to the Department of Geography and the Center for Urban and Regional Analysis.</p>
+			<p>Special thanks to Jens Blegvad for hardware/server support.</p>
+
+			<h2 class="SectionTitle">LINKS</h2>
+			<p>
+				<a href="http://www.geography.osu.edu/">Department of Geography - The Ohio State University</a>
+				<br /> <img src="png/info/logo_geo.png"></img>
+			</p>
+			<p>
+				<a href="http://aviation.cse.ohio-state.edu/">Center for Aviation Studies - The Ohio State
+					University</a> <br /> <img src="png/info/logo_cas.png"></img>
+			</p>
+
+			<p>
+				<a href="http://cura.osu.edu/">Center for Urban and Regional Analysis - The Ohio State
+					University</a> <br /> <img src="png/info/logo_cura.jpg"></img>
+			</p>
+
+			<div class="CrossLine"></div>
+			<p>Copyright 2012, Air Access Team at Department of Geography, The Ohio State University.</p>
+
+
+		</div>
+	</div>
+
+</body>
+</html>

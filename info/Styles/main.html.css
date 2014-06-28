@@ -1,0 +1,46 @@
+
+
+
+
+#MenuBar {
+	background: rgb(225, 225, 225);
+	margin-top: 0px;
+	margin-bottom: 5px;
+	color: rgb(105, 105, 105);
+
+}
+
+#MenuBar .Item {
+	float: left;
+	font-size: 1.1em;
+	font-weight: bold;	
+	text-align: center;
+	width: 130px;
+}
+#MenuBar span {
+	display: block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+#MenuBar a {
+	display: block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+#MenuBar #CurrentPageTitle {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#MenuBar .Item:hover {
+	color: rgb(255,255,255);
+	background-color: rgb(0, 113, 198);	
+	cursor:pointer;
+}
+
+#MenuBar .Item:hover a
+{	 	
+	color: rgb(255,255,255);
+	background-color: rgb(0, 113, 198);	
+	cursor:pointer;
+}

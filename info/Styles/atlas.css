@@ -1,0 +1,203 @@
+#AtlasView {
+	visibility: hidden;
+	position: absolute;
+	top: 102px;
+	width: 1200px;
+}
+
+#NavContainer {
+	z-index: 30;
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	height: 25px;
+}
+
+#NavContainer li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+	width: 300px;
+	/*border: 1px solid rgb(192, 192, 192);*/
+	color: rgb(105, 105, 105);
+	font-size: 1.1em;
+}
+
+#NavContainer li .SelectButton0 {
+	display: block;
+	margin-left: 0px;
+	background: rgb(225, 225, 225);
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#NavContainer li .SelectButton0:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#NavContainer li .SelectButton {
+	display: block;
+	margin-left: 5px;
+	background: rgb(225, 225, 225);
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#NavContainer li .SelectButton:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.NavButton {
+	padding: 0px 15px 0px 15px;
+}
+
+
+
+
+
+#DivQuarterTable {
+	width: 293px;
+	margin-left: 5px;
+	position: absolute;
+	visibility: hidden;
+	background: rgb(255, 255, 255);
+	border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+}
+
+#DivQuarterTable .YearTitle {
+	width: 293px;
+	text-align: center;
+	padding: 5px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#DivQuarterTable .YearSubTable {
+	width: 280px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+#DivQuarterTable .YearSubTable td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: rgb(105, 105, 105);
+	font-size: 1.1em;
+	background: rgb(225, 225, 225);
+	border-color: rgb(255, 255, 255);
+	border-style: solid;
+	border-width: 0px 5px 0px 5px;
+}
+
+#DivQuarterTable .YearSubTable .NotAvailable {
+	background-color: rgb(238, 238, 238);
+	color: rgb(192, 192, 192);
+	cursor: default;
+	cursor: default;
+}
+
+#DivQuarterTable .YearSubTable .Available:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#Viewer {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	width: 1210px;
+}
+
+#ViewerImage {
+	float: left;
+	width: 935px;
+}
+
+.MapContainer {
+	border: 1px solid rgb(192, 192, 192);
+}
+
+.NoMapMessage {
+	font-size: 2.2em;
+	text-align: left;
+	width: 935px;
+	height: 600px;
+	color: rgb(192, 192, 192);
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+#ViewControl {
+	border-color: rgb(192, 192, 192);
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+	float: left;
+	width: 263px;
+	height: 800px;
+}
+
+#ViewControl .TextContent {
+	margin-left: 10px;
+}
+
+#ViewControl .Button {
+	text-align: center;
+	margin: 10px 10px 10px 10px;
+	padding: 10px;
+	color: rgb(105, 105, 105);
+	font-size: 1.1em;
+	background: rgb(225, 225, 225);
+}
+
+#ViewControl .ButtonNotAvailable {
+	text-align: center;
+	margin: 10px 10px 10px 10px;
+	padding: 10px;
+	color: rgb(192, 192, 192);
+	font-size: 1.1em;
+	background-color: rgb(238, 238, 238);
+	cursor: default;
+}
+
+#ViewControl .Button:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 113, 198);
+	cursor: pointer;
+}
+
+#AirportTitle {
+	font-size: 1.5em;
+	padding: 10px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(112, 112, 112);
+	font-family: "Trebuchet MS",sans-serif;
+}
+
+#MoveControlBar {
+	/*height: 450px;*/
+}
+
+.NormalText {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.GreyText {
+	color: rgb(105, 105, 105);
+	margin: 10px auto 10px auto;
+}

@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords"
+          content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
+    <title>Sky Explorer - T100: Introduction</title>
+    <link rel="stylesheet" type="text/css" href="Styles/common.css" />
+    
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34405945-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+</head>
+<body>
+	<div id="MainContent">
+
+		<div id="TitleBar" style="background-image: url('png/skyexplorer_t100_info/title.png'); height:250px ">
+			<div id="PageTitle" style="font-size: 36px; margin-top: 180px; padding-left: 20px">Sky Explorer - T100</div>
+            <div id="PageSubTitle" style="font-size: 16px; margin-top: 10px;padding-left:20px; ">A powerful WebGIS for investigating air traffic data interactively by Department of Geography @ OSU.
+                <a href="../t100/web/main.html" >(Launch the App)</a>
+            </div>
+		</div>
+
+		<div id="NavBar">
+            <div style="float:left">
+                <a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">Sky Explorer - T100</span>
+            </div>
+			
+            <div style="margin-top: 1px;float: left; position: absolute; right: 15px">
+            <span style="font-size: 13px">Switch language: English, <a style="font-weight: normal" href="skyexplorer_t100_cn.html">Chinese</a></span></div>
+            <div style="clear:both"></div>
+		</div>
+		<div class="TextContent">
+			<h2 class="SectionTitle">Introduction</h2>
+			<p>
+                <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100, or Air Carrier Statistics (Form 41 Traffic)</a>, provided by                 
+                <a href="http://www.rita.dot.gov/bts/home">Bureau of Transportation Statistics(BTS)</a>,
+                is one of the best public air traffic database all over the world. 
+                These data provide huge amount of precious information of the US aviation network, including departures, passengers, freight and aircraft usage in each route.
+                However, this data is only available in CSV format. Complicated data processing is required before investigation.
+                Therefore, it is not friendly to common users and researchers.
+			</p>
+
+            <p>
+                In order to present this data to public in a friendly way, we develop <i>Sky Explorer</i>, a powerful WebGIS tool. 
+                Taking advantage of GIS and cartography technology, the texts and numbers in T100 Database are interpreted vividly.
+                User can interact with the geographic data and get the fact more quickly. 
+                Combined with third-party data sources, these maps and charts provides a good illustration of development and current landscape of US air industry.
+                We believe that this WebGIS can benefit multiple actors involved in the air transportation process: travelers, airport planners, regional
+                planners, policy makers, business decision makers, graduate students and researchers in transport geography.
+            </p>
+
+
+			<h2 class="SectionTitle">Sample Scenarios</h2>
+            <p>Here are some common scenarios of this application. We demonstrate its functions and features by answering some questions related to air transportation.</p>
+            <h3>How many destinations does Port Columbus International Airport (CMH) have? And where are they?</h3>
+			<p>Just click an airport, you will see the routes shown in the map. You might be surprised to find Port Columbus <i>International</i> Airport
+             has international destinations indeed! By selecting the airport from the dropdown box or picking up the destination in the map, you will
+            see the detail information of each route. </p>
+
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq1.png" style="padding: 5px;" /><br />
+                <div style="padding: 10px;">
+                    <b>Image 1</b>: Destinations from CMH in 2012.
+                </div>
+            </div>
+
+            <h3>What are the popular international destinations of San Francisco International Airport (SFO) in 2013?</h3>
+            <p>
+                Select SFO from the map, or input SFO in the "Airport" text box then click "Search". You will see SFO shown as an origin airport with many connections in the map.
+                You could launch a detail page by clicking (Airport Detail Report) in the right of airport code. You may filter the detail report by region. In the rank of international
+                destinations, London is the top international passenger destination.
+            </p>
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq2.png" style="padding: 5px;" />
+                <div style="padding: 10px;">
+                    <b>Image 2</b>: Popular international destinations of SFO and passenger share by airlines.
+                </div>
+            </div>
+
+            <h3>Which airport is suffering a decline in passenger flow?</h3>
+            <p>
+               User can find the time series chart in airport detail report page. Maybe Cincinnati/Northern Kentucky International Airport is a good example for decline. From 2005, the passenger 
+               flow has been descending year by year significantly. One major reason is that Delta is abandoning this hub after merging with Northwest.
+            </p>
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq4.png" style="padding: 5px;" /><br />
+                <div style="padding: 10px;">
+                    <b>Image 3</b>: Trend of departing passenger in CVG: from 1990 to 2012.
+                </div>
+            </div>
+
+            <h3>Which aircraft was used to operated the flight between Washington DC and Moscow in 1990, 2000 and 2013?</h3>
+            <p>
+                There is a detail page for each route too. You could click an origin (IAD/Washington Dulles International Airport) and then select the 
+                destination (SVO/Sheremetyevo International Airport) to see the route.
+                Clicking the (Route Detail Report) link at the bottom in the left will launch the route detail report.
+                We can find that this route is operated by USSR's airline: Aeroflot. The aircraft changed for several times, from Ilyushin 62, an old-style Russian aircraft, 
+                to Boeing 767-300, a US-made aircraft.
+            </p>
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq3-1.png" style="padding: 5px;" />
+                <img src="png/skyexplorer_t100_info/faq3-2.png" style="padding: 5px;" />
+                <img src="png/skyexplorer_t100_info/faq3-3.png" style="padding: 5px;" />
+                <div style="padding: 10px;">
+                    <b>Image 4</b>: Aircraft usage for the flight between DC and Moscow in 1990, 2000 and 2013.
+                </div>
+            </div>
+
+            <h3>How about the load factor for the route between Los Angeles and London?</h3>
+            <p>
+                Select the route in the map and launch the route detail report UI. In the "Time series of seat" tab you could find some charts about available seats and 
+                load factor of different airlines. Generally speaking British Airway has best performance in load factor, which is higher than 80% in most of the months.
+                American Airlines is the second and United Airlines is the third, with a load factor around 60% to 80%. Virgin Atlantic only provides seasonal service in the 
+                summer.
+            </p>
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq5.png" style="padding: 5px;" /><br />
+                <div style="padding: 10px;">
+                    <b>Image 5</b>: Load factor of major operators between Los Angeles and London by month from 2012 to 2013.
+                </div>
+            </div>
+
+            <h3>What's the main freight hub of FedEx outside US?</h3>
+            <p>
+                This app provides an "Airline View" for those who is interested in the shape of airline's network. We have full data for US carriers between 2003 and 2009. User can switch to 
+                "Airline view" by clicking the button in the title bar, and then select an airline to view its network. User could specify which year to show, and filter the routes by region.
+                Only the top 400 routes in terms of flow will be shown. From the map we can observer that Paris-Charles de Gaulle Airport was FedEx's most important airport in Europe. In Asia,
+                there are several important airports: Guangzhou (CAN), Narita (NRT) and Hong Kong (HKG). Some of the routes are single-directed. However, due to the limitation of visualization, 
+                you could not determine whether it from the map directly.
+
+            </p>
+            <div class="DivBorder">
+                <img src="png/skyexplorer_t100_info/faq6.png" style="padding: 5px;" />
+
+                <div style="padding: 10px;">
+                    <b>Image 6</b>: FedEx network in 2009 in Asia and Europe.
+                </div>
+            </div>
+
+            <h2 class="SectionTitle">Data Availability</h2>
+            <p>T100 database contains comprehensive monthly aggregated records of detail information of the flights start or end within the US territory 
+            (including Puerto Rico and Guam) for both passenger and freight. Each record in the database is an aggregated entry 
+            for all the flights with the same origin, destination, carrier, aircraft type and month.
+            One of the defects is that there is a six-month lag before the real data is released. This system covers the data from January, 1990 to December, 2013. 
+            </p>
+            <p>
+                Data Bank 28IS(FF) provided by BTS is also used as supplementary data source. It contains the international segments for US air carriers. However, it has a 3-year restriction.
+                The system only covers this data from 2003 to 2009.
+            </p>
+
+			<p>
+                We only focus on the schedule flights (including seasonal flights). Charters flights will be excluded from the system.
+                T100 Data has a column indentifying whether a record is charter flight, which is used by our program to filter the data.
+                Only the airlines operating schedule flights will be selected into our database. 
+            </p>
+            <p>
+                Some routes with small flows would be filtered according to certain criteria. Routes with less than 5 flights per month will be dropped.
+                In one year, a <i>qualified</i> passenger route should have at least three months with 100+ travelers, or two months with 
+                200+ travelers. A <i>qualified</i> freight route should have at least three months with 5+ tons freight, or two months with
+                10+ tons freight.
+            </p>
+            <p>
+                For the airports in United Kingdom, we collect the connection data from 2010 to 2013 from <a href="http://www.caa.co.uk/homepage.aspx">Civil Aviation Authority</a>'s website. With
+                this supplementary data, users can see the all the connections from UK's airports, although only concrete flow data is only available for the routes to US. 
+                These routes without flow data are shown as grey lines in the map.
+            </p>
+
+
+            <h2 class="SectionTitle">Technology</h2>
+            <p>
+                This application takes advantage of open source technology. The geovisulization of aviation data is powered by several famous open source GIS software: 
+                <a href="http://postgis.net/">PostGIS</a>, <a href="http://geoserver.org/">GeoServer</a> and <a href="http://openlayers.org/">OpenLayers</a>.
+                <a href="http://www.python.org">Python</a> is utilized to process the source data. Besides, <a href="http://www.esri.com/data/basemaps">ESRI Basemap</a>  is used as the basemap for this WebGIS.
+                Data service is implemented with <a href="http://www.asp.net/">Microsoft AST.NET</a>. JavaScript program is implemented with <a href="http://www.typescriptlang.org/">TypeScript</a>, 
+                a free and open source programming language developed by Microsoft.
+            </p>
+            <p>
+                This WebGIS is tested under following browsers: Internet Explorer(only 9, 10 and 11), Firefox and Chrome. 
+            </p>
+
+            <h2 class="SectionTitle">About</h2>
+            <p>This WebGIS is developed by <a href="http://www.linkedin.com/pub/kejing-peng/32/867/87a">Kejing Peng</a> under the supervision by Professor
+                <a href="http://www.geography.ohio-state.edu/faculty/okelly/">Morton O'Kelly</a>.</p>
+			<p>Any suggestion is welcome. You can provide your opinion or suggestion to our team by
+				email: peng.184@osu.edu.</p>
+
+			<h2 class="SectionTitle">Acknowledgement</h2>
+			<p>Thanks to the Department of Geography and the Center for Urban and Regional Analysis.</p>
+			<p>Special thanks to Shaun Fontanella and Jens Blegvad for hardware/server support.</p>
+
+            <h2 class="SectionTitle">Links</h2>
+            <div style="float: left">
+                <a href="http://www.geography.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_geo.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left:30px">
+                <a href="http://aviation.cse.ohio-state.edu/">
+                    <img class="BottomImage" src="png/info/logo_cas.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left: 30px">
+                <a href="http://cura.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_cura.png" />
+                </a>
+            </div>
+            
+            <div style="clear:both"></div>
+            <br />
+			<div class="CrossLine"></div>
+			<p>Copyright &copy; 2014, Center for Urban and Regional Analysis, Department of Geography, The Ohio State University.</p>
+		</div>
+	</div>
+</body>
+</html>
