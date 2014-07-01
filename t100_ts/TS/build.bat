@@ -12,7 +12,7 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 .\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts .\TwData\TwDataDestPanel.ts ^
 .\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts .\JpData\JpDestPanel.ts ^
 .\KrData\KrDataCommon.ts .\KrData\KrDataQuery.ts .\KrData\KrDestPanel.ts ^
-.\WikiData\WikiDataCommon.ts  ^
+.\WikiData\WikiDataCommon.ts  .\WikiData\WikiDataQuery.ts  .\WikiData\WikiDestPanel.ts  ^
 .\Ref\google.d.ts .\Ref\openlayers.d.ts ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^
 ..\Scripts\typings\jquery\jquery.d.ts  ^

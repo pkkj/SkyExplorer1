@@ -52,7 +52,7 @@ namespace AST {
         static public HashSet<string> GetAvailableAirlineInDb_HashSet( string dataSrc ) {
             List<string> lstDataSrc;
             if ( dataSrc == "" ) {
-                lstDataSrc = AirlineInDb.Keys.ToList();
+                return new HashSet<string>( CarrierDict[ "ENUS" ].Keys.ToList() );
             } else {
                 lstDataSrc = new List<string>( dataSrc.Split( ',' ) );
             }
@@ -67,9 +67,9 @@ namespace AST {
         }
 
         static public Dictionary<string, Carrier> GetAvailableAirlineInDb( string dataSrc, string locale = "ENUS" ) {
-            HashSet<string> availableAirport = GetAvailableAirlineInDb_HashSet( dataSrc );
+            HashSet<string> availableAirline = GetAvailableAirlineInDb_HashSet( dataSrc );
             Dictionary<string, Carrier> airlines = new Dictionary<string, Carrier>();
-            foreach ( string airline in availableAirport ) {
+            foreach ( string airline in availableAirline ) {
                 airlines.Add( airline, CarrierDict[ locale ][ airline ] );
             }
             return airlines;

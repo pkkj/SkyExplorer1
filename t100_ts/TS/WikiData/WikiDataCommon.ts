@@ -1,5 +1,21 @@
 ﻿module AST {
     export module WikiData {
+
+        export class WikiDataHTMLPageData {
+            static loadHTMLData() {
+                var deferred = $.Deferred();
+
+                var deferred1 = $.Deferred();
+
+                $.when(deferred1).then(function () {
+                    deferred.resolve();
+                });
+
+                $("#wikiDataDestBarInnerDiv").load("WikiDataPart.html #wikiDestBarInnerDivContent", () => { deferred1.resolve(); });
+                return deferred.promise();
+            }
+        }
+
         export class WikiMetaData extends AST.DataSourceMetaData {
             constructor() {
                 super();

@@ -135,7 +135,7 @@
 
                 var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
                 tr.appendChild(AST.Utils.createElement("td", { "class": "rowIndex", "text": (i + 1).toString(), "rowSpan": 2 }));
-                tr.appendChild(AST.Utils.createElement("td", { "class": "rowName", "text": data[i].airline.getDisplayName(), "colSpan": 4 }));
+                tr.appendChild(AST.Utils.createElement("td", { "class": "rowName", "text": Airline.getDisplayName(data[i].airline), "colSpan": 4 }));
 
                 tableBody.appendChild(tr);
 
@@ -195,7 +195,7 @@
             var totalFlow = 0;
 
             for (var i = 0; i < this.routeData.length; i++) {
-                var airlineName = this.routeData[i].airline.name;
+                var airlineName = GlobalMetaData.airlineDict[this.routeData[i].airline].name;
 
                 if (this.dataType == FlowType.Passenger) {
                     _data.push([airlineName, this.routeData[i].pax]);
@@ -266,7 +266,7 @@
             }
             for (i = 0; i < this.routeData.length; i++) {
                 var yearFlow: number = 0;
-                var airlineName = this.routeData[i].airline.name;
+                var airlineName = GlobalMetaData.airlineDict[this.routeData[i].airline].name;
 
                 if (this.dataType == FlowType.Passenger) {
                     for (j = 0; j < 12; j++) {

@@ -189,6 +189,8 @@
     <TypeScriptCompile Include="TS\UK\UkDataQuery.ts" />
     <TypeScriptCompile Include="TS\UK\UkDestPanel.ts" />
     <TypeScriptCompile Include="TS\WikiData\WikiDataCommon.ts" />
+    <TypeScriptCompile Include="TS\WikiData\WikiDataQuery.ts" />
+    <TypeScriptCompile Include="TS\WikiData\WikiDestPanel.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Localization.cs" />

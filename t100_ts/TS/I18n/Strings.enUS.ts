@@ -249,11 +249,12 @@
         public twDataFullInfo = "Taiwan CAA Data";
 
         // Korea Data Source
-        public krDataShortInfo = "South Korea KAC";
+        public krDataShortInfo = "S. Korea KAC";
         public krDataFullInfo = "Korea Airport Corporation Data";
 
         // Wikipedia Data
         public wikiDataShortInfo = "Wikipedia";
         public wikiDataFullInfo = "Wikipedia Airport Info";
+        public wikiAirlinesOperatingThisRoute = "Airlines operating this route:";
     }
 }

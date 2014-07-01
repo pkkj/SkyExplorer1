@@ -12,7 +12,7 @@
         private destHightlightControl: OpenLayers.Control.SelectFeature = null;
         private destSelectControl: OpenLayers.Control.SelectFeature = null;
         private destInactiveHightlightControl: OpenLayers.Control.SelectFeature = null;
-        private desInactivetSelectControl: OpenLayers.Control.SelectFeature = null;
+        private destInactiveSelectControl: OpenLayers.Control.SelectFeature = null;
 
         constructor(mapControl, dataSrcPanel) {
             this.mapControl = mapControl;
@@ -24,16 +24,22 @@
         }
 
         public selectDestAirportFeature(iata: string) {
-            if (this.layerDest.selectedFeatures.length > 0) {
-                if (this.layerDest.selectedFeatures[0].attributes.iata == iata)
+            this.selectDestAirportFeatureInternal(this.layerDest, this.destSelectControl,iata);
+            this.selectDestAirportFeatureInternal(this.layerDestInactive, this.destInactiveSelectControl, iata);
+        }
+
+        public selectDestAirportFeatureInternal(layer: any, selectControl: any, iata: string): boolean {
+            if (layer.selectedFeatures.length > 0) {
+                if (layer.selectedFeatures[0].attributes.iata == iata)
                     return;
                 else
-                    this.destSelectControl.unselect(this.layerDest.selectedFeatures[0]);
+                    selectControl.unselect(layer.selectedFeatures[0]);
             }
-
-            var feature = this.layerDest.getFeaturesByAttribute("iata", iata)[0];
-            feature.stop = true;
-            this.destSelectControl.select(feature);
+            var feature = layer.getFeaturesByAttribute("iata", iata)[0];
+            if (feature) {
+                feature.stop = true;
+                selectControl.select(feature);
+            }
         }
 
         private createAirportBaseLayer() {
@@ -129,20 +135,28 @@
                 styleMap: myStylesInactive,
                 rendererOptions: { zIndexing: true }
             });
+
             this.destInactiveHightlightControl = new OpenLayers.Control.SelectFeature(this.layerDestInactive, {
                 hover: true,
                 highlightOnly: true
             });
-            this.desInactivetSelectControl = new OpenLayers.Control.SelectFeature(this.layerDestInactive, {
+            this.destInactiveSelectControl = new OpenLayers.Control.SelectFeature(this.layerDestInactive, {
                 clickout: true,
-                onSelect: function (feature) {
-
+                onSelect: (feature) => {
+                    if (feature != null) {
+                        AST.GlobalStatus.destAirport = feature.airport;
+                        if (feature.stop) {
+                            feature.stop = null;
+                            return;
+                        }
+                        this.dataSrcPanel.changeDestAirport();
+                    }
                 },
                 onUnselect: function (feature) {
 
                 }
             });
-            this.mapControl.addControl(this.desInactivetSelectControl);
+            this.mapControl.addControl(this.destInactiveSelectControl);
             this.mapControl.addControl(this.destInactiveHightlightControl);
             this.mapControl.addLayers([this.layerDestInactive, this.layerDest]);
         }
@@ -163,7 +177,7 @@
             this.destHightlightControl.deactivate();
             this.destSelectControl.deactivate();
             this.destInactiveHightlightControl.deactivate();
-            this.desInactivetSelectControl.deactivate();
+            this.destInactiveSelectControl.deactivate();
         }
 
         private onMapClick = (e)=> {
@@ -189,14 +203,14 @@
             this.destHightlightControl.activate();
             this.destSelectControl.activate();
             this.destInactiveHightlightControl.activate();
-            this.desInactivetSelectControl.activate();
+            this.destInactiveSelectControl.activate();
         }
 
         public deactivate() {
             this.mapControl.events.unregister("click", this.mapControl, this.onMapClick);
             this.mapControl.removeControl(this.destHightlightControl);
             this.mapControl.removeControl(this.destSelectControl);
-            this.mapControl.removeControl(this.desInactivetSelectControl);
+            this.mapControl.removeControl(this.destInactiveSelectControl);
             this.mapControl.removeControl(this.destInactiveHightlightControl);
             this.mapControl.removeLayer(this.layerRoute);
             this.mapControl.removeLayer(this.layerOrigin);

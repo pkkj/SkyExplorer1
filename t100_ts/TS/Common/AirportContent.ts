@@ -14,6 +14,7 @@ module AST {
         private twDestPanel: TwData.TwDataDestPanel = null;
         private jpDestPanel: JpData.JpDestPanel = null;
         private krDestPanel: KrData.KrDestPanel = null;
+        private wikiDestPanel: WikiData.WikiDestPanel = null;
 
         //private t100AirlineSelector = null;
         private legendDiv: HTMLElement = null;
@@ -70,6 +71,7 @@ module AST {
             this.twDestPanel = TwData.TwDataDestPanel.createTwDataDestPanel();
             this.jpDestPanel = JpData.JpDestPanel.createJpDestPanel();
             this.krDestPanel = KrData.KrDestPanel.createKrDestPanel();
+            this.wikiDestPanel = WikiData.WikiDestPanel.createWikiDestPanel();
 
             // Register the data source information
             this.originPanel.registerDestBar("T100", this.t100DestPanel);
@@ -78,6 +80,7 @@ module AST {
             this.originPanel.registerDestBar("TwData", this.twDestPanel);
             this.originPanel.registerDestBar("JpData", this.jpDestPanel);
             this.originPanel.registerDestBar("KrData", this.krDestPanel);
+            this.originPanel.registerDestBar("WikiData", this.wikiDestPanel);
 
             this.originPanel.originDialogBuddy = dialogT100Origin;
             this.originPanel.destDialogBuddy = dialogT100DestBar;
@@ -89,6 +92,7 @@ module AST {
             this.ukDestPanel.mapBuddy = this.mapControl;
             this.jpDestPanel.mapBuddy = this.mapControl;
             this.krDestPanel.mapBuddy = this.mapControl;
+            this.wikiDestPanel.mapBuddy = this.mapControl;
 
             this.originPanel.mapControl = this.mapControl;
 

@@ -49,17 +49,19 @@ module AST {
             DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
             DataSourceRegister.registerDataSource("WikiData", WikiData.WikiMetaData.instance());
 
-            KrData.KrDataHTMLPageData.loadHTMLData().done(() => {
-                TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
-                    T100.T100HTMLPageData.loadHTMLData().done(() => {
-                        UkData.UkHTMLPageData.loadHTMLData().done(() => {
-                            JpData.JpDataHTMLPageData.loadHTMLData().done(() => {
-                                this.dataSrcControl = new AST.DataSrcControl();
-                                this.dataSrcControl.showT100DataContent();
-                                this.adjustSize();
+            WikiData.WikiDataHTMLPageData.loadHTMLData().done(() => {
+                KrData.KrDataHTMLPageData.loadHTMLData().done(() => {
+                    TwData.TwDataHTMLPageData.loadHTMLData().done(() => {
+                        T100.T100HTMLPageData.loadHTMLData().done(() => {
+                            UkData.UkHTMLPageData.loadHTMLData().done(() => {
+                                JpData.JpDataHTMLPageData.loadHTMLData().done(() => {
+                                    this.dataSrcControl = new AST.DataSrcControl();
+                                    this.dataSrcControl.showT100DataContent();
+                                    this.adjustSize();
 
-                                // set up other UI
-                                this.initUi();
+                                    // set up other UI
+                                    this.initUi();
+                                });
                             });
                         });
                     });

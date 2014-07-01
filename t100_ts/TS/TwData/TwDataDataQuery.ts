@@ -10,7 +10,7 @@
                     var jsonObj: Object = $.parseJSON(jsonText);
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
                         var route = new RouteRecord();
-                        route.airline = new AirlineBase(jsonObj["routes"][i]["AIRLINE"], jsonObj["routes"][i]["AIRLINE_NAME"]);
+                        route.airline = jsonObj["routes"][i]["AIRLINE"];
                         route.departure = parseInt(jsonObj["routes"][i]["DEPARTURE"]);
                         route.pax = parseInt(jsonObj["routes"][i]["PAX"]);
                         route.freight = parseInt(jsonObj["routes"][i]["FREIGHT"]);

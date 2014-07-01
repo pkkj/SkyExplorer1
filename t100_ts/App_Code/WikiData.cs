@@ -48,49 +48,53 @@ namespace AST {
                 conn.Close();
             }
         }
-        public static string QueryByRoute( string year, string origin, string dest, string locale ) {
+
+        private static void QueryByRouteInternal( string tableName, string year, string origin, string dest, ref string jsonResult ) {
             NpgsqlConnection conn = null;
-            string res = "";
-            Airport originAirport = AirportData.Query( origin );
-            Airport destAirport = AirportData.Query( dest );
-            if ( originAirport == null || destAirport == null )
-                return "";
-            double distKm = Utils.DistEarth( originAirport.Geometry.x, originAirport.Geometry.y, destAirport.Geometry.x, destAirport.Geometry.y );
-            double distMile = Math.Round( distKm * 0.621371, 0 );
-            double distNm = Math.Round( distKm * 0.539957, 0 );
-            distKm = Math.Round( distKm, 0 );
+
             try {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
 
                 string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
-                string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
-                Utils.DoubleQuoteStr("PAX"), 
-                Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX")};
+                string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ) };
 
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"TwDataSummary\"" + where;
+                string sql = "SELECT " + fieldStr + " FROM \"" + tableName + "\"" + where;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
-                    if ( res != "" )
-                        res += ",";
+                    if ( jsonResult != "" )
+                        jsonResult += ",";
                     Dictionary<string, string> item = new Dictionary<string, string>();
                     IDataRecord record = ( IDataRecord ) dr;
                     for ( int i = 0; i < record.FieldCount; i++ ) {
                         item.Add( record.GetName( i ), record[ i ].ToString() );
                     }
-                    Carrier carrier = CarrierData.Query( item[ "AIRLINE" ], locale );
-                    item.Add( "AIRLINE_NAME", carrier.FullName );
                     string json = new JavaScriptSerializer().Serialize( item );
-                    res += json;
+                    jsonResult += json;
                 }
 
             } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
+
+        }
+
+        public static string QueryByRoute( string year, string origin, string dest, string locale ) {
+            Airport originAirport = AirportData.Query( origin );
+            Airport destAirport = AirportData.Query( dest );
+            if ( originAirport == null || destAirport == null )
+                return "";
+
+            double distKm, distMile, distNm;
+            Utils.GetDistanceByUnits( originAirport, destAirport, out distKm, out distMile, out distNm );
+
+            string res = "";
+            QueryByRouteInternal( "NWikiConnection", year, origin, dest, ref res );
+            QueryByRouteInternal( "WikiConnection", year, origin, dest, ref res );
 
             res = "\"routes\":[" + res + "],";
             res += "\"distKm\":" + distKm.ToString() + ",";

@@ -54,9 +54,9 @@ namespace AST {
                     return "";
                 }
             }
-            if ( origin != "" ) 
-                origin = keyword; 
-            else 
+            if ( origin != "" )
+                origin = keyword;
+            else
                 dest = keyword;
             List<DestInfo> destInfo = new List<DestInfo>();
             HashSet<string> validSrc = new HashSet<string>( dataSource.Split( ',' ) );
@@ -82,16 +82,16 @@ namespace AST {
                 destInfo.AddRange( KrData.QueryDestByOrigin( year, origin, dest, airline, locale ) );
             }
             // Query Wiki connection data
-            //if ( validSrc.Contains( "WikiData" ) || dataSource == "" ) {
-            for ( int i = 0; i < destInfo.Count; i++ )
-                destSet.Add( destInfo[ i ].Airport );
-            List<DestInfo> wikiResult = WikiData.QueryDestByOrigin( year, origin, dest, airline, locale );
-            foreach ( DestInfo _dest in wikiResult ) {
-                if ( !destSet.Contains( _dest.Airport ) )
-                    destInfo.Add( _dest );
+            if ( validSrc.Contains( "WikiData" ) || dataSource == "" ) {
+                for ( int i = 0; i < destInfo.Count; i++ )
+                    destSet.Add( destInfo[ i ].Airport );
+                // Only show the destinations that don't exist in other data sources
+                List<DestInfo> wikiResult = WikiData.QueryDestByOrigin( year, origin, dest, airline, locale );
+                foreach ( DestInfo _dest in wikiResult ) {
+                    if ( !destSet.Contains( _dest.Airport ) )
+                        destInfo.Add( _dest );
+                }
             }
-
-            //}
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {
                 if ( !destDict.ContainsKey( d.Airport ) ) {
@@ -141,13 +141,13 @@ namespace AST {
         }
 
         // TODO: Pay attention to T100FF data
-        public static string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale) {
+        public static string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
             NpgsqlConnection conn = null;
             try {
                 conn = new NpgsqlConnection( T100DB.connString );
                 conn.Open();
                 // Only support IATA code
-                string sqlIata = "SELECT \"AVAILABILITY\" FROM \"AirportAvailability\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode ) 
+                string sqlIata = "SELECT \"AVAILABILITY\" FROM \"AirportAvailability\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode )
                     + " AND \"DATA_SOURCE\" = \'" + dataSrc + "\'";
 
                 NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );

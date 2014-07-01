@@ -1,6 +1,6 @@
 ﻿module AST {
-    export module KrData {
-        export class KrDataQuery {
+    export module WikiData {
+        export class WikiDataQuery {
             static queryRoute(year: string, origin: string, dest: string, callback: (data: Array<RouteRecord>, distInfo: DistInfo) => any) {
                 var onSuccessCallback = function (jsonText: string) {
                     var data = [];
@@ -11,13 +11,6 @@
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
                         var route = new RouteRecord();
                         route.airline = jsonObj["routes"][i]["AIRLINE"];
-                        route.departure = parseInt(jsonObj["routes"][i]["DEPARTURE"]);
-                        route.pax = parseInt(jsonObj["routes"][i]["PAX"]);
-                        route.freight = parseInt(jsonObj["routes"][i]["FREIGHT"]);
-                        route.monthDeparture = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_DEPARTURE"]);
-                        route.monthPax = <Array<number>>$.parseJSON(jsonObj["routes"][i]["MONTH_PAX"]);
-                        route.monthFreight = [];
-
                         data.push(route);
                     }
                     var distInfo = new DistInfo(jsonObj["distKm"], jsonObj["distNm"], jsonObj["distMile"]);
@@ -27,8 +20,8 @@
 
                 };
                 var params = { "year": year, "origin": origin, "dest": dest, "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "KrDataQueryByRoute", onSuccessCallback);
+                DataQuery.ajaxQuery(params, "WikiDataQueryByRoute", onSuccessCallback);
             }
         }
     }
-}  
+} 

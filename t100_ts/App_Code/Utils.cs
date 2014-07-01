@@ -54,6 +54,12 @@ namespace AST
             return geom;
         }
 
+        public static void GetDistanceByUnits( Airport originAirport, Airport destAirport, out double distKm, out double distMile, out double distNm ) {
+            distKm = Utils.DistEarth( originAirport.Geometry.x, originAirport.Geometry.y, destAirport.Geometry.x, destAirport.Geometry.y );
+            distMile = Math.Round( distKm * 0.621371, 0 );
+            distNm = Math.Round( distKm * 0.539957, 0 );
+            distKm = Math.Round( distKm, 0 );
+        }
     }
 
     public static class T100DB{

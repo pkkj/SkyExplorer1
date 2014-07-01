@@ -30,19 +30,6 @@
         }
     }
 
-    export class AirlineBase {
-        public code: string;
-        public name: string;
-        public getDisplayName(): string {
-            var iata = GlobalMetaData.airlineDict[this.code].iata;
-            return this.name + " (" + iata + ")";
-        }
-        constructor(code: string, name: string) {
-            this.code = code;
-            this.name = name;
-        }
-    }
-
     export class Airline {
         public code: string;
         public iata: string;
@@ -61,6 +48,12 @@
             else
                 this.type = AirlineType.CargoOnly;
             this.note = note;
+        }
+
+        static getDisplayName(code: string): string {
+            var iata = GlobalMetaData.airlineDict[code].iata;
+            var name = GlobalMetaData.airlineDict[code].name;
+            return name + " (" + iata + ")";
         }
     }
 
@@ -141,7 +134,7 @@
     }
 
     export class RouteRecord {
-        public airline: AirlineBase = null;
+        public airline: string = null;
         public departure: number = null;
         public pax: number = null;
         public freight: number = null;

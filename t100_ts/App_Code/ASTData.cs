@@ -127,6 +127,14 @@ namespace AST {
             string res = KrData.QueryByRoute( year, origin, dest, locale );
             return res;
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string WikiDataQueryByRoute( string year, string origin, string dest, string locale ) {
+            string res = WikiData.QueryByRoute( year, origin, dest, locale );
+            return res;
+        }
+
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {

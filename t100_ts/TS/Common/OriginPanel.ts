@@ -181,6 +181,8 @@
                 this.switchDestBar("JpData");
             } else if (availableData["KrData"]) {
                 this.switchDestBar("KrData");
+            } else if (availableData["WikiData"]) {
+                this.switchDestBar("WikiData");
             }
         }
 
@@ -391,8 +393,8 @@
 
             var preCountry = "";
             for (var i = 0; i < destinations.length; i++) {
-                if (destinations[i].isNoData())
-                    continue;
+                //if (destinations[i].isNoData())
+                //    continue;
                 if (destinations[i].airport.country != preCountry) {
                     preCountry = destinations[i].airport.country;
                     var item = document.createElement("div");
@@ -411,7 +413,10 @@
             var item = AST.Utils.createElement("div", {
                 "class": "ddCommonItem"
             });
-            if (!dest.hasPaxFlow()) {
+            if (dest.isNoData()) {
+                item.style.color = "#808080";
+            }
+            else if (!dest.hasPaxFlow()) {
                 item.style.color = "#6600FF";
             }
             var ddAirportCode = AST.Utils.createElement("span", {
