@@ -6,14 +6,16 @@ using System.Web;
 namespace AST {
     public class Carrier {
         public string Code;
+        public string Iata;
         public string FullName;
         public string Country;
         public string Type;
         public string Note;
         public Carrier() {
         }
-        public Carrier( string code, string fullName, string country, string type, string note ) {
+        public Carrier( string code, string iata, string fullName, string country, string type, string note ) {
             this.Code = code;
+            this.Iata = iata;
             this.FullName = fullName;
             this.Country = country;
             this.Type = type;
@@ -102,7 +104,7 @@ namespace AST {
             foreach ( string line in lines ) {
                 string[] items;
                 items = line.Split( '\t' );
-                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 5 ] );
+                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 5 ], items[6] );
 
                 CarrierDict[ locale ][ airline.Code ] = airline;
 

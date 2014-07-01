@@ -12,7 +12,12 @@ namespace AST {
     public class WikiData {
         public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
             List<DestInfo> res = new List<DestInfo>();
+            QueryDestByOriginInternal( year, origin, dest, airline, locale, "WikiConnection", res );
+            QueryDestByOriginInternal( year, origin, dest, airline, locale, "NWikiConnection", res );
+            return res;
+        }
 
+        private static void QueryDestByOriginInternal( string year, string origin, string dest, string airline, string locale, string tableName, List<DestInfo> destList ) {
             NpgsqlConnection conn = null;
             try {
                 conn = new NpgsqlConnection( T100DB.connString );
@@ -22,7 +27,7 @@ namespace AST {
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\"  ";
-                string sql = "SELECT " + fields + " FROM \"WikiConnection\"" + where + groupby;
+                string sql = "SELECT " + fields + " FROM \"" + tableName + "\"" + where + groupby;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -36,16 +41,13 @@ namespace AST {
                     destInfo.PartialData = false;
                     destInfo.NoData = true;
                     destInfo.DataSource = "WikiData";
-                    res.Add( destInfo );
+                    destList.Add( destInfo );
                 }
             } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
-
-            return res;
         }
-
         public static string QueryByRoute( string year, string origin, string dest, string locale ) {
             NpgsqlConnection conn = null;
             string res = "";

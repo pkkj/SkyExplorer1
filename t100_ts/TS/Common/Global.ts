@@ -39,7 +39,7 @@
 
     export class GlobalMetaData {
         static airlineInfo: Array<Airline> = null;
-        static airlineDict: Object;
+        static airlineDict: { [code: string]: Airline; };
         static prepareAirlineData(callback: () => any) {
             DataQuery.queryAllAirlines(function (data: Array<Airline>) {
                 GlobalMetaData.airlineInfo = data;

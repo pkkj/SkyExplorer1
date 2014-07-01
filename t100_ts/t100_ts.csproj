@@ -103,6 +103,7 @@
     <Content Include="Pages\openstreettest.html" />
     <Content Include="Pages\RouteReport.html" />
     <Content Include="Pages\T100Part.html" />
+    <Content Include="Pages\WikiDataPart.html" />
     <Content Include="Styles\AirportReport.css" />
     <Content Include="Styles\DataSourceInfo.css" />
     <Content Include="Styles\jquery-ui.css" />

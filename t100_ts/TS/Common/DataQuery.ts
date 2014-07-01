@@ -131,7 +131,7 @@
                 for (var i = 0; i < jsonMsg.length; i++) {
                     var item: Airline = new Airline(jsonMsg[i][0],
                         jsonMsg[i][1], jsonMsg[i][2], jsonMsg[i][3],
-                        jsonMsg[i][4]);
+                        jsonMsg[i][4], jsonMsg[i][5]);
                     data.push(item);
                 }
                 if (callback != null)

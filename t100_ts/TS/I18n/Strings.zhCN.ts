@@ -250,5 +250,9 @@
         // Korea Data Source
         public krDataShortInfo = "韩国KAC"
         public krDataFullInfo = "韩国机场集团数据"
+
+        // Wikipedia Data
+        public wikiDataShortInfo = "维基百科";
+        public wikiDataFullInfo = "维基百科机场信息";
     }
 } 

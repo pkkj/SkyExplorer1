@@ -31,10 +31,10 @@
             }
 
             public getShortInfoLocalizeName(): string {
-                return Localization.strings.twDataShortInfo;
+                return Localization.strings.wikiDataShortInfo;
             }
             public getFullInfoLocalizeName(): string {
-                return Localization.strings.twDataFullInfo;
+                return Localization.strings.wikiDataFullInfo;
             }
         }
 

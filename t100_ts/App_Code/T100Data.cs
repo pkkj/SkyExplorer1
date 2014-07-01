@@ -388,8 +388,9 @@ namespace AST {
             foreach ( KeyValuePair<string, Carrier> item in dict ) {
                 if ( res != "" )
                     res += ",";
-                res += string.Format( "[{0}, {1}, {2}, {3}, {4}]",
+                res += string.Format( "[{0}, {1}, {2}, {3}, {4}, {5}]",
                     Utils.DoubleQuoteStr( item.Value.Code ),
+                    Utils.DoubleQuoteStr( item.Value.Iata ),
                     Utils.DoubleQuoteStr( item.Value.FullName ),
                     Utils.DoubleQuoteStr( item.Value.Country ),
                     Utils.DoubleQuoteStr( item.Value.Type ),

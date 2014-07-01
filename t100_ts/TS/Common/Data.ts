@@ -34,7 +34,8 @@
         public code: string;
         public name: string;
         public getDisplayName(): string {
-            return this.name + " (" + this.code + ")";
+            var iata = GlobalMetaData.airlineDict[this.code].iata;
+            return this.name + " (" + iata + ")";
         }
         constructor(code: string, name: string) {
             this.code = code;
@@ -44,13 +45,15 @@
 
     export class Airline {
         public code: string;
+        public iata: string;
         public name: string;
         public country: string;
         public type: AirlineType;
         public note: string;
 
-        constructor(code: string, name: string, country: string, type: string, note: string) {
+        constructor(code: string, iata: string, name: string, country: string, type: string, note: string) {
             this.code = code;
+            this.iata = iata;
             this.name = name;
             this.country = country;
             if (type == "Passenger")
