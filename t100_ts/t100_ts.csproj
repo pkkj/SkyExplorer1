@@ -93,6 +93,9 @@
     <Content Include="Pages\DataSourceInfo\UsT100-enUS.html" />
     <Content Include="Pages\DataSourceInfo\UsT100-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\UsT100.html" />
+    <Content Include="Pages\DataSourceInfo\WikiData-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\WikiData-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\WikiData.html" />
     <Content Include="Pages\JpDataPart.html" />
     <Content Include="Pages\KrDataPart.html" />
     <Content Include="Pages\MainPagePart.html" />
