@@ -29,8 +29,8 @@
         public aboutSkyExplorer = "关于Sky Explorer";
         public about = "关于";
         public airportDetailReport = "机场详细报告";
-        public airportView = "机场视图";
-        public airlineView = "航空公司视图";
+        public airportView = "机场视图（所有数据）";
+        public airlineView = "航空公司视图（T100数据）";
         public viewDataBy = "请选择数据视图：";
         public from = "出发地";
         public to = "目的地";
@@ -249,7 +249,7 @@
 
         // Korea Data Source
         public krDataShortInfo = "韩国KAC"
-        public krDataFullInfo = "韩国机场集团数据"
+        public krDataFullInfo = "韩国机场公社数据"
 
         // Wikipedia Data
         public wikiDataShortInfo = "维基百科";

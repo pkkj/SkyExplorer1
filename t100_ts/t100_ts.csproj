@@ -84,6 +84,9 @@
     <Content Include="Pages\DataSourceInfo\JpData-enUS.html" />
     <Content Include="Pages\DataSourceInfo\JpData-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\JpData.html" />
+    <Content Include="Pages\DataSourceInfo\KrData-enUS.html" />
+    <Content Include="Pages\DataSourceInfo\KrData-zhCN.html" />
+    <Content Include="Pages\DataSourceInfo\KrData.html" />
     <Content Include="Pages\DataSourceInfo\TwData-enUS.html" />
     <Content Include="Pages\DataSourceInfo\TwData-zhCN.html" />
     <Content Include="Pages\DataSourceInfo\TwData.html" />

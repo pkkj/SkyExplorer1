@@ -30,8 +30,8 @@
         public aboutSkyExplorer = "About Sky Explorer";
         public about = "About";
         public airportDetailReport = "Airport Detail Report";
-        public airportView = "Airport View";
-        public airlineView = "Airline View";
+        public airportView = "Airport View (All Data)";
+        public airlineView = "Airline View (T100 Data)";
         public viewDataBy = "View data by: ";
         public from = "From";
         public to = "To";
