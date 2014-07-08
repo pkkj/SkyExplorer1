@@ -381,23 +381,7 @@ namespace AST {
         }
 
 
-        public static string QueryAllAirlines(string locale) {
-            string res = "";
-            JavaScriptSerializer jsoner = new JavaScriptSerializer();
-            Dictionary<string, Carrier> dict = CarrierData.GetAllCarrier( locale );
-            foreach ( KeyValuePair<string, Carrier> item in dict ) {
-                if ( res != "" )
-                    res += ",";
-                res += string.Format( "[{0}, {1}, {2}, {3}, {4}, {5}]",
-                    Utils.DoubleQuoteStr( item.Value.Code ),
-                    Utils.DoubleQuoteStr( item.Value.Iata ),
-                    Utils.DoubleQuoteStr( item.Value.FullName ),
-                    Utils.DoubleQuoteStr( item.Value.Country ),
-                    Utils.DoubleQuoteStr( item.Value.Type ),
-                    Utils.DoubleQuoteStr( item.Value.Note ) );
-            }
-            return "[" + res + "]";
-        }
+        
 
         public static string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             NpgsqlConnection conn = null;

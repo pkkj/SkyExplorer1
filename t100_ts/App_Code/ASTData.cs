@@ -75,7 +75,14 @@ namespace AST {
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryAllAirlines( string locale ) {
-            string res = T100Data.QueryAllAirlines( locale );
+            string res = DataQuery.QueryAirlineByDataSource( "", locale );
+            return res;
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAvailableAirlines( string dataSrc, string locale ) {
+            string res = DataQuery.QueryAirlineByDataSource( dataSrc, locale );
             return res;
         }
 

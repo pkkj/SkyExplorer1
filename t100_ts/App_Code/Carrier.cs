@@ -75,10 +75,10 @@ namespace AST {
             return airlines;
         }
 
-        static public Dictionary<string, Carrier> GetAllCarrier( string locale = "ZHCN" ) {
+        static public Dictionary<string, Carrier> GetAvailableAirlineByDataSrc( string dataSrc, string locale = "ENUS" ) {
             if ( CarrierDict.ContainsKey( locale ) )
-                return GetAvailableAirlineInDb( "", locale );
-            return GetAvailableAirlineInDb( "", "ENUS" );
+                return GetAvailableAirlineInDb( dataSrc, locale );
+            return GetAvailableAirlineInDb( dataSrc, "ENUS" );
         }
 
         static CarrierData() {
@@ -104,7 +104,7 @@ namespace AST {
             foreach ( string line in lines ) {
                 string[] items;
                 items = line.Split( '\t' );
-                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 5 ], items[6] );
+                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 4 ], items[6] );
 
                 CarrierDict[ locale ][ airline.Code ] = airline;
 

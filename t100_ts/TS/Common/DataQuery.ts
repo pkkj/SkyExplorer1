@@ -120,7 +120,7 @@
 
         }
 
-        static queryAllAirlines(callback: (data: any) => any) {
+        static queryAvailableAirlineByDataSrc(dataSrc: string, callback: (data: any) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 500);
                 var data: Array<Airline> = [];
@@ -137,8 +137,8 @@
                 if (callback != null)
                     callback(data);
             };
-            var params = { "locale": Localization.locale };
-            DataQuery.ajaxQuery(params, "QueryAllAirlines", onSuccessCallback);
+            var params = { "dataSrc" : dataSrc, "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryAvailableAirlines", onSuccessCallback);
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
 

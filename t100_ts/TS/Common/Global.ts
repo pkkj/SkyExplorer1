@@ -41,7 +41,7 @@
         static airlineInfo: Array<Airline> = null;
         static airlineDict: { [code: string]: Airline; };
         static prepareAirlineData(callback: () => any) {
-            DataQuery.queryAllAirlines(function (data: Array<Airline>) {
+            DataQuery.queryAvailableAirlineByDataSrc("", function (data: Array<Airline>) {
                 GlobalMetaData.airlineInfo = data;
                 GlobalMetaData.airlineDict = {};
                 for (var i = 0; i < GlobalMetaData.airlineInfo.length; i++) {

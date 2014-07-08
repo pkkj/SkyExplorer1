@@ -26,6 +26,8 @@
         private layerSelectedRouteAirports = null;
         private routeBaseWidth = 1.1;
 
+        // Available airlines (query when the view loaded)
+        private airlineData: Array<Airline> = null;
 
         constructor() {
             this.divRoot = document.getElementById("t100AirlinePanel");
@@ -41,6 +43,22 @@
         }
 
         public init(mapControl: OpenLayers.Map) {
+            this.mapControl = mapControl;
+            if (this.airlineData == null) {
+                DataQuery.queryAvailableAirlineByDataSrc("T100", (data: Array<Airline>)=> {
+                    this.airlineData = data;
+                    this.airlineData.sort(function (a: Airline, b: Airline) {
+                        return Localization.strings.compareStr(a.name, b.name);
+                    });
+                    this.postLoadData();
+                });
+            } else {
+                this.postLoadData();
+            }
+
+        }
+
+        private postLoadData() {
             // Init the year selector
             var i;
 
@@ -62,7 +80,6 @@
             this.createAirlineSel();
             this.airlineSel.onchange = () => {
                 this.onAirlineChange();
-                
             }
 
             this.yearSel.onchange = () => {
@@ -78,9 +95,9 @@
             });
 
             this.routeTable = new AST.CollapseTable(document.getElementById("t100AirlienRouteTable"), { "width": this.routeTableWidth });
-            this.mapControl = mapControl;
             this.localizeUi();
         }
+
 
         public localizeUi() {
             document.getElementById("t100AirlinePanelCountryFilterText").innerHTML = Localization.strings.countryFilter;
@@ -103,28 +120,28 @@
             optionTop.text = Localization.strings.pleaseSelectAnAirline;
             this.airlineSel.add(optionTop, null);
 
-            for (var i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
+            for (var i = 0; i < this.airlineData.length; i++) {
                 if (type != Localization.strings._airlineTypeAll) {
                     var airlineType: AirlineType =
                         type == Localization.strings._airlineTypePassenger ? AirlineType.Passenger : AirlineType.CargoOnly;
-                    if (GlobalMetaData.airlineInfo[i].type != airlineType)
+                    if (this.airlineData[i].type != airlineType)
                         continue;
                 }
                 if (country != "All") {
-                    if (GlobalMetaData.airlineInfo[i].country != country)
+                    if (this.airlineData[i].country != country)
                         continue;
                 }
                 var option: any = document.createElement("option");
-                option.text = GlobalMetaData.airlineInfo[i].name;
-                option.airline = GlobalMetaData.airlineInfo[i];
+                option.text = this.airlineData[i].name;
+                option.airline = this.airlineData[i];
                 this.airlineSel.add(option, null);
             }
         }
         private initCountrySel() {
             var i;
             var countryDict = {};
-            for (i = 0; i < GlobalMetaData.airlineInfo.length; i++) {
-                countryDict[GlobalMetaData.airlineInfo[i].country] = true;
+            for (i = 0; i < this.airlineData.length; i++) {
+                countryDict[this.airlineData[i].country] = true;
             }
             var countryList = ["All"];
             for (var key in countryDict) {
