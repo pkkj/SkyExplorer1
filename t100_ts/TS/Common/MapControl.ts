@@ -259,8 +259,8 @@
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, 280, 80);
 
-            AST.Draw.drawText(ctx, 100, 10, "12px Arial", '#000000', Localization.strings.withT100Data);
-            AST.Draw.drawText(ctx, 200, 10, "12px Arial", '#000000', Localization.strings.noT100Data);
+            AST.Draw.drawText(ctx, 100, 10, "12px Arial", '#000000', Localization.strings.withFlowData);
+            AST.Draw.drawText(ctx, 200, 10, "12px Arial", '#000000', Localization.strings.noFlowData);
 
             AST.Draw.drawText(ctx, 0, base + 5, "12px Arial", '#000000', Localization.strings.largeAirport);
             AST.Draw.drawText(ctx, 0, base + gap + 4, "12px Arial", '#000000', Localization.strings.mediumAirport);

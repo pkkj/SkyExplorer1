@@ -37,8 +37,8 @@
         public to = "To";
         public noAvailableDataInThisYear = "No available data in this year";
         public pleaseSelectAirport = "Please select an airport";
-        public withT100Data = "With T100 Data";
-        public noT100Data = "No T100 Data";
+        public withFlowData = "With Flow Data";
+        public noFlowData = "No Flow Data";
         public largeAirport = "Large airport";
         public mediumAirport = "Medium airport";
         public smallAirport = "Small airport";

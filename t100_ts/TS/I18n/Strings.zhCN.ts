@@ -36,8 +36,8 @@
         public to = "目的地";
         public noAvailableDataInThisYear = "当前年度没有数据";
         public pleaseSelectAirport = "请选择机场";
-        public withT100Data = "有T100数据";
-        public noT100Data = "    无T00数据";
+        public withFlowData = "有流量数据";
+        public noFlowData = "    无流量数据";
         public largeAirport = "  主要机场";
         public mediumAirport = "  中等机场";
         public smallAirport = "  小机场";
