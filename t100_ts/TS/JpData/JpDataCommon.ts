@@ -12,7 +12,7 @@
 
             static currentCountry = "Japan";
             static hasMonthData = true;
-            static dataFrom = new YearMonth(2011, 1);
+            static dataFrom = new YearMonth(2007, 1);
             static dataTo = new YearMonth(2013, 12);
 
             private static _instance = null;

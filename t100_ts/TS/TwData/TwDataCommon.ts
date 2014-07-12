@@ -36,6 +36,19 @@
             public getFullInfoLocalizeName(): string {
                 return Localization.strings.twDataFullInfo;
             }
+
+            public getDestPanelFootNote(): string {
+                if (!this.isSingleDirDataAvailable(GlobalStatus.originAirport, GlobalStatus.destAirport)) {
+                    return Localization.strings.allDataAreInBothDirection;
+                }
+                return "";
+            }
+
+            private isSingleDirDataAvailable(origin: Airport, dest:Airport): boolean {
+                if (origin.country == TwMetaData.currentCountry && dest.country == TwMetaData.currentCountry)
+                    return false;
+                return true;
+            }
         }
 
         export class TwDataHTMLPageData {

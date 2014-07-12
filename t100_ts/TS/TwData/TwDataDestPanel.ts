@@ -9,6 +9,7 @@
                 super.initUi();
                 this.localizeUi();
             }
+
             public querySegment() {
                 if (AST.GlobalStatus.year == null || AST.GlobalStatus.originAirport == null
                     || AST.GlobalStatus.destAirport == null || AST.GlobalStatus.flowDir == null)
