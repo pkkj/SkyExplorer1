@@ -1,4 +1,6 @@
 ﻿module AST {
+
+
     export class AirportReport {
         private airportIata = "";
         private airport = null;
@@ -20,7 +22,8 @@
         private yearAvailability = null;
         private timeSeriesAirlineSel = null;
         private urlParams = null;
-
+        private availableDataSrc : Array<string> = null;
+        private curDataSrc: string;
 
         private initSummary() {
             var i, item;
@@ -85,10 +88,29 @@
             document.getElementById("timeSeriesSliderYearRange").innerHTML = $("#timeSeriesSlider").slider("values", 0) + " - " + $("#timeSeriesSlider").slider("values", 1);
         }
 
+        private initData() {
+            DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
+            DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
+            DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
+            DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
+            DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
+            DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
+
+            // Determine the data source
+            for (var i = 0; i < this.availableDataSrc.length; i++) {
+
+            }
+            this.curDataSrc = "T100Data";
+        }
+
         private init() {
+            
             this.urlParams = Utils.decodeUrlPara();
             this.airportIata = this.urlParams["iata"];
             this.initYear = this.urlParams["year"];
+            this.availableDataSrc = this.urlParams["dataSrc"].split(",");
+
+            this.initData();
 
             DataQuery.QueryAirportYearAvailability(this.airportIata, "T100Data", (airport) => {
                 if (airport == null) {

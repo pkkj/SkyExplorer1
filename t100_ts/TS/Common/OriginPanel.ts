@@ -169,8 +169,8 @@
                 availableData[dest.availableData[i].dataSrcName] = true;
             }
 
-            if (availableData["T100"]) {
-                this.switchDestBar("T100");
+            if (availableData["T100Data"]) {
+                this.switchDestBar("T100Data");
             } else if (availableData["T100FF"]) {
                 this.switchDestBar("T100FF");
             } else if (availableData["TwData"]) {
@@ -324,7 +324,8 @@
                 detailReportButton.onclick = () => {
                     if (!GlobalStatus.originAirport)
                         return;
-                    T100.T100Common.launchAirportStat(GlobalStatus.originAirport, GlobalStatus.year);
+                    // TODO: Get the real available data src data.
+                    DialogUtils.launchAirportStat(GlobalStatus.originAirport, GlobalStatus.year, "T100Data,KrData,JpData");
                 };
                 titleBar.appendChild(detailReportButton);
             }

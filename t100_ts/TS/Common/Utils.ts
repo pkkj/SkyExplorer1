@@ -195,6 +195,34 @@
             divBottom.appendChild(closeButton);
             divRoot.appendChild(divBottom);
         }
+
+        static launchAirportStat(originAirport: Airport, year: string, availableDataSrc: string) {
+            if (!originAirport)
+                return;
+            var where: string = "iata=" + originAirport.iata;
+            where += "&icao=" + originAirport.icao;
+            where += "&name=" + originAirport.name;
+            where += "&city=" + originAirport.city;
+            where += "&country=" + originAirport.country;
+            if (year)
+                where += "&year=" + year;
+            where += "&dataSrc=" + availableDataSrc;
+            where += "&locale=" + AST.Localization.getLocale();
+            var src = "AirportReport.html?" + where;
+            DialogUtils.loadDetailReportDialog(Localization.strings.airportStatistic, src);
+        }
+
+        static launchRouteStat(originIata: string, destIata: string, airline: string, year: string) {
+            var where: string = "originIata=" + originIata;
+            where += "&destIata=" + destIata;
+            if (airline)
+                where += "&airline=" + airline;
+            if (year)
+                where += "&year=" + year;
+            where += "&locale=" + AST.Localization.getLocale();
+            var src = "RouteReport.html?" + where;
+            DialogUtils.loadDetailReportDialog(Localization.strings.routeStatistic, src);
+        }
     }
 
     

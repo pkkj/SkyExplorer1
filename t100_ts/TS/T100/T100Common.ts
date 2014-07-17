@@ -1,40 +1,11 @@
 ﻿module AST {
     export module T100 {
-        export class T100Common {
-            static launchAirportStat(originAirport: Airport, year) {
-                if (!originAirport)
-                    return;
-                var where: string = "iata=" + originAirport.iata;
-                where += "&icao=" + originAirport.icao;
-                where += "&name=" + originAirport.name;
-                where += "&city=" + originAirport.city;
-                where += "&country=" + originAirport.country;
-                if (year)
-                    where += "&year=" + year;
-                where += "&locale=" + AST.Localization.getLocale();
-                var src = "AirportReport.html?" + where;
-                DialogUtils.loadDetailReportDialog(Localization.strings.airportStatistic, src);
-            }
-
-            static launchRouteStat(originIata, destIata, airline, year) {
-                var where: string = "originIata=" + originIata;
-                where += "&destIata=" + destIata;
-                if (airline)
-                    where += "&airline=" + airline;
-                if (year)
-                    where += "&year=" + year;
-                where += "&locale=" + AST.Localization.getLocale();
-                var src = "RouteReport.html?" + where;
-                DialogUtils.loadDetailReportDialog(Localization.strings.routeStatistic, src);
-            }
-
-        }
 
         export class T100MetaData extends AST.DataSourceMetaData {
             constructor() {
                 super();
 
-                this.name = "T100";
+                this.name = "T100Data";
                 this.shortInfo = "US T100";
                 this.fullInfo = "US BTS T100 Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";

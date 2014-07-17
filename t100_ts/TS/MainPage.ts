@@ -41,7 +41,7 @@ module AST {
             T100.T100Localization.init();
 
             // Must register MetaData after init the localization object
-            DataSourceRegister.registerDataSource("T100", T100.T100MetaData.instance());
+            DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());

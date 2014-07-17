@@ -74,7 +74,7 @@ module AST {
             this.wikiDestPanel = WikiData.WikiDestPanel.createWikiDestPanel();
 
             // Register the data source information
-            this.originPanel.registerDestBar("T100", this.t100DestPanel);
+            this.originPanel.registerDestBar("T100Data", this.t100DestPanel);
             this.originPanel.registerDestBar("T100FF", this.t100FFDestPanel);
             this.originPanel.registerDestBar("UkData", this.ukDestPanel);
             this.originPanel.registerDestBar("TwData", this.twDestPanel);

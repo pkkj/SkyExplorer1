@@ -118,7 +118,7 @@ namespace AST {
             return res;
         }
 
-
+        // TODO: Make this function to be shared by different data source.
         public static string QueryAirportStat( string year, string airport, string locale ) {
             NpgsqlConnection conn = null;
             string res = "{}";
@@ -485,7 +485,7 @@ namespace AST {
                         destInfo.PartialData = true;
                         destInfo.DataSource = "T100FF";
                     } else {
-                        destInfo.DataSource = "T100";
+                        destInfo.DataSource = "T100Data";
                     }
 
                     if ( validSrc.Contains( destInfo.DataSource ) || dataSource == "" ) {

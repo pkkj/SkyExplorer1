@@ -365,7 +365,7 @@
             this._btnDetailReport.onclick = () => {
                 if (!AST.GlobalStatus.originAirport || !AST.GlobalStatus.destAirport)
                     return;
-                T100.T100Common.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
+                DialogUtils.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
             };
         }
 

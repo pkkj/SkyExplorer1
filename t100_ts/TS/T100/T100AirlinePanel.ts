@@ -232,7 +232,7 @@
             anchor.onclick = () => {
                 var airline = this.airlineSel[this.airlineSel.selectedIndex].airline.code;
                 var year = this.yearSel[this.yearSel.selectedIndex].innerHTML;
-                T100.T100Common.launchRouteStat(route.origin, route.dest, airline, year);
+                DialogUtils.launchRouteStat(route.origin, route.dest, airline, year);
             };
             detailLink.appendChild(anchor);
             divB.appendChild(detailLink);

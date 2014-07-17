@@ -1,3 +1,20 @@
+tsc --out AirportReport.All.js ^
+.\Common\Utils.ts .\Common\Data.ts .\Common\ReportPageUtils.ts .\Common\Global.ts ^
+.\Common\DataQuery.ts ^
+.\I18n\Strings.enUS.ts .\I18n\Strings.zhCN.ts .\I18n\Strings.jaJP.ts ^
+.\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
+.\T100\T100DataQuery.ts .\T100\T100Common.ts ^
+.\MyControls\DropDown.ts .\MyControls\RankTable.ts .\MyControls\SimpleTable.ts ^
+.\UK\UkCommon.ts .\UK\UkDataQuery.ts ^
+.\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts ^
+.\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts ^
+.\KrData\KrDataCommon.ts .\KrData\KrDataQuery.ts ^
+..\Scripts\typings\jquery\jquery.d.ts ^
+..\Scripts\typings\jquery.ui.layout\jquery.ui.layout.d.ts ^
+..\Scripts\typings\flot\jquery.flot.d.ts ^
+.\Ref\google.d.ts .\Ref\openlayers.d.ts ^
+AirportReport.ts
+
 tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.ts ^
 .\Common\Data.ts .\Common\Draw.ts .\Common\Global.ts .\Common\MapUtils.ts .\Common\Utils.ts ^
 .\Common\DataQuery.ts .\Common\DestPanel.ts .\Common\StandardDestPanel.ts .\Common\SimpleDestPanel.ts ^
@@ -19,18 +36,7 @@ tsc --out main.js CommonDataContent.ts MainPage.ts MainPageUi.ts DataSrcControl.
 ..\Scripts\typings\jquery.ui.layout\jquery.ui.layout.d.ts ^
 ..\Scripts\typings\jqueryui\jqueryui.d.ts
 
-tsc --out AirportReport.All.js ^
-.\Common\Utils.ts .\Common\Data.ts .\Common\ReportPageUtils.ts .\Common\Global.ts ^
-.\Common\DataQuery.ts ^
-.\I18n\Strings.enUS.ts .\I18n\Strings.zhCN.ts .\I18n\Strings.jaJP.ts ^
-.\T100\I18n\Strings.enUS.ts .\T100\I18n\Strings.zhCN.ts ^
-.\T100\T100DataQuery.ts .\T100\T100Common.ts ^
-.\MyControls\DropDown.ts .\MyControls\RankTable.ts .\MyControls\SimpleTable.ts ^
-..\Scripts\typings\jquery\jquery.d.ts ^
-..\Scripts\typings\jquery.ui.layout\jquery.ui.layout.d.ts ^
-..\Scripts\typings\flot\jquery.flot.d.ts ^
-.\Ref\google.d.ts .\Ref\openlayers.d.ts ^
-AirportReport.ts
+
 
 
 tsc --out RouteReport.All.js ^

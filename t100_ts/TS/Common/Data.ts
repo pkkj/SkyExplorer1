@@ -165,6 +165,7 @@
         }
     }
 
+    // Meta data for each data source
     export class DataSourceMetaData {
         public name: string;
         public shortInfo: string;
