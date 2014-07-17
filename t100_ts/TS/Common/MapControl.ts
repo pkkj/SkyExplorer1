@@ -224,8 +224,8 @@
 
     export class T100BaseMap {
         static createT100AirportBaseLayer(mapControl) {
-            //var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://geog-cura-osgeo.asc.ohio-state.edu:8080/geoserver/gwc/service/wms",
-            var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://localhost:8080/geoserver/gwc/service/wms",
+            var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://geog-cura-osgeo.asc.ohio-state.edu:8080/geoserver/gwc/service/wms",
+            //var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://localhost:8080/geoserver/gwc/service/wms",
                 {
                     layers: 'airstat:T100AirportAll',
                     styles: '',

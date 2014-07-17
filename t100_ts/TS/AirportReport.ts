@@ -139,8 +139,6 @@
             document.getElementById("tabSummaryRegionText").innerHTML = Localization.strings.region;
             document.getElementById("tabSummaryTop10DestPassengerText").innerHTML = Localization.strings.top10PassengerDestinations;
             document.getElementById("tabSummaryTop10DestFreightText").innerHTML = Localization.strings.top10FreightDestinations;
-            document.getElementById("tabSummaryCarrierShareByPassengerText").innerHTML = Localization.strings.carrierShareByPassenger;
-            document.getElementById("tabSummaryCarrierShareByFreightText").innerHTML = Localization.strings.carrierShareByFreight;
             document.getElementById("tabTimeSeriesShowChartByText").innerHTML = Localization.strings.showChartBy;
             document.getElementById("timeSeriesSliderYearRangeText").innerHTML = Localization.strings.yearRange;
 
@@ -220,14 +218,19 @@
 
             var options = {
                 chartArea: {
-                    top: 25,
+                    top: 35,
                     left: 15,
-                    height: 190,
+                    height: 180,
                     width: 340
                 },
                 height: 230,
                 width: 360,
-                fontSize: 12
+                fontSize: 12,
+                title: type == "Passenger" ? Localization.strings.carrierShareByPassenger : Localization.strings.carrierShareByFreight,
+                titleTextStyle: {
+                    fontSize: 14,
+                    bold: false
+                }
             };
 
             var chart = new google.visualization.PieChart(div);

@@ -13,10 +13,6 @@
 
     <script type="text/javascript" src="../JS/jquery.flot.min.js"></script>
     <script type="text/javascript" src="../TS/AirportReport.All.js"></script>
-    <!--<script type="text/javascript" src="../JS/Utils.js"></script>
-    <script type="text/javascript" src="../JS/MyControl.js"></script>
-    <script type="text/javascript" src="../JS/T100DataQuery.js"></script>
-    <script type="text/javascript" src="../JS/AirportReport.js"></script>-->
 </head>
 <body>
     <div id="aiportName"></div>
@@ -30,10 +26,8 @@
             <li id="liTimeSeries"><a href="#tabTimeSeries">Time series</a></li>
         </ul>
         <div id="tabSummary">
-            <div style="height: 5px"></div>
-            <div id="summaryTotal"></div>
-            <div style="height: 5px"></div>
             <div>
+                <div style="height: 5px"></div>
                 <div id="tabSummaryYearText" style="float: left; margin-right: 10px">Year:</div>
                 <div style="float: left; margin-right: 10px" id="summaryYearSel"></div>
                 <div id="tabSummaryRegionText" style="float: left; margin-right: 10px">Region:</div>
@@ -42,40 +36,51 @@
             </div>
             <div style="height: 5px"></div>
             <div>
-                <div style="float: left; height: 530px">
-                    <div id="tabSummaryTop10DestPassengerText" class="chartTitle">Top 10 destinations (passenger)</div>
-                    <div id="paxRank" class="myRank" style="width: 260px"></div>
-                </div>
+                <!-- Left part -->
+                <div style="float: left"> 
 
-                <div style="float: left; width: 15px; height: 530px"></div>
-
-                <div style="float: left; height: 530px">
-                    <div id="tabSummaryTop10DestFreightText" class="chartTitle">Top 10 destinations (freight in tons)</div>
-                    <div id="freightRank" class="myRank" style="width: 260px"></div>
-                </div>
-                
-                <div style="float: left; width: 15px; height: 530px"></div>
-
-                <div style="float: left; width: 650px; height: 530px">
+                    <!-- Left upper part -->
                     <div>
-                        <div id="tabSummaryCarrierShareByPassengerText" class="chartTitle">Carrier share by departing passenger</div>
- 
-                        <div>
-                            <div id="airlineSharePaxChart" class="googleChart" style="float: left; width: 370px; height: 230px"></div>
-                            <div style="float: left; width: 5px; height: 240px"></div>
-                            <div id="airlineSharePax" style="float: left" class="mysimpletable"></div>                            
-                            <div class="clear"></div>
+                        <div style="float: left">
+                            <div id="tabSummaryTop10DestPassengerText" class="chartTitle">Top 10 destinations (passenger)</div>
+                            <div id="paxRank" class="myRank" style="width: 260px"></div>
                         </div>
+
+                        <div style="float: left; width: 15px; height: 5px"></div>
+
+                        <div style="float: left">
+                            <div id="tabSummaryTop10DestFreightText" class="chartTitle">Top 10 destinations (freight in tons)</div>
+                            <div id="freightRank" class="myRank" style="width: 260px"></div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div>
-                        <div id="tabSummaryCarrierShareByFreightText" class="chartTitle">Carrier share by departing freight</div>
 
-                        <div>
-                            <div id="airlineShareFreightChart" class="googleChart" style="float: left; width: 370px; height: 230px"></div>
-                            <div style="float: left; width: 5px; height: 240px"></div>
-                            <div id="airlineShareFreight" style="float: left" class="mysimpletable"></div>
-                            <div class="clear"></div>
-                        </div>
+                    <!-- Left lower part -->
+                    <div>
+                        <div style="height: 5px"></div>
+                        <div id="summaryTotal"></div>
+                    </div>
+                    
+                </div>
+
+                <div style="float: left; width: 15px; height: 5px"></div>
+
+                <!-- Right part -->
+                <div style="float: left; width: 650px; height: 490px">
+                    <div>
+                        <div id="airlineSharePaxChart" class="googleChart" style="float: left; width: 370px; height: 220px"></div>
+                        <div style="float: left; width: 5px; height: 220px"></div>
+                        <div id="airlineSharePax" style="float: left" class="mysimpletable"></div>                            
+                        <div class="clear"></div>
+                    </div>
+
+                    <div style="height: 10px"></div>
+
+                    <div>
+                        <div id="airlineShareFreightChart" class="googleChart" style="float: left; width: 370px; height: 220px"></div>
+                        <div style="float: left; width: 5px; height: 220px"></div>
+                        <div id="airlineShareFreight" style="float: left" class="mysimpletable"></div>
+                        <div class="clear"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
