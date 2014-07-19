@@ -272,7 +272,7 @@
         private updateAirportStat() {
             var subDataIdx = this.summaryRegionSel.selectedData;
             if (subDataIdx == "All Carrier - US Destinations")
-                subDataIdx = "United States";
+                subDataIdx = "Domestic";
             else if (subDataIdx == "US Carrier - Non-US Destinations")
                 subDataIdx = "International";
             var subData = this.airportStat[subDataIdx];
@@ -301,10 +301,10 @@
                 var regionItems = [], regionDisplayText = [];
                 if (T100.T100MetaData.currentCountry == this.airport.countryEn) {
                     regionDisplayText = [Localization.strings.regionAll, Localization.strings.regionUnitedStates, Localization.strings.regionInternational];
-                    regionItems = ["All", "United States", "International"];
+                    regionItems = ["All", "Domestic", "International"];
                 } else {
                 if (T100.T100FFMetaData.has28ISFFData(parseInt(year))) {
-                        if (this.airportStat["United States"].totalPax != "0" || this.airportStat["United States"].totalFreight != "0") {
+                        if (this.airportStat["Domestic"].totalPax != "0" || this.airportStat["Domestic"].totalFreight != "0") {
                             regionDisplayText.push(Localization.strings.regionAllCarrierUsDest);
                             regionItems.push("All Carrier - US Destinations");
                         }

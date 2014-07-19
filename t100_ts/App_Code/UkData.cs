@@ -9,6 +9,30 @@ using System.Data.SqlClient;
 using System.Data;
 
 namespace AST {
+
+    public class UkDataMetaData : ADataSourceMetaData {
+        public override string Name {
+            get { return "UkData"; }
+        }
+        public override string SummaryTableName {
+            get { return "UkDataSummary"; }
+        }
+        public override string TimeSeriesTableName {
+            get { return "?"; }
+        }
+        public override string Country {
+            get { return "United Kingdom"; }
+        }
+        public override bool HasDomesticData {
+            get { return true; }
+        }
+        public override bool HasInternationalData {
+            get { return true; }
+        }
+        public override bool HasPaxData {
+            get { return true; }
+        }
+    }
     public static class UkData {
         public static string QueryByRoute( string year, string origin, string dest, string locale ) {
             NpgsqlConnection conn = null;
@@ -22,10 +46,10 @@ namespace AST {
             double distNm = Math.Round( distKm * 0.539957, 0 );
             distKm = Math.Round( distKm, 0 );
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "MONTH_PAX" ) };
 
                 string fieldStr = String.Join( ",", fields );
@@ -64,10 +88,10 @@ namespace AST {
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", \"PAX\"";

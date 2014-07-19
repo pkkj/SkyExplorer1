@@ -114,7 +114,7 @@ namespace AST {
         public static string QueryAvailableAirportByGeometry( double x1, double y1, double x2, double y2, string returnType, string locale ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
                 string sql = string.Format( "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
@@ -144,7 +144,7 @@ namespace AST {
         public static string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
                 // Only support IATA code
                 string sqlIata = "SELECT \"AVAILABILITY\" FROM \"AirportAvailability\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode )

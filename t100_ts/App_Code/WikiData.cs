@@ -20,10 +20,10 @@ namespace AST {
         private static void QueryDestByOriginInternal( string year, string origin, string dest, string airline, string locale, string tableName, List<DestInfo> destList ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\"  ";
@@ -53,10 +53,10 @@ namespace AST {
             NpgsqlConnection conn = null;
 
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ) };
 
                 string fieldStr = String.Join( ",", fields );

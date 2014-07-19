@@ -173,8 +173,8 @@
                         callback(jsonMsg);
 
                 };
-                var params = { "year": year, "airport": airport, "locale": Localization.locale };
-                AST.DataQuery.ajaxQuery(params, "T100QueryAirportStat", onSuccessCallback);
+                var params = { "dataSrc": "T100Data", "year": year, "airport": airport, "locale": Localization.locale };
+                AST.DataQuery.ajaxQuery(params, "QueryAirportStat", onSuccessCallback);
             }
         }
     }

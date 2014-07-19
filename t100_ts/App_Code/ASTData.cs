@@ -51,13 +51,6 @@ namespace AST {
             return T100Data.QueryByRoute( year, origin, dest, locale );
         }
 
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string T100QueryAirportStat( string year, string airport, string locale ) {
-            return T100Data.QueryAirportStat( year, airport, locale );
-        }
-
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryAirportTimeSeries( string origin, string locale ) {
@@ -146,6 +139,12 @@ namespace AST {
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             return DataQuery.QueryByOrigin( year, origin, dest, airline, queryType, dataSource, locale );
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirportStat( string dataSrc, string year, string airport, string locale ) {
+            return AirportStatActor.QueryAirportStat( dataSrc, year, airport, locale );
         }
     }
 }

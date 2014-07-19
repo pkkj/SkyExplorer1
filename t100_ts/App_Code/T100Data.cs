@@ -10,19 +10,46 @@ using System.Data;
 
 namespace AST {
 
-    public class T100Route {
-        public string Year;
-        public string Airline;
-        public string Dest;
-        public int Freight;
-        public int Pax;
-        public List<int> MonthPax;
-        public List<int> MonthFreight;
-
-        public T100Route() {
-
+    public class T100MetaData : ADataSourceMetaData {
+        public override string Name {
+            get { return "T100Data"; }
         }
+        public override string SummaryTableName {
+            get { return "T100Summary"; }
+        }
+        public override string TimeSeriesTableName {
+            get { return "?"; }
+        }
+        public override string Country {
+            get { return "United States"; }
+        }
+        public override bool HasDomesticData {
+            get { return true; }
+        }
+        public override bool HasInternationalData {
+            get { return true; }
+        }
+        public override bool HasAirlineInfo {
+            get { return true; }
+        }
+        public override bool HasPaxData {
+            get { return true; }
+        }
+        public override bool HasFreightData {
+            get { return true; }
+        }
+        public override bool HasSeatData {
+            get { return true; }
+        }
+        public override bool HasFlightData {
+            get { return true; }
+        }
+        public override bool HasDoubleFlowData {
+            get { return true; }
+        }
+
     }
+
     public static class T100Data {
 
         public static string MatchAirport( string input, string locale ) {
@@ -30,7 +57,7 @@ namespace AST {
             NpgsqlConnection conn = null;
             List<string> lstAirport = new List<string>();
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
                 string sqlIata = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
@@ -78,10 +105,10 @@ namespace AST {
             double distNm = Math.Round( distKm * 0.539957, 0 );
             distKm = Math.Round( distKm, 0 );
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
                 Utils.DoubleQuoteStr("PAX"),  Utils.DoubleQuoteStr("FREIGHT"), 
                 Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX"),  Utils.DoubleQuoteStr("MONTH_FREIGHT") };
@@ -118,189 +145,12 @@ namespace AST {
             return res;
         }
 
-        // TODO: Make this function to be shared by different data source.
-        public static string QueryAirportStat( string year, string airport, string locale ) {
-            NpgsqlConnection conn = null;
-            string res = "{}";
-            try {
-                conn = new NpgsqlConnection( T100DB.connString );
-                conn.Open();
-
-                string where = " WHERE " + T100DB.MakeWhere( year, "", airport, "" );
-
-                string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "DEST" ), Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "FREIGHT" ) };
-
-                string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"T100Summary\"" + where;
-                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
-
-                NpgsqlDataReader dr = command.ExecuteReader();
-                List<T100Route> routes = new List<T100Route>();
-
-                while ( dr.Read() ) {
-                    T100Route route = new T100Route();
-                    route.Airline = dr[ "AIRLINE" ].ToString();
-                    route.Dest = dr[ "DEST" ].ToString();
-                    route.Pax = Convert.ToInt32( dr[ "PAX" ] );
-                    route.Freight = Convert.ToInt32( dr[ "FREIGHT" ] );
-                    routes.Add( route );
-                }
-
-                string[] regions = new string[] { "All", "International", "United States" };
-                res = "";
-                foreach ( string region in regions ) {
-                    if ( res != "" )
-                        res += ",";
-                    res += Utils.DoubleQuoteStr( region ) + ":" + CreateDestRank( routes, region, locale );
-                }
-                res = "{" + res + "}";
-                return res;
-            } catch ( NpgsqlException e ) {
-
-            } finally {
-                conn.Close();
-            }
-            return "";
-        }
-
-        public static string CreateDestRank( List<T100Route> routes, string region, string locale ) {
-            Dictionary<string, int> dictPaxDest = new Dictionary<string, int>();
-            Dictionary<string, int> dictFreightDest = new Dictionary<string, int>();
-            Dictionary<string, int> dictPaxAirline = new Dictionary<string, int>();
-            Dictionary<string, int> dictFreightAirline = new Dictionary<string, int>();
-
-            foreach ( T100Route route in routes ) {
-                Airport airport = AirportData.Query( route.Dest, locale );
-                if ( region == "International" ) {
-                    if ( airport.CountryEn == "United States" )
-                        continue;
-                } else if ( region == "United States" ) {
-                    if ( airport.CountryEn != "United States" )
-                        continue;
-                }
-                if ( route.Pax > 0 ) {
-                    if ( !dictPaxDest.ContainsKey( route.Dest ) ) {
-                        dictPaxDest[ route.Dest ] = 0;
-                    }
-                    dictPaxDest[ route.Dest ] += route.Pax;
-
-                    if ( !dictPaxAirline.ContainsKey( route.Airline ) ) {
-                        dictPaxAirline[ route.Airline ] = 0;
-                    }
-                    dictPaxAirline[ route.Airline ] += route.Pax;
-                }
-                if ( route.Freight > 0 ) {
-                    if ( !dictFreightDest.ContainsKey( route.Dest ) ) {
-                        dictFreightDest[ route.Dest ] = 0;
-                    }
-                    dictFreightDest[ route.Dest ] += route.Freight;
-
-                    if ( !dictFreightAirline.ContainsKey( route.Airline ) ) {
-                        dictFreightAirline[ route.Airline ] = 0;
-                    }
-                    dictFreightAirline[ route.Airline ] += route.Freight;
-
-                }
-            }
-
-            List<KeyValuePair<string, int>> lstPaxDest = dictPaxDest.ToList();
-            List<KeyValuePair<string, int>> lstFreightDest = dictFreightDest.ToList();
-            List<KeyValuePair<string, int>> lstPaxAirline = dictPaxAirline.ToList();
-            List<KeyValuePair<string, int>> lstFreightAirline = dictFreightAirline.ToList();
-
-            lstPaxDest.Sort( T100DB.CmpRankItem );
-            lstFreightDest.Sort( T100DB.CmpRankItem );
-            lstPaxAirline.Sort( T100DB.CmpRankItem );
-            lstFreightAirline.Sort( T100DB.CmpRankItem );
-
-            string res = "";
-
-            string paxDestRank = DestRankToJson( lstPaxDest, locale );
-            res += "\"paxDestRank\":" + paxDestRank + ",";
-            string freightDestRank = DestRankToJson( lstFreightDest, locale );
-            res += "\"freightDestRank\":" + freightDestRank + ",";
-
-            int totalPax = GetRankTotalFlow( lstPaxAirline );
-            string paxAirlineRank = AirlineRankToJson( lstPaxAirline, totalPax, locale );
-            res += "\"paxAirlineRank\":" + paxAirlineRank + ",";
-            res += "\"totalPax\":" + Utils.DoubleQuoteStr( Utils.FormatLargeNumber( totalPax, locale ) ) + ",";
-
-            int totalFreight = GetRankTotalFlow( lstFreightAirline );
-            string freightAirlineRank = AirlineRankToJson( lstFreightAirline, totalFreight, locale );
-            res += "\"freightAirlineRank\":" + freightAirlineRank + ",";
-            res += "\"totalFreight\":" + Utils.DoubleQuoteStr( Utils.FormatLargeNumber( totalFreight, locale ) ) + "";
-
-            res = "{" + res + "}";
-            return res;
-        }
-
-        public static int GetRankTotalFlow( List<KeyValuePair<string, int>> rank ) {
-            int totalFlow = 0;
-            for ( int i = 0; i < rank.Count; i++ ) {
-                totalFlow += rank[ i ].Value;
-            }
-            return totalFlow;
-        }
-        public static string DestRankToJson( List<KeyValuePair<string, int>> rank, string locale ) {
-            JavaScriptSerializer jsoner = new JavaScriptSerializer();
-            int maxAirport = 10;
-            string res = "[";
-            for ( int i = 0; i < maxAirport && i < rank.Count; i++ ) {
-                Dictionary<string, string> item = new Dictionary<string, string>();
-                item[ "iata" ] = rank[ i ].Key;
-                item[ "flow" ] = rank[ i ].Value.ToString();
-                Airport airport = AirportData.Query( rank[ i ].Key, locale );
-                item[ "icao" ] = airport.Icao;
-                item[ "city" ] = airport.City;
-                item[ "country" ] = airport.Country;
-                if ( i != 0 )
-                    res += ", ";
-                res += jsoner.Serialize( item );
-            }
-            res += "]";
-            return res;
-        }
-
-        public static string AirlineRankToJson( List<KeyValuePair<string, int>> rank, int totalFlow, string locale ) {
-            if ( totalFlow == 0 )
-                return "[]";
-            JavaScriptSerializer jsoner = new JavaScriptSerializer();
-            int maxAirline = 5;
-            int otherFlow = 0;
-            string res = "[";
-
-            for ( int i = 0; i < rank.Count; i++ ) {
-                if ( i < maxAirline ) {
-                    Dictionary<string, string> item = new Dictionary<string, string>();
-                    Carrier airline = CarrierData.Query( rank[ i ].Key, locale );
-                    item[ "airline" ] = airline.FullName + " (" + airline.Code + ")";
-                    //item[ "flow" ] = Utils.FormatLargeNumber( rank[ i ].Value);
-                    item[ "flow" ] = rank[ i ].Value.ToString();
-                    item[ "per" ] = ( ( double ) rank[ i ].Value * 100.0 / totalFlow ).ToString( "N1" ) + "%";
-                    if ( i != 0 )
-                        res += ", ";
-                    res += jsoner.Serialize( item );
-                } else {
-                    otherFlow += rank[ i ].Value;
-                }
-            }
-
-            if ( otherFlow > 0 ) {
-                Dictionary<string, string> item = new Dictionary<string, string>();
-                item[ "airline" ] = Localization.QueryLocale( locale )._other;
-                item[ "flow" ] = otherFlow.ToString();
-                item[ "per" ] = ( ( double ) otherFlow * 100.0 / totalFlow ).ToString( "N1" ) + "%";
-                res += ", " + jsoner.Serialize( item );
-            }
-            res += "]";
-            return res;
-        }
 
         public static string QueryAirportTimeSeries( string origin ) {
             NpgsqlConnection conn = null;
             try {
 
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
                 string where = " WHERE \"ORIGIN\"=" + Utils.SingleQuoteStr( origin );
@@ -340,7 +190,7 @@ namespace AST {
             NpgsqlConnection conn = null;
             try {
 
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
                 string where = " WHERE \"ORIGIN\"=" + Utils.SingleQuoteStr( origin ) + " AND \"DEST\"=" + Utils.SingleQuoteStr( dest );
                 if ( flowType == "pax;freight" )
@@ -388,10 +238,10 @@ namespace AST {
 
             try {
                 string res = "";
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
                 JavaScriptSerializer jsoner = new JavaScriptSerializer();
-                string where = T100DB.MakeWhere( year, airline, "", "" );
+                string where = ASTDatabase.MakeWhere( year, airline, "", "" );
                 Carrier carrier = CarrierData.Query( airline, locale );
                 if ( carrier == null )
                     return "";
@@ -458,11 +308,11 @@ namespace AST {
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
                 // Query T100 Data
-                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\", SUM(\"FREIGHT\") AS \"SUM_FREIGHT\"    ";
@@ -563,9 +413,9 @@ namespace AST {
             try {
                 int totalPax = 0;
                 int totalFreight = 0;
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
-                string where = T100DB.MakeWhere( year, "", origin, dest );
+                string where = ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "AIRCRAFT_PAX" ), Utils.DoubleQuoteStr( "AIRCRAFT_FREIGHT" ), 
                     Utils.DoubleQuoteStr( "AIRCRAFT_DEPARTURE" ), Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "FREIGHT" ), Utils.DoubleQuoteStr( "DEPARTURE" )};
                 string fieldStr = String.Join( ",", fields );

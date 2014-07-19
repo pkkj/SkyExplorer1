@@ -9,17 +9,55 @@ using System.Data.SqlClient;
 using System.Data;
 
 namespace AST {
+
+    public class TwDataMetaData : ADataSourceMetaData {
+        public override string Name {
+            get { return "TwData"; }
+        }
+        public override string SummaryTableName {
+            get { return "TwDataSummary"; }
+        }
+        public override string TimeSeriesTableName {
+            get { return "?"; }
+        }
+        public override string Country {
+            get { return "Taiwan"; }
+        }
+        public override bool HasDomesticData {
+            get { return true; }
+        }
+        public override bool HasInternationalData {
+            get { return true; }
+        }
+        public override bool HasAirlineInfo {
+            get { return true; }
+        }
+        public override bool HasPaxData {
+            get { return true; }
+        }
+        public override bool HasSeatData {
+            get { return true; }
+        }
+        public override bool HasFlightData {
+            get { return true; }
+        }
+        public override bool HasDoubleFlowData {
+            get { return true; }
+        }
+
+    }
+
     public class TwData {
         public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
             List<DestInfo> res = new List<DestInfo>();
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
                 // Query T100 Data
-                string where = " WHERE " + T100DB.MakeWhere( year, airline, origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\"   ";
@@ -58,10 +96,10 @@ namespace AST {
             double distNm = Math.Round( distKm * 0.539957, 0 );
             distKm = Math.Round( distKm, 0 );
             try {
-                conn = new NpgsqlConnection( T100DB.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                string where = " WHERE " + T100DB.MakeWhere( year, "", origin, dest );
+                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
                 Utils.DoubleQuoteStr("PAX"), 
                 Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX")};

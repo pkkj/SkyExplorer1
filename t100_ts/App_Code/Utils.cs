@@ -4,16 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 
-namespace AST
-{
-    public static class Utils
-    {
+namespace AST {
+    public static class Utils {
 
-        public static string SingleQuoteStr ( string s ) {
+        public static string SingleQuoteStr( string s ) {
             return "\'" + s + "\'";
         }
 
-        public static string DoubleQuoteStr ( string s ) {
+        public static string DoubleQuoteStr( string s ) {
             return "\"" + s + "\"";
         }
 
@@ -62,7 +60,7 @@ namespace AST
         }
     }
 
-    public static class T100DB{
+    public static class ASTDatabase {
         public static string connString = ConfigurationManager.ConnectionStrings[ "connstr" ].ConnectionString;
 
         public static string MakeWhere( string year, string airline, string origin, string dest ) {
@@ -103,20 +101,18 @@ namespace AST
             return b.Value.CompareTo( a.Value );
         }
 
-        
+
     }
 
     public class Global {
         public static string CURRENT_COUNTRY = "United States";
         public static string DataDir = @"E:\a302\wwwroot\ServerData\";
     }
-    public class Point
-    {
+    public class Point {
         public double x;
         public double y;
 
-        public Point(double x, double y)
-        {
+        public Point( double x, double y ) {
             this.x = x;
             this.y = y;
         }

@@ -8,6 +8,7 @@
                 this.shortInfo = "Korea KAC";
                 this.fullInfo = "Korea Airport Corporation Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
+                this.supportAirportReportPage = true;
             }
 
             static currentCountry = "South Korea";

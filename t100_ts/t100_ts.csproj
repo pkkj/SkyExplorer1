@@ -219,5 +219,11 @@
   <ItemGroup>
     <Content Include="App_Code\WikiData.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Data.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\AirportStatActor.cs" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>
