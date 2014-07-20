@@ -142,21 +142,28 @@
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
 
-        static QueryAirportYearAvailability(airport: string, dataSrc: string, callback: (jsonMsg: any) => any) {
+        static queryAirportYearAvailability(airport: string, dataSrc: string) {
+            var deferred = $.Deferred();
             var onSuccessCallback = function (jsonMsg) {
-                if (jsonMsg == "") {
-                    callback(null)
-                        return;
-                }
-                jsonMsg = $.parseJSON(jsonMsg);
-                if (callback != null)
-                    callback(jsonMsg);
-
+                jsonMsg == "" ? deferred.resolve(null) : deferred.resolve($.parseJSON(jsonMsg));
             };
             var params = {
                 "airportCode": airport, "codeType": "", "dataSrc": dataSrc, "locale": Localization.locale
             };
             DataQuery.ajaxQuery(params, "QueryAirportYearAvailability", onSuccessCallback);
+            return deferred.promise();
+        }
+
+        static queryAirportAvailableDataSource(airportCode: string) {
+            var deferred = $.Deferred();
+            var onSuccessCallback = function (jsonMsg) {
+                jsonMsg == "" ? deferred.resolve(null) : deferred.resolve($.parseJSON(jsonMsg));
+            };
+            var params = {
+                "airportCode": airportCode, "locale": Localization.locale
+            };
+            DataQuery.ajaxQuery(params, "QueryAirportAvailableDataSource", onSuccessCallback);
+            return deferred.promise();
         }
 
         static QueryAirlineYearAvailability(dataSrc: string, airline: string, callback: (jsonMsg: any) => any) {
@@ -170,6 +177,21 @@
                 "dataSrc": dataSrc, "airline": airline, "locale": Localization.locale
             };
             DataQuery.ajaxQuery(params, "QueryAirlineYearAvailability", onSuccessCallback);
+        }
+
+        static queryAirportStat(dataSrc, year, airport, callback: (data: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                var data = [];
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+
+            };
+            var params = { "dataSrc": dataSrc, "year": year, "airport": airport, "locale": Localization.locale };
+            AST.DataQuery.ajaxQuery(params, "QueryAirportStat", onSuccessCallback);
         }
     }
 }

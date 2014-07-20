@@ -9,6 +9,7 @@
                 this.fullInfo = "Korea Airport Corporation Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
                 this.supportAirportReportPage = true;
+                this.country = "South Korea";
             }
 
             static currentCountry = "South Korea";
@@ -40,6 +41,20 @@
             }
             public getFullInfoLocalizeName(): string {
                 return Localization.strings.krDataFullInfo;
+            }
+            public getDomesticCountryDestName(): string {
+                return Localization.strings.regionKoreaDest;
+            }
+
+            public getAirportReportPageFootnote(airport: Airport): string {
+                if (airport.iata == "ICN") {
+                    return Localization.strings.onlyTheDataOfDomesticRoutesKorea;
+                }
+                var localCountry: boolean = this.country == airport.countryEn;
+                if (!localCountry) {
+                    return Localization.strings.onlyTheDataOfRoutesTowardKorea;
+                }
+                return "";
             }
         }
 

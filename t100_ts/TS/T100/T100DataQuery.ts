@@ -162,20 +162,6 @@
                 DataQuery.ajaxQuery(params, "QueryRouteAircraftStat", onSuccessCallback);
             }
 
-            static queryAirportStat(year, airport, callback: (data: any) => any) {
-                var onSuccessCallback = function (jsonMsg) {
-                    var data = [];
-                    if (jsonMsg == "") {
-                        return;
-                    }
-                    jsonMsg = $.parseJSON(jsonMsg);
-                    if (callback != null)
-                        callback(jsonMsg);
-
-                };
-                var params = { "dataSrc": "T100Data", "year": year, "airport": airport, "locale": Localization.locale };
-                AST.DataQuery.ajaxQuery(params, "QueryAirportStat", onSuccessCallback);
-            }
         }
     }
 }

@@ -24,6 +24,7 @@
                 this.shortInfo = "UK CAA";
                 this.fullInfo = "UK CAA Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UkCaa.html";
+                this.country = "United Kingdom";
             }
 
             static currentCountry = "United Kingdom";
@@ -55,6 +56,12 @@
 
             public dataTo() {
                 return UkMetaData.dataTo;
+            }
+            public getDomesticCountryDestName(): string {
+                return Localization.strings.regionUkDest;
+            }
+            public getAirportReportPageFootnote(airport: Airport): string {
+                return Localization.strings.getUkirportReportPageFootNote(this.country != airport.countryEn);
             }
         }
     }

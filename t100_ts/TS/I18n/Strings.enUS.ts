@@ -76,7 +76,7 @@
         public passengerFreq = "Passenger";
         public freightFreq = "Freight";
         public tons = "tons";
-        public viewDataFromOtherSources = "View data from other sources in this route: ";
+        public viewDataFromOtherSourcesForThisRoute = "View data from other sources in this route: ";
 
         public selectDataSource = "Select data source";
         public filterRouteByAirline = "Filter the routes by airline";
@@ -107,11 +107,9 @@
         public airportStatistic = "Airport Statistic";
         public basicStatistic = "Basic statistic";
         public region = "Region";
-        public regionAll = "All";
-        public regionUnitedStates = "United States";
-        public regionInternational = "International";
-        public regionAllCarrierUsDest = "All Carrier - US Destinations";
-        public regionUsCarrierAllDest = "US Carrier - Non-US Destinations";
+        public regionAll = "All destinations";
+        public regionInternational = "International destinations";
+        public regionDomestic = "Domestic destinations";
         public inXxxxYear = "In ";
         public percentage = "Percentage";
         public top10PassengerDestinations = "Top 10 destinations (passenger)";
@@ -140,6 +138,7 @@
         public aircraftMarketShareByDeparture = "Aircraft Market Share by Departure";
         public aircraftMarketShareByPassenger = "Aircraft Market Share by Departing Passenger";
         public aircraftMarketShareByFreight = "Aircraft Market Share by Departing Freight";
+        public viewDataFromOtherSourcesForThisAirport = "View data from other sources in this airport: ";
 
         // Simpale destination panel
         public passengerFlowMonthlyStat = "Passenger Flow Monthly Statistic";
@@ -231,10 +230,21 @@
         public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>Some routes might have immediate stop, which is not shown in the map.";
         public ukDataShortInfo = "UK CAA";
         public ukDataFullInfo = "UK CAA Data";
+        public onlyTheDataOfRoutesTowardUK = "Note: only the data of routes toward United Kingdom is available. ";
+        public regionUkDest = "United Kingdom destinations";
+        public getUkirportReportPageFootNote(onlyUkDest: boolean): string {
+            var res: string = "";
+            if (onlyUkDest) res += this.onlyTheDataOfRoutesTowardUK;
+            res += "All statistics consist of inbound and outbound traffic.";
+            return res;
+        }
 
         // US T100 Data Source
         public usT100ShortInfo = "US T100";
         public usT100FullInfo = "US BTS T100 Data";
+        public regionAllCarrierUsDest = "All Carrier - US Destinations";
+        public regionUsCarrierAllDest = "US Carrier - Non-US Destinations";
+        public onlyTheDataOfRoutesTowardUS = "Note: only the data of routes toward United States is available. ";
 
         // US T100FF Data Source
         public usT100FFShortInfo = "US T100(FF)";
@@ -243,14 +253,34 @@
         // Japan Data Source
         public jpDataShortInfo = "Japan MLIT"
         public jpDataFullInfo = "Japan MLIT Data"
+        public onlyTheDataOfRoutesTowardJapan = "Note: only the data of routes toward Japan is available. ";
+        public regionJapanDest = "Japan destinations";
+        public getJapanirportReportPageFootNote(onlyJapanDest: boolean): string {
+            var res: string = "";
+            res += this.onlyTheDataOfRoutesTowardJapan;
+            res += "All statistics consist of inbound and outbound traffic.";
+            return res;
+        }
 
         // Taiwan Data Source
         public twDataShortInfo = "Taiwan CAA";
         public twDataFullInfo = "Taiwan CAA Data";
+        public onlyTheDataOfRoutesTowardTaiwan = "Note: only the data of routes toward Taiwan is available. ";
+        public getTaiwanAirportReportPageFootNote(onlyTaiwanDest: boolean): string {
+            var res: string = "";
+            if (onlyTaiwanDest) res += this.onlyTheDataOfRoutesTowardTaiwan;
+            res += "Domestic statistics consist of inbound and outbound traffic. International statistics only consist of outbound traffic.";
+            return res;
+        }
+        public regionTaiwanDomesticDest = "Taiwan destinations";
+        public regionTaiwanIntlDest = "International/cross-strait destinations";
 
         // Korea Data Source
         public krDataShortInfo = "S. Korea KAC";
         public krDataFullInfo = "Korea Airport Corporation Data";
+        public onlyTheDataOfRoutesTowardKorea = "Note: only the data of routes toward South Korea is available";
+        public onlyTheDataOfDomesticRoutesKorea = "Note: only the data of routes toward South Korean destinations is available";
+        public regionKoreaDest = "South Korea destinations (except ICN)";
 
         // Wikipedia Data
         public wikiDataShortInfo = "Wikipedia";

@@ -172,6 +172,8 @@
         public fullInfo: string;
         public aboutSrcPageUrl: string;
         public supportAirportReportPage: boolean;
+        public country: string;
+
         constructor() {
             this.supportAirportReportPage = false;
         }
@@ -193,6 +195,35 @@
 
         public dataTo() {
             return GlobalMetaData.dataTo;
+        }
+
+        public getDomesticCountryDestName(): string {
+            return "";
+        }
+
+        public setAirportReportPageRegion(airportCountry: string, year: string, airportStat, regionItems: Array<string>, regionDisplayText: Array<string>) {
+            var hasDomesticFlow: boolean = airportStat["Domestic"].totalPax != "0" || airportStat["Domestic"].totalFreight != "0";
+            var hasIntlFlow: boolean = airportStat["International"].totalPax != "0" || airportStat["International"].totalFreight != "0";
+            var localCountry: boolean = this.country == airportCountry;
+            if (localCountry && hasDomesticFlow && hasIntlFlow) {
+                regionDisplayText.push(Localization.strings.regionAll);
+                regionItems.push("All");
+            }
+
+            if (hasDomesticFlow) {
+                regionDisplayText.push(localCountry ? Localization.strings.regionDomestic : this.getDomesticCountryDestName());
+                regionItems.push("Domestic");
+            }
+
+            if (hasIntlFlow) {
+                regionDisplayText.push(Localization.strings.regionInternational); // It should not be international destinations for international origin, except T100 FF data.
+                regionItems.push("International");
+            }
+        }
+
+        // Return the footnote for the airport report page
+        public getAirportReportPageFootnote(airport: Airport): string {
+            return "";
         }
     }
 }

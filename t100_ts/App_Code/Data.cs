@@ -47,13 +47,28 @@ namespace AST {
     /// </summary>
     public class DataSourceRegister {
         public static Dictionary<string, ADataSourceMetaData> Register;
+        private static Dictionary<string, string> CountryToDataSrc;
         static DataSourceRegister() {
             Register = new Dictionary<string, ADataSourceMetaData>();
-            Register[ "T100Data" ] = new T100MetaData();
-            Register[ "KrData" ] = new KrDataMetaData();
-            Register[ "JpData" ] = new JpDataMetaData();
-            Register[ "UkData" ] = new UkDataMetaData();
-            Register[ "TwData" ] = new TwDataMetaData();
+            CountryToDataSrc = new Dictionary<string, string>();
+            RegisterDataSource( "T100Data", new T100MetaData() );
+            RegisterDataSource( "KrData", new KrDataMetaData() );
+            RegisterDataSource( "JpData", new JpDataMetaData() );
+            RegisterDataSource( "UkData", new UkDataMetaData() );
+            RegisterDataSource( "TwData", new TwDataMetaData() );
+        }
+
+        private static void RegisterDataSource( string name, ADataSourceMetaData dataSrc ) {
+            Register[ name ] = dataSrc;
+            CountryToDataSrc[ dataSrc.Country ] = name;
+        }
+
+        public static string QueryCountryByDataSrc( string country ) {
+            string dataSrc = "";
+            if ( CountryToDataSrc.TryGetValue( country, out dataSrc ) ) {
+                return dataSrc;
+            }
+            return "";
         }
     }
 

@@ -35,7 +35,7 @@ namespace AST {
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
-            string res = DataQuery.QueryAirportYearAvailability( airportCode, codeType, dataSrc, locale );
+            string res = AirportAvailabilityActor.QueryAirportYearAvailability( airportCode, codeType, dataSrc, locale );
             return res;
         }
 
@@ -139,6 +139,13 @@ namespace AST {
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             return DataQuery.QueryByOrigin( year, origin, dest, airline, queryType, dataSource, locale );
+        }
+
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirportAvailableDataSource( string airportCode, string locale ) {
+            return AirportAvailabilityActor.QueryAirportAvailableDataSource( airportCode, locale );
         }
 
         [WebMethod]

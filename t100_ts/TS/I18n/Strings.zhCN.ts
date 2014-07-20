@@ -105,11 +105,10 @@
         public airportStatistic = "机场统计";
         public basicStatistic = "基本统计";
         public region = "地区";
-        public regionAll = "全部";
-        public regionUnitedStates = "美国";
-        public regionInternational = "国际";
-        public regionAllCarrierUsDest = "所有航空公司 - 美国目的地";
-        public regionUsCarrierAllDest = "美国航空公司 - 海外目的地";
+        public regionAll = "全部目的地";
+        public regionDomestic = "国内目的地";
+        public regionInternational = "国际目的地";
+        
         public inXxxxYear = "在";
         public percentage = "百分比";
         public top10PassengerDestinations = "最繁忙航班目的地前10名（客运）";
@@ -230,10 +229,15 @@
         public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>部分航线可能有中停站。这些中停站并不在地图上显示。";
         public ukDataShortInfo = "英国CAA";
         public ukDataFullInfo = "英国CAA数据";
+        public onlyTheDataOfRoutesTowardUK = "备注：只有前往英国境内机场的路线的数据";
+        public regionUkDest = "英国目的地";
 
         // US T100 Data Source
         public usT100ShortInfo = "美国T100";
         public usT100FullInfo = "美国交通统计局T100数据";
+        public regionAllCarrierUsDest = "所有航空公司 - 美国目的地";
+        public regionUsCarrierAllDest = "美国航空公司 - 海外目的地";
+        public onlyTheDataOfRoutesTowardUS = "备注：只有前往美国境内机场的路线的数据";
 
         // US T100FF Data Source
         public usT100FFShortInfo = "美国T100(FF)";
@@ -242,14 +246,28 @@
         // Japan Data Source
         public jpDataShortInfo = "日本MLIT"
         public jpDataFullInfo = "日本国土交通省数据"
+        public onlyTheDataOfRoutesTowardJapan = "备注：只有前往美国境内机场的路线的数据";
+        public regionJapanDest = "日本目的地";
 
         // Taiwan Data Source
         public twDataShortInfo = "台湾CAA";
         public twDataFullInfo = "台湾民用航空局数据";
+        public onlyTheDataOfRoutesTowardTaiwan = "备注：只有前往台湾地区境内机场的路线的数据";
+        public getTaiwanAirportReportPageFootNote(onlyTaiwanDest: boolean): string {
+            var res: string = "";
+            if (onlyTaiwanDest) res += this.onlyTheDataOfRoutesTowardTaiwan;
+            res += "台湾地区内统计数据为入港和出港客流的总和。国际数据仅为出港。";
+            return res;
+        }
+        public regionTaiwanDomesticDest = "台湾地区目的地";
+        public regionTaiwanIntlDest = "国际/海峡两岸目的地";
 
         // Korea Data Source
-        public krDataShortInfo = "韩国KAC"
-        public krDataFullInfo = "韩国机场公社数据"
+        public krDataShortInfo = "韩国KAC";
+        public krDataFullInfo = "韩国机场公社数据";
+        public onlyTheDataOfRoutesTowardKorea = "备注：只有前往韩国境内机场（仁川机场除外）的路线的数据";
+        public onlyTheDataOfDomesticRoutesKorea = "备注：只有韩国境内目的地的路线的数据";
+        public regionKoreaDest = "韩国目的地";
 
         // Wikipedia Data
         public wikiDataShortInfo = "维基百科";

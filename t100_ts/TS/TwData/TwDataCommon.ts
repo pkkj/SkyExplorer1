@@ -8,6 +8,8 @@
                 this.shortInfo = "Taiwan CAA";
                 this.fullInfo = "Taiwan CAA Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/TwData.html";
+                this.supportAirportReportPage = true;
+                this.country = "Taiwan";
             }
 
             static currentCountry = "Taiwan";
@@ -48,6 +50,26 @@
                 if (origin.country == TwMetaData.currentCountry && dest.country == TwMetaData.currentCountry)
                     return false;
                 return true;
+            }
+
+            public setAirportReportPageRegion(airportCountry: string, year: string, airportStat, regionItems: Array<string>, regionDisplayText: Array<string>) {
+                var hasDomesticFlow: boolean = airportStat["Domestic"].totalPax != "0" || airportStat["Domestic"].totalFreight != "0";
+                var hasIntlFlow: boolean = airportStat["International"].totalPax != "0" || airportStat["International"].totalFreight != "0";
+                var localCountry: boolean = this.country == airportCountry;
+
+                if (hasDomesticFlow) {
+                    regionDisplayText.push(Localization.strings.regionTaiwanDomesticDest);
+                    regionItems.push("Domestic");
+                }
+
+                if (hasIntlFlow) {
+                    regionDisplayText.push(Localization.strings.regionTaiwanIntlDest);
+                    regionItems.push("International");
+                }
+            }
+
+            public getAirportReportPageFootnote(airport: Airport): string {
+                return Localization.strings.getTaiwanAirportReportPageFootNote(this.country != airport.countryEn);
             }
         }
 

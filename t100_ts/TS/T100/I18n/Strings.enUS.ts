@@ -6,7 +6,7 @@
             public routeLimitToUs = "Note: routes with both origin and destination in a foreign country are not available.";
             public routeNotLimitToUs = "Note: US carrier, all the routes are available.";
             public onlyUSRouteAvailable = "Note: only data of US carriers is available for this foreign route.";
-            public onlyTheDataOfRoutesTowardUS = "Note: only the data of routes toward United States is available";
+            
             public noOutBoundFlights = "There is no outbound flights data available for this airport. But it might have inbound traffic.";
             public noAvailableDataForThisAirport = "No T100 data available for this airport.";
 

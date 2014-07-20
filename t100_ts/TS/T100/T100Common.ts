@@ -10,13 +10,14 @@
                 this.fullInfo = "US BTS T100 Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
                 this.supportAirportReportPage = true;
+                this.country = "United States";
             }
             static currentCountry = "United States";
             static hasMonthData = true;
             static dataFrom = new YearMonth(1990, 1);
             static dataTo = new YearMonth(2014, 1);
-            
-            static availablity: string[] = ["2014","2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
+
+            static availablity: string[] = ["2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
                 "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];
             private static _instance = null;
             static instance(): T100MetaData {
@@ -40,6 +41,34 @@
                 return T100MetaData.dataTo;
             }
 
+            public setAirportReportPageRegion(airportCountry: string, year: string, airportStat, regionItems: Array<string>, regionDisplayText: Array<string>) {
+                var hasDomesticFlow: boolean = airportStat["Domestic"].totalPax != "0" || airportStat["Domestic"].totalFreight != "0";
+                var hasIntlFlow: boolean = airportStat["International"].totalPax != "0" || airportStat["International"].totalFreight != "0";
+                var localCountry: boolean = this.country == airportCountry;
+                if (localCountry && hasDomesticFlow && hasIntlFlow) {
+                    regionDisplayText.push(Localization.strings.regionAll);
+                    regionItems.push("All");
+                }
+
+                if (hasDomesticFlow) {
+                    regionDisplayText.push(localCountry ? Localization.strings.regionDomestic : Localization.strings.regionAllCarrierUsDest);
+                    regionItems.push("Domestic");
+                }
+
+                if (hasIntlFlow) {
+                    regionDisplayText.push(localCountry ? Localization.strings.regionInternational : Localization.strings.regionUsCarrierAllDest);
+                    regionItems.push("International");
+                }
+            }
+
+            public getAirportReportPageFootnote(airport: Airport): string {
+                var localCountry: boolean = this.country == airport.countryEn;
+                if (!localCountry) {
+                    return Localization.strings.onlyTheDataOfRoutesTowardUS;
+                }
+                return "";
+            }
+
         }
 
         export class T100FFMetaData extends AST.DataSourceMetaData {
@@ -51,6 +80,7 @@
                 this.fullInfo = "US BTS T100(FF) Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100FF.html";
                 this.supportAirportReportPage = true;
+                this.country = "United States";
             }
 
             static currentCountry = "United States";
@@ -64,7 +94,7 @@
                     T100FFMetaData._instance = new T100FFMetaData();
                 return T100FFMetaData._instance;
             }
-            static has28ISFFData(year: number):boolean {
+            static has28ISFFData(year: number): boolean {
                 return year >= T100FFMetaData.dataFrom.year && year <= T100FFMetaData.dataTo.year;
             }
 
@@ -107,7 +137,7 @@
             }
         }
 
-        
+
         export class T100Localization {
             static strings: UiStrings = null;
             static init() {
@@ -123,6 +153,6 @@
 
             }
         }
-        
+
     }
 }

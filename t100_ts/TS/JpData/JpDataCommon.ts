@@ -8,6 +8,8 @@
                 this.shortInfo = "Japan MLIT";
                 this.fullInfo = "Japan MLIT Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/JpData.html";
+                this.supportAirportReportPage = true;
+                this.country = "Japan";
             }
 
             static currentCountry = "Japan";
@@ -39,6 +41,12 @@
             }
             public getFullInfoLocalizeName(): string {
                 return Localization.strings.jpDataFullInfo;
+            }
+            public getDomesticCountryDestName(): string {
+                return Localization.strings.regionJapanDest;
+            }
+            public getAirportReportPageFootnote(airport: Airport): string {
+                return Localization.strings.getJapanirportReportPageFootNote(this.country != airport.countryEn);
             }
         }
 

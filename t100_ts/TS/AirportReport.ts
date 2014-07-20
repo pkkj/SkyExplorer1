@@ -22,7 +22,7 @@
         private yearAvailability = null;
         private timeSeriesAirlineSel = null;
         private urlParams = null;
-        private availableDataSrc : Array<string> = null;
+        private availableDataSrc: Array<string> = null;
         private curDataSrc: string;
 
         private initSummary() {
@@ -32,7 +32,7 @@
                 "containerMaxHeight": 500
             });
             this.summaryRegionSel = new DropDown(document.getElementById("summaryRegionSel"), {
-                "titleWidth": 200,
+                "titleWidth": 300,
                 "containerMaxHeight": 500
             });
             var yearIdx = 0;
@@ -95,24 +95,18 @@
             DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
-
-            // Determine the data source
-            for (var i = 0; i < this.availableDataSrc.length; i++) {
-
-            }
-            this.curDataSrc = "T100Data";
         }
 
         private init() {
-            
+
             this.urlParams = Utils.decodeUrlPara();
             this.airportIata = this.urlParams["iata"];
             this.initYear = this.urlParams["year"];
-            this.availableDataSrc = this.urlParams["dataSrc"].split(",");
+            this.curDataSrc = this.urlParams["dataSrc"];
 
             this.initData();
 
-            DataQuery.QueryAirportYearAvailability(this.airportIata, "T100Data", (airport) => {
+            var onQueryAirportYearAvailability = (airport: any) => {
                 if (airport == null) {
                     document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + T100.T100Localization.strings.noAvailableDataForThisAirport + '</span>';
                     return;
@@ -128,10 +122,65 @@
                 document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
                 document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
                 this.initUi();
-            })
+            };
+
+            DataQuery.queryAirportAvailableDataSource(this.airportIata).done((availableDataSrc: Array<string>) => {
+                this.handleDataSource(availableDataSrc);
+                DataQuery.queryAirportYearAvailability(this.airportIata, this.curDataSrc).done(onQueryAirportYearAvailability);
+            });
+
+
+            
+
+        }
+
+        private handleDataSource(availableDataSrc: Array<string>) {
+            if (availableDataSrc.length == 0) {
+                document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + T100.T100Localization.strings.noAvailableDataForThisAirport + '</span>';
+                return;
+            }
+            if (this.curDataSrc == "") {
+                this.curDataSrc = availableDataSrc[0];
+            }
+
+            var availableDataSrcDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("availableDataSrc");
+            availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSourcesForThisAirport }));
+            if (availableDataSrc.length > 1) {
+                var atBegin: boolean = true;
+                for (var i = 0; i < availableDataSrc.length; i++) {
+                    var dataSrcName = availableDataSrc[i];
+                    if (dataSrcName == this.curDataSrc)
+                        continue;
+                    var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrcName);
+                    if (atBegin)
+                        atBegin = false;
+                    else
+                        availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": ", " }));
+                    
+                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
+
+                    var where: string = "iata=" + this.urlParams["iata"];
+                    where += "&icao=" + this.urlParams["icao"];
+                    where += "&name=" + this.urlParams["name"];
+                    where += "&city=" + this.urlParams["city"];
+                    where += "&country=" + this.urlParams["country"];
+                    /*if (year)
+                        where += "&year=" + year;*/
+                    where += "&dataSrc=" + availableDataSrc[i];
+                    where += "&locale=" + AST.Localization.getLocale();
+                    anchor.href = "AirportReport.html?" + where;
+
+                    availableDataSrcDiv.appendChild(anchor);
+                }
+            }
+
         }
 
         private initUi() {
+            // Localize
+            var info: AST.DataSourceMetaData = DataSourceRegister.queryInfo(this.curDataSrc);
+            document.getElementById("dataSrcFootNote").innerHTML = info.getAirportReportPageFootnote(this.airport);
+
             $("#mainTab").tabs({
                 activate: (event, ui) => {
                     if (ui.newTab[0].id == "liSummary") {
@@ -167,7 +216,7 @@
             $("#timeScaleYear").button("option", "label", Localization.strings.timeScaleYear);
             $("#timeScaleQuarter").button("option", "label", Localization.strings.timeScaleQuarter);
             $("#timeScaleMonth").button("option", "label", Localization.strings.timeScaleMonth);
-            
+
         }
 
         private makeStatDestRank(table: RankTable, rank) {
@@ -299,25 +348,8 @@
                 this.summaryRegionSel.clearAllItem();
 
                 var regionItems = [], regionDisplayText = [];
-                if (T100.T100MetaData.currentCountry == this.airport.countryEn) {
-                    regionDisplayText = [Localization.strings.regionAll, Localization.strings.regionUnitedStates, Localization.strings.regionInternational];
-                    regionItems = ["All", "Domestic", "International"];
-                } else {
-                if (T100.T100FFMetaData.has28ISFFData(parseInt(year))) {
-                        if (this.airportStat["Domestic"].totalPax != "0" || this.airportStat["Domestic"].totalFreight != "0") {
-                            regionDisplayText.push(Localization.strings.regionAllCarrierUsDest);
-                            regionItems.push("All Carrier - US Destinations");
-                        }
-                        if (this.airportStat["International"].totalPax != "0" || this.airportStat["International"].totalFreight != "0") {
-                            regionDisplayText.push(Localization.strings.regionUsCarrierAllDest);
-                            regionItems.push("US Carrier - Non-US Destinations");
-                        }
-                    } else {
-                        regionDisplayText.push(Localization.strings.regionAllCarrierUsDest);
-                        regionItems = ["All Carrier - US Destinations"];
-                    }
-                    document.getElementById("timeSeriesNote").innerHTML = T100.T100Localization.strings.onlyTheDataOfRoutesTowardUS;
-                }
+                DataSourceRegister.queryInfo(this.curDataSrc).setAirportReportPageRegion(this.airport.countryEn, year, this.airportStat, regionItems, regionDisplayText);
+
                 for (var i = 0; i < regionItems.length; i++) {
                     var item = this.summaryRegionSel.createItem(regionDisplayText[i]);
                     this.summaryRegionSel.insertItem(item, regionItems[i]);
@@ -331,7 +363,7 @@
                 this.summaryRegionSel.setSelectedIndex(0);
                 //this.updateAirportStat();
             }
-            T100.T100DataQuery.queryAirportStat(year, airport, callback);
+            DataQuery.queryAirportStat(this.curDataSrc, year, airport, callback);
         }
 
         private createTimeSeriesChart(divId, timeScale, yearFrom, yearTo, timeData, divideNum: number) {
@@ -460,8 +492,5 @@ google.setOnLoadCallback(function () {
         var dialogAirport;
         dialogAirport = new AST.AirportReport();
         dialogAirport.init();
-        /*if (dialogAirport.airportIata == null)
-            dialogAirport.airportIata = "SEA";*/
-
     });
 });

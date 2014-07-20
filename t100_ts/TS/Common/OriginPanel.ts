@@ -197,7 +197,7 @@
 
             Utils.removeChildren(this.destBarAvailableDataSrc);
             if (otherDataSrc.length > 0) {
-                this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSources }));
+                this.destBarAvailableDataSrc.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSourcesForThisRoute }));
                 for (var i = 0; i < otherDataSrc.length; i++) {
                     var dataSrcName = otherDataSrc[i];
                     if (i > 0)
@@ -325,7 +325,7 @@
                     if (!GlobalStatus.originAirport)
                         return;
                     // TODO: Get the real available data src data.
-                    DialogUtils.launchAirportStat(GlobalStatus.originAirport, GlobalStatus.year, "T100Data,KrData,JpData");
+                    DialogUtils.launchAirportStat(GlobalStatus.originAirport, GlobalStatus.year, "");
                 };
                 titleBar.appendChild(detailReportButton);
             }
