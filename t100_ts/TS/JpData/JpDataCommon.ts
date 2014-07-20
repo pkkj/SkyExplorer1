@@ -48,6 +48,13 @@
             public getAirportReportPageFootnote(airport: Airport): string {
                 return Localization.strings.getJapanirportReportPageFootNote(this.country != airport.countryEn);
             }
+
+            public getAirportCoverage(airport: Airport): AirportCoverage {
+                if (airport.countryEn = this.country) {
+                    return new AirportCoverage(true, false);
+                }
+                return new AirportCoverage(false, false);
+            }
         }
 
         export class JpDataHTMLPageData {

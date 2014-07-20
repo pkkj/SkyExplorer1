@@ -53,15 +53,15 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string T100QueryAirportTimeSeries( string origin, string locale ) {
-            string res = T100Data.QueryAirportTimeSeries( origin );
+        public string QueryAirportTimeSeries( string dataSrc, string origin, string locale ) {
+            string res = TimeSeriesActor.QueryAirportTimeSeries( dataSrc, origin );
             return res;
         }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryRouteTimeSeries( string origin, string dest, string flowType, string locale ) {
-            string res = T100Data.QueryRouteTimeSeries( origin, dest, flowType, locale );
+            string res = TimeSeriesActor.QueryRouteTimeSeries( origin, dest, flowType, locale );
             return res;
         }
 

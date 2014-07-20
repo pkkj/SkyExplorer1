@@ -228,5 +228,8 @@
   <ItemGroup>
     <Content Include="App_Code\AirportAvailabilityActor.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\TimeSeriesActor.cs" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

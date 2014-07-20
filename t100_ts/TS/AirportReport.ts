@@ -61,6 +61,8 @@
 
 
         private initTimeSeries() {
+            var dataSrcInfo = DataSourceRegister.queryInfo(this.curDataSrc);
+
             $("#timeSeriesTimeScale").buttonset();
 
             $("#timeSeriesTimeScale :radio").click((e) => {
@@ -129,9 +131,6 @@
                 DataQuery.queryAirportYearAvailability(this.airportIata, this.curDataSrc).done(onQueryAirportYearAvailability);
             });
 
-
-            
-
         }
 
         private handleDataSource(availableDataSrc: Array<string>) {
@@ -156,7 +155,7 @@
                         atBegin = false;
                     else
                         availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": ", " }));
-                    
+
                     var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
 
                     var where: string = "iata=" + this.urlParams["iata"];
@@ -179,6 +178,9 @@
         private initUi() {
             // Localize
             var info: AST.DataSourceMetaData = DataSourceRegister.queryInfo(this.curDataSrc);
+            var coverage: AirportCoverage = info.getAirportCoverage(this.airport);
+            var showTimeSeries: boolean = coverage.intl && coverage.domestic;
+
             document.getElementById("dataSrcFootNote").innerHTML = info.getAirportReportPageFootnote(this.airport);
 
             $("#mainTab").tabs({
@@ -195,7 +197,11 @@
             });
 
             this.initSummary();
-            this.initTimeSeries();
+            if (showTimeSeries) {
+                this.initTimeSeries();
+            } else {
+                $("#mainTab").tabs({ disabled: [1] });
+            }
             // Data ready
             this.dataReady = true;
             this.queryAirportStat(this.airportIata);
@@ -479,7 +485,7 @@
                 this.timeSeriesData = data;
                 this.updateTimeSeries($("#timeSeriesSlider").slider("values", 0), $("#timeSeriesSlider").slider("values", 1));
             }
-            T100.T100DataQuery.queryAirportTimeSeries(airport, callback);
+            DataQuery.queryAirportTimeSeries(this.curDataSrc, airport, callback);
         }
     }
 }

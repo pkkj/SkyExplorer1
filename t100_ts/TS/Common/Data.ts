@@ -165,6 +165,14 @@
         }
     }
 
+    export class AirportCoverage {
+        public domestic: boolean;
+        public intl: boolean;
+        constructor(domestic: boolean, intl: boolean) {
+            this.domestic = domestic;
+            this.intl = intl;
+        }
+    }
     // Meta data for each data source
     export class DataSourceMetaData {
         public name: string;
@@ -224,6 +232,13 @@
         // Return the footnote for the airport report page
         public getAirportReportPageFootnote(airport: Airport): string {
             return "";
+        }
+
+        public getAirportCoverage(airport: Airport): AirportCoverage {
+            if (airport.countryEn == this.country) {
+                return new AirportCoverage(true, true);
+            }
+            return new AirportCoverage(false, false);
         }
     }
 }

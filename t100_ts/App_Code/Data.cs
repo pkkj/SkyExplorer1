@@ -13,7 +13,7 @@ namespace AST {
     public abstract class ADataSourceMetaData {
         public abstract string Name { get; }
         public abstract string SummaryTableName { get; }
-        public abstract string TimeSeriesTableName { get; }
+        public abstract string AirportTimeSeriesTableName { get; }
         public abstract string Country { get; }
         public virtual bool HasDomesticData {
             get { return false; }

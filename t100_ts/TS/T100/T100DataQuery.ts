@@ -103,19 +103,7 @@
                 DataQuery.ajaxQuery(params, "T100QueryByRoute", onSuccessCallback);
             }
 
-            static queryAirportTimeSeries(airport: string, callback: (jsonMsg: any) => any) {
-                var onSuccessCallback = function (jsonMsg) {
-                    if (jsonMsg == "") {
-                        return;
-                    }
-                    jsonMsg = $.parseJSON(jsonMsg);
-                    if (callback != null)
-                        callback(jsonMsg);
-
-                };
-                var params = { "origin": airport, "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "T100QueryAirportTimeSeries", onSuccessCallback);
-            }
+            
 
             static queryRouteTimeSeries(origin, dest, flowType, callback: (jsonMsg: any) => any) {
                 var onSuccessCallback = function (jsonMsg) {

@@ -17,8 +17,8 @@ namespace AST {
         public override string SummaryTableName {
             get { return "TwDataSummary"; }
         }
-        public override string TimeSeriesTableName {
-            get { return "?"; }
+        public override string AirportTimeSeriesTableName {
+            get { return "TwDataAirportTimeSeries"; }
         }
         public override string Country {
             get { return "Taiwan"; }

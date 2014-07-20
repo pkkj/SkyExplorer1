@@ -56,6 +56,12 @@
                 }
                 return "";
             }
+            public getAirportCoverage(airport: Airport): AirportCoverage {
+                if (airport.countryEn == this.country && airport.iata != "ICN") {
+                    return new AirportCoverage(true, true);
+                }
+                return new AirportCoverage(false, false);
+            }
         }
 
         export class KrDataHTMLPageData {

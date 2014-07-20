@@ -193,5 +193,19 @@
             var params = { "dataSrc": dataSrc, "year": year, "airport": airport, "locale": Localization.locale };
             AST.DataQuery.ajaxQuery(params, "QueryAirportStat", onSuccessCallback);
         }
+
+        static queryAirportTimeSeries(dataSrc: string, airport: string, callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+
+            };
+            var params = { "dataSrc": dataSrc, "origin": airport, "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryAirportTimeSeries", onSuccessCallback);
+        }
     }
 }
