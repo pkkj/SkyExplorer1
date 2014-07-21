@@ -181,6 +181,8 @@
         public aboutSrcPageUrl: string;
         public supportAirportReportPage: boolean;
         public country: string;
+        public startTime: YearMonth;
+        public endTime: YearMonth;
 
         constructor() {
             this.supportAirportReportPage = false;

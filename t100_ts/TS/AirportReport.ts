@@ -24,6 +24,7 @@
         private urlParams = null;
         private availableDataSrc: Array<string> = null;
         private curDataSrc: string;
+        private dataSrcInfo: DataSourceMetaData;
 
         private initSummary() {
             var i, item;
@@ -61,7 +62,6 @@
 
 
         private initTimeSeries() {
-            var dataSrcInfo = DataSourceRegister.queryInfo(this.curDataSrc);
 
             $("#timeSeriesTimeScale").buttonset();
 
@@ -72,9 +72,9 @@
 
             $("#timeSeriesSlider").slider({
                 range: true,
-                min: T100.T100MetaData.dataFrom.year,
-                max: T100.T100MetaData.dataTo.year,
-                values: [T100.T100MetaData.dataFrom.year, T100.T100MetaData.dataTo.year],
+                min: this.dataSrcInfo.startTime.year,
+                max: this.dataSrcInfo.endTime.year,
+                values: [this.dataSrcInfo.startTime.year, this.dataSrcInfo.endTime.year],
                 slide: (event, ui) => {
                     if (this.timeSeriesData == null)
                         return;
@@ -88,6 +88,10 @@
 
             });
             document.getElementById("timeSeriesSliderYearRange").innerHTML = $("#timeSeriesSlider").slider("values", 0) + " - " + $("#timeSeriesSlider").slider("values", 1);
+
+            $("#timeScaleYear").button("option", "label", Localization.strings.timeScaleYear);
+            $("#timeScaleQuarter").button("option", "label", Localization.strings.timeScaleQuarter);
+            $("#timeScaleMonth").button("option", "label", Localization.strings.timeScaleMonth);
         }
 
         private initData() {
@@ -141,6 +145,7 @@
             if (this.curDataSrc == "") {
                 this.curDataSrc = availableDataSrc[0];
             }
+            this.dataSrcInfo = DataSourceRegister.queryInfo(this.curDataSrc);
 
             var availableDataSrcDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("availableDataSrc");
             availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSourcesForThisAirport }));
@@ -173,15 +178,16 @@
                 }
             }
 
+            document.getElementById("metricDataText").innerText = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
+
         }
 
         private initUi() {
             // Localize
-            var info: AST.DataSourceMetaData = DataSourceRegister.queryInfo(this.curDataSrc);
-            var coverage: AirportCoverage = info.getAirportCoverage(this.airport);
+            var coverage: AirportCoverage = this.dataSrcInfo.getAirportCoverage(this.airport);
             var showTimeSeries: boolean = coverage.intl && coverage.domestic;
 
-            document.getElementById("dataSrcFootNote").innerHTML = info.getAirportReportPageFootnote(this.airport);
+            document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
 
             $("#mainTab").tabs({
                 activate: (event, ui) => {
@@ -218,11 +224,6 @@
             document.getElementById("tabSummaryTop10DestFreightText").innerHTML = Localization.strings.top10FreightDestinations;
             document.getElementById("tabTimeSeriesShowChartByText").innerHTML = Localization.strings.showChartBy;
             document.getElementById("timeSeriesSliderYearRangeText").innerHTML = Localization.strings.yearRange;
-
-            $("#timeScaleYear").button("option", "label", Localization.strings.timeScaleYear);
-            $("#timeScaleQuarter").button("option", "label", Localization.strings.timeScaleQuarter);
-            $("#timeScaleMonth").button("option", "label", Localization.strings.timeScaleMonth);
-
         }
 
         private makeStatDestRank(table: RankTable, rank) {
@@ -354,7 +355,7 @@
                 this.summaryRegionSel.clearAllItem();
 
                 var regionItems = [], regionDisplayText = [];
-                DataSourceRegister.queryInfo(this.curDataSrc).setAirportReportPageRegion(this.airport.countryEn, year, this.airportStat, regionItems, regionDisplayText);
+                this.dataSrcInfo.setAirportReportPageRegion(this.airport.countryEn, year, this.airportStat, regionItems, regionDisplayText);
 
                 for (var i = 0; i < regionItems.length; i++) {
                     var item = this.summaryRegionSel.createItem(regionDisplayText[i]);
@@ -382,7 +383,7 @@
                 return;
             }
 
-            var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;;
+            var inputIdx = (yearFrom - this.dataSrcInfo.startTime.year) * 12;;
             var outputIdx = 0;
             var tickIdx = [];
 
@@ -390,11 +391,11 @@
             var data = [];
             for (year = yearFrom; year <= yearTo; year++) {
                 var monthStart = 1;
-                if (year == T100.T100MetaData.dataFrom.year)
-                    monthStart = T100.T100MetaData.dataFrom.month;
+                if (year == this.dataSrcInfo.startTime.year)
+                    monthStart = this.dataSrcInfo.startTime.month;
                 var monthEnd = 12;
-                if (year == T100.T100MetaData.dataTo.year)
-                    monthEnd = T100.T100MetaData.dataTo.month;
+                if (year == this.dataSrcInfo.endTime.year)
+                    monthEnd = this.dataSrcInfo.endTime.month;
 
                 var yearAccumulate = 0;
                 var yearAccumulateMonth = 0;

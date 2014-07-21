@@ -10,6 +10,8 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
                 this.supportAirportReportPage = true;
                 this.country = "South Korea";
+                this.startTime = new YearMonth(2013, 1);
+                this.endTime = new YearMonth(2014, 5);
             }
 
             static currentCountry = "South Korea";

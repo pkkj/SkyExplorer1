@@ -10,6 +10,8 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/JpData.html";
                 this.supportAirportReportPage = true;
                 this.country = "Japan";
+                this.startTime = new YearMonth(2007, 1);
+                this.endTime = new YearMonth(2013, 12);
             }
 
             static currentCountry = "Japan";

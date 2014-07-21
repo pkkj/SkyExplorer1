@@ -11,6 +11,8 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
                 this.supportAirportReportPage = true;
                 this.country = "United States";
+                this.startTime = new YearMonth(1990, 1);
+                this.endTime = new YearMonth(2014, 1);
             }
             static currentCountry = "United States";
             static hasMonthData = true;
@@ -81,6 +83,8 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100FF.html";
                 this.supportAirportReportPage = true;
                 this.country = "United States";
+                this.startTime = new YearMonth(2003, 1);
+                this.endTime = new YearMonth(2009, 12);
             }
 
             static currentCountry = "United States";
