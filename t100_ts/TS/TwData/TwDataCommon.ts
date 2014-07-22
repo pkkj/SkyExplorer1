@@ -10,8 +10,8 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/TwData.html";
                 this.supportAirportReportPage = true;
                 this.country = "Taiwan";
-                this.startTime = new YearMonth(2012, 1);
-                this.endTime = new YearMonth(2014, 4);
+                this.startTime = new YearMonth(2011, 1);
+                this.endTime = new YearMonth(2014, 5);
             }
 
             static currentCountry = "Taiwan";

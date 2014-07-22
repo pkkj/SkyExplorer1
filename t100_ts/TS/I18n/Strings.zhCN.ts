@@ -29,8 +29,8 @@
         public aboutSkyExplorer = "关于Sky Explorer";
         public about = "关于";
         public airportDetailReport = "机场详细报告";
-        public airportView = "机场视图（所有数据）";
-        public airlineView = "航空公司视图（T100数据）";
+        public airportView = "机场视图";
+        public airlineView = "航空公司视图";
         public viewDataBy = "请选择数据视图：";
         public from = "出发地";
         public to = "目的地";

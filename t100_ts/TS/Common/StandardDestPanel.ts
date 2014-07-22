@@ -277,7 +277,7 @@
                         dataItem['data'] = [];
                         dataItem['label'] = airlineName;
                         for (j = 0; j < 12; j++) {
-                            if (T100.T100MetaData.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100MetaData.dataTo.month && j + 1 > 2) {
+                            if (this.dataSourceMetaData.endTime.year == AST.GlobalStatus.year && j + 1 > this.dataSourceMetaData.endTime.month && j + 1 > 2) {
                                 break;
                             }
                             dataItem['data'].push([j, this.routeData[i].monthPax[j]]);
@@ -294,7 +294,7 @@
                         dataItem['data'] = [];
                         dataItem['label'] = airlineName;
                         for (j = 0; j < 12; j++) {
-                            if (T100.T100MetaData.dataTo.year == AST.GlobalStatus.year && j + 1 > T100.T100MetaData.dataTo.month && j + 1 > 2) {
+                            if (this.dataSourceMetaData.endTime.year == AST.GlobalStatus.year && j + 1 > this.dataSourceMetaData.endTime.month && j + 1 > 2) {
                                 break;
                             }
                             dataItem['data'].push([j, this.routeData[i].monthFreight[j]]);

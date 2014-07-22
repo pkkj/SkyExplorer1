@@ -230,6 +230,7 @@
             var totalItem = 10;
             table.clear();
             if (rank.length == 0) {
+                table.showMessage('<span style="font-size: 20pt; color: #D0D0D0">' + Localization.strings.noDataAvailable + '</span>');
                 return;
             }
             var biggestFlow = parseFloat(rank[0].flow);
@@ -265,9 +266,10 @@
             }
         }
 
-        private makeAirlineShare(div, rank, type) {
+        private makeAirlineShare(div: HTMLElement, rank, type) {
             div.innerHTML = "";
             if (rank.length == 0) {
+                div.parentElement.style.visibility = "hidden";
                 return;
             }
             var _data;

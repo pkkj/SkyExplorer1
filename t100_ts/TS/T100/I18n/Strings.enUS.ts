@@ -3,7 +3,7 @@
         export class UiStrings {
             constructor() {
             }
-            public routeLimitToUs = "Note: routes with both origin and destination in a foreign country are not available.";
+            public routeLimitToUs = "Note: routes with both origin and destination outside US are not available.";
             public routeNotLimitToUs = "Note: US carrier, all the routes are available.";
             public onlyUSRouteAvailable = "Note: only data of US carriers is available for this foreign route.";
             

@@ -60,6 +60,10 @@ module AST {
 
         }
 
+        public showMessage(message: string) {
+            this.divRoot.innerHTML = message;
+        }
+
         public clear() {
             while (this.divRoot.firstChild) {
                 this.divRoot.removeChild(this.divRoot.firstChild);

@@ -1,6 +1,7 @@
 ﻿module AST {
     export class T100AirlinePanel {
         private divRoot: HTMLElement = null;
+        private dataSrcSel: HTMLSelectElement = null;
         private yearSel: HTMLSelectElement = null;
         private airlineSel: HTMLSelectElement = null;
         private countrySel: HTMLSelectElement = null;
@@ -31,6 +32,7 @@
 
         constructor() {
             this.divRoot = document.getElementById("t100AirlinePanel");
+            this.dataSrcSel = <HTMLSelectElement> document.getElementById("airlinePanelDataSrcSelector");
             this.yearSel = <HTMLSelectElement> document.getElementById("t100AirlineYearSel");
             this.airlineSel = <HTMLSelectElement> document.getElementById("t100AirlineAirlineSel");
             this.countrySel = <HTMLSelectElement> document.getElementById("t100AirlineCountrySel");
@@ -95,11 +97,17 @@
             });
 
             this.routeTable = new AST.CollapseTable(document.getElementById("t100AirlienRouteTable"), { "width": this.routeTableWidth });
+            
+            // Now we only support T100 data in airline view.
+            var defaultT100DataSrcOption = document.createElement("option");
+            defaultT100DataSrcOption.text = DataSourceRegister.queryInfo("T100Data").getFullInfoLocalizeName();
+            this.dataSrcSel.add(defaultT100DataSrcOption, null);
             this.localizeUi();
         }
 
 
         public localizeUi() {
+            document.getElementById("airlinePanelDataSrcSelectorText").innerHTML = Localization.strings.selectDataSource;
             document.getElementById("t100AirlinePanelCountryFilterText").innerHTML = Localization.strings.countryFilter;
             document.getElementById("t100AirlinePanelTypeFilterText").innerHTML = Localization.strings.typeFilter;
             document.getElementById("t100AirlineRouteNote").innerHTML = Localization.strings.onlyTop400Routes;
@@ -279,7 +287,7 @@
                 return false;
 
             this.innerTitle.innerHTML = item.airline.code + " - " + item.airline.name;
-            this.airlineNote.innerHTML = item.airline.note;
+            this.airlineNote.innerHTML = item.airline.note == "*" ? "" : item.airline.note;
             Localization.strings.constructAirlineWikiSpan(this.airlineWikiLink, item.airline.name);
 
             this.availabilityNote.innerHTML = "";
