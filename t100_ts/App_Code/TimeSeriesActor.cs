@@ -8,9 +8,8 @@ namespace AST {
     public class TimeSeriesActor {
 
         /// <summary>
-        /// 
+        /// Query the time series of an airport
         /// </summary>
-        /// <param name="origin"></param>
         /// <returns></returns>
         public static string QueryAirportTimeSeries( string dataSrc, string origin ) {
             // Get the meta data of specific data source
@@ -35,7 +34,7 @@ namespace AST {
                     if ( dr[ "FLOW_TYPE" ].ToString() == "Pax" ) {
                         if ( jsonPax != "" )
                             jsonPax += ",";
-                        jsonPax += string.Format("{0}:{1}", Utils.DoubleQuoteStr( dr[ "AIRLINE" ].ToString() ), dr[ "TIME_SERIES" ].ToString());
+                        jsonPax += string.Format( "{0}:{1}", Utils.DoubleQuoteStr( dr[ "AIRLINE" ].ToString() ), dr[ "TIME_SERIES" ].ToString() );
                     } else if ( dr[ "FLOW_TYPE" ].ToString() == "Freight" ) {
                         if ( jsonFreight != "" )
                             jsonFreight += ",";
@@ -52,21 +51,27 @@ namespace AST {
             return "";
         }
 
+        /// <summary>
+        /// Query the time series of a route
+        /// </summary>
+        /// <param name="flowType">The query type: "pax;freight": query the flow and "seat": query the seat and load factor</param>
+        /// <returns></returns>
         public static string QueryRouteTimeSeries( string origin, string dest, string flowType, string locale ) {
             NpgsqlConnection conn = null;
             try {
 
                 conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
-                string where = " WHERE \"ORIGIN\"=" + Utils.SingleQuoteStr( origin ) + " AND \"DEST\"=" + Utils.SingleQuoteStr( dest );
+                string condition = "";
                 if ( flowType == "pax;freight" )
-                    where += " AND ( \"FLOW_TYPE\" = \'Pax\' OR \"FLOW_TYPE\" = \'Freight\') ";
+                    condition = @" AND ( ""FLOW_TYPE"" = 'Pax' OR ""FLOW_TYPE"" = 'Freight') ";
                 else if ( flowType == "seat" )
-                    where += " AND ( \"FLOW_TYPE\" = \'Pax\' OR \"FLOW_TYPE\" = \'Seat\')  ";
+                    condition = @" AND ( ""FLOW_TYPE"" = 'Pax' OR ""FLOW_TYPE"" = 'Seat') ";
 
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "FLOW_TYPE" ), Utils.DoubleQuoteStr( "TIME_SERIES" ) };
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"T100RouteTimeSeries\"" + where + " ORDER BY \"SUMFLOW\" DESC";
+                string sql = string.Format( @"SELECT {0} FROM ""T100RouteTimeSeries"" WHERE ""ORIGIN""= {1} AND ""DEST""= {2} {3} ORDER BY ""SUMFLOW"" DESC", 
+                    fieldStr, Utils.SingleQuoteStr( origin ), Utils.SingleQuoteStr( dest ), condition );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, string> jsonRes = new Dictionary<string, string>() { { "Pax", "" }, { "Freight", "" }, { "Seat", "" } };

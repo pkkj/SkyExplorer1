@@ -638,11 +638,11 @@
             var timeScale = ReportPageUtils.getTimeScale("timeScaleYear", "timeScaleQuarter", "timeScaleMonth");
 
             document.getElementById("paxTimeSeriesChartTitle").innerHTML =
-            T100.T100Localization.strings.timeSeriesTotalPassengerInT100ByTimeScale(FlowType.Passenger, timeScale) + Utils.createSpace(5);
+            Localization.strings.timeSeriesTotalPassengerInT100ByTimeScale(FlowType.Passenger, timeScale) + Utils.createSpace(5);
             document.getElementById("freightTimeSeriesChartTitle").innerHTML =
-            T100.T100Localization.strings.timeSeriesTotalPassengerInT100ByTimeScale(FlowType.Freight, timeScale) + Utils.createSpace(5);
-            document.getElementById("paxTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Passenger, timeScale);
-            document.getElementById("freightTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Freight, timeScale);
+            Localization.strings.timeSeriesTotalPassengerInT100ByTimeScale(FlowType.Freight, timeScale) + Utils.createSpace(5);
+            document.getElementById("paxTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Passenger, timeScale);
+            document.getElementById("freightTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Freight, timeScale);
 
             this.createTimeSeriesChart("paxTimeSeries", this.timeSeriesData, timeScale, yearFrom, yearTo, "pax", this.timeSeriesAirlineSel.selectedData, this.normalTimeSeriesDataGenerator, Localization.strings.largeDivideNum);
             this.createTimeSeriesChart("freightTimeSeries", this.timeSeriesData, timeScale, yearFrom, yearTo, "freight", this.timeSeriesAirlineSel.selectedData, this.normalTimeSeriesDataGenerator, Localization.strings.largeDivideNum);

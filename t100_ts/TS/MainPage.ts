@@ -74,7 +74,7 @@ module AST {
             Utils.addEvent(window, "resize", this.adjustSize);
             this.adjustSize();
 
-            /// Map
+            // Map
             App.mapControl = new OpenLayers.Map('openLayerMap', {
                 allOverlays: true,
                 displayProjection: new OpenLayers.Projection("EPSG:900913")

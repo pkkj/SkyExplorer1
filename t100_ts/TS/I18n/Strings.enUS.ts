@@ -121,6 +121,23 @@
         public timeScaleYear = "Year";
         public timeScaleQuarter = "Quarter";
         public timeScaleMonth = "Month";
+        public noAvailableDataForThisAirport = "No data available for this airport.";
+
+        public timeSeriesThisChartShowTimeScaleData(dataType: FlowType, timeScale: string): string {
+            if (dataType == FlowType.Passenger) {
+                if (timeScale != "Month")
+                    return "Unit: thousand people.";
+            }
+            else
+                return "Unit: tons.";
+        }
+
+        public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
+            if (dataType == FlowType.Passenger)
+                return "Total Passenger by " + timeScale;
+            else
+                return "Total Freight by " + timeScale;
+        }
 
         // Route report page
         public routeStatistic = "Route Statistic";

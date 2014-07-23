@@ -3,7 +3,17 @@
         constructor() {
             super();
         }
+
+        // Common
         public largeDivideNum = 10000;
+        private getTimeScaleText(timeScale: string) {
+            if (timeScale == "Year")
+                return "年度";
+            else if (timeScale == "Quarter")
+                return "季度";
+            else
+                return "每月";
+        }
 
         public appTitle = "Sky Explorer";
         public departmentOfGeographyOSU = "俄亥俄州立大学，地理系";
@@ -120,7 +130,22 @@
         public timeScaleYear = "年";
         public timeScaleQuarter = "季度";
         public timeScaleMonth = "月";
+        public noAvailableDataForThisAirport = "该机场无数据。";
+        public timeSeriesThisChartShowTimeScaleData(dataType: FlowType, timeScale: string): string {
+            if (dataType == FlowType.Passenger) {
+                if (timeScale != "Month")
+                    return "单位：万人";
+            }
+            else
+                return "单位：吨";
+        }
 
+        public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
+            if (dataType == FlowType.Passenger)
+                return this.getTimeScaleText(timeScale) + "旅客人次";
+            else
+                return this.getTimeScaleText(timeScale) + "货物运量";
+        }
         // Route report page
         public aircraftUsage = "机型使用";
         public timeSeriesOfFlow = "流量时间趋势";
