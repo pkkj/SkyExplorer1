@@ -105,7 +105,7 @@
 
             
 
-            static queryRouteTimeSeries(origin, dest, flowType, callback: (jsonMsg: any) => any) {
+            static queryRouteTimeSeries(dataSrc: string, origin, dest, flowType, callback: (jsonMsg: any) => any) {
                 var onSuccessCallback = function (jsonMsg) {
                     if (jsonMsg == "") {
                         return;
@@ -115,8 +115,8 @@
                         callback(jsonMsg);
 
                 };
-                var params = { "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "T100QueryRouteTimeSeries", onSuccessCallback);
+                var params = { "dataSrc": dataSrc, "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
+                DataQuery.ajaxQuery(params, "QueryRouteTimeSeries", onSuccessCallback);
             }
 
             static queryAirlineRoute(year, airline, region, callback: (data: any) => any) {

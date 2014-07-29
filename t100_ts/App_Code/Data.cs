@@ -14,6 +14,7 @@ namespace AST {
         public abstract string Name { get; }
         public abstract string SummaryTableName { get; }
         public abstract string AirportTimeSeriesTableName { get; }
+        public abstract string RouteTimeSeriesTableName { get; }
         public abstract string Country { get; }
         public virtual bool HasDomesticData {
             get { return false; }

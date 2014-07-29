@@ -60,8 +60,8 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string T100QueryRouteTimeSeries( string origin, string dest, string flowType, string locale ) {
-            string res = TimeSeriesActor.QueryRouteTimeSeries( origin, dest, flowType, locale );
+        public string QueryRouteTimeSeries( string dataSrc, string origin, string dest, string flowType, string locale ) {
+            string res = TimeSeriesActor.QueryRouteTimeSeries( dataSrc, origin, dest, flowType, locale );
             return res;
         }
 

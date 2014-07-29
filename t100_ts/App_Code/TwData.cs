@@ -20,6 +20,9 @@ namespace AST {
         public override string AirportTimeSeriesTableName {
             get { return "TwDataAirportTimeSeries"; }
         }
+        public override string RouteTimeSeriesTableName {
+            get { return "TwDataRouteTimeSeries"; }
+        }
         public override string Country {
             get { return "Taiwan"; }
         }

@@ -698,7 +698,7 @@
                 this.setupTimeSeriesAirlineList(this.timeSeriesAirlineSel, this.updateTimeSeries, "#timeSeriesSlider", this.airlineMap, this.timeSeriesData, ["pax", "freight"]);
 
             }
-	        T100.T100DataQuery.queryRouteTimeSeries(this.originIata, this.destIata, "pax;freight", callback);
+	        T100.T100DataQuery.queryRouteTimeSeries("T100Data", this.originIata, this.destIata, "pax;freight", callback);
         }
 
         private calcPaxSeatTimeSeries() {
@@ -722,7 +722,7 @@
                 this.setupTimeSeriesAirlineList(this.seatTimeSeriesAirlineSel, this.updateSeatTimeSeries, "#seatTimeSeriesSlider", this.seatDataAirlineMap, this.seatTimeSeriesData, ["seat"]);
 
             }
-	        T100.T100DataQuery.queryRouteTimeSeries(this.originIata, this.destIata, "seat", callback);
+	        T100.T100DataQuery.queryRouteTimeSeries("T100Data", this.originIata, this.destIata, "seat", callback);
         }
 
         private updateSeatTimeSeries = (yearFrom, yearTo) => {

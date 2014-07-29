@@ -56,7 +56,13 @@ namespace AST {
         /// </summary>
         /// <param name="flowType">The query type: "pax;freight": query the flow and "seat": query the seat and load factor</param>
         /// <returns></returns>
-        public static string QueryRouteTimeSeries( string origin, string dest, string flowType, string locale ) {
+        public static string QueryRouteTimeSeries( string dataSrc, string origin, string dest, string flowType, string locale ) {
+            // Get the meta data of specific data source
+            ADataSourceMetaData metaData = null;
+            if ( !DataSourceRegister.Register.TryGetValue( dataSrc, out metaData ) ) {
+                return "";
+            }
+
             NpgsqlConnection conn = null;
             try {
 
@@ -70,8 +76,8 @@ namespace AST {
 
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "FLOW_TYPE" ), Utils.DoubleQuoteStr( "TIME_SERIES" ) };
                 string fieldStr = String.Join( ",", fields );
-                string sql = string.Format( @"SELECT {0} FROM ""T100RouteTimeSeries"" WHERE ""ORIGIN""= {1} AND ""DEST""= {2} {3} ORDER BY ""SUMFLOW"" DESC", 
-                    fieldStr, Utils.SingleQuoteStr( origin ), Utils.SingleQuoteStr( dest ), condition );
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE ""ORIGIN""= {2} AND ""DEST""= {3} {4} ORDER BY ""SUMFLOW"" DESC",
+                    fieldStr, metaData.RouteTimeSeriesTableName, Utils.SingleQuoteStr( origin ), Utils.SingleQuoteStr( dest ), condition );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, string> jsonRes = new Dictionary<string, string>() { { "Pax", "" }, { "Freight", "" }, { "Seat", "" } };
