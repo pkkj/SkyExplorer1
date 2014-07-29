@@ -130,6 +130,7 @@
             }
             else
                 return "Unit: tons.";
+            return "";
         }
 
         public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
