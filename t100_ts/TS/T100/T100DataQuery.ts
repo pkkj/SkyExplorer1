@@ -103,22 +103,6 @@
                 DataQuery.ajaxQuery(params, "T100QueryByRoute", onSuccessCallback);
             }
 
-            
-
-            static queryRouteTimeSeries(dataSrc: string, origin, dest, flowType, callback: (jsonMsg: any) => any) {
-                var onSuccessCallback = function (jsonMsg) {
-                    if (jsonMsg == "") {
-                        return;
-                    }
-                    jsonMsg = $.parseJSON(jsonMsg);
-                    if (callback != null)
-                        callback(jsonMsg);
-
-                };
-                var params = { "dataSrc": dataSrc, "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
-                DataQuery.ajaxQuery(params, "QueryRouteTimeSeries", onSuccessCallback);
-            }
-
             static queryAirlineRoute(year, airline, region, callback: (data: any) => any) {
                 var onSuccessCallback = function (jsonMsg) {
                     setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);

@@ -73,6 +73,12 @@
             public getAirportReportPageFootnote(airport: Airport): string {
                 return Localization.strings.getTaiwanAirportReportPageFootNote(this.country != airport.countryEn);
             }
+
+            public getSupportDataOption(option: string): boolean {
+                if (option == "passenger" || option == "seat")
+                    return true;
+                return false;
+            }
         }
 
         export class TwDataHTMLPageData {

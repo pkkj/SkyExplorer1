@@ -207,5 +207,33 @@
             var params = { "dataSrc": dataSrc, "origin": airport, "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryAirportTimeSeries", onSuccessCallback);
         }
+
+        static queryRouteAvailableDataSource(origin: string, dest: string, callback: (origin: Airport, dest: Airport, dataSrc: Array<string>) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);                
+                if (callback != null)
+                    callback(Airport.createFromJson(jsonMsg["origin"]), Airport.createFromJson(jsonMsg["dest"]), jsonMsg["dataSrc"]);
+            };
+            var params = { "origin": origin, "dest": dest, "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryRouteAvailableDataSource", onSuccessCallback);
+        }
+
+        // Query the time series data for route.
+        static queryRouteTimeSeries(dataSrc: string, origin, dest, flowType, callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+
+            };
+            var params = { "dataSrc": dataSrc, "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryRouteTimeSeries", onSuccessCallback);
+        }
     }
 }

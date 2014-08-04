@@ -60,15 +60,34 @@ namespace AST {
 
             return dict;
         }
+
+        public Dictionary<string, object> CastToJsonDict() {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict[ "icao" ] = this.Icao;
+            dict[ "iata" ] = this.Iata;
+            dict[ "fullName" ] = this.FullName;
+            dict[ "country" ] = this.Country;
+            dict[ "city" ] = this.City;
+            dict[ "state" ] = this.State;
+            dict[ "countryEn" ] = this.CountryEn;
+            dict[ "fullNameEn" ] = this.FullNameEn;
+            dict[ "cityEn" ] = this.CityEn;
+            dict[ "geometry" ] = new Dictionary<string, double>{ 
+                {"x", this.Geometry.x}, 
+                {"y", this.Geometry.y}
+            };
+
+            return dict;
+        }
     }
     public partial class AirportData {
         static public Dictionary<string, Dictionary<string, Airport>> AirportDictionary;
         static public Airport Query( string code, string locale = "ZHCN" ) {
             Airport ret = null;
-            if (AirportDictionary.ContainsKey(locale) && AirportDictionary[ locale ].ContainsKey( code ) )
-                ret =  AirportDictionary[ locale ][ code ];
+            if ( AirportDictionary.ContainsKey( locale ) && AirportDictionary[ locale ].ContainsKey( code ) )
+                ret = AirportDictionary[ locale ][ code ];
             else if ( AirportDictionary[ "ENUS" ].ContainsKey( code ) ) {
-                ret =  AirportDictionary[ "ENUS" ][ code ];
+                ret = AirportDictionary[ "ENUS" ][ code ];
             }
             if ( ret != null ) {
                 ret.CountryEn = AirportDictionary[ "ENUS" ][ code ].Country;

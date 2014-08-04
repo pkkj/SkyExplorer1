@@ -2,8 +2,8 @@
     export class RouteReport {
         private originIata: string = null;
         private destIata: string = null;
-        private originAirport = null;
-        private destAirport = null;
+        private originAirport: Airport = null;
+        private destAirport: Airport = null;
         private initAirline = null;
         private initYear = null;
 
@@ -11,6 +11,7 @@
         private summaryAirlineSel: DropDown = null;
 
         // data related variables
+        private curDataSrc: DataSourceMetaData = null;
         private routeAircraftStat = null;
         private aircraftData = null;
 
@@ -112,12 +113,8 @@
         }
 
         private getYearAvailability() {
-            this.yearAvailableFrom = T100.T100MetaData.dataFrom;
-            this.yearAvailableTo = T100.T100MetaData.dataTo;
-            if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry) {
-                this.yearAvailableFrom = T100.T100FFMetaData.dataFrom;
-                this.yearAvailableTo = T100.T100FFMetaData.dataTo;
-            }
+            this.yearAvailableFrom = this.curDataSrc.startTime;
+            this.yearAvailableTo = this.curDataSrc.endTime;
         }
 
         private initSeatTimeSeries() {
@@ -155,13 +152,29 @@
             document.getElementById("seatTimeSeriesSliderYearRange").innerHTML = $("#seatTimeSeriesSlider").slider("values", 0) + " - " + $("#seatTimeSeriesSlider").slider("values", 1);
         }
 
-        public initUi() {
+        // Initialize the data source info and query necessary data from web service.
+        public initData() {
+            var deferred = $.Deferred();
             this.urlParams = Utils.decodeUrlPara();
             this.originIata = this.urlParams["originIata"];
             this.destIata = this.urlParams["destIata"];
             this.initAirline = this.urlParams["airline"];
             this.initYear = this.urlParams["year"];
 
+            DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
+            DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
+            DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
+            DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
+            DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
+            DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
+            
+            this.queryAvailableDataSrc().done(() => {
+                deferred.resolve();
+            });
+            return deferred.promise();
+        }
+
+        public initUi() {
             document.getElementById("linkReverseRoute").innerHTML = Localization.strings.constructViewReverseRouteData(this.destIata, this.originIata);
             document.getElementById("linkReverseRoute").onclick = () => {
                 var where = "originIata=" + this.destIata;
@@ -177,6 +190,7 @@
             $("#mainTab").tabs({
                 activate: (event, ui) => {
                     if (ui.newTab[0].id == "liSummary") {
+                        this.queryRouteAircraftStat();
                     }
                     if (ui.newTab[0].id == "liTimeSeries") {
                         if (this.timeSeriesData != null)
@@ -193,6 +207,11 @@
                     }
                 }
             });
+
+            // Disable the unsupported feature for current data source
+            if (!this.curDataSrc.getSupportDataOption("aircraft")) {
+                $("#mainTab").tabs({ disabled: [2] });
+            }
 
             this.initSummary();
             this.localizeUi();
@@ -219,10 +238,7 @@
             document.getElementById("tabSeatTimeSeriesShowChartByText").innerHTML = Localization.strings.showChartBy;           
             document.getElementById("tabSeatTimeSeriesAirlineByText").innerHTML = Localization.strings.airline;
             document.getElementById("tabSeatTimeSeriesSliderYearRangeText").innerHTML = Localization.strings.yearRange;
-            document.getElementById("loadTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.thisChartShowTheLoadFactor;
-            
-            
-            
+            document.getElementById("loadTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.thisChartShowTheLoadFactor;           
         }
 
         private makeAircraftRank(table, type, dataKey) {
@@ -327,16 +343,16 @@
 
         }
         private setTitle() {
-            document.getElementById("fromAirportCode").innerHTML = this.originAirport.Iata + "/" + this.originAirport.Icao;
-            document.getElementById("fromAirportCity").innerHTML = this.originAirport.City + ", " + this.originAirport.Country;
-            document.getElementById("fromAirportName").innerHTML = this.originAirport.FullName;
-            document.getElementById("toAirportCode").innerHTML = this.destAirport.Iata + "/" + this.destAirport.Icao;
-            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.Country, this.destAirport.City);
-            document.getElementById("toAirportName").innerHTML = this.destAirport.FullName;
-            if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry)
+            document.getElementById("fromAirportCode").innerHTML = this.originAirport.iata + "/" + this.originAirport.icao;
+            document.getElementById("fromAirportCity").innerHTML = this.originAirport.city + ", " + this.originAirport.country;
+            document.getElementById("fromAirportName").innerHTML = this.originAirport.name;
+            document.getElementById("toAirportCode").innerHTML = this.destAirport.iata + "/" + this.destAirport.icao;
+            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.country, this.destAirport.city);
+            document.getElementById("toAirportName").innerHTML = this.destAirport.name;
+            /*if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry)
                 document.getElementById("timeAvailabilityNote").innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
             else
-                document.getElementById("timeAvailabilityNote").innerHTML = "";
+                document.getElementById("timeAvailabilityNote").innerHTML = "";*/
         }
 
         private setAvailableAirline() {
@@ -359,18 +375,14 @@
                     this.summaryAirlineSel.setSelectedIndex(0);
                     this.initAirline = null;
                 }
-
             }
         }
+
         public queryRouteAircraftStat() {
             var callback = (data) => {
                 this.routeAircraftStat = data["routes"];
                 this.aircraftData = data["aircrafts"];
-                this.originAirport = data["origin"];
-                this.destAirport = data["dest"];
                 this.dataReady = true;
-                this.setTitle();
-                this.getYearAvailability();
                 this.setAvailableAirline();
                 this.makeSummaryTotal(this.summaryYearSel.selectedData, data["totalPax"], data["totalFreight"]);
                 this.initSelect();
@@ -379,21 +391,89 @@
             T100.T100DataQuery.queryRouteAircraftStat(this.summaryYearSel.selectedData, this.originIata, this.destIata, callback);
         }
 
-        private normalTimeSeriesDataGenerator(timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo, divideNum) {
+        public queryAvailableDataSrc() {
+            var deferred = $.Deferred();
+            var callback = (originAirport: Airport, destAirport: Airport, dataSrc: Array<string>) => {
+                this.originAirport = originAirport;
+                this.destAirport = destAirport;
+                this.setTitle();
+                if (dataSrc.length == 0) {
+                    // no data source available.
+                } else {
+                    this.setCurrentDataSource(dataSrc);
+                    this.createMultipleDataSrcDiv(dataSrc);
+                    this.getYearAvailability();
+                    deferred.resolve();
+                }
+            };
+            DataQuery.queryRouteAvailableDataSource(this.originIata, this.destIata, callback);
+            return deferred.promise();
+        }
+
+        // Create the HTML DOM for multiple data sources.
+        private createMultipleDataSrcDiv(dataSrc: Array<string>) {
+            if (dataSrc.length > 1) {
+                var availableDataSrcDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("availableDataSrc");
+                availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": Localization.strings.viewDataFromOtherSourcesForThisAirport }));
+
+                var atBegin: boolean = true;
+                for (var i = 0; i < dataSrc.length; i++) {
+                    var dataSrcName = dataSrc[i];
+                    if (dataSrcName == this.curDataSrc.name)
+                        continue;
+                    var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrcName);
+                    if (atBegin)
+                        atBegin = false;
+                    else
+                        availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": ", " }));
+
+                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
+
+                    var where: string = "originIata=" + this.urlParams["originIata"];
+                    where += "&destIata=" + this.urlParams["destIata"];
+                    where += this.urlParams["airline"] ? ("&airline=" + this.urlParams["airline"]) : "";
+                    where += "&dataSrc=" + dataSrc[i];
+                    where += this.urlParams["year"] ? ("&year=" + this.urlParams["year"]) : "";                   
+                    where += "&locale=" + AST.Localization.getLocale();
+                    anchor.href = "RouteReport.html?" + where;
+
+                    availableDataSrcDiv.appendChild(anchor);
+                }
+            }
+        }
+
+        // Set the current data source
+        private setCurrentDataSource(dataSrc: Array<string>) {
+            this.curDataSrc = DataSourceRegister.queryInfo(dataSrc[0]); // assign the default data source
+            for (var i = 0; i < dataSrc.length; i++) {
+                if (this.urlParams["dataSrc"] && dataSrc[i] == this.urlParams["dataSrc"]) {
+                    this.curDataSrc = DataSourceRegister.queryInfo(this.urlParams["dataSrc"]);
+                    return;
+                }
+                var tmpDataSrc = DataSourceRegister.queryInfo(dataSrc[i]);
+                // If no data source is specified, we will determine according to the origin airport.
+                if (tmpDataSrc.country == this.originAirport.country) {
+                    this.curDataSrc = tmpDataSrc;
+                }
+            }
+
+        }
+
+        private normalTimeSeriesDataGenerator = (timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo, divideNum) => {
             var data = [];
             for (var airlineIdx = 0; airlineIdx < airlines.length; airlineIdx++) {
 
-                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;
+                var inputIdx = (yearFrom - this.curDataSrc.startTime.year) * 12;
                 var outputIdx = 0;
                 var timeData = timeSeriesData[dataType][airlines[airlineIdx]];
                 var localData = [];
                 for (var year = yearFrom; year <= yearTo; year++) {
                     var monthStart = 1;
-                    if (year == T100.T100MetaData.dataFrom.year)
-                        monthStart = T100.T100MetaData.dataFrom.month;
+                    if (year == this.curDataSrc.startTime.year)
+                        monthStart = this.curDataSrc.startTime.month;
                     var monthEnd = 12;
-                    if (year == T100.T100MetaData.dataTo.year)
-                        monthEnd = T100.T100MetaData.dataTo.month;
+                    if (year == this.curDataSrc.endTime.year)
+                        monthEnd = this.curDataSrc.endTime.month;
 
                     var yearAccumulate = 0;
                     var yearAccumulateMonth = 0;
@@ -440,21 +520,21 @@
             return data;
         }
 
-        private loadTimeSeriesDataGenerator(timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo) {
+        private loadTimeSeriesDataGenerator = (timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo) => {
             var data = [];
             for (var airlineIdx = 0; airlineIdx < airlines.length; airlineIdx++) {
-                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;
+                var inputIdx = (yearFrom - this.curDataSrc.startTime.year) * 12;
                 var outputIdx = 0;
                 var paxTimeData = timeSeriesData["pax"][airlines[airlineIdx]];
                 var seatTimeData = timeSeriesData["seat"][airlines[airlineIdx]];
                 var localData = [];
                 for (var year = yearFrom; year <= yearTo; year++) {
                     var monthStart = 1;
-                    if (year == T100.T100MetaData.dataFrom.year)
-                        monthStart = T100.T100MetaData.dataFrom.month;
+                    if (year == this.curDataSrc.startTime.year)
+                        monthStart = this.curDataSrc.startTime.month;
                     var monthEnd = 12;
-                    if (year == T100.T100MetaData.dataTo.year)
-                        monthEnd = T100.T100MetaData.dataTo.month;
+                    if (year == this.curDataSrc.endTime.year)
+                        monthEnd = this.curDataSrc.endTime.month;
 
                     var yearPaxAccumulate = 0;
                     var yearSeatAccumulate = 0;
@@ -513,7 +593,7 @@
             var flowStat = [];
             for (var airline in timeSeriesData[dataType]) {
                 var totalFlow = 0;
-                var inputIdx = (yearFrom - T100.T100MetaData.dataFrom.year) * 12;;
+                var inputIdx = (yearFrom - this.curDataSrc.startTime.year) * 12;;
                 for (var year = yearFrom; year <= yearTo; year++) {
                     for (var month = 0; month < 12; month++) {
                         if (inputIdx >= timeSeriesData[dataType][airline].length)
@@ -562,11 +642,11 @@
 
             for (year = yearFrom; year <= yearTo; year++) {
                 var monthStart = 1;
-                if (year == T100.T100MetaData.dataFrom.year)
-                    monthStart = T100.T100MetaData.dataFrom.month;
+                if (year == this.curDataSrc.startTime.year)
+                    monthStart = this.curDataSrc.startTime.month;
                 var monthEnd = 12;
-                if (year == T100.T100MetaData.dataTo.year)
-                    monthEnd = T100.T100MetaData.dataTo.month;
+                if (year == this.curDataSrc.endTime.year)
+                    monthEnd = this.curDataSrc.endTime.month;
 
                 var yearAccumulate = 0;
                 var yearAccumulateMonth = 0;
@@ -688,17 +768,15 @@
             } else {
                 airlineSel.setSelectedItemByText(airlineMap[this.initAirline]);
             }
-
         }
 
-        private queryTimeSeries = () => {
+        public queryTimeSeries = () => {
             var callback = (data) => {
                 this.initTimeSeries();
                 this.timeSeriesData = data;
                 this.setupTimeSeriesAirlineList(this.timeSeriesAirlineSel, this.updateTimeSeries, "#timeSeriesSlider", this.airlineMap, this.timeSeriesData, ["pax", "freight"]);
-
             }
-	        T100.T100DataQuery.queryRouteTimeSeries("T100Data", this.originIata, this.destIata, "pax;freight", callback);
+	        DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "pax;freight", callback);
         }
 
         private calcPaxSeatTimeSeries() {
@@ -722,7 +800,7 @@
                 this.setupTimeSeriesAirlineList(this.seatTimeSeriesAirlineSel, this.updateSeatTimeSeries, "#seatTimeSeriesSlider", this.seatDataAirlineMap, this.seatTimeSeriesData, ["seat"]);
 
             }
-	        T100.T100DataQuery.queryRouteTimeSeries("T100Data", this.originIata, this.destIata, "seat", callback);
+	        DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "seat", callback);
         }
 
         private updateSeatTimeSeries = (yearFrom, yearTo) => {
@@ -744,6 +822,8 @@
             this.createTimeSeriesChart("seatTimeSeries", this.paxSeatTimeSeries, timeScale, yearFrom, yearTo, this.seatTimeSeriesAirlineSel.selectedData, "All", this.normalTimeSeriesDataGenerator, 1);
 
         }
+
+        
     }
 }
 
@@ -758,8 +838,10 @@ google.setOnLoadCallback(function () {
         AST.T100.T100Localization.init();
         var dialogAirport: AST.RouteReport;
         dialogAirport = new AST.RouteReport();
-        dialogAirport.initUi();
-        dialogAirport.queryRouteAircraftStat();
+        dialogAirport.initData().done(() => {
+            dialogAirport.initUi();
+            dialogAirport.queryTimeSeries();
+        });
 
     });
 });

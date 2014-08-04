@@ -71,6 +71,15 @@
                 return "";
             }
 
+            public getSupportDataOption(option: string): boolean {
+                if (option == "passenger" ||
+                    option == "seat" ||
+                    option == "fregiht" ||
+                    option == "flight" ||
+                    option == "aircraft")
+                    return true;
+                return false;
+            }
         }
 
         export class T100FFMetaData extends AST.DataSourceMetaData {

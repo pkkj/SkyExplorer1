@@ -153,5 +153,11 @@ namespace AST {
         public string QueryAirportStat( string dataSrc, string year, string airport, string locale ) {
             return AirportStatActor.QueryAirportStat( dataSrc, year, airport, locale );
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryRouteAvailableDataSource( string origin, string dest, string locale ) {
+            return RouteAvialabilityActor.QueryRouteAvailableDataSource( origin, dest, locale );
+        }
     }
 }

@@ -20,13 +20,27 @@
         public geom: AST.Point = null;
         public geomO: OpenLayers.Geometry = null; // OpenLayers geom
 
-        constructor(icao: string, iata: string, country: string, city: string, name: string, geom: AST.Point) {
+        constructor(icao: string = "", iata: string = "", country: string = "", city: string = "", name: string = "", geom: AST.Point = null) {
             this.icao = icao;
             this.iata = iata;            
             this.city = city;
             this.country = country;
             this.name = name;
             this.geom = geom;
+        }
+
+        public static createFromJson(json: Object): Airport {
+            var airport = new Airport();
+            airport.icao = json["icao"];
+            airport.iata = json["iata"];
+            airport.city = json["city"];
+            airport.country = json["country"];
+            airport.name = json["fullName"];
+            airport.geom = new AST.Point(json["geometry"]["x"], json["geometry"]["y"]);
+            airport.countryEn = json["countryEn"];
+            airport.nameEn = json["fullNameEn"];
+            airport.cityEn = json["cityEn"];
+            return airport;
         }
     }
 
@@ -234,6 +248,12 @@
         // Return the footnote for the airport report page
         public getAirportReportPageFootnote(airport: Airport): string {
             return "";
+        }
+
+        // Get the support data information of data course
+        // option could be: passenger, freight, seat, flight, aircraft
+        public getSupportDataOption(option: string): boolean {
+            return false;
         }
 
         public getAirportCoverage(airport: Airport): AirportCoverage {
