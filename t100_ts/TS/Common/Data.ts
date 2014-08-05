@@ -250,6 +250,11 @@
             return "";
         }
 
+        // Return the footnote for the route report page
+        public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
+            return "";
+        }
+
         // Get the support data information of data course
         // option could be: passenger, freight, seat, flight, aircraft
         public getSupportDataOption(option: string): boolean {

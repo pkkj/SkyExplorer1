@@ -33,10 +33,15 @@
 
         private yearAvailableFrom: YearMonth = null;
         private yearAvailableTo: YearMonth = null;
+
+        // HTML elements
+        private linkReverseRoute: HTMLAnchorElement = null;
+        private dataSrcFootNote: HTMLDivElement = null;
+
         constructor() {
 
         }
-        private initSummary() {
+        private initAircraftUsage() {
             var i, item;
             this.summaryYearSel = new DropDown(document.getElementById("summaryYearSel"), {
                 "titleWidth": 130,
@@ -175,8 +180,13 @@
         }
 
         public initUi() {
-            document.getElementById("linkReverseRoute").innerHTML = Localization.strings.constructViewReverseRouteData(this.destIata, this.originIata);
-            document.getElementById("linkReverseRoute").onclick = () => {
+            // Hook up with HTML element
+            this.linkReverseRoute = <HTMLAnchorElement>document.getElementById("linkReverseRoute");
+            this.dataSrcFootNote = <HTMLDivElement>document.getElementById("dataSrcFootNote");
+
+            // Reverse route link
+            this.linkReverseRoute.innerHTML = Localization.strings.constructViewReverseRouteData(this.destIata, this.originIata);
+            this.linkReverseRoute.onclick = () => {
                 var where = "originIata=" + this.destIata;
                 where += "&destIata=" + this.originIata;
                 if (this.initAirline)
@@ -186,6 +196,9 @@
                 where += "&locale=" + AST.Localization.getLocale();
                 window.location.href = "RouteReport.html?" + where;
             };
+
+            // Set the data source
+            this.dataSrcFootNote.innerText = this.curDataSrc.getRouteReportPageFootnote(this.originAirport, this.destAirport);
 
             $("#mainTab").tabs({
                 activate: (event, ui) => {
@@ -213,7 +226,7 @@
                 $("#mainTab").tabs({ disabled: [2] });
             }
 
-            this.initSummary();
+            this.initAircraftUsage();
             this.localizeUi();
         }
 
@@ -349,10 +362,6 @@
             document.getElementById("toAirportCode").innerHTML = this.destAirport.iata + "/" + this.destAirport.icao;
             document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.country, this.destAirport.city);
             document.getElementById("toAirportName").innerHTML = this.destAirport.name;
-            /*if (this.originAirport.CountryEn != T100.T100MetaData.currentCountry && this.destAirport.CountryEn != T100.T100MetaData.currentCountry)
-                document.getElementById("timeAvailabilityNote").innerHTML = T100.T100Localization.strings.onlyUSRouteAvailable;
-            else
-                document.getElementById("timeAvailabilityNote").innerHTML = "";*/
         }
 
         private setAvailableAirline() {
@@ -442,7 +451,7 @@
             }
         }
 
-        // Set the current data source
+        // Determine the current data source
         private setCurrentDataSource(dataSrc: Array<string>) {
             this.curDataSrc = DataSourceRegister.queryInfo(dataSrc[0]); // assign the default data source
             for (var i = 0; i < dataSrc.length; i++) {
@@ -453,6 +462,9 @@
                 var tmpDataSrc = DataSourceRegister.queryInfo(dataSrc[i]);
                 // If no data source is specified, we will determine according to the origin airport.
                 if (tmpDataSrc.country == this.originAirport.country) {
+                    this.curDataSrc = tmpDataSrc;
+                }
+                if (tmpDataSrc.country == this.destAirport.country && this.curDataSrc == null) {
                     this.curDataSrc = tmpDataSrc;
                 }
             }

@@ -157,6 +157,7 @@
         public aircraftMarketShareByPassenger = "Aircraft Market Share by Departing Passenger";
         public aircraftMarketShareByFreight = "Aircraft Market Share by Departing Freight";
         public viewDataFromOtherSourcesForThisAirport = "View data from other sources in this airport: ";
+        public allStatConsistInboundOutboundTraffic = "All statistics consist of inbound and outbound traffic.";
 
         // Simpale destination panel
         public passengerFlowMonthlyStat = "Passenger Flow Monthly Statistic";
@@ -233,7 +234,7 @@
         }
 
         public constructViewReverseRouteData(originIata: string, destIata: string) {
-            return "See the data of reversed route (" + originIata + " to" + destIata + ")";
+            return "See the data of reversed route (" + originIata + " to " + destIata + ")";
         }
 
         public makeChangeLanguageDiv(div: HTMLElement) {
@@ -250,7 +251,7 @@
         public ukDataFullInfo = "UK CAA Data";
         public onlyTheDataOfRoutesTowardUK = "Note: only the data of routes toward United Kingdom is available. ";
         public regionUkDest = "United Kingdom destinations";
-        public getUkirportReportPageFootNote(onlyUkDest: boolean): string {
+        public getUkAirportReportPageFootNote(onlyUkDest: boolean): string {
             var res: string = "";
             if (onlyUkDest) res += this.onlyTheDataOfRoutesTowardUK;
             res += "All statistics consist of inbound and outbound traffic.";

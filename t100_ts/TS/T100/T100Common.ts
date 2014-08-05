@@ -71,6 +71,12 @@
                 return "";
             }
 
+            public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
+                if (originAirport.countryEn != T100.T100MetaData.currentCountry && destAirport.countryEn != T100.T100MetaData.currentCountry)
+                    return T100.T100Localization.strings.onlyUSRouteAvailable;
+                return "";
+            }
+
             public getSupportDataOption(option: string): boolean {
                 if (option == "passenger" ||
                     option == "seat" ||

@@ -63,7 +63,11 @@
                 return Localization.strings.regionUkDest;
             }
             public getAirportReportPageFootnote(airport: Airport): string {
-                return Localization.strings.getUkirportReportPageFootNote(this.country != airport.countryEn);
+                return Localization.strings.getUkAirportReportPageFootNote(this.country != airport.countryEn);
+            }
+
+            public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
+                return Localization.strings.allStatConsistInboundOutboundTraffic;
             }
         }
     }

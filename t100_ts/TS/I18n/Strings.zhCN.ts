@@ -162,6 +162,7 @@
         public aircraftMarketShareByDeparture = "不同机型市场份额（根据出发班次）";
         public aircraftMarketShareByPassenger = "不同机型市场份额（根据旅客人次）";
         public aircraftMarketShareByFreight = "不同机型市场份额（根据货物运量）";
+        public allStatConsistInboundOutboundTraffic = "统计数据为入港和出港客流的总和";
 
         // Simpale destination panel
         public passengerFlowMonthlyStat = "每月客流统计";
