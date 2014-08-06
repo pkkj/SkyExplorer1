@@ -34,12 +34,6 @@
                     this.setShowFlowType(FlowType.Freight);
             });
 
-            this._btnDetailReport.onclick = () => {
-                if (!AST.GlobalStatus.originAirport || !AST.GlobalStatus.destAirport)
-                    return;
-                DialogUtils.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
-            };
-
             this.localizeUi();
         }
 
@@ -70,7 +64,7 @@
             destPanel._tabTimeSeriesFootNote = document.getElementById("t100DataPanelTabTimeSeriesFootNote");
             destPanel._divTimeSeriesChart = document.getElementById("t100DataPanelTabTimeSeriesChart");
 
-            destPanel._btnDetailReport = document.getElementById("t100DataPanelDetailReportBtn");
+            destPanel.btnDetailReport = document.getElementById("t100DataPanelDetailReportBtn");
             destPanel._btnShowPassenger = document.getElementById("t100DataPanelShowPassenger");
             destPanel._btnShowFreight = document.getElementById("t100DataPanelShowFreight");
 
@@ -116,7 +110,7 @@
             destPanel._tabTimeSeriesFootNote = document.getElementById("t100FFDataPanelTabTimeSeriesFootNote");
             destPanel._divTimeSeriesChart = document.getElementById("t100FFDataPanelTabTimeSeriesChart");
 
-            destPanel._btnDetailReport = document.getElementById("t100FFDataPanelDetailReportBtn");
+            destPanel.btnDetailReport = document.getElementById("t100FFDataPanelDetailReportBtn");
             destPanel._btnShowPassenger = document.getElementById("t100FFDataPanelShowPassenger");
             destPanel._btnShowFreight = document.getElementById("t100FFDataPanelShowFreight");
 

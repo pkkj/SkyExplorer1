@@ -48,6 +48,12 @@
                 return Localization.strings.regionKoreaDest;
             }
 
+            public getSupportDataOption(option: string): boolean {
+                if (option == "passenger" || option == "freight")
+                    return true;
+                return false;
+            }
+
             public getAirportReportPageFootnote(airport: Airport): string {
                 if (airport.iata == "ICN") {
                     return Localization.strings.onlyTheDataOfDomesticRoutesKorea;

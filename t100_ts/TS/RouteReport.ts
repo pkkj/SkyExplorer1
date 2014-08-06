@@ -222,9 +222,14 @@
             });
 
             // Disable the unsupported feature for current data source
+            var disablePage: Array<number> = [];
             if (!this.curDataSrc.getSupportDataOption("aircraft")) {
-                $("#mainTab").tabs({ disabled: [2] });
+                disablePage.push(2);
             }
+            if (!this.curDataSrc.getSupportDataOption("seat")) {
+                disablePage.push(1);
+            }
+            $("#mainTab").tabs({ disabled: disablePage });
 
             this.initAircraftUsage();
             this.localizeUi();

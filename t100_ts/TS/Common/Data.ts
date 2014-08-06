@@ -256,7 +256,7 @@
         }
 
         // Get the support data information of data course
-        // option could be: passenger, freight, seat, flight, aircraft
+        // option could be: passenger, freight, seat, flight, aircraft, airline
         public getSupportDataOption(option: string): boolean {
             return false;
         }

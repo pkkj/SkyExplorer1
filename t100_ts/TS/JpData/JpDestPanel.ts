@@ -31,6 +31,7 @@
                 destPanel.mainDiv = document.getElementById("JpDataDestBarContent");
                 destPanel.routeDistText = document.getElementById("destBarDistance");
                 destPanel._totalFlow = document.getElementById("jpDestTotalFlow");
+                destPanel.btnDetailReport = document.getElementById("jpDataDestPanelDetailReportBtn");
 
                 destPanel._tabs = document.getElementById("jpDestTabs");
 

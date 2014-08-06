@@ -46,7 +46,7 @@
                 destPanel._tabTimeSeriesFootNote = document.getElementById("twDataDestPanelTabTimeSeriesFootNote");
                 destPanel._divTimeSeriesChart = document.getElementById("twDataDestPanelTabTimeSeriesChart");
 
-                destPanel._btnDetailReport = document.getElementById("twDataDestPanelDetailReportBtn");
+                destPanel.btnDetailReport = document.getElementById("twDataDestPanelDetailReportBtn");
                 
 
                 destPanel.panelFootNote = document.getElementById("twDataDestPanelDetailReportFootNote");

@@ -20,7 +20,7 @@
 
         public _btnShowFreight = null;
         public _btnShowPassenger = null;
-        public _btnDetailReport = null;
+        
 
         // Data
         private dataType = FlowType.Passenger;
@@ -362,11 +362,6 @@
                 }
             });
 
-            this._btnDetailReport.onclick = () => {
-                if (!AST.GlobalStatus.originAirport || !AST.GlobalStatus.destAirport)
-                    return;
-                DialogUtils.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
-            };
         }
 
 
@@ -374,9 +369,7 @@
             super.localizeUi();
             this.liTabSummary.firstElementChild.innerHTML = Localization.strings.statistic; 
             this.liTabShare.firstElementChild.innerHTML = Localization.strings.shareSplit; 
-            this.liTabTimeSeries.firstElementChild.innerHTML = Localization.strings.timeSeries; 
-            this._btnDetailReport.innerHTML = Localization.strings.routeDetailReport;
-            
+            this.liTabTimeSeries.firstElementChild.innerHTML = Localization.strings.timeSeries;             
         }
  
     }

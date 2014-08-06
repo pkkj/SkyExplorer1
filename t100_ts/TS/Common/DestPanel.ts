@@ -10,6 +10,7 @@
         public distInfo: DistInfo = null;
         public dataSourceMetaData: DataSourceMetaData = null;
         public panelFootNote: HTMLElement = null;
+        public btnDetailReport = null;
 
         // Map buddy
         public mapBuddy: MapControl = null;
@@ -42,11 +43,21 @@
         }
 
         public initUi() {
-            
+            // Attach the "show detail route report" handler to button.
+            if (this.btnDetailReport) {
+                this.btnDetailReport.onclick = () => {
+                    if (!AST.GlobalStatus.originAirport || !AST.GlobalStatus.destAirport)
+                        return;
+                    DialogUtils.launchRouteStat(AST.GlobalStatus.originAirport.iata, AST.GlobalStatus.destAirport.iata, null /*airline*/, AST.GlobalStatus.year);
+                };
+            }
         }
 
         public localizeUi() {
             this.tabMetricDataText.innerHTML = Localization.strings.metricData;
+            if (this.btnDetailReport != null) {
+                this.btnDetailReport.innerHTML = Localization.strings.routeDetailReport;
+            }
         }
         
     }

@@ -45,7 +45,7 @@
                 destPanel._tabTimeSeriesFootNote = document.getElementById("krDataDestPanelTabTimeSeriesFootNote");
                 destPanel._divTimeSeriesChart = document.getElementById("krDataDestPanelTabTimeSeriesChart");
 
-                destPanel._btnDetailReport = document.getElementById("krDataDestPanelDetailReportBtn");
+                destPanel.btnDetailReport = document.getElementById("krDataDestPanelDetailReportBtn");
 
 
                 destPanel.panelFootNote = document.getElementById("krDataDestPanelDetailReportFootNote");

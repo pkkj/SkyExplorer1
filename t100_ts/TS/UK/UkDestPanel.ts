@@ -31,6 +31,7 @@
                 destPanel.mainDiv = document.getElementById("ukDestBarInnerDiv");
                 destPanel.routeDistText = document.getElementById("destBarDistance");
                 destPanel._totalFlow = document.getElementById("ukDestTotalFlow");
+                destPanel.btnDetailReport = document.getElementById("ukDataDestPanelDetailReportBtn");
 
                 destPanel._tabs = document.getElementById("ukDestTabs");
 
