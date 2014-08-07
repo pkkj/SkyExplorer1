@@ -7,6 +7,7 @@ using Npgsql;
 namespace AST {
     public class TimeSeriesActor {
 
+        public const string AnyAirline = "ANY";
         /// <summary>
         /// Query the time series of an airport
         /// </summary>
@@ -84,6 +85,8 @@ namespace AST {
                 while ( dr.Read() ) {
                     Carrier carrier = CarrierData.Query( dr[ "AIRLINE" ].ToString(), locale );
                     string airlineName = dr[ "AIRLINE" ].ToString();
+                    if ( airlineName == AnyAirline )
+                        airlineName = Localization.QueryLocale( locale )._anyAirline;
                     if ( carrier != null )
                         airlineName = carrier.FullName + " (" + dr[ "AIRLINE" ].ToString() + ")";
                     string dbFlowType = dr[ "FLOW_TYPE" ].ToString();
