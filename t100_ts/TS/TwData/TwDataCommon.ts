@@ -74,6 +74,9 @@
                 return Localization.strings.getTaiwanAirportReportPageFootNote(this.country != airport.countryEn);
             }
 
+            public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
+                return Localization.strings.allStatConsistInboundOutboundTraffic;
+            }
             public getSupportDataOption(option: string): boolean {
                 if (option == "passenger" || option == "seat")
                     return true;

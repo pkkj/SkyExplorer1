@@ -48,7 +48,7 @@
                 return Localization.strings.regionJapanDest;
             }
             public getAirportReportPageFootnote(airport: Airport): string {
-                return Localization.strings.getJapanirportReportPageFootNote(this.country != airport.countryEn);
+                return Localization.strings.getJapanAirportReportPageFootNote(this.country != airport.countryEn);
             }
 
             public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {

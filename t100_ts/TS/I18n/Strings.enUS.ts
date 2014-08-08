@@ -128,8 +128,11 @@
                 if (timeScale != "Month")
                     return "Unit: thousand people.";
             }
-            else
+            else {
+                if (timeScale != "Month")
+                    return "Unit: thousand tons.";
                 return "Unit: tons.";
+            }
             return "";
         }
 
@@ -274,7 +277,7 @@
         public jpDataFullInfo = "Japan MLIT Data"
         public onlyTheDataOfRoutesTowardJapan = "Note: only the data of routes toward Japan is available. ";
         public regionJapanDest = "Japan destinations";
-        public getJapanirportReportPageFootNote(onlyJapanDest: boolean): string {
+        public getJapanAirportReportPageFootNote(onlyJapanDest: boolean): string {
             var res: string = "";
             res += this.onlyTheDataOfRoutesTowardJapan;
             res += "All statistics consist of inbound and outbound traffic.";

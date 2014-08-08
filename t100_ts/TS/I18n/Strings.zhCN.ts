@@ -84,7 +84,7 @@
         public passengerFreq = "旅客人次";
         public freightFreq = "货运运量";
         public tons = "吨";
-        public viewDataFromOtherSources = "查看此路线其它数据源的数据： ";
+        public viewDataFromOtherSourcesForThisRoute = "查看此路线其它数据源的数据： ";
 
         public selectDataSource = "选择数据源";
         public filterRouteByAirline = "根据航空公司筛选数据";
@@ -136,8 +136,11 @@
                 if (timeScale != "Month")
                     return "单位：万人";
             }
-            else
+            else {
+                if (timeScale != "Month")
+                    return "单位：万吨";
                 return "单位：吨";
+            }
         }
 
         public timeSeriesTotalPassengerInT100ByTimeScale(dataType: FlowType, timeScale: string): string {
@@ -162,6 +165,7 @@
         public aircraftMarketShareByDeparture = "不同机型市场份额（根据出发班次）";
         public aircraftMarketShareByPassenger = "不同机型市场份额（根据旅客人次）";
         public aircraftMarketShareByFreight = "不同机型市场份额（根据货物运量）";
+        public viewDataFromOtherSourcesForThisAirport = "查看其它数据源的数据：";
         public allStatConsistInboundOutboundTraffic = "统计数据为入港和出港客流的总和";
 
         // Simpale destination panel
@@ -255,8 +259,14 @@
         public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>部分航线可能有中停站。这些中停站并不在地图上显示。";
         public ukDataShortInfo = "英国CAA";
         public ukDataFullInfo = "英国CAA数据";
-        public onlyTheDataOfRoutesTowardUK = "备注：只有前往英国境内机场的路线的数据";
+        public onlyTheDataOfRoutesTowardUK = "备注：只有前往英国境内机场的路线的数据。";
         public regionUkDest = "英国目的地";
+        public getUkAirportReportPageFootNote(onlyUkDest: boolean): string {
+            var res: string = "";
+            if (onlyUkDest) res += this.onlyTheDataOfRoutesTowardUK;
+            res += "所有统计数据为内统计数据为入港和出港客流数据总和。";
+            return res;
+        }
 
         // US T100 Data Source
         public usT100ShortInfo = "美国T100";
@@ -272,8 +282,14 @@
         // Japan Data Source
         public jpDataShortInfo = "日本MLIT"
         public jpDataFullInfo = "日本国土交通省数据"
-        public onlyTheDataOfRoutesTowardJapan = "备注：只有前往美国境内机场的路线的数据";
+        public onlyTheDataOfRoutesTowardJapan = "备注：只有前往美国境内机场的路线的数据。";
         public regionJapanDest = "日本目的地";
+        public getJapanAirportReportPageFootNote(onlyJapanDest: boolean): string {
+            var res: string = "";
+            res += this.onlyTheDataOfRoutesTowardJapan;
+            res += "所有统计数据为内统计数据为入港和出港客流数据总和。";
+            return res;
+        }
 
         // Taiwan Data Source
         public twDataShortInfo = "台湾CAA";

@@ -458,7 +458,6 @@
 
         // Determine the current data source
         private setCurrentDataSource(dataSrc: Array<string>) {
-            this.curDataSrc = DataSourceRegister.queryInfo(dataSrc[0]); // assign the default data source
             for (var i = 0; i < dataSrc.length; i++) {
                 if (this.urlParams["dataSrc"] && dataSrc[i] == this.urlParams["dataSrc"]) {
                     this.curDataSrc = DataSourceRegister.queryInfo(this.urlParams["dataSrc"]);
@@ -473,7 +472,9 @@
                     this.curDataSrc = tmpDataSrc;
                 }
             }
-
+            if (this.curDataSrc == null) {
+                this.curDataSrc = DataSourceRegister.queryInfo(dataSrc[0]); // assign the default data source
+            }
         }
 
         private normalTimeSeriesDataGenerator = (timeSeriesData, timeScale, dataType, airlines, yearFrom, yearTo, divideNum) => {
