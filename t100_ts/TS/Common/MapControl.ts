@@ -11,8 +11,6 @@
         // OpenLayers.Control object
         private destHightlightControl: OpenLayers.Control.SelectFeature = null;
         private destSelectControl: OpenLayers.Control.SelectFeature = null;
-        private destInactiveHightlightControl: OpenLayers.Control.SelectFeature = null;
-        private destInactiveSelectControl: OpenLayers.Control.SelectFeature = null;
 
         constructor(mapControl, dataSrcPanel) {
             this.mapControl = mapControl;
@@ -25,7 +23,7 @@
 
         public selectDestAirportFeature(iata: string) {
             this.selectDestAirportFeatureInternal(this.layerDest, this.destSelectControl,iata);
-            this.selectDestAirportFeatureInternal(this.layerDestInactive, this.destInactiveSelectControl, iata);
+            this.selectDestAirportFeatureInternal(this.layerDestInactive, this.destSelectControl, iata);
         }
 
         public selectDestAirportFeatureInternal(layer: any, selectControl: any, iata: string): boolean {
@@ -81,39 +79,11 @@
                 })
             });
 
-            // Create a vector layer and give it your style map.
             this.layerDest = new OpenLayers.Layer.Vector("T100Dest", {
                 styleMap: myStyles,
                 rendererOptions: { zIndexing: true }
 
             });
-
-
-            this.destHightlightControl = new OpenLayers.Control.SelectFeature(this.layerDest, {
-                hover: true,
-                highlightOnly: true
-            });
-
-            this.destSelectControl = new OpenLayers.Control.SelectFeature(this.layerDest, {
-                clickout: true,
-                onSelect: (feature) =>{
-                    if (feature != null) {
-                        AST.GlobalStatus.destAirport = feature.airport;
-                        if (feature.stop) {
-                            feature.stop = null;
-                            return;
-                        }
-                        this.dataSrcPanel.changeDestAirport();
-                    }
-                },
-                onUnselect: function (feature) {
-
-                }
-            });
-
-
-            this.mapControl.addControl(this.destHightlightControl);
-            this.mapControl.addControl(this.destSelectControl);
 
             var myStylesInactive = new OpenLayers.StyleMap({
                 "default": new OpenLayers.Style({
@@ -130,19 +100,21 @@
                 })
             });
 
-            // Create a vector layer and give it your style map.
             this.layerDestInactive = new OpenLayers.Layer.Vector("OtherDest", {
                 styleMap: myStylesInactive,
                 rendererOptions: { zIndexing: true }
             });
 
-            this.destInactiveHightlightControl = new OpenLayers.Control.SelectFeature(this.layerDestInactive, {
+            this.mapControl.addLayers([this.layerDestInactive, this.layerDest]);
+
+            this.destHightlightControl = new OpenLayers.Control.SelectFeature([this.layerDestInactive, this.layerDest], {
                 hover: true,
                 highlightOnly: true
             });
-            this.destInactiveSelectControl = new OpenLayers.Control.SelectFeature(this.layerDestInactive, {
+
+            this.destSelectControl = new OpenLayers.Control.SelectFeature([this.layerDestInactive, this.layerDest], {
                 clickout: true,
-                onSelect: (feature) => {
+                onSelect: (feature) =>{
                     if (feature != null) {
                         AST.GlobalStatus.destAirport = feature.airport;
                         if (feature.stop) {
@@ -153,12 +125,12 @@
                     }
                 },
                 onUnselect: function (feature) {
-
                 }
             });
-            this.mapControl.addControl(this.destInactiveSelectControl);
-            this.mapControl.addControl(this.destInactiveHightlightControl);
-            this.mapControl.addLayers([this.layerDestInactive, this.layerDest]);
+
+
+            this.mapControl.addControl(this.destHightlightControl);
+            this.mapControl.addControl(this.destSelectControl);   
         }
 
 
@@ -176,8 +148,6 @@
             this.layerOrigin.destroyFeatures();
             this.destHightlightControl.deactivate();
             this.destSelectControl.deactivate();
-            this.destInactiveHightlightControl.deactivate();
-            this.destInactiveSelectControl.deactivate();
         }
 
         private onMapClick = (e)=> {
@@ -202,16 +172,13 @@
         public activateOpenLayersControl() {
             this.destHightlightControl.activate();
             this.destSelectControl.activate();
-            this.destInactiveHightlightControl.activate();
-            this.destInactiveSelectControl.activate();
         }
 
         public deactivate() {
             this.mapControl.events.unregister("click", this.mapControl, this.onMapClick);
+            this.clearDestFeatures();
             this.mapControl.removeControl(this.destHightlightControl);
             this.mapControl.removeControl(this.destSelectControl);
-            this.mapControl.removeControl(this.destInactiveSelectControl);
-            this.mapControl.removeControl(this.destInactiveHightlightControl);
             this.mapControl.removeLayer(this.layerRoute);
             this.mapControl.removeLayer(this.layerOrigin);
             this.mapControl.removeLayer(this.layerDest);
@@ -224,8 +191,8 @@
 
     export class T100BaseMap {
         static createT100AirportBaseLayer(mapControl) {
-            var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://geog-cura-osgeo.asc.ohio-state.edu:8080/geoserver/gwc/service/wms",
-            //var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://localhost:8080/geoserver/gwc/service/wms",
+            //var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://geog-cura-osgeo.asc.ohio-state.edu:8080/geoserver/gwc/service/wms",
+            var baseLayerAirport = new OpenLayers.Layer.WMS("airstat:T100AirportAll", "http://localhost:8080/geoserver/gwc/service/wms",
                 {
                     layers: 'airstat:T100AirportAll',
                     styles: '',

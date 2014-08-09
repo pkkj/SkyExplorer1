@@ -247,6 +247,7 @@
                 GlobalStatus.originAirport = fromAirport;
 
                 var hasPartialDataRoute: boolean = false;
+                var hasNoDataRoute: boolean = false;
                 var supportAirportReportPage: boolean = false;
                 for (var i = 0; i < destinations.length; i++) {
                     // Handle the geomtry
@@ -255,12 +256,13 @@
                     var isPartialDataDest: boolean = true;
                     for (var j = 0; j < destinations[i].availableData.length; j++) {
                         isPartialDataDest = isPartialDataDest && destinations[i].availableData[j].partialData;
+                        hasNoDataRoute = hasNoDataRoute || destinations[i].availableData[j].noData;
                         supportAirportReportPage = supportAirportReportPage || DataSourceRegister.queryInfo(destinations[i].availableData[j].dataSrcName).supportAirportReportPage;
                     }
                     hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
                 }
                 
-                this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: false });
+                this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: hasNoDataRoute });
                 this.destDialogBuddy.hide();
                 if (panTo) {
                     this.mapControl.panTo(fromAirport.geom);

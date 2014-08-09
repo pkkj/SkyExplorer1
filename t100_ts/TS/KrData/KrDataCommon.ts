@@ -10,14 +10,14 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
                 this.supportAirportReportPage = true;
                 this.country = "South Korea";
-                this.startTime = new YearMonth(2011, 1);
-                this.endTime = new YearMonth(2014, 5);
+                this.startTime = new YearMonth(2010, 1);
+                this.endTime = new YearMonth(2014, 6);
             }
 
             static currentCountry = "South Korea";
             static hasMonthData = true;
-            static dataFrom = new YearMonth(2011, 1);
-            static dataTo = new YearMonth(2014, 5);
+            static dataFrom = new YearMonth(2010, 1);
+            static dataTo = new YearMonth(2014, 6);
 
             private static _instance = null;
             static instance() {

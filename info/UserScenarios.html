@@ -6,12 +6,7 @@
           content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
     <title>Sky Explorer - T100: Introduction</title>
     <link rel="stylesheet" type="text/css" href="Styles/common.css" />
-    
-    <link rel="stylesheet" type="text/css" href="Nivo/light/light.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="Nivo/nivo-slider.css" media="screen" />
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="Nivo/jquery.nivo.slider.js"></script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-34405945-4']);
@@ -23,11 +18,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#scenarioShow').nivoSlider();
-        });
-    </script>
+
 </head>
 <body>
     <div id="MainContent">
@@ -42,7 +33,8 @@
 
         <div id="NavBar">
             <div style="float:left">
-                <a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">Sky Explorer</span>
+                <a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<a href="skyexplorer_t100.html">Sky Explorer</a>
+                &nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">User Scenarios</span>
             </div>
 
             <div style="margin-top: 1px;float: left; position: absolute; right: 15px">
@@ -51,42 +43,10 @@
             <div style="clear:both"></div>
         </div>
         <div class="TextContent">
-            <h2 class="SectionTitle">Introduction</h2>
-            <p>
-                In the past 40 years air transportation has undergone rapid development and come to be a major means of long-distance travel in many countries for both freight and passengers.
-                Different agencies have accumulated huge amount of aviation data which are extremely valuable for research and market investigation. However, such data are usually difficult to find and
-                hard to use.
-            </p>
-            <p>
-                <i>Sky Explorer</i> is a WebGIS that maps aviation data from multiple data sources in a vivid way and present the statistics in user-freendly format. The original version visualizes
-                <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100 Air Carrier Statistics</a>, provided by
-                <a href="http://www.rita.dot.gov/bts/home">Bureau of Transportation Statistics(BTS)</a>. The current version includes several databases.
-            </p>
-            <p>
-                Taking advantage of GIS and cartography technology, the texts and numbers in T100 Database are interpreted vividly.
-                User can interact with the geographic data and get the fact more quickly.
-                These maps and charts provides a good illustration of development and current landscape of the aviation industry.
-                We believe that this WebGIS can benefit multiple actors involved in the air transportation process: travelers, airport planners, regional
-                planners, policy makers, business decision makers, graduate students and researchers in transport geography.
-            </p>
-
-
-            <h2 class="SectionTitle">Sample Scenarios</h2>
-            <div class="theme-light DivBorder" style="margin-left:5px; margin-right:5px; padding: 10px">
-                <div id="scenarioShow" class="nivoSlider" >
-                    <img src="png/skyexplorer_t100_info/faq1.png" data-thumb="png/skyexplorer_t100_info/faq1.png" alt="a" />
-                    <img src="png/skyexplorer_t100_info/faq2.png" data-thumb="png/skyexplorer_t100_info/faq2.png" alt="b" />
-                    <img src="png/skyexplorer_t100_info/faq5.png" data-thumb="png/skyexplorer_t100_info/faq5.png" alt="c" />
-                    <img src="png/skyexplorer_t100_info/faq4.png" data-thumb="png/skyexplorer_t100_info/faq4.png" alt="d" />
-                </div>
-            </div>
 
             <p>Here are some common scenarios of this application. We demonstrate its functions and features by answering some questions related to air transportation.</p>
 
-            <p>We recommend you read this page to learn more how to use this system. T</p>
             <h3>How many destinations does Port Columbus International Airport (CMH) have? And where are they?</h3>
-
-
             <p>
                 Just click an airport, you will see the routes shown in the map. You might be surprised to find Port Columbus <i>International</i> Airport
                 has international destinations indeed! By selecting the airport from the dropdown box or picking up the destination in the map, you will
@@ -173,61 +133,6 @@
                 </div>
             </div>
 
-            <h2 class="SectionTitle">Data Sources</h2>
-            <p>
-                The original version of Sky Explorer focuses on <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100 Air Carrier Statistics</a>, provided by
-                <a href="http://www.rita.dot.gov/bts/home">Bureau of Transportation Statistics(BTS)</a> in United States. After a major updates, we provides the data from other data sources. Here is a list
-                of data used in this system:
-            </p>
-            <ul>
-                <li>US T100 and T100FF</li>
-                <li>UK CAA Data</li>
-                <li>Taiwan CAA Data</li>
-                <li>South Korea KAC Data</li>
-                <li>Japan MLPT Data</li>
-                <li>Wikipedia Data</li>
-            </ul>
-
-            <h2 class="SectionTitle">Data Properties</h2>
-            <p>
-                This system only have the data for schedule flights (including seasonal flights). Charters flights and non-scheduled flights are excluded from the system.
-                The data of those airlines which only operating charter flights are omitted from the system.
-            </p>
-            <p>
-                Some routes with small flows would be filtered according to certain criteria. Generally speaking, we defined a standard for <i>qualified</i> routes.
-                The monthly number of passengers and freight in these routes should exceed a minimum threshold for at least two months in one year.
-                Only these routes are in the database.
-            </p>
-
-
-
-
-            <h2 class="SectionTitle">Technology</h2>
-            <p>
-                This application takes advantage of open source technology. The geovisulization of aviation data is powered by several famous open source GIS software:
-                <a href="http://postgis.net/">PostGIS</a>, <a href="http://geoserver.org/">GeoServer</a> and <a href="http://openlayers.org/">OpenLayers</a>.
-                <a href="http://www.python.org">Python</a> is utilized to process the source data. Besides, <a href="http://www.esri.com/data/basemaps">ESRI Basemap</a>  is used as the basemap for this WebGIS.
-                Data service is implemented with <a href="http://www.asp.net/">Microsoft AST.NET</a>. Another hightlight is that JavaScript programming is
-                implemented with <a href="http://www.typescriptlang.org/">TypeScript</a>,
-                a free and open source programming language developed by Microsoft.
-            </p>
-            <p>
-                This WebGIS is tested under following browsers: Internet Explorer(only 9, 10 and 11), Firefox and Chrome.
-            </p>
-
-            <h2 class="SectionTitle">About</h2>
-            <p>
-                This WebGIS is developed by <a href="http://www.linkedin.com/pub/kejing-peng/32/867/87a">Kejing Peng</a> under the supervision by Professor
-                <a href="http://www.geography.ohio-state.edu/faculty/okelly/">Morton O'Kelly</a>.
-            </p>
-            <p>
-                Any suggestion is welcome. You can provide your opinion or suggestion to our team by
-                email: peng.184@osu.edu.
-            </p>
-
-            <h2 class="SectionTitle">Acknowledgement</h2>
-            <p>Thanks to the Department of Geography and the Center for Urban and Regional Analysis.</p>
-            <p>Special thanks to Shaun Fontanella and Jens Blegvad for hardware/server support.</p>
 
             <h2 class="SectionTitle">Links</h2>
             <div style="float: left">

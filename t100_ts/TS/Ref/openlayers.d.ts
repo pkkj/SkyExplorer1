@@ -3341,7 +3341,7 @@ declare module OpenLayers {
 
         export class SelectFeature {
             // TODO
-            constructor(layers: Layer.Vector, options: Object);
+            constructor(any, options: Object);
             activate();
             deactivate();
             select(feature: OpenLayers.Feature.Vector);

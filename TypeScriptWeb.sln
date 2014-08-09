@@ -5,6 +5,27 @@ VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "t100_ts", "t100_ts\t100_ts.csproj", "{2AC15AB1-139A-4A88-A949-7F3222C33905}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "info(1)", "http://localhost:9205", "{7293B66E-FEDF-4C56-86C0-F4083DA7AFED}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_9205"
+		Debug.AspNetCompiler.PhysicalPath = "info\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_9205\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_9205"
+		Release.AspNetCompiler.PhysicalPath = "info\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_9205\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "info\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +36,10 @@ Global
 		{2AC15AB1-139A-4A88-A949-7F3222C33905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC15AB1-139A-4A88-A949-7F3222C33905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AC15AB1-139A-4A88-A949-7F3222C33905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7293B66E-FEDF-4C56-86C0-F4083DA7AFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7293B66E-FEDF-4C56-86C0-F4083DA7AFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7293B66E-FEDF-4C56-86C0-F4083DA7AFED}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7293B66E-FEDF-4C56-86C0-F4083DA7AFED}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

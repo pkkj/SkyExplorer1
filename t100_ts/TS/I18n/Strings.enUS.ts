@@ -159,7 +159,7 @@
         public aircraftMarketShareByDeparture = "Aircraft Market Share by Departure";
         public aircraftMarketShareByPassenger = "Aircraft Market Share by Departing Passenger";
         public aircraftMarketShareByFreight = "Aircraft Market Share by Departing Freight";
-        public viewDataFromOtherSourcesForThisAirport = "View data from other sources in this airport: ";
+        public viewDataFromOtherSourcesForThisAirport = "View data from other sources for this airport: ";
         public allStatConsistInboundOutboundTraffic = "All statistics consist of inbound and outbound traffic.";
 
         // Simpale destination panel
