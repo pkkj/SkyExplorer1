@@ -482,10 +482,10 @@ a.olControlZoomOut {
  */
 
 .olLayerGrid .olTileImage {
-    -webkit-transition: opacity 0.2s linear;
+    /*-webkit-transition: opacity 0.2s linear;*/
     -moz-transition: opacity 0.2s linear;
     -o-transition: opacity 0.2s linear;
-    transition: opacity 0.2s linear;
+    /*transition: opacity 0.2s linear;*/
 }
 
 /* Turn on GPU support where available */
