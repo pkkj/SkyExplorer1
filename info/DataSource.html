@@ -1,9 +1,664 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords"
+          content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
+    <title>Sky Explorer - Data Sources</title>
+    <link rel="stylesheet" type="text/css" href="Styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/DataSourceInfo.css">
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34405945-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
 </head>
 <body>
+    <div id="MainContent">
 
+        <div id="TitleBar" style="background-image: url('png/skyexplorer_t100_info/title.png'); height:250px ">
+            <div id="PageTitle" style="font-size: 36px; margin-top: 180px; padding-left: 20px">Sky Explorer</div>
+            <div id="PageSubTitle" style="font-size: 16px; margin-top: 10px;padding-left:20px; ">
+                A powerful WebGIS for investigating air traffic data interactively by Department of Geography @ OSU.
+                <a href="../t100/web/main.html">(Launch the App)</a>
+            </div>
+        </div>
+
+        <div id="NavBar">
+            <div style="float:left">
+                <a href="main.html">Main Page</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<a href="skyexplorer_t100.html">Sky Explorer</a>
+                &nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">Data Sources</span>
+            </div>
+
+            <div style="margin-top: 1px;float: left; position: absolute; right: 15px">
+                <span style="font-size: 13px">Switch language: English, <a style="font-weight: normal" href="skyexplorer_t100_cn.html">Chinese</a></span>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="TextContent">
+
+            <p>
+                The original version of Sky Explorer focuses on <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100 Air Carrier Statistics</a>, provided by
+                <a href="http://www.rita.dot.gov/bts/home">Bureau of Transportation Statistics(BTS)</a> in United States. However, T100 data only provides the aviation data for United States.
+                To make provide better data to the user, we collect and present the data from the aviation authorities outside United States in this new version.
+            </p>
+
+            <h2 class="SectionTitle">US BTS T100 and T100 FF</h2>
+
+            <p>
+                Form 41, Schedules T100, which is an excellent database provided by Bureau of Transportation Statistics,
+                contains comprehensive monthly aggregated records of detail information of the flights start or end within the US territory (including Puerto Rico and Guam) for both passenger and freight.
+                Each record in the database is an aggregated entry for all the flights with the same origin, destination, carrier, aircraft type and month.
+                T100 Data has a column indentifying whether a record is charter flight, which is used by our program to filter the data.
+                Only the airlines operating schedule flights will be selected into our database.
+            </p>
+            <p>
+                Data Bank 28IS(FF) provided by BTS is also used as supplementary data source. It contains the international segments for US air carriers. However, it has a 3-year restriction.
+                The system only covers this data from 2003 to 2009.
+            </p>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>T100 Domestic</th>
+                    <th>T100 International</th>
+                    <th>T100 FF</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>US domestic flights</td>
+                    <td>Routes from US to other countries</td>
+                    <td>Routes outside US, operated by US carriers</td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>About 3 months</td>
+                    <td>About 6 months</td>
+                    <td>About 3 years</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Both segment and market statistics</td>
+                    <td>Both segment and market statistics</td>
+                    <td>Both segment and market statistics</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>1990.01</td>
+                    <td>1990.01</td>
+                    <td>2003.01</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2014.02</td>
+                    <td>2014.02</td>
+                    <td>2009.12</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                    <td>Available</td>
+
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://www.transtats.bts.gov/databaseinfo.asp?DB_ID=111" target="_blank">BTS T100 official page</a>.</p>
+
+            <h2 class="SectionTitle">United Kingdom CAA Data</h2>
+            <p>
+                UK Civil Aviation Authority is the statutory corporation which oversees and regulates all aspects of civil aviation in the United Kingdom.
+                It provides brief monthly statistics of passenger flights on domestic and international routes. This data is aggregated by inbound and outbouund flow.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>UK CAA Data</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>UK domestic/international flights</td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>About 2 months</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Route statistics (might have immediate stops)</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>2010.01</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2014.04</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>No</td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://www.caa.co.uk/" target="_blank">UK CAA official website</a>.</p>
+            <h2>Korea Airport Corporation Data</h2>
+            <p>
+                Korea Airports Corporation is the an organization specializing in airport management. KAC manages and operates total of 14 airports in Korea including Gimpo, Gimhae, Jeju, Daegu, Muan, Cheongju, and Yangyang international airport.
+                It provides brief monthly air statistics of international and domestic routes.
+            </p>
+            <p>
+                Note: The largest airport in South Korea, Incheon International Airport (ICN), is not managed by KAC. Therefore KAC data doesn't include the statistics for ICN.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>Korea Airport Corporation Data</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>
+                        Domestic/international flights from <br /> airports (except ICN) in South Korea
+                    </td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>About 2 months</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Route statistics</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>2013.01</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2014.05</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>Available(Not available in this system)</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td>Available(Not available in this system)</td>
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://www.airport.co.kr/mbs/kaceng/" target="_blank">Korea Airport Corporation official website</a>.</p>
+
+            <h2>Taiwan CAA Data</h2>
+
+            <p>
+                The Civil Aeronautics Administration, Ministry of Transportation and Communication is a government agency of the Ministry of Transportation and Communications of the Republic of China which is responsible for the regulation of all civil aviation activities in Taiwan.
+                It releases monthly and annual report with passenger aviation statistics.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>Taiwan regional flights</th>
+                    <th>Cross-strait flights / International flights</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>Intra-Taiwan routes</td>
+                    <td>Routes from Taiwan to Mainland China and other countries</td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>About 2 months</td>
+                    <td>About 2 months</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Segment statistics</td>
+                    <td>Segment statistics</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>2010.01</td>
+                    <td>2010.01</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2014.04</td>
+                    <td>2014.04</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>Available</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://www.caa.gov.tw/en/index.asp" target="_blank">CAA official website</a>.</p>
+
+            <h2>Japan MLIT Data</h2>
+
+            <p>
+                The Ministry of Land, Infrastructure, Transport and Tourism, abbreviated MLIT, is a ministry of the Japanese government.
+                It provides brief monthly air statistics of domestic routes. This data is aggregated by inbound and outbouund flow.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>Japan MLIT Data</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>Japan domestic flights</td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>About 1.5 years</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Segment statistics</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>2011.01</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2013.12</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>
+                        Not avaialble for monthly statistics.<br />
+                        Only available for annual statistics.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>Yes</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>Available(No available in this system)</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>Available(No available in this system)</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td>Available(No available in this system)</td>
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://www.mlit.go.jp/en/index.html" target="_blank">Japan MLIT official website</a>.</p>
+
+            <h2>Wikipedia Airport Information Page</h2>
+
+            <p>
+                Wikipedia provides detailed introduction of most civil airports all over the world. In these pages, a table shows available destinations with operating airlines.
+                Although this data is not as accurate as the official time table released by airlines, it is still a trustable resource of available connections of an airport.
+            </p>
+            <p>
+                All the airport data is obtained from Wikipedia English version.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>Wikipedia Airport Data</th>
+                </tr>
+                <tr>
+                    <td>Coverage</td>
+                    <td>Major civil airports</td>
+                </tr>
+                <tr>
+                    <td>Time lag before release</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td>Route format</td>
+                    <td>Connection data</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Data availability in our system</td>
+                </tr>
+                <tr>
+                    <td>Oldest data</td>
+                    <td>2014</td>
+                </tr>
+                <tr>
+                    <td>Newest data</td>
+                    <td>2014</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Completeness of record</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Separated inbound/outbound<br />
+                        data for O-D pair
+                    </td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Monthly data</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Airline information</td>
+                    <td>Available</td>
+                </tr>
+
+                <tr>
+                    <td>Aircraft information</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Flight number statistics</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Passenger statistics</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Seat statistics</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td>Freight statistics</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <p>For more information, please visit <a href="http://en.wikipedia.org/wiki/" target="_blank">Wikipedia official website</a>.</p>
+
+            <h2 class="SectionTitle">Links</h2>
+            <div style="float: left">
+                <a href="http://www.geography.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_geo.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left:30px">
+                <a href="http://aviation.cse.ohio-state.edu/">
+                    <img class="BottomImage" src="png/info/logo_cas.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left: 30px">
+                <a href="http://cura.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_cura.png" />
+                </a>
+            </div>
+
+            <div style="clear:both"></div>
+            <br />
+            <div class="CrossLine"></div>
+            <p>Copyright &copy; 2014, Center for Urban and Regional Analysis, Department of Geography, The Ohio State University.</p>
+        </div>
+    </div>
 </body>
 </html>

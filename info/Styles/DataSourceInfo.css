@@ -1,0 +1,14 @@
+﻿table,th,td
+{
+	border:1px solid #D4D4D4;
+	border-collapse:collapse
+	
+}
+th,td
+{
+	padding:5px 15px 5px 15px;
+}
+table
+{
+	border-spacing:5px;
+}
