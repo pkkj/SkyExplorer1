@@ -43,10 +43,10 @@
             <div style="clear:both"></div>
         </div>
         <div class="TextContent">
-
+            <h2 class="SectionTitle">Sample Scenarios</h2>
             <p>Here are some common scenarios of this application. We demonstrate its functions and features by answering some questions related to air transportation.</p>
 
-            <h3>How many destinations does Port Columbus International Airport (CMH) have? And where are they?</h3>
+            <h4>How many destinations does Port Columbus International Airport (CMH) have? And where are they?</h4>
             <p>
                 Just click an airport, you will see the routes shown in the map. You might be surprised to find Port Columbus <i>International</i> Airport
                 has international destinations indeed! By selecting the airport from the dropdown box or picking up the destination in the map, you will
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <h3>What are the popular international destinations of San Francisco International Airport (SFO) in 2013?</h3>
+            <h4>What are the popular international destinations of San Francisco International Airport (SFO) in 2013?</h4>
             <p>
                 Select SFO from the map, or input SFO in the "Airport" text box then click "Search". You will see SFO shown as an origin airport with many connections in the map.
                 You could launch a detail page by clicking (Airport Detail Report) in the right of airport code. You may filter the detail report by region. In the rank of international
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <h3>Which airport is suffering a decline in passenger flow?</h3>
+            <h4>Which airport is suffering a decline in passenger flow?</h4>
             <p>
                 User can find the time series chart in airport detail report page. Maybe Cincinnati/Northern Kentucky International Airport is a good example for decline. From 2005, the passenger
                 flow has been descending year by year significantly. One major reason is that Delta is abandoning this hub after merging with Northwest.
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <h3>Which aircraft was used to operated the flight between Washington DC and Moscow in 1990, 2000 and 2013?</h3>
+            <h4>Which aircraft was used to operated the flight between Washington DC and Moscow in 1990, 2000 and 2013?</h4>
             <p>
                 There is a detail page for each route too. You could click an origin (IAD/Washington Dulles International Airport) and then select the
                 destination (SVO/Sheremetyevo International Airport) to see the route.
@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            <h3>How about the load factor for the route between Los Angeles and London?</h3>
+            <h4>How about the load factor for the route between Los Angeles and London?</h4>
             <p>
                 Select the route in the map and launch the route detail report UI. In the "Time series of seat" tab you could find some charts about available seats and
                 load factor of different airlines. Generally speaking British Airway has best performance in load factor, which is higher than 80% in most of the months.
@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <h3>What's the main freight hub of FedEx outside US?</h3>
+            <h4>What's the main freight hub of FedEx outside US?</h4>
             <p>
                 This app provides an "Airline View" for those who is interested in the shape of airline's network. We have full data for US carriers between 2003 and 2009. User can switch to
                 "Airline view" by clicking the button in the title bar, and then select an airline to view its network. User could specify which year to show, and filter the routes by region.
@@ -125,6 +125,8 @@
                 you could not determine whether it from the map directly.
 
             </p>
+
+            
             <div class="DivBorder">
                 <img src="png/skyexplorer_t100_info/faq6.png" style="padding: 5px;" />
 
@@ -133,6 +135,30 @@
                 </div>
             </div>
 
+            <h4>How to change data sources?</h4>
+            <p>
+                In the airport view, the data source panel in top-right allows you to select/unselect a data source. If you are only interested in the T100 data source, you might uncheck all
+                other data sources.
+                Sometimes there will be data from multiple sources for the same route. In this case, user could switch to another available data source in <i>View data from other sources in this route</i> label.
+            </p>
+
+            <h2 class="SectionTitle">FAQ</h2>
+            <h4>For the same route. why there are obvious differences in statistics between two data sources?</h4>
+            <p>
+                There are several reasons. First, the data collection step in local airport caueses difference. 
+                Second, different data sources apply vairous standards. For example, a regular flight in source A might be classified as charter/casual flight in source B.
+                Third, some definitions are also very vague. For example, <i>cargo</i> might include both freight and mail, or even the luggage of passengers. Sometimes the data source 
+                doesn't give a clear explaination on this value.
+            </p>
+
+            <h4>When I click an important airport, why it only shows partial routes? Some routes are missed.</h4>
+            <p>
+                In the system, we only shows the routes from the available data sources. For the airport not fully covered by these data sources, only the available route are shown. 
+                For example, for Dubai International Airport, we could only show destinations toward US, UK, Japan, South Korean, Taiwan at this moment.
+                We understand that showing partial data is confusing. However, without the full aviation network connection data, this is the compromised way to present the data.
+                One solution is to utilize the Wikipedia page by showing the destinations from airport information page. However, the accuracy of Wikipedia data is far from our criteria.
+                Therefore, currently we are doing experiement that only show the Wikipedia data in a few airports.
+            </p>
 
             <h2 class="SectionTitle">Links</h2>
             <div style="float: left">
