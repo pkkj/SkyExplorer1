@@ -137,8 +137,8 @@
                 if (callback != null)
                     callback(data);
             };
-            var params = { "dataSrc" : dataSrc, "locale": Localization.locale };
-            DataQuery.ajaxQuery(params, "QueryAvailableAirlines", onSuccessCallback);
+            var params = { "dataSrc" : dataSrc, year: "", "locale": Localization.locale };
+            DataQuery.ajaxQuery(params, "QueryAvailableAirlineByDataSource", onSuccessCallback);
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
 

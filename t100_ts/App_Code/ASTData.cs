@@ -67,27 +67,6 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAllAirlines( string locale ) {
-            string res = DataQuery.QueryAirlineByDataSource( "", locale );
-            return res;
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAvailableAirlines( string dataSrc, string locale ) {
-            string res = DataQuery.QueryAirlineByDataSource( dataSrc, locale );
-            return res;
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAvailabieAirlineByDataSrc( string dataSrc ) {
-            HashSet<string> airlines = CarrierData.GetAvailableAirlineInDb_HashSet( dataSrc );
-            return new JavaScriptSerializer().Serialize( airlines.ToList() );
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             string res = T100Data.QueryByAirlines( year, airline, region, locale, limit );
             return res;
@@ -158,6 +137,12 @@ namespace AST {
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryRouteAvailableDataSource( string origin, string dest, string locale ) {
             return RouteAvialabilityActor.QueryRouteAvailableDataSource( origin, dest, locale );
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAvailableAirlineByDataSource( string dataSrc, string year, string locale ) {
+            return AirlineAvailabilityActor.QueryAvailableAirlineByDataSource( dataSrc, year, locale );
         }
     }
 }

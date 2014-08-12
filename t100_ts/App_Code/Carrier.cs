@@ -25,8 +25,6 @@ namespace AST {
 
     public partial class CarrierData {
         static public Dictionary<string, Dictionary<string, Carrier>> CarrierDict;
-        static public Dictionary<string, string> AirlineInDb;
-        static public Dictionary<string, HashSet<string>> SetAirlineInDb;
         static public Dictionary<string, Dictionary<string, string>> AirlineAvailability;
 
         static public Carrier Query( string code, string locale = "ZHCN" ) {
@@ -49,47 +47,10 @@ namespace AST {
             return "";
         }
 
-        static public HashSet<string> GetAvailableAirlineInDb_HashSet( string dataSrc ) {
-            List<string> lstDataSrc;
-            if ( dataSrc == "" ) {
-                return new HashSet<string>( CarrierDict[ "ENUS" ].Keys.ToList() );
-            } else {
-                lstDataSrc = new List<string>( dataSrc.Split( ',' ) );
-            }
-
-            HashSet<string> availableAirport = new HashSet<string>();
-            foreach ( string src in lstDataSrc ) {
-                if ( SetAirlineInDb.ContainsKey( src ) ) {
-                    availableAirport.UnionWith( SetAirlineInDb[ src ] );
-                }
-            }
-            return availableAirport;
-        }
-
-        static public Dictionary<string, Carrier> GetAvailableAirlineInDb( string dataSrc, string locale = "ENUS" ) {
-            HashSet<string> availableAirline = GetAvailableAirlineInDb_HashSet( dataSrc );
-            Dictionary<string, Carrier> airlines = new Dictionary<string, Carrier>();
-            foreach ( string airline in availableAirline ) {
-                airlines.Add( airline, CarrierDict[ locale ][ airline ] );
-            }
-            return airlines;
-        }
-
-        static public Dictionary<string, Carrier> GetAvailableAirlineByDataSrc( string dataSrc, string locale = "ENUS" ) {
-            if ( CarrierDict.ContainsKey( locale ) )
-                return GetAvailableAirlineInDb( dataSrc, locale );
-            return GetAvailableAirlineInDb( dataSrc, "ENUS" );
-        }
-
         static CarrierData() {
             CarrierDict = new Dictionary<string, Dictionary<string, Carrier>>();
             LoadCarrierData( "ENUS" );
             LoadCarrierData( "ZHCN" );
-
-            AirlineInDb = new Dictionary<string, string>();
-            SetAirlineInDb = new Dictionary<string, HashSet<string>>();
-            LoadAirlineInDb( "TwData" );
-            LoadAirlineInDb( "T100" );
 
             AirlineAvailability = new Dictionary<string, Dictionary<string, string>>();
             LoadYearAvailability( "TwData" );
@@ -127,18 +88,6 @@ namespace AST {
             }
         }
 
-        static void LoadAirlineInDb( string dataSrc ) {
-            string[] lines = System.IO.File.ReadAllLines( Global.DataDir + @"AirlineInDb\" + dataSrc + ".txt" );
-            SetAirlineInDb[ dataSrc ] = new HashSet<string>();
-            string airlines = "";
-            foreach ( string line in lines ) {
-                if ( airlines != "" )
-                    airlines += ",";
-                airlines += line.Trim();
-                SetAirlineInDb[ dataSrc ].Add( line.Trim() );
-            }
-            AirlineInDb[ dataSrc ] = airlines;
-        }
     }
 
 

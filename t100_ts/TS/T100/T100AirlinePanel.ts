@@ -47,7 +47,7 @@
         public init(mapControl: OpenLayers.Map) {
             this.mapControl = mapControl;
             if (this.airlineData == null) {
-                DataQuery.queryAvailableAirlineByDataSrc("T100", (data: Array<Airline>)=> {
+                DataQuery.queryAvailableAirlineByDataSrc("T100Data", (data: Array<Airline>)=> {
                     this.airlineData = data;
                     this.airlineData.sort(function (a: Airline, b: Airline) {
                         return Localization.strings.compareStr(a.name, b.name);
