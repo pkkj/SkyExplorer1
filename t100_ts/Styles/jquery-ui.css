@@ -396,6 +396,7 @@ button.ui-button::-moz-focus-inner {
 	border-left-width: 1px;
 }
 .ui-dialog {
+    overflow: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -429,7 +430,7 @@ button.ui-button::-moz-focus-inner {
 	border: 0;
 	padding: .1em .1em;
 	background: none;
-	overflow: hidden;
+	overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
@@ -1150,5 +1151,5 @@ body .ui-tooltip {
 }
 
 .no-close .ui-dialog-titlebar-close {
-display: none;
+    display: none;
 }
