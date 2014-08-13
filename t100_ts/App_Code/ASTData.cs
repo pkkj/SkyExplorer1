@@ -41,12 +41,6 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAirlineYearAvailability( string dataSrc, string airline ) {
-            return CarrierData.QueryAirlineYearAvailability( dataSrc, airline );
-        }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryByRoute( string year, string origin, string dest, string locale ) {
             return T100Data.QueryByRoute( year, origin, dest, locale );
         }
@@ -143,6 +137,12 @@ namespace AST {
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryAvailableAirlineByDataSource( string dataSrc, string year, string locale ) {
             return AirlineAvailabilityActor.QueryAvailableAirlineByDataSource( dataSrc, year, locale );
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirlineYearAvailability( string airline, string dataSrc ) {
+            return AirlineAvailabilityActor.QueryAirlineYearAvailability( airline, dataSrc );
         }
     }
 }

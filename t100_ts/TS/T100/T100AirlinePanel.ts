@@ -313,7 +313,7 @@
                 }
                 this.queryAirlineRoute();
             };
-            DataQuery.QueryAirlineYearAvailability("T100", item.airline.code, callback);
+            DataQuery.QueryAirlineYearAvailability("T100Data", item.airline.code, callback);
         }
 
         private getRegionFilter() {

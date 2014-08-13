@@ -25,7 +25,6 @@ namespace AST {
 
     public partial class CarrierData {
         static public Dictionary<string, Dictionary<string, Carrier>> CarrierDict;
-        static public Dictionary<string, Dictionary<string, string>> AirlineAvailability;
 
         static public Carrier Query( string code, string locale = "ZHCN" ) {
             Carrier ret = null;
@@ -40,21 +39,10 @@ namespace AST {
             return ret;
         }
 
-        static public string QueryAirlineYearAvailability( string dataSrc, string airline ) {
-            if ( AirlineAvailability.ContainsKey( dataSrc ) && AirlineAvailability[ dataSrc ].ContainsKey( airline ) ) {
-                return AirlineAvailability[ dataSrc ][ airline ];
-            }
-            return "";
-        }
-
         static CarrierData() {
             CarrierDict = new Dictionary<string, Dictionary<string, Carrier>>();
             LoadCarrierData( "ENUS" );
             LoadCarrierData( "ZHCN" );
-
-            AirlineAvailability = new Dictionary<string, Dictionary<string, string>>();
-            LoadYearAvailability( "TwData" );
-            LoadYearAvailability( "T100" );
         }
 
         static void LoadCarrierData( string locale ) {
@@ -66,28 +54,9 @@ namespace AST {
                 string[] items;
                 items = line.Split( '\t' );
                 Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 4 ], items[6] );
-
                 CarrierDict[ locale ][ airline.Code ] = airline;
-
             }
         }
-
-        static void LoadYearAvailability( string dataSrc ) {
-            AirlineAvailability[ dataSrc ] = new Dictionary<string, string>();
-            string[] lines = System.IO.File.ReadAllLines( Global.DataDir + @"AirlineAvailability\" + dataSrc + ".txt" );
-            foreach ( string line in lines ) {
-                string[] items = line.Split( ',' );
-                string year = items[ 0 ].Substring(2);
-                for ( int i = 1; i < items.Length; i++ ) {
-                    if ( !AirlineAvailability[ dataSrc ].ContainsKey( items[ i ] ) )
-                        AirlineAvailability[ dataSrc ][ items[ i ] ] = "";
-                    if ( AirlineAvailability[ dataSrc ][ items[ i ] ] != "" )
-                        AirlineAvailability[ dataSrc ][ items[ i ] ] += ",";
-                    AirlineAvailability[ dataSrc ][ items[ i ] ] += year;
-                }
-            }
-        }
-
     }
 
 

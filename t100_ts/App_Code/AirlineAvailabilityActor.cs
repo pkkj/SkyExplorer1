@@ -9,8 +9,30 @@ namespace AST {
 
     public class AirlineAvailabilityActor {
 
-        public static string QueryAirlineYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
-            return "";
+        /// <summary>
+        /// Query the year availability of the given airline in given data source
+        /// </summary>
+        /// <returns>A sample return is: 90,91,92,93,94,95,96,97,98,99,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14</returns>
+        public static string QueryAirlineYearAvailability( string airline, string dataSrc, string locale = "ENUS" ) {
+            NpgsqlConnection conn = null;
+            List<string> years = new List<string>();
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn.Open();
+                string sql = string.Format( @"SELECT ""YEAR"" FROM ""AirlineAvailability"" WHERE ""CODE""='{0}' AND ""DATA_SOURCE""='{1}'", airline, dataSrc );
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    years.Add( dr[ "YEAR" ].ToString());
+                }
+            } finally {
+                conn.Close();
+            }
+            years.Sort();
+            for ( int i = 0; i < years.Count; i++ ) {
+                years[ i ] = years[ i ].Substring( 2 );
+            }
+            return string.Join(",", years.ToArray());
         }
 
         /// <summary>
@@ -42,7 +64,7 @@ namespace AST {
                 }
                 if ( where != "" )
                     where = " WHERE " + where;
-                string sql = string.Format( @"SELECT DISTINCT ""CODE"" FROM ""AirlineAvailability"" {0} ", where ); // Only support IATA code
+                string sql = string.Format( @"SELECT DISTINCT ""CODE"" FROM ""AirlineAvailability"" {0} ", where ); 
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, Carrier> airlines = new Dictionary<string, Carrier>();
