@@ -1,0 +1,164 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords"
+          content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
+    <title>Sky Explorer - T100: Introduction</title>
+    <link rel="stylesheet" type="text/css" href="Styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="Nivo/light/light.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="Nivo/nivo-slider.css" media="screen" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="Nivo/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34405945-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('#scenarioShow').nivoSlider();
+    });
+    </script>
+
+</head>
+<body>
+    <div id="MainContent">
+
+        <div id="TitleBar" style="background-image: url('png/skyexplorer_t100_info/title.png'); height:250px ">
+            <div id="PageTitle" style="font-size: 36px; margin-top: 180px; padding-left: 20px">Sky Explorer</div>
+            <div id="PageSubTitle" style="font-size: 16px; margin-top: 10px;padding-left:20px; ">
+                用于研究航空历史数据的交互式WebGIS系统 by 俄亥俄州立大学地理系
+                <a href="../t100/web/main.html?locale=zhCN">(进入系统)</a>
+            </div>
+        </div>
+
+        <div id="NavBar">
+            <div style="float:left">
+                <a href="main.html">主页</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">Sky Explorer - T100</span>
+            </div>
+
+            <div style="margin-top: 1px;float: left; position: absolute; right: 15px">
+                <span style="font-size: 13px">Switch language: <a style="font-weight: normal" href="skyexplorer_t100.html">English</a>, Chinese</span>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <div class="TextContent">
+            <h2 class="SectionTitle">介绍</h2>
+            <p>
+                近四十年以来航空业发展迅猛，对于长途运输而言，航空运输已经成为了一种输送旅客和货物的主要交通方式。
+                不同机构积累了大量关于航空的数据。这些宝贵的数据对于研究而言非常有用。
+                然而，这些数据难以寻找也难以直接使用。
+
+                ，也许是世界上最好的一份公开的航空交通统计数据。
+                该数据提供了关于美国航空网络海量而珍贵信息，包括每一条线路上的航班数目、旅客数、货运量以及飞机运用情况等等。然而，这些文件仅仅以CSV格式存在，使用起来需要复杂的预处理，对于普通用户和研究者来说并不友好。
+            </p>
+
+            <p>
+                为了以更友好的形式向公众了呈现这些航空数据，我们开发了<i>Sky Explorer</i>这个网络地理信息系统。这个系统最初的版本仅包含了
+                <a href="http://www.rita.dot.gov/bts/home">美国交通统计局（Bureau of Transportation Statistics，或BTS）</a>所提供的
+                T100数据（Air Carrier Statistics，或Form 41 Traffic)。经过扩展，当前版本已包含了其他数据库的航空数据。
+            </p>
+            <p>
+                <i>Sky Explorer</i>应用了GIS（地理信息系统）和网络地图技术，以一种生动的形式将航空数据库的数字呈现出来。
+                用户可以方便地与地理数据交互，并快速地获取想要的信息。通过与第三方数据的整合，这些地图与图表展现了美国航空运输页的发展与现状。
+                我们相信航空运输的各个参与者，如旅客、机场规划者、机场规划者、政策制定者、商业决策者和交通地理学的研究者及学生，都能发掘到该系统的有用之处。
+            </p>
+
+            <h2 class="SectionTitle">应用实例</h2>
+            <div class="theme-light DivBorder" style="margin-left:5px; margin-right:5px; padding: 10px">
+                <div id="scenarioShow" class="nivoSlider">
+                    <img src="png/skyexplorer_slide/Slide1.zhcn.PNG" data-thumb="png/skyexplorer_slide/Slide1.PNG" alt="" />
+                    <img src="png/skyexplorer_slide/Slide2.zhcn.PNG" data-thumb="png/skyexplorer_slide/Slide2.PNG" alt="" />
+                    <img src="png/skyexplorer_slide/Slide3.zhcn.PNG" data-thumb="png/skyexplorer_slide/Slide3.PNG" alt="" />
+                    <img src="png/skyexplorer_slide/Slide4.zhcn.PNG" data-thumb="png/skyexplorer_slide/Slide4.PNG" alt="" />
+                    <img src="png/skyexplorer_slide/Slide5.zhcn.PNG" data-thumb="png/skyexplorer_slide/Slide5.PNG" alt="" />
+                </div>
+            </div>
+
+            <p>在这里，我们列举一些常见的应用实例来展示该系统的功能，以及如何利用它来寻找关于航空运输业相关问题的答案。</p>
+            
+            <p>如果想了解更多该系统的应用实例，请参考<a href="UserScenarios.zhcn.html">应用实例与常见问题</a>页面以获取更多信息。</p>
+
+            <h2 class="SectionTitle">Data Sources</h2>
+            <p>
+                <i>Sky Explorer</i>最初的版本仅仅整合了由美国<a href="http://www.rita.dot.gov/bts/home">交通统计部(BTS)</a>提供的
+                <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100 航空公司统计</a>。在这个新版本中，以下数据源被整合到数据库里面：
+            </p>
+            <ul>
+                <li>美国交通统计局T100以及T100FF数据</li>
+                <li>英国民用航空管理处数据</li>
+                <li>台湾交通部民用航空局数据</li>
+                <li>韩国机场公社数据</li>
+                <li>日本国土交通省数据</li>
+                <li>维基百科数据</li>
+            </ul>
+            <p>请参考<a href="DataSource.html">数据源介绍</a>页面以获取更多的详细信息。</p>
+
+            <h2 class="SectionTitle">数据属性</h2>
+            <p>
+                该系统只采用了定期航班（包括季节性航班）的数据。包机以及非定期航班的数据并没有录入到该系统里面。
+                因此，该系统无法找到仅仅运营包机航班的航空公司的数据。
+            </p>
+            <p>
+                在各个数据源里面有一些流量非常小的路线。因为这些路线没有定期性，所以它们被排除在系统的数据库之外。
+                我们定义了一系列规则去寻找并过滤这些数据。通常来说，如果某条路线一个月的客流或者货流以及起飞班次大于某个数值，我们才认为该线路在这个月具有“定期性”。
+                一年以内，只有至少有具有两个月“定期性”流量的路线，才会被录入到系统的数据库里面。
+            </p>
+
+            <h2 class="SectionTitle">技术</h2>
+            <p>
+                该程序使用了开源软件技术，其中包括若干著名的开源GIS软件：
+                <a href="http://postgis.net/">PostGIS</a>, <a href="http://geoserver.org/">GeoServer</a> and <a href="http://openlayers.org/">OpenLayers</a>。
+                <a href="http://www.python.org">Python</a> 被用于处理各种数据。此外 <a href="http://www.esri.com/data/basemaps">ESRI 地图</a>  被用来作为底图.
+                数据服务由<a href="http://www.asp.net/">Microsoft ASP.NET</a>实现。此外，本项目还充分利用了微软所发布的开源而强大的<a href="http://www.typescriptlang.org/">TypeScript</a>语言来完成JavaScript的编程。
+            </p>
+            <p>
+                该WebGIS支持下列浏览器: Internet Explorer(只有 9, 10 and 11)， Firefox，Chrome 以及Safari 。
+            </p>
+
+            <h2 class="SectionTitle">关于</h2>
+            <p>
+                该WebGIS由<a href="http://www.linkedin.com/pub/kejing-peng/32/867/87a">Kejing Peng</a>负责开发。相关项目的负责人是
+                <a href="http://www.geography.ohio-state.edu/faculty/okelly/">Morton O'Kelly</a>教授。
+            </p>
+            <p>欢迎提出您的宝贵意见，请发送到: peng.184@osu.edu.</p>
+
+            <h2 class="SectionTitle">致谢</h2>
+            <p>感谢OSU地理系以及Center for Urban and Regional Analysis.</p>
+            <p>特别鸣谢Shaun Fontanella和Jens Blegvad提供硬件以及服务器的支持。</p>
+
+            <h2 class="SectionTitle">链接</h2>
+            <div style="float: left">
+                <a href="http://www.geography.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_geo.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left:30px">
+                <a href="http://aviation.cse.ohio-state.edu/">
+                    <img class="BottomImage" src="png/info/logo_cas.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left: 30px">
+                <a href="http://cura.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_cura.png" />
+                </a>
+            </div>
+
+            <div style="clear:both"></div>
+            <br />
+            <div class="CrossLine"></div>
+            <p>Copyright &copy; 2014, Center for Urban and Regional Analysis, Department of Geography, The Ohio State University.</p>
+        </div>
+    </div>
+</body>
+</html>

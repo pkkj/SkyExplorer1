@@ -1,0 +1,662 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords"
+          content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
+    <title>Sky Explorer - Data Sources</title>
+    <link rel="stylesheet" type="text/css" href="Styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/DataSourceInfo.css">
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34405945-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+<body>
+    <div id="MainContent">
+
+        <div id="TitleBar" style="background-image: url('png/skyexplorer_t100_info/title.png'); height:250px ">
+            <div id="PageTitle" style="font-size: 36px; margin-top: 180px; padding-left: 20px">Sky Explorer</div>
+            <div id="PageSubTitle" style="font-size: 16px; margin-top: 10px;padding-left:20px; ">
+                用于研究航空历史数据的交互式WebGIS系统 by 俄亥俄州立大学地理系
+                <a href="../t100/web/main.html?locale=zhCN">(进入系统)</a>
+            </div>
+        </div>
+
+        <div id="NavBar">
+            <div style="float:left">
+                <a href="main.html">主页</a>&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<a href="skyexplorer_t100.zhcn.html">Sky Explorer</a>
+                &nbsp;&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;<span id="CurrentPageTitle">数据源介绍</span>
+            </div>
+
+            <div style="margin-top: 1px;float: left; position: absolute; right: 15px">
+                <span style="font-size: 13px">Switch language: <a style="font-weight: normal" href="skyexplorer_t100.html">English</a>, Chinese</span>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="TextContent">
+
+            <p>
+                <i>Sky Explorer</i>最初的版本仅仅整合了由美国<a href="http://www.rita.dot.gov/bts/home">交通统计部(BTS)</a>提供的
+                <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=111">T100 航空公司统计</a>。T100是一份优秀的航空数据，包含众多有用的信息。
+                然而，T100数据仅仅提供了关于美国航空运输的信息。
+                为了提高系统数据的丰富程度，我们把从其他国家和地区的航空运输管理部门收集到的数据整合到改系统里面，提供了美国以外的航空运输的统计情报。
+            </p>
+            <p>
+                需要注意的是，并不是所有的数据源都提供像T100那样详细的记录。美国交通统计部的T100数据提供了最为详尽的信息。数据库中，
+                每条记录记载了某航空公司用某机型运营的某条线路的航班数目、旅客人数和货运数量的月统计量。只要这条线路的起点或者终点在美国境内，这条记录就会被包含进T100数据库。
+                然而，某些数据源（例如英国的统计数据），仅仅包含了某条线路双向客流的汇总统计。因此，该系统提供了不同的界面来显示来自不同数据源的信息。
+            </p>
+            
+            <h2>关于美国交通统计局数据</h2>
+
+            <p>
+                美国交通统计局所提供的 T100数据库（Air Carrier Statistics，或Form 41 Traffic)，也许是世界上最好的一份公开的航空交通统计数据。
+                该数据提供了关于美国境内航空网络海量而珍贵信息，包括每一条线路上的航班数目、旅客数、货运量以及飞机运用情况等等。该数据库所有数据精确到月份。
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>T100国内航班</th>
+                    <th>T100国际航班</th>
+                    <th>T100海外航班</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>美国国内航线</td>
+                    <td>美国国际航线</td>
+                    <td>
+                        美国航空公司运营的海外航线<br />
+                        （航线起点和终点都不在美国境内）
+                    </td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>大约3个月</td>
+                    <td>大约6个月</td>
+                    <td>大于3年</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于航段的统计</td>
+                    <td>基于航段的统计</td>
+                    <td>基于航段的统计</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>1990年1月</td>
+                    <td>1990年1月</td>
+                    <td>2003年1月</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2014年1月</td>
+                    <td>2014年1月</td>
+                    <td>2009年12月</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://www.transtats.bts.gov/databaseinfo.asp?DB_ID=111" target="_blank">美国交通统计局官方网站</a>.</p>
+
+            <h2>英国民用航空管理处数据</h2>
+
+            <p>
+                英国民用航空管理处是英国民用航空的监管单位。该机构提供了英国机场国内以及国际航班的月统计数据。
+                注意：这些线路上的数据都是入港和出港航班的汇总数据。
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>英国民用航空管理处数据</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>英国境内机场出发的所有航班</td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>大约两个月</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于路线的统计（路线可能有中停）</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>2010年1月</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2014年4月</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>无</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://www.caa.co.uk/" target="_blank">英国民用航空管理处官方网站</a>.</p>
+
+            <h2>韩国机场公社数据</h2>
+
+            <p>
+                韩国机场公社是一家专门进行航空业务的公共企业。该机构负责管理韩国境内金浦、金海、济州、大邱、務安、清州、襄陽等机场。
+                它提供了这些机场的国内和国际航班的月度统计数据。
+            </p>
+            <p>
+                注意：韩国国内最大的国际机场仁川国际机场并不属于该公社管理。因此仁川国际机场的数据并不包括在内。
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>韩国机场公社数据</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>韩国机场（除仁川）的国内和国际航班</td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>大约2个月</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于线路的统计</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>2013年1月</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2014年5月</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>有（未整合到该系统）</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>有（未整合到该系统）</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://www.airport.co.kr/mbs/kaceng/" target="_blank">韩国机场公社官方网站</a>.</p>
+
+            <h2>台湾交通部民用航空局数据</h2>
+
+            <p>
+                交通部民用航空局（简称民航局）是台湾地区民用航空事务的最高管理机关，隶属于交通部。
+                该机构每年均发布详细的民用航空统计年报。
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>台湾地区航班</th>
+                    <th>台湾海峡两岸航班及国际航班</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>台湾地区机场内的航班</td>
+                    <td>从台湾出发往大陆以及其他国家的航班</td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>大约两个月</td>
+                    <td>大约两个月</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于航段的统计</td>
+                    <td>基于航段的统计</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>2013年1月</td>
+                    <td>2013年1月</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2014年4月</td>
+                    <td>2014年4月</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>无</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>有</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://www.caa.gov.tw/en/index.asp" target="_blank">台湾交通部民用航空局官方网站</a>.</p>
+
+            <h2>日本国土交通省数据</h2>
+
+            <p>
+                国土交通省是日本的中央省厅之一。该部门提供日本国内航班的月统计数据。
+                注意：这些线路上的数据都是入港和出港航班的汇总数据。
+            </p>
+
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>日本国土交通省数据</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>日本国内航班</td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>大约一年半</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于航段的统计</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>2011年1月</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2013年12月</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>无（具体入港出港数据仅有年数据）</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>有（未整合到该系统）</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>有（未整合到该系统）</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>有（未整合到该系统）</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://www.mlit.go.jp/en/index.html" target="_blank">日本国土交通省官方网站</a>.</p>
+
+            <h2>维基百科机场页面数据</h2>
+
+            <p>
+                维基百科上每个机场的介绍页均包含了一个机场的目的地列表。用户可以在这里找到机场的目的地以及运营的航空公司的信息。
+                尽管这些数据的准确性有待提高，机场页面的目的地列表始终是一份能反映机场通达性的有用数据。
+            </p>
+            <p>
+                本系统的维基百科的机场数据均取自维基百科英文版。
+            </p>
+            <table>
+
+                <tr>
+                    <th></th>
+                    <th>维基百科机场页面</th>
+                </tr>
+                <tr>
+                    <td>覆盖范围</td>
+                    <td>主要民用机场（该系统仅有部分机场）</td>
+                </tr>
+                <tr>
+                    <td>发布延迟</td>
+                    <td>事实</td>
+                </tr>
+                <tr>
+                    <td>数据路线格式</td>
+                    <td>基于航班的连接</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">本系统中的数据</td>
+                </tr>
+                <tr>
+                    <td>最早数据</td>
+                    <td>2014年</td>
+                </tr>
+                <tr>
+                    <td>最新数据</td>
+                    <td>2014年</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">数据完整性</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        每条路线是否有<br />
+                        具体的入港、出港数据
+                    </td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>月度统计数据</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航空公司信息</td>
+                    <td>有</td>
+                </tr>
+
+                <tr>
+                    <td>机型信息</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>航班班次统计</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>旅客人数统计</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>可用座位统计</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>货运量统计</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <p>欲了解更多信息，请访问<a href="http://zh.wikipedia.org/wiki/" target="_blank">维基百科网站</a>.</p>
+
+            <h2 class="SectionTitle">链接</h2>
+            <div style="float: left">
+                <a href="http://www.geography.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_geo.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left:30px">
+                <a href="http://aviation.cse.ohio-state.edu/">
+                    <img class="BottomImage" src="png/info/logo_cas.png" />
+                </a>
+            </div>
+            <div style="float: left; margin-left: 30px">
+                <a href="http://cura.osu.edu/">
+                    <img class="BottomImage" src="png/info/logo_cura.png" />
+                </a>
+            </div>
+
+            <div style="clear:both"></div>
+            <br />
+            <div class="CrossLine"></div>
+            <p>Copyright &copy; 2014, Center for Urban and Regional Analysis, Department of Geography, The Ohio State University.</p>
+        </div>
+    </div>
+</body>
+</html>
