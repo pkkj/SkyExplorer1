@@ -34,7 +34,7 @@
 
         public year = "年份";
         public destinations = "目的地";
-        public subtitle = '用于研究航空历史数据的交互式WebGIS <a href="../../info/skyexplorer_t100_cn.html" style="text-decoration:underline">(更多信息)</a>';
+        public subtitle = '用于研究航空历史数据的交互式WebGIS <a href="../../info/skyexplorer_t100.zhcn.html" style="text-decoration:underline">(更多信息)</a>';
         public aboutT100 = "关于T100";
         public aboutSkyExplorer = "关于Sky Explorer";
         public about = "关于";
