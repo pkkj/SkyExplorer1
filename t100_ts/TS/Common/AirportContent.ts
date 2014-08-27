@@ -95,13 +95,13 @@ module AST {
             this.wikiDestPanel.mapBuddy = this.mapControl;
 
             this.originPanel.mapControl = this.mapControl;
-
-
             
+            // Localization
+            document.getElementById("airportViewDataSrcControlerPanelTitle").innerHTML = Localization.strings.dataSourceAndAirlines;
+
             $("#airportViewDataSrcControlerPanel").accordion({
                 collapsible: true
             });
-
         }
 
         public reset() {
