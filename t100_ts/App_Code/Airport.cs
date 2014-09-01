@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using Npgsql;
 
 namespace AST {
     public class Airport {
@@ -97,22 +98,36 @@ namespace AST {
             return ret;
         }
 
+        /// <summary>
+        /// Load the airport data from the database. Replace the old way which uses file as data storage.
+        /// </summary>
         static void LoadAirportData( string locale ) {
-            string[] lines = System.IO.File.ReadAllLines( Global.DataDir + "airports-" + locale + ".txt" );
+            NpgsqlConnection conn = null;
             AirportDictionary[ locale ] = new Dictionary<string, Airport>();
-            // Display the file contents by using a foreach loop.
-
-            foreach ( string line in lines ) {
-                string[] items;
-                items = line.Split( '\t' );
-
-                //code   btsCode    X   Y   state   name        city    country     icao    countryId   iata                note
-                //CODE0	 BTS_CODE1	X2	Y3	STATE4	FULL_NAME5	CITY6	COUNTRY7	ICAO8	COUNTRY_ID9	IATA10	Operation11	Note12
-                if ( items[ 12 ] == "*" )
-                    items[ 12 ] = "";
-                AirportDictionary[ locale ][ items[ 0 ] ] = new Airport( items[ 0 ], items[ 1 ],
-                    Convert.ToDouble( items[ 2 ] ), Convert.ToDouble( items[ 3 ] ), items[ 4 ], items[ 5 ], items[ 6 ], items[ 7 ], items[ 8 ], items[ 9 ], items[ 10 ], items[ 12 ] );
-
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn.Open();
+                string sql = string.Format( @"SELECT * FROM ""AirportInfo_{0}"" ", locale );
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    AirportDictionary[ locale ][ dr[ "CODE" ].ToString() ] = new Airport(
+                        dr[ "CODE" ].ToString(),
+                        dr[ "BTS_CODE" ].ToString(),
+                        Convert.ToDouble( dr[ "X" ] ),
+                        Convert.ToDouble( dr[ "Y" ] ),
+                        dr[ "STATE" ].ToString(),
+                        dr[ "NAME" ].ToString(),
+                        dr[ "CITY" ].ToString(),
+                        dr[ "COUNTRY" ].ToString(),
+                        dr[ "ICAO" ].ToString(),
+                        dr[ "COUNTRY_ID" ].ToString(),
+                        dr[ "IATA" ].ToString(),
+                        dr[ "NOTE" ].ToString()
+                        );
+                }
+            } finally {
+                conn.Close();
             }
         }
 

@@ -13,7 +13,7 @@ namespace AST {
         public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
             List<DestInfo> res = new List<DestInfo>();
             QueryDestByOriginInternal( year, origin, dest, airline, locale, "WikiConnection", res );
-            //QueryDestByOriginInternal( year, origin, dest, airline, locale, "NWikiConnection", res );
+            QueryDestByOriginInternal( year, origin, dest, airline, locale, "AustraliaConnection", res );
             return res;
         }
 
@@ -93,7 +93,7 @@ namespace AST {
             Utils.GetDistanceByUnits( originAirport, destAirport, out distKm, out distMile, out distNm );
 
             string res = "";
-            //QueryByRouteInternal( "NWikiConnection", year, origin, dest, ref res );
+            QueryByRouteInternal( "AustraliaConnection", year, origin, dest, ref res );
             QueryByRouteInternal( "WikiConnection", year, origin, dest, ref res );
 
             res = "\"routes\":[" + res + "],";

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Npgsql;
 
 namespace AST {
     public class Carrier {
@@ -45,16 +46,42 @@ namespace AST {
             LoadCarrierData( "ZHCN" );
         }
 
-        static void LoadCarrierData( string locale ) {
+        static void LoadCarrierDataOld( string locale ) {
             string[] lines = System.IO.File.ReadAllLines( Global.DataDir + "airlines-" + locale + ".txt" );
             CarrierDict[ locale ] = new Dictionary<string, Carrier>();
-            // Display the file contents by using a foreach loop.
 
             foreach ( string line in lines ) {
                 string[] items;
                 items = line.Split( '\t' );
-                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 4 ], items[6] );
+                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 4 ], items[ 6 ] );
                 CarrierDict[ locale ][ airline.Code ] = airline;
+            }
+        }
+
+        /// <summary>
+        /// Load the airport data from the database. Replace the old way which uses file as data storage.
+        /// </summary>
+        static void LoadCarrierData( string locale ) {
+            NpgsqlConnection conn = null;
+            CarrierDict[ locale ] = new Dictionary<string, Carrier>();
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn.Open();
+                string sql = string.Format( @"SELECT * FROM ""AirlineInfo_{0}"" ", locale );
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    CarrierDict[ locale ][ dr[ "CODE" ].ToString() ] = new Carrier(
+                        dr[ "CODE" ].ToString(),
+                        dr[ "IATA" ].ToString(),
+                        dr[ "NAME" ].ToString(),
+                        dr[ "COUNTRY" ].ToString(),
+                        dr[ "TYPE" ].ToString(),
+                        dr[ "NOTE" ].ToString()
+                    );
+                }
+            } finally {
+                conn.Close();
             }
         }
     }
@@ -88,7 +115,7 @@ namespace AST {
             LoadAircraftData( "ZHCN" );
         }
 
-        static void LoadAircraftData( string locale ) {
+        static void LoadAircraftDataOld( string locale ) {
             string[] lines = System.IO.File.ReadAllLines( Global.DataDir + "Aircraft-" + locale + ".txt" );
             AircraftDict[ locale ] = new Dictionary<string, Aircraft>();
             // Display the file contents by using a foreach loop.
@@ -102,6 +129,33 @@ namespace AST {
 
                 AircraftDict[ locale ][ aircraft.BtsCode ] = aircraft;
 
+            }
+        }
+
+        /// <summary>
+        /// Load the airport data from the database. Replace the old way which uses file as data storage.
+        /// </summary>
+        static void LoadAircraftData( string locale ) {
+            NpgsqlConnection conn = null;
+            AircraftDict[ locale ] = new Dictionary<string, Aircraft>();
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn.Open();
+                string sql = string.Format( @"SELECT * FROM ""AircraftInfo_{0}"" ", locale );
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while ( dr.Read() ) {
+                    string code = dr[ "BTSCODE" ].ToString();
+                    string shortName = dr[ "SHORT_NAME" ].ToString();
+                    string fullName = dr[ "FULL_NAME" ].ToString();
+                    string redirect = dr[ "REDIRECT" ].ToString();
+
+                    if ( code == redirect && fullName == "" ) continue;
+
+                    AircraftDict[ locale ][ code ] = new Aircraft( code, fullName, shortName );
+                }
+            } finally {
+                conn.Close();
             }
         }
     }
