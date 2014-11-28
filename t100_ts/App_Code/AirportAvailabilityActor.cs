@@ -71,6 +71,7 @@ namespace AST {
                 }
                 while ( dr.Read() ) {
                     string dataSrc = dr[ "DATA_SOURCE" ].ToString();
+                    if ( dataSrc == "WikiData" ) continue;
                     if ( dataSrc != primaryDataSrc ) {
                         lstResult.Add( dataSrc );
                     }

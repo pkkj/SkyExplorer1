@@ -11,7 +11,7 @@
                 this.supportAirportReportPage = true;
                 this.country = "Taiwan";
                 this.startTime = new YearMonth(2010, 1);
-                this.endTime = new YearMonth(2014, 5);
+                this.endTime = new YearMonth(2014, 9);
             }
 
             static currentCountry = "Taiwan";
