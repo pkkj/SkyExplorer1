@@ -12,7 +12,7 @@
                 this.supportAirportReportPage = true;
                 this.country = "United States";
                 this.startTime = new YearMonth(1990, 1);
-                this.endTime = new YearMonth(2014, 5);
+                this.endTime = new YearMonth(2014, 9);
             }
             static currentCountry = "United States";
             static hasMonthData = true;

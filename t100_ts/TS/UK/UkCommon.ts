@@ -26,13 +26,13 @@
                 this.aboutSrcPageUrl = "DataSourceInfo/UkCaa.html";
                 this.country = "United Kingdom";
                 this.startTime = new YearMonth(2010, 1);
-                this.endTime = new YearMonth(2014, 4);
+                this.endTime = new YearMonth(2014, 12);
             }
 
             static currentCountry = "United Kingdom";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
-            static dataTo = new YearMonth(2014, 8);
+            static dataTo = new YearMonth(2014, 12);
 
             private static _instance = null;
             static instance() {

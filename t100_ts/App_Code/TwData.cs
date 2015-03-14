@@ -59,7 +59,7 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connString );
                 conn.Open();
 
-                // Query T100 Data
+                // Query Taiwan Data
                 string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
                 string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
