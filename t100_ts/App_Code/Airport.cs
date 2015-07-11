@@ -8,7 +8,6 @@ using Npgsql;
 namespace AST {
     public class Airport {
         public string Code = "";
-        public string BtsCode = "";
         public Point Geometry = null;
         public string State = "";
         public string FullName = "";
@@ -24,10 +23,9 @@ namespace AST {
 
         public Airport() {
         }
-        public Airport( string code, string btsCode, double x, double y, string state, string fullName, string city,
+        public Airport( string code, double x, double y, string state, string fullName, string city,
             string country, string icaoCode, string countryID, string iataCode, string note ) {
             this.Code = code;
-            this.BtsCode = btsCode;
             this.Geometry = new Point( x, y );
             this.State = state;
             this.FullName = fullName;
@@ -113,7 +111,6 @@ namespace AST {
                 while ( dr.Read() ) {
                     AirportDictionary[ locale ][ dr[ "CODE" ].ToString() ] = new Airport(
                         dr[ "CODE" ].ToString(),
-                        dr[ "BTS_CODE" ].ToString(),
                         Convert.ToDouble( dr[ "X" ] ),
                         Convert.ToDouble( dr[ "Y" ] ),
                         dr[ "STATE" ].ToString(),
