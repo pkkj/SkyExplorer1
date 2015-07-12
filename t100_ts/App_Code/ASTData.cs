@@ -23,7 +23,13 @@ namespace AST {
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string MatchAirport( string input, string locale ) {
-            return T100Data.MatchAirport( input, locale );
+            return AirportData.MatchAirport( input, locale );
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string MatchAirportN( string input, string locale ) {
+            return AirportDataN.MatchAirport( input, locale );
         }
 
         [WebMethod]

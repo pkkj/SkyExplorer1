@@ -151,6 +151,46 @@ namespace AST {
             string jsonStr = new JavaScriptSerializer().Serialize( json );
             return jsonStr;
         }
+
+        public static string MatchAirport( string input, string locale ) {
+            int limit = 10;
+            NpgsqlConnection conn = null;
+            List<string> lstAirport = new List<string>();
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn.Open();
+
+                string sqlIata = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
+                NpgsqlDataReader drIata = commandIata.ExecuteReader();
+                while ( drIata.Read() ) {
+                    lstAirport.Add( drIata[ "IATA" ].ToString() );
+                }
+
+                if ( input.Length >= 3 ) {
+                    string sqlCity = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"CITY\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                    NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
+                    NpgsqlDataReader drCity = commandCity.ExecuteReader();
+                    while ( drCity.Read() ) {
+                        if ( !lstAirport.Contains( drCity[ "IATA" ].ToString() ) && lstAirport.Count < limit )
+                            lstAirport.Add( drCity[ "IATA" ].ToString() );
+                    }
+                }
+
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+            List<string[]> lstRes = new List<string[]>();
+            foreach ( string iata in lstAirport ) {
+                Airport airport = AirportData.Query( iata, locale );
+                if ( airport == null )
+                    continue;
+                lstRes.Add( new string[ 3 ] { airport.Iata, airport.City, airport.Country } );
+            }
+            string res = new JavaScriptSerializer().Serialize( lstRes );
+            return res;
+        }
     }
 
     public class AirportN {
@@ -285,7 +325,6 @@ namespace AST {
 
                 }
             } catch ( Exception e ) {
-                string sql1 = "";
             }
             finally {
                 conn.Close();
@@ -312,6 +351,46 @@ namespace AST {
             };
             string jsonStr = new JavaScriptSerializer().Serialize( json );
             return jsonStr;
+        }
+
+        public static string MatchAirport( string input, string locale ) {
+            int limit = 10;
+            NpgsqlConnection conn = null;
+            List<string> lstAirport = new List<string>();
+            try {
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
+                conn.Open();
+
+                string sqlIata = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""IATA"" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
+                NpgsqlDataReader drIata = commandIata.ExecuteReader();
+                while ( drIata.Read() ) {
+                    lstAirport.Add( drIata[ "CODE" ].ToString() );
+                }
+
+                if ( input.Length >= 3 ) {
+                    string sqlCity = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""CITY"" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                    NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
+                    NpgsqlDataReader drCity = commandCity.ExecuteReader();
+                    while ( drCity.Read() ) {
+                        if ( !lstAirport.Contains( drCity[ "CODE" ].ToString() ) && lstAirport.Count < limit )
+                            lstAirport.Add( drCity[ "CODE" ].ToString() );
+                    }
+                }
+
+            } catch ( NpgsqlException e ) {
+            } finally {
+                conn.Close();
+            }
+            List<string[]> lstRes = new List<string[]>();
+            foreach ( string iata in lstAirport ) {
+                AirportN airport = AirportDataN.Query( iata, locale );
+                if ( airport == null )
+                    continue;
+                lstRes.Add( new string[ 3 ] { airport.Code, airport.ServeCity[0], airport.Country } );
+            }
+            string res = new JavaScriptSerializer().Serialize( lstRes );
+            return res;
         }
     }
 }

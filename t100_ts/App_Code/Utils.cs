@@ -101,14 +101,8 @@ namespace AST {
         public static int CmpRankItem( KeyValuePair<string, int> a, KeyValuePair<string, int> b ) {
             return b.Value.CompareTo( a.Value );
         }
-
-
     }
-
-    public class Global {
-        public static string CURRENT_COUNTRY = "United States";
-        public static string DataDir = @"E:\a302\wwwroot\ServerData\";
-    }
+    
     public class Point {
         public double x;
         public double y;

@@ -71,6 +71,12 @@ namespace AST {
             }
             return "";
         }
+
+        public static ADataSourceMetaData GetDataSrc( string dataSrc ) {
+            if ( Register.ContainsKey( dataSrc ) )
+                return Register[ dataSrc ];
+            return null;
+        }
     }
 
     /// <summary>

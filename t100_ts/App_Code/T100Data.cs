@@ -53,47 +53,7 @@ namespace AST {
 
     }
 
-    public static class T100Data {
-
-        public static string MatchAirport( string input, string locale ) {
-            int limit = 10;
-            NpgsqlConnection conn = null;
-            List<string> lstAirport = new List<string>();
-            try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
-                conn.Open();
-
-                string sqlIata = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
-                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
-                NpgsqlDataReader drIata = commandIata.ExecuteReader();
-                while ( drIata.Read() ) {
-                    lstAirport.Add( drIata[ "IATA" ].ToString() );
-                }
-
-                if ( input.Length >= 3 ) {
-                    string sqlCity = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"CITY\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
-                    NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
-                    NpgsqlDataReader drCity = commandCity.ExecuteReader();
-                    while ( drCity.Read() ) {
-                        if ( !lstAirport.Contains( drCity[ "IATA" ].ToString() ) && lstAirport.Count < limit )
-                            lstAirport.Add( drCity[ "IATA" ].ToString() );
-                    }
-                }
-
-            } catch ( NpgsqlException e ) {
-            } finally {
-                conn.Close();
-            }
-            List<string[]> lstRes = new List<string[]>();
-            foreach ( string iata in lstAirport ) {
-                Airport airport = AirportData.Query( iata, locale );
-                if ( airport == null )
-                    continue;
-                lstRes.Add( new string[ 3 ] { airport.Iata, airport.City, airport.Country } );
-            }
-            string res = new JavaScriptSerializer().Serialize( lstRes );
-            return res;
-        }
+    public static class T100Data {      
 
 
         public static string QueryByRoute( string year, string origin, string dest, string locale ) {
@@ -151,7 +111,7 @@ namespace AST {
 
         public static string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             NpgsqlConnection conn = null;
-
+            string currentCountry = DataSourceRegister.GetDataSrc( "T100Data" ).Country;
             try {
                 string res = "";
                 conn = new NpgsqlConnection( ASTDatabase.connString );
@@ -170,9 +130,9 @@ namespace AST {
                 string fieldStr = String.Join( ",", fields );
                 string sqlFrom = " \"T100Summary\" , \"T100Airport\" AS \"AP1\", \"T100Airport\" AS \"AP2\" ";
                 if ( region == "US" ) {
-                    where += " AND ( \"AP1\".\"COUNTRY\" = \'" + Global.CURRENT_COUNTRY + "\'  AND \"AP2\".\"COUNTRY\" = \'" + Global.CURRENT_COUNTRY + "\' ) ";
+                    where += " AND ( \"AP1\".\"COUNTRY\" = \'" + currentCountry + "\'  AND \"AP2\".\"COUNTRY\" = \'" + currentCountry + "\' ) ";
                 } else if ( region == "Intl" ) {
-                    where += " AND ( \"AP1\".\"COUNTRY\" <> \'" + Global.CURRENT_COUNTRY + "\'  OR \"AP2\".\"COUNTRY\" <> \'" + Global.CURRENT_COUNTRY + "\' ) ";
+                    where += " AND ( \"AP1\".\"COUNTRY\" <> \'" + currentCountry + "\'  OR \"AP2\".\"COUNTRY\" <> \'" + currentCountry + "\' ) ";
                 }
                 where += "  AND \"AP1\".\"IATA\" = \"T100Summary\".\"ORIGIN\" AND \"AP2\".\"IATA\" = \"T100Summary\".\"DEST\" ";
                 string sql = "SELECT " + fieldStr + " FROM " + sqlFrom + " WHERE " + where + " ORDER BY " + Utils.DoubleQuoteStr( flowField ) + " DESC LIMIT " + limit.ToString();
@@ -247,7 +207,8 @@ namespace AST {
                     Airport airport2 = AirportData.Query( origin != "" ? origin : dest);
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
 
-                    if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY ) {
+                    if ( airport1.CountryEn != DataSourceRegister.GetDataSrc("T100Data").Country &&
+                        airport2.CountryEn != DataSourceRegister.GetDataSrc( "T100Data" ).Country ) {
                         destInfo.PartialData = true;
                         destInfo.DataSource = "T100FF";
                     } else {

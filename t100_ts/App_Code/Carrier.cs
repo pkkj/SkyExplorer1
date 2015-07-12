@@ -46,18 +46,6 @@ namespace AST {
             LoadCarrierData( "ZHCN" );
         }
 
-        static void LoadCarrierDataOld( string locale ) {
-            string[] lines = System.IO.File.ReadAllLines( Global.DataDir + "airlines-" + locale + ".txt" );
-            CarrierDict[ locale ] = new Dictionary<string, Carrier>();
-
-            foreach ( string line in lines ) {
-                string[] items;
-                items = line.Split( '\t' );
-                Carrier airline = new Carrier( items[ 0 ], items[ 1 ], items[ 2 ], items[ 3 ], items[ 4 ], items[ 6 ] );
-                CarrierDict[ locale ][ airline.Code ] = airline;
-            }
-        }
-
         /// <summary>
         /// Load the airport data from the database. Replace the old way which uses file as data storage.
         /// </summary>
@@ -113,23 +101,6 @@ namespace AST {
             AircraftDict = new Dictionary<string, Dictionary<string, Aircraft>>();
             LoadAircraftData( "ENUS" );
             LoadAircraftData( "ZHCN" );
-        }
-
-        static void LoadAircraftDataOld( string locale ) {
-            string[] lines = System.IO.File.ReadAllLines( Global.DataDir + "Aircraft-" + locale + ".txt" );
-            AircraftDict[ locale ] = new Dictionary<string, Aircraft>();
-            // Display the file contents by using a foreach loop.
-
-            foreach ( string line in lines ) {
-                string[] items;
-                items = line.Split( '\t' );
-                Aircraft aircraft = new Aircraft( items[ 0 ], items[ 2 ], items[ 3 ] );
-                if ( items[ 4 ] == items[ 0 ] && items[ 2 ] == "" )
-                    continue;
-
-                AircraftDict[ locale ][ aircraft.BtsCode ] = aircraft;
-
-            }
         }
 
         /// <summary>
