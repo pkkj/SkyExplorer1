@@ -28,8 +28,11 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        /*
+         * THis might be deprecated. It's not used any more. Maybe it's useful for testing
+         * */
         public string QueryAirportInfo( string airportCode, string codeType, string locale ) {
-            return AirportData.QueryAirportJson( airportCode, locale );
+            return AirportDataN.QueryAirportJson( airportCode, locale );
         }
 
         [WebMethod]

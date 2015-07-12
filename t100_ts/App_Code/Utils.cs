@@ -62,6 +62,7 @@ namespace AST {
 
     public static class ASTDatabase {
         public static string connString = ConfigurationManager.ConnectionStrings[ "connstr" ].ConnectionString;
+        public static string connStr2 = ConfigurationManager.ConnectionStrings[ "connstr2" ].ConnectionString;
 
         public static string MakeWhere( string year, string airline, string origin, string dest ) {
             string where = "";
