@@ -50,6 +50,13 @@ namespace AST {
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirportYearAvailabilityN( string airportCode, string dataSrc, string locale ) {
+            string res = AirportAvailabilityActorN.QueryAirportYearAvailability( airportCode, dataSrc, locale );
+            return res;
+        }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string T100QueryByRoute( string year, string origin, string dest, string locale ) {
             return T100Data.QueryByRoute( year, origin, dest, locale );
         }
@@ -124,11 +131,20 @@ namespace AST {
         }
 
 
+
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
         public string QueryAirportAvailableDataSource( string airportCode, string locale ) {
             return AirportAvailabilityActor.QueryAirportAvailableDataSource( airportCode, locale );
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirportAvailableDataSourceN( string airportCode, string locale ) {
+            return AirportAvailabilityActorN.QueryAirportAvailableDataSource( airportCode, locale );
+        }
+
+
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
