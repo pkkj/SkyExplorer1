@@ -181,10 +181,11 @@
 
         
         public routeStatistic = "路线统计";
-        
 
-        public constructPlaceName(country: string, city: string): string {
-            return country + "，" + city;
+        public constructPlaceName(country: string, subdiv: string, city: string): string {
+            if (subdiv == "*" || subdiv == "")
+                return country + "，" + city;
+            return country + ", " + subdiv + ", " + city;
         }
         public constructDestNum(num: number): string {
             return "目的地 （总数目: " + num.toString() + "）";

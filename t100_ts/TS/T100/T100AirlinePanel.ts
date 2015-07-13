@@ -221,14 +221,14 @@
             var divB = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemB" });
 
             var fromLabel = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemBInner" });
-            var fromCity = Localization.strings.constructPlaceName(route.originCountry, route.originCity);
+            var fromCity = Localization.strings.constructPlaceName(route.originCountry, "", route.originCity);
             fromLabel.appendChild(AST.Utils.createElement("div", { "text": Localization.strings._airlineViewRouteTableFrom, "width": "40px", "float": "left" }));
             fromLabel.appendChild(AST.Utils.createElement("div", { "text": fromCity, "float": "left" }));
             fromLabel.appendChild(AST.Utils.createElement("div", { "class": "clear" }));
             divB.appendChild(fromLabel);
 
             var toLabel = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemBInner" });
-            var toCity = Localization.strings.constructPlaceName(route.destCountry, route.destCity);
+            var toCity = Localization.strings.constructPlaceName(route.destCountry, "",route.destCity);
             toLabel.appendChild(AST.Utils.createElement("div", { "text": Localization.strings._airlineViewRouteTableTo, "width": "40px", "float": "left" }));
             toLabel.appendChild(AST.Utils.createElement("div", { "text": toCity, "float": "left" }));
             toLabel.appendChild(AST.Utils.createElement("div", { "class": "clear" }));

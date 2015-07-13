@@ -40,7 +40,9 @@
     export class GlobalMetaData {
         static airlineInfo: Array<Airline> = null;
         static airlineDict: { [code: string]: Airline; };
-        static prepareAirlineData(callback: () => any) {
+        static countryDict: { [code: string]: string };
+
+        static prepareAirlineData(callback) {
             DataQuery.queryAvailableAirlineByDataSrc("", function (data: Array<Airline>) {
                 GlobalMetaData.airlineInfo = data;
                 GlobalMetaData.airlineDict = {};
@@ -54,9 +56,20 @@
             });
         }
 
+        static prepareCountryData(callback) {
+            DataQuery.queryAllCountry(function (data) {
+                GlobalMetaData.countryDict = {};
+                for (var key in data) {
+                    GlobalMetaData.countryDict[key] = data[key]["Name"];
+                }                
+                callback();
+            });
+        }
+
         static dataFrom = new YearMonth(1990, 1);
         static dataTo = new YearMonth(2014, 4);
         static availablity: string[] = ["2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
             "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];
     }
+
 }

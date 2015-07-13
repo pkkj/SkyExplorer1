@@ -138,15 +138,13 @@ namespace AST {
                     }
 
                 }
-            } catch ( Exception e ) {
-            }
-            finally {
+            } finally {
                 conn.Close();
             }
         }
 
         static AirportData() {
-            LoadAirportData();            
+            LoadAirportData();
         }
 
         static public string QueryAirportJson( string code, string locale ) {
@@ -192,7 +190,7 @@ namespace AST {
                     }
                 }
 
-            }  finally {
+            } finally {
                 conn.Close();
             }
             List<string[]> lstRes = new List<string[]>();
@@ -200,7 +198,7 @@ namespace AST {
                 Airport airport = AirportData.Query( iata, locale );
                 if ( airport == null )
                     continue;
-                lstRes.Add( new string[ 3 ] { airport.Code, airport.ServeCity[0], airport.Country } );
+                lstRes.Add( new string[ 3 ] { airport.Code, airport.ServeCity[ 0 ], airport.Country } );
             }
             string res = new JavaScriptSerializer().Serialize( lstRes );
             return res;

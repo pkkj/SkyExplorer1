@@ -56,7 +56,7 @@
             httpRequest.send(requestData);
             return httpRequest;
         }
-        
+
         static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
@@ -67,8 +67,10 @@
                     return;
                 }
                 jsonMsg = $.parseJSON(jsonMsg);
-                var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
-                    jsonMsg["fromAirport"]["Country"], jsonMsg["fromAirport"]["City"], jsonMsg["fromAirport"]["FullName"],
+                var country = jsonMsg["fromAirport"]["City"].split(";")[0];
+                var city = jsonMsg["fromAirport"]["City"].split(";")[1] + ";" + jsonMsg["fromAirport"]["City"].split(";")[2];
+                var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["icao"], jsonMsg["fromAirport"]["Iata"],
+                    country, city, jsonMsg["fromAirport"]["FullName"],
                     jsonMsg["fromAirport"]["Geometry"]);
                 fromAirport.countryEn = jsonMsg["fromAirport"]["CountryEn"];
                 fromAirport.cityEn = jsonMsg["fromAirport"]["CityEn"];
@@ -137,7 +139,7 @@
                 if (callback != null)
                     callback(data);
             };
-            var params = { "dataSrc" : dataSrc, year: "", "locale": Localization.locale };
+            var params = { "dataSrc": dataSrc, year: "", "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryAvailableAirlineByDataSource", onSuccessCallback);
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
@@ -168,7 +170,7 @@
 
         static QueryAirlineYearAvailability(dataSrc: string, airline: string, callback: (jsonMsg: any) => any) {
             var onSuccessCallback = function (jsonMsg) {
-                if (jsonMsg == "") 
+                if (jsonMsg == "")
                     callback(null);
                 else
                     callback(jsonMsg);
@@ -213,7 +215,7 @@
                 if (jsonMsg == "") {
                     return;
                 }
-                jsonMsg = $.parseJSON(jsonMsg);                
+                jsonMsg = $.parseJSON(jsonMsg);
                 if (callback != null)
                     callback(Airport.createFromJson(jsonMsg["origin"]), Airport.createFromJson(jsonMsg["dest"]), jsonMsg["dataSrc"]);
             };
@@ -235,5 +237,18 @@
             var params = { "dataSrc": dataSrc, "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryRouteTimeSeries", onSuccessCallback);
         }
+
+        static queryAllCountry(callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+            };
+            DataQuery.ajaxQuery({ "locale": Localization.locale }, "QueryAllCountry", onSuccessCallback);
+        }
+
     }
 }

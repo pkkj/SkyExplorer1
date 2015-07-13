@@ -105,7 +105,7 @@ namespace AST {
 
             Dictionary<string, Object> resDict = new Dictionary<string, object>();
             resDict[ "routes" ] = destDict.Values.ToList();
-            resDict[ "fromAirport" ] = AirportData.Query( keyword, locale );
+            resDict[ "fromAirport" ] = AirportData.Query( keyword, locale ).CastToDict();
 
             return new JavaScriptSerializer().Serialize( resDict );
         }

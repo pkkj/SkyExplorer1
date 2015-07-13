@@ -237,5 +237,8 @@
   <ItemGroup>
     <Content Include="App_Code\AirlineAvailabilityActor.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Country.cs" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

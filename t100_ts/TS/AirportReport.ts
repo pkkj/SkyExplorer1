@@ -125,7 +125,7 @@
                 }
                 document.getElementById("airportNote").innerHTML = airport.note;
                 document.getElementById("aiportName").innerHTML = airport.name;
-                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
+                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(airport.country, "",  airport.city);
                 document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
                 this.initUi();
             };
@@ -240,7 +240,7 @@
                     var ratio = fFlow / biggestFlow;
                     var flow = Localization.strings.formatBigNumber(rank[i].flow);
                     var textA: string = rank[i] == null ? "" : rank[i].iata + " / " + rank[i].icao;
-                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(rank[i].country, rank[i].city);
+                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(rank[i].country, "", rank[i].city);
                     table.addItem(textA, textB, flow, ratio);
                 }
                 else {

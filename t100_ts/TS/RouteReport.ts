@@ -365,7 +365,7 @@
             document.getElementById("fromAirportCity").innerHTML = this.originAirport.city + ", " + this.originAirport.country;
             document.getElementById("fromAirportName").innerHTML = this.originAirport.name;
             document.getElementById("toAirportCode").innerHTML = this.destAirport.iata + "/" + this.destAirport.icao;
-            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.country, this.destAirport.city);
+            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.country, "", this.destAirport.city);
             document.getElementById("toAirportName").innerHTML = this.destAirport.name;
         }
 

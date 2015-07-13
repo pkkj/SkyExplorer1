@@ -150,5 +150,11 @@ namespace AST {
         public string QueryAirlineYearAvailability( string airline, string dataSrc ) {
             return AirlineAvailabilityActor.QueryAirlineYearAvailability( airline, dataSrc );
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAllCountry( string locale ) {
+            return CountryData.QueryAllCountry( locale );
+        }
     }
 }
