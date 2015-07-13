@@ -12,16 +12,14 @@ namespace AST {
     public class WikiData {
         public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
             List<DestInfo> res = new List<DestInfo>();
-            QueryDestByOriginInternal( year, origin, dest, airline, locale, "WikiConnection", res );
-            QueryDestByOriginInternal( year, origin, dest, airline, locale, "AustraliaConnection", res );
-            QueryDestByOriginInternal( year, origin, dest, airline, locale, "NWikiConnection", res );
+            QueryDestByOriginInternal( year, origin, dest, airline, locale, "ConnectionData", res );
             return res;
         }
 
         private static void QueryDestByOriginInternal( string year, string origin, string dest, string airline, string locale, string tableName, List<DestInfo> destList ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
@@ -41,7 +39,7 @@ namespace AST {
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
                     destInfo.PartialData = false;
                     destInfo.NoData = true;
-                    destInfo.DataSource = "WikiData";
+                    destInfo.DataSource = "ConnectionData";
                     destList.Add( destInfo );
                 }
             } catch ( NpgsqlException e ) {
@@ -54,7 +52,7 @@ namespace AST {
             NpgsqlConnection conn = null;
 
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
@@ -94,9 +92,7 @@ namespace AST {
             Utils.GetDistanceByUnits( originAirport, destAirport, out distKm, out distMile, out distNm );
 
             string res = "";
-            QueryByRouteInternal( "AustraliaConnection", year, origin, dest, ref res );
-            QueryByRouteInternal( "WikiConnection", year, origin, dest, ref res );
-            QueryByRouteInternal( "NWikiConnection", year, origin, dest, ref res );
+            QueryByRouteInternal( "ConnectionData", year, origin, dest, ref res );
 
             res = "\"routes\":[" + res + "],";
             res += "\"distKm\":" + distKm.ToString() + ",";

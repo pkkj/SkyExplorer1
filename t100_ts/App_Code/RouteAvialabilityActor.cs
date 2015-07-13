@@ -39,7 +39,7 @@ namespace AST {
         static private bool QueryRouteAvailableInTable( string origin, string dest, string tableName ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 string sql = string.Format( @"SELECT ""YEAR"" FROM ""{0}"" WHERE ""ROUTE"" = '{1},{2}'", tableName, origin, dest ); // Only support IATA code
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );

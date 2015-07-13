@@ -29,7 +29,7 @@ namespace AST {
             NpgsqlConnection conn = null;
             string res = "";
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "DEST" ), Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "FREIGHT" ) };
@@ -56,9 +56,7 @@ namespace AST {
                     res += Utils.DoubleQuoteStr( region ) + ":" + CreateRankByRegion( routes, region, metaData, locale );
                 }
                 return "{" + res + "}";
-            } catch ( NpgsqlException e ) {
-
-            } finally {
+            }  finally {
                 conn.Close();
             }
             return "";
@@ -90,8 +88,8 @@ namespace AST {
 
             foreach ( RouteStat route in routes ) {
                 Airport airport = AirportData.Query( route.Dest, locale );
-                if ( region == "International" && airport.CountryEn != meteData.Country ||
-                    region == "Domestic" && airport.CountryEn == meteData.Country ||
+                if ( region == "International" && airport.Country != meteData.Country ||
+                    region == "Domestic" && airport.Country == meteData.Country ||
                     region == "All" ) {
                     AddFlowToDict( dictPaxDest, dictPaxAirline, route, item => item.Pax );
                     AddFlowToDict( dictFreightDest, dictFreightAirline, route, item => item.Freight );
@@ -134,7 +132,7 @@ namespace AST {
                 item[ "iata" ] = rank[ i ].Key;
                 item[ "flow" ] = rank[ i ].Value.ToString();
                 item[ "icao" ] = airport.Icao;
-                item[ "city" ] = airport.City;
+                item[ "city" ] = airport.ServeCity[0];
                 item[ "country" ] = airport.Country;
                 if ( i != 0 )
                     res += ", ";
@@ -153,7 +151,7 @@ namespace AST {
             for ( int i = 0; i < rank.Count; i++ ) {
                 if ( i < MaxAirlineNumberInRank ) {
                     Dictionary<string, string> item = new Dictionary<string, string>();
-                    Carrier airline = CarrierData.Query( rank[ i ].Key, locale );
+                    Airline airline = AirlineData.Query( rank[ i ].Key, locale );
                     item[ "airline" ] = airline.FullName + " (" + airline.Iata + ")";
                     item[ "flow" ] = rank[ i ].Value.ToString();
                     item[ "per" ] = ( ( double ) rank[ i ].Value * 100.0 / totalFlow ).ToString( "N1" ) + "%";

@@ -20,7 +20,7 @@
             constructor() {
                 super();
 
-                this.name = "WikiData";
+                this.name = "ConnectionData";
                 this.shortInfo = "Wikipedia Data";
                 this.fullInfo = "Wikipedia Airport Info";
                 this.aboutSrcPageUrl = "DataSourceInfo/WikiData.html";

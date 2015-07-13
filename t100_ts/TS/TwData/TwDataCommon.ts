@@ -4,7 +4,7 @@
             constructor() {
                 super();
 
-                this.name = "TwData";
+                this.name = "TaiwanData";
                 this.shortInfo = "Taiwan CAA";
                 this.fullInfo = "Taiwan CAA Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/TwData.html";

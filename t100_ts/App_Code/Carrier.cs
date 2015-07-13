@@ -5,16 +5,16 @@ using System.Web;
 using Npgsql;
 
 namespace AST {
-    public class Carrier {
+    public class Airline {
         public string Code;
         public string Iata;
         public string FullName;
         public string Country;
         public string Type;
         public string Note;
-        public Carrier() {
+        public Airline() {
         }
-        public Carrier( string code, string iata, string fullName, string country, string type, string note ) {
+        public Airline( string code, string iata, string fullName, string country, string type, string note ) {
             this.Code = code;
             this.Iata = iata;
             this.FullName = fullName;
@@ -22,17 +22,18 @@ namespace AST {
             this.Type = type;
             this.Note = note;
         }
+        public static string All_AIRLINE = "ALL";
     }
 
-    public partial class CarrierData {
-        static public Dictionary<string, Dictionary<string, Carrier>> CarrierDict;
+    public partial class AirlineData {
+        static public Dictionary<string, Dictionary<string, Airline>> AirlineDict;
 
-        static public Carrier Query( string code, string locale = "ZHCN" ) {
-            Carrier ret = null;
-            if ( CarrierDict.ContainsKey( locale ) && CarrierDict[ locale ].ContainsKey( code ) )
-                ret = CarrierDict[ locale ][ code ];
-            else if ( CarrierDict[ "ENUS" ].ContainsKey( code ) ) {
-                ret = CarrierDict[ "ENUS" ][ code ];
+        static public Airline Query( string code, string locale = "ZHCN" ) {
+            Airline ret = null;
+            if ( AirlineDict.ContainsKey( locale ) && AirlineDict[ locale ].ContainsKey( code ) )
+                ret = AirlineDict[ locale ][ code ];
+            else if ( AirlineDict[ "ENUS" ].ContainsKey( code ) ) {
+                ret = AirlineDict[ "ENUS" ][ code ];
             }
             //if ( ret != null ) {
             //    ret.CountryEn = CarrierDict[ "ENUS" ][ code ].Country;
@@ -40,33 +41,39 @@ namespace AST {
             return ret;
         }
 
-        static CarrierData() {
-            CarrierDict = new Dictionary<string, Dictionary<string, Carrier>>();
-            LoadCarrierData( "ENUS" );
-            LoadCarrierData( "ZHCN" );
+        static AirlineData() {
+            LoadAirlineData();
         }
 
         /// <summary>
         /// Load the airport data from the database. Replace the old way which uses file as data storage.
         /// </summary>
-        static void LoadCarrierData( string locale ) {
+        static void LoadAirlineData() {
+
+            AirlineDict = new Dictionary<string, Dictionary<string, Airline>>();
+            foreach ( string locale in Localization.UiLocale.Keys ) {
+                AirlineDict[ locale ] = new Dictionary<string, Airline>();
+            }
+
+
             NpgsqlConnection conn = null;
-            CarrierDict[ locale ] = new Dictionary<string, Carrier>();
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
-                string sql = string.Format( @"SELECT * FROM ""AirlineInfo_{0}"" ", locale );
+                string sql = string.Format( @"SELECT * FROM ""CommonData_Airline"" " );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
-                    CarrierDict[ locale ][ dr[ "CODE" ].ToString() ] = new Carrier(
+                    foreach ( string locale in Localization.UiLocale.Keys ) {
+                        AirlineDict[ locale ][ dr[ "CODE" ].ToString() ] = new Airline(
                         dr[ "CODE" ].ToString(),
                         dr[ "IATA" ].ToString(),
-                        dr[ "NAME" ].ToString(),
+                        dr[ "NAME_" + locale ].ToString(),
                         dr[ "COUNTRY" ].ToString(),
                         dr[ "TYPE" ].ToString(),
-                        dr[ "NOTE" ].ToString()
-                    );
+                        dr[ "NOTE_" + locale ].ToString() );
+                    }
+
                 }
             } finally {
                 conn.Close();
@@ -98,32 +105,33 @@ namespace AST {
             return ret;
         }
         static AircraftData() {
-            AircraftDict = new Dictionary<string, Dictionary<string, Aircraft>>();
-            LoadAircraftData( "ENUS" );
-            LoadAircraftData( "ZHCN" );
+            LoadAircraftData();
         }
 
         /// <summary>
         /// Load the airport data from the database. Replace the old way which uses file as data storage.
         /// </summary>
-        static void LoadAircraftData( string locale ) {
+        static void LoadAircraftData() {
+
+            AircraftDict = new Dictionary<string, Dictionary<string, Aircraft>>();
+            foreach ( string locale in Localization.UiLocale.Keys ) {
+                AircraftDict[ locale ] = new Dictionary<string, Aircraft>();
+            }
+
             NpgsqlConnection conn = null;
-            AircraftDict[ locale ] = new Dictionary<string, Aircraft>();
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
-                string sql = string.Format( @"SELECT * FROM ""AircraftInfo_{0}"" ", locale );
+                string sql = string.Format( @"SELECT * FROM ""CommonData_Aircraft"" " );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
-                    string code = dr[ "BTSCODE" ].ToString();
-                    string shortName = dr[ "SHORT_NAME" ].ToString();
-                    string fullName = dr[ "FULL_NAME" ].ToString();
-                    string redirect = dr[ "REDIRECT" ].ToString();
-
-                    if ( code == redirect && fullName == "" ) continue;
-
-                    AircraftDict[ locale ][ code ] = new Aircraft( code, fullName, shortName );
+                    foreach ( string locale in Localization.UiLocale.Keys ) {
+                        string code = dr[ "BTS_CODE" ].ToString();
+                        string fullName = dr[ "FULLNAME_" + locale ].ToString();
+                        string shortName = dr[ "SHORTNAME_" + locale ].ToString();
+                        AircraftDict[ locale ][ code ] = new Aircraft( code, fullName, shortName );
+                    }
                 }
             } finally {
                 conn.Close();

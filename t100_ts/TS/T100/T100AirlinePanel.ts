@@ -524,7 +524,7 @@
             legendDiv.appendChild(divTitle);
             legendDiv.appendChild(canvas);
             canvas = <HTMLCanvasElement> document.getElementById("contentLegendCanvas");
-            var ctx = canvas.getContext('2d');
+            var ctx = <any>canvas.getContext('2d'); // TODO: remove any
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, 280, 60);
 

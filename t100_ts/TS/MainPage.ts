@@ -44,10 +44,10 @@ module AST {
             DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
-            DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
-            DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
-            DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
-            DataSourceRegister.registerDataSource("WikiData", WikiData.WikiMetaData.instance());
+            DataSourceRegister.registerDataSource("TaiwanData", TwData.TwMetaData.instance());
+            DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
+            DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());
+            DataSourceRegister.registerDataSource("ConnectionData", WikiData.WikiMetaData.instance());
 
             WikiData.WikiDataHTMLPageData.loadHTMLData().done(() => {
                 KrData.KrDataHTMLPageData.loadHTMLData().done(() => {

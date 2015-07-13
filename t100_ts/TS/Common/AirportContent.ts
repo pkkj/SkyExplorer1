@@ -42,11 +42,11 @@ module AST {
                 year = parseInt(year);
                 if (year >= dataFrom.year && year <= dataTo.year) {
                     this.dataSrcCheckBoxRegister[src].disabled = false;
-                    this.dataSrcAnchorRegister[src].disabled = false;
+                    (<any>this.dataSrcAnchorRegister[src]).disabled = false; // TODO: remove any
                 }
                 else {
                     this.dataSrcCheckBoxRegister[src].disabled = true;
-                    this.dataSrcAnchorRegister[src].disabled = true;
+                    (<any>this.dataSrcAnchorRegister[src]).disabled = true; // TODO: remove any
                 }
             }
         }
@@ -77,10 +77,10 @@ module AST {
             this.originPanel.registerDestBar("T100Data", this.t100DestPanel);
             this.originPanel.registerDestBar("T100FF", this.t100FFDestPanel);
             this.originPanel.registerDestBar("UkData", this.ukDestPanel);
-            this.originPanel.registerDestBar("TwData", this.twDestPanel);
-            this.originPanel.registerDestBar("JpData", this.jpDestPanel);
-            this.originPanel.registerDestBar("KrData", this.krDestPanel);
-            this.originPanel.registerDestBar("WikiData", this.wikiDestPanel);
+            this.originPanel.registerDestBar("TaiwanData", this.twDestPanel);
+            this.originPanel.registerDestBar("JapanData", this.jpDestPanel);
+            this.originPanel.registerDestBar("KoreaData", this.krDestPanel);
+            this.originPanel.registerDestBar("ConnectionData", this.wikiDestPanel);
 
             this.originPanel.originDialogBuddy = dialogT100Origin;
             this.originPanel.destDialogBuddy = dialogT100DestBar;
@@ -187,7 +187,7 @@ module AST {
             this.legendDiv.appendChild(divTitle);
             this.legendDiv.appendChild(canvas);
             canvas = <HTMLCanvasElement> document.getElementById("contentLegendCanvas");
-            var ctx = canvas.getContext('2d');
+            var ctx = <any>canvas.getContext('2d'); // TODO: Remove any
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, 280, 60);
 

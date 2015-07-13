@@ -12,19 +12,10 @@ namespace AST {
 
     public class KrDataMetaData : ADataSourceMetaData {
         public override string Name {
-            get { return "KrData"; }
-        }
-        public override string SummaryTableName {
-            get { return "KrDataSummary"; }
-        }
-        public override string AirportTimeSeriesTableName {
-            get { return "KrDataAirportTimeSeries"; }
-        }
-        public override string RouteTimeSeriesTableName {
-            get { return "KrDataRouteTimeSeries"; }
+            get { return "KoreaData"; }
         }
         public override string Country {
-            get { return "South Korea"; }
+            get { return "KR"; }
         }
         public override bool HasDomesticData {
             get { return true; }
@@ -54,20 +45,22 @@ namespace AST {
     }
 
     public class KrData {
+        public static ADataSourceMetaData MetaData = new KrDataMetaData();
+
         public static List<DestInfo> QueryDestByOrigin( string year, string origin, string dest, string airline, string locale ) {
             List<DestInfo> res = new List<DestInfo>();
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 // Query T100 Data
-                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
-                string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
+                string where = ASTDatabase.MakeWhere( year, airline, origin, dest );
+                string groupby = " \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\"   ";
-                string sql = "SELECT " + fields + " FROM \"KrDataSummary\"" + where + groupby;
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE {2} GROUP BY {3}", fields, MetaData.SummaryTableName, where, groupby );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -79,10 +72,9 @@ namespace AST {
 
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
                     destInfo.PartialData = false;
-                    destInfo.DataSource = "KrData";
+                    destInfo.DataSource = "KoreaData";
                     res.Add( destInfo );
                 }
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
@@ -102,16 +94,16 @@ namespace AST {
             double distNm = Math.Round( distKm * 0.539957, 0 );
             distKm = Math.Round( distKm, 0 );
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
+                string where = ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
                 Utils.DoubleQuoteStr("PAX"), 
                 Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX")};
 
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"KrDataSummary\"" + where;
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE {2}", fieldStr, MetaData.SummaryTableName, where );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -123,13 +115,12 @@ namespace AST {
                     for ( int i = 0; i < record.FieldCount; i++ ) {
                         item.Add( record.GetName( i ), record[ i ].ToString() );
                     }
-                    Carrier carrier = CarrierData.Query( item[ "AIRLINE" ], locale );
+                    Airline carrier = AirlineData.Query( item[ "AIRLINE" ], locale );
                     item.Add( "AIRLINE_NAME", carrier.FullName );
                     string json = new JavaScriptSerializer().Serialize( item );
                     res += json;
                 }
 
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }

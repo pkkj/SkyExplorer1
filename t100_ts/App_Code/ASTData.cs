@@ -26,11 +26,6 @@ namespace AST {
             return AirportData.MatchAirport( input, locale );
         }
 
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string MatchAirportN( string input, string locale ) {
-            return AirportDataN.MatchAirport( input, locale );
-        }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
@@ -38,7 +33,7 @@ namespace AST {
          * THis might be deprecated. It's not used any more. Maybe it's useful for testing
          * */
         public string QueryAirportInfo( string airportCode, string codeType, string locale ) {
-            return AirportDataN.QueryAirportJson( airportCode, locale );
+            return AirportData.QueryAirportJson( airportCode, locale );
         }
 
         [WebMethod]
@@ -48,12 +43,6 @@ namespace AST {
             return res;
         }
 
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAirportYearAvailabilityN( string airportCode, string dataSrc, string locale ) {
-            string res = AirportAvailabilityActorN.QueryAirportYearAvailability( airportCode, dataSrc, locale );
-            return res;
-        }
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
@@ -137,14 +126,6 @@ namespace AST {
         public string QueryAirportAvailableDataSource( string airportCode, string locale ) {
             return AirportAvailabilityActor.QueryAirportAvailableDataSource( airportCode, locale );
         }
-
-        [WebMethod]
-        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
-        public string QueryAirportAvailableDataSourceN( string airportCode, string locale ) {
-            return AirportAvailabilityActorN.QueryAirportAvailableDataSource( airportCode, locale );
-        }
-
-
 
         [WebMethod]
         [ScriptMethod( ResponseFormat = ResponseFormat.Json )]

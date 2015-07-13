@@ -220,7 +220,7 @@
         static createT100AirportLegend() {
             document.getElementById("legendTitleAirportText").innerHTML = Localization.strings.airport;
             var canvas = <HTMLCanvasElement>document.getElementById('baseMapLegendCanvas');
-            var ctx = canvas.getContext('2d');
+            var ctx = <any>canvas.getContext('2d'); // TODO: remove ANY
             var gap = 23;
             var base = 28;
             ctx.fillStyle = '#FFFFFF';

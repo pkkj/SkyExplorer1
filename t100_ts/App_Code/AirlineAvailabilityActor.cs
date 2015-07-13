@@ -17,13 +17,13 @@ namespace AST {
             NpgsqlConnection conn = null;
             List<string> years = new List<string>();
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 string sql = string.Format( @"SELECT ""YEAR"" FROM ""AirlineAvailability"" WHERE ""CODE""='{0}' AND ""DATA_SOURCE""='{1}'", airline, dataSrc );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
-                    years.Add( dr[ "YEAR" ].ToString());
+                    years.Add( dr[ "YEAR" ].ToString() );
                 }
             } finally {
                 conn.Close();
@@ -32,7 +32,7 @@ namespace AST {
             for ( int i = 0; i < years.Count; i++ ) {
                 years[ i ] = years[ i ].Substring( 2 );
             }
-            return string.Join(",", years.ToArray());
+            return string.Join( ",", years.ToArray() );
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AST {
             NpgsqlConnection conn = null;
             string res = "";
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 string where = "";
                 if ( strListDataSrc != "" ) {
@@ -53,27 +53,27 @@ namespace AST {
                     foreach ( string dataSrc in lstDataSrc ) {
                         if ( where != "" )
                             where += " OR ";
-                        where += string.Format( @" ""DATA_SOURCE""= {0}", Utils.SingleQuoteStr( dataSrc ) );
+                        where += string.Format( @" ""DATA_SOURCE""= '{0}'", dataSrc );
                     }
                     where = " ( " + where + " ) ";
                 }
                 if ( year != "" ) {
                     if ( where != "" )
                         where += " AND ";
-                    where = string.Format( @" ""YEAR"" = {0} ", Utils.SingleQuoteStr( year ) );
+                    where = string.Format( @" ""YEAR"" = '{0}' ", year );
                 }
                 if ( where != "" )
                     where = " WHERE " + where;
-                string sql = string.Format( @"SELECT DISTINCT ""CODE"" FROM ""AirlineAvailability"" {0} ", where ); 
+                string sql = string.Format( @"SELECT DISTINCT ""CODE"" FROM ""AirlineAvailability"" {0} ", where );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
-                Dictionary<string, Carrier> airlines = new Dictionary<string, Carrier>();
-                
+                Dictionary<string, Airline> airlines = new Dictionary<string, Airline>();
+
                 while ( dr.Read() ) {
                     string airline = dr[ "CODE" ].ToString();
-                    if ( airline == "ANY" )
+                    if ( airline == Airline.All_AIRLINE )
                         continue;
-                    Carrier item = CarrierData.Query( airline, locale );
+                    Airline item = AirlineData.Query( airline, locale );
                     if ( res != "" )
                         res += ",";
                     res += string.Format( "[{0}, {1}, {2}, {3}, {4}, {5}]",
@@ -85,7 +85,6 @@ namespace AST {
                         Utils.DoubleQuoteStr( item.Note ) );
                 }
 
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }

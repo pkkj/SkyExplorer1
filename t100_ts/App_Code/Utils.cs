@@ -68,13 +68,13 @@ namespace AST {
             string where = "";
             if ( year != "" && airline != "" && origin != "" && dest != "" ) {
                 where = "\"ITEMKEY\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { year, airline, origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { year, airline, origin, dest } ) );
             } else if ( year != "" && origin != "" && dest != "" ) {
                 where = "\"YEAR_ROUTE\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { year, origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { year, origin, dest } ) );
             } else if ( origin != "" && dest != "" ) {
                 where = "\"ROUTE\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { origin, dest } ) );
             } else {
                 if ( year != "" ) {
                     where += " \"YEAR\"  = " + Utils.SingleQuoteStr( year );

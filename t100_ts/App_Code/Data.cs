@@ -12,9 +12,15 @@ namespace AST {
     /// </summary>
     public abstract class ADataSourceMetaData {
         public abstract string Name { get; }
-        public abstract string SummaryTableName { get; }
-        public abstract string AirportTimeSeriesTableName { get; }
-        public abstract string RouteTimeSeriesTableName { get; }
+        public string SummaryTableName {
+            get { return Name + "Summary"; }
+        }
+        public string AirportTimeSeriesTableName {
+            get { return Name + "AirportTimeSeries"; }
+        }
+        public string RouteTimeSeriesTableName {
+            get { return Name + "RouteTimeSeries"; }
+        }
         public abstract string Country { get; }
         public virtual bool HasDomesticData {
             get { return false; }
@@ -53,10 +59,10 @@ namespace AST {
             Register = new Dictionary<string, ADataSourceMetaData>();
             CountryToDataSrc = new Dictionary<string, string>();
             RegisterDataSource( "T100Data", new T100MetaData() );
-            RegisterDataSource( "KrData", new KrDataMetaData() );
-            RegisterDataSource( "JpData", new JpDataMetaData() );
+            RegisterDataSource( "KoreaData", new KrDataMetaData() );
+            RegisterDataSource( "JapanData", new JpDataMetaData() );
             RegisterDataSource( "UkData", new UkDataMetaData() );
-            RegisterDataSource( "TwData", new TwDataMetaData() );
+            RegisterDataSource( "TaiwanData", new TwDataMetaData() );
         }
 
         private static void RegisterDataSource( string name, ADataSourceMetaData dataSrc ) {

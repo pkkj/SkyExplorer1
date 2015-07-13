@@ -4,7 +4,7 @@
             constructor() {
                 super();
 
-                this.name = "JpData";
+                this.name = "JapanData";
                 this.shortInfo = "Japan MLIT";
                 this.fullInfo = "Japan MLIT Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/JpData.html";

@@ -173,16 +173,16 @@
                 this.switchDestBar("T100Data");
             } else if (availableData["T100FF"]) {
                 this.switchDestBar("T100FF");
-            } else if (availableData["TwData"]) {
-                this.switchDestBar("TwData");
+            } else if (availableData["TaiwanData"]) {
+                this.switchDestBar("TaiwanData");
             } else if (availableData["UkData"]) {
                 this.switchDestBar("UkData");
-            } else if (availableData["JpData"]) {
-                this.switchDestBar("JpData");
-            } else if (availableData["KrData"]) {
-                this.switchDestBar("KrData");
-            } else if (availableData["WikiData"]) {
-                this.switchDestBar("WikiData");
+            } else if (availableData["JapanData"]) {
+                this.switchDestBar("JapanData");
+            } else if (availableData["KoreaData"]) {
+                this.switchDestBar("KoreaData");
+            } else if (availableData["ConnectionData"]) {
+                this.switchDestBar("ConnectionData");
             }
         }
 

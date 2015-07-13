@@ -4,7 +4,7 @@
             constructor() {
                 super();
 
-                this.name = "KrData";
+                this.name = "KoreaData";
                 this.shortInfo = "Korea KAC";
                 this.fullInfo = "Korea Airport Corporation Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
