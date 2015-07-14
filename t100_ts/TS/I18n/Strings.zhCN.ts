@@ -63,7 +63,7 @@
         public totalPax = "总旅客人次: ";
         public totalPassenger = "总旅客人次: ";
         public totalFreight = "总货运运量: ";
- 
+
         public showInfoFor = "选择要显示的信息";
         public passenger = "客运";
         public freight = "货运";
@@ -119,7 +119,7 @@
         public regionAll = "全部目的地";
         public regionDomestic = "国内目的地";
         public regionInternational = "国际目的地";
-        
+
         public inXxxxYear = "在";
         public percentage = "百分比";
         public top10PassengerDestinations = "最繁忙航班目的地前10名（客运）";
@@ -179,7 +179,7 @@
             return airline + "汇总： ";
         }
 
-        
+
         public routeStatistic = "路线统计";
 
         public constructPlaceName(country: string, subdiv: string, city: string): string {
@@ -187,6 +187,7 @@
                 return country + "，" + city;
             return country + ", " + subdiv + ", " + city;
         }
+
         public constructDestNum(num: number): string {
             return "目的地 （总数目: " + num.toString() + "）";
         }

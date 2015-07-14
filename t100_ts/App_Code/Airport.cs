@@ -59,7 +59,8 @@ namespace AST {
             dict[ "FullNameEn" ] = this.FullName;  // TODO 
             dict[ "CityEn" ] = this.ServeCity[ 0 ];  // TODO 
             dict[ "Geometry" ] = this.Geometry.x.ToString() + ", " + this.Geometry.y.ToString();
-
+            dict[ "X" ] = this.Geometry.x;
+            dict[ "Y" ] = this.Geometry.y;
             return dict;
         }
 

@@ -12,6 +12,7 @@
         public iata: string;
         public icao: string;
         public city: string;
+        public serveCity: City;
         public country: string;
         public name: string;   
         public countryEn: string; // The English name of country     
@@ -266,6 +267,23 @@
                 return new AirportCoverage(true, true);
             }
             return new AirportCoverage(false, false);
+        }
+    }
+
+    export class City {
+        public country;
+        public subdiv;
+        public city;
+        constructor(country: string, subdiv: string, city: string) {
+            this.country = country;
+            this.subdiv = subdiv;
+            this.city = city;
+        }
+        static parseCity(s: string): City {
+            var data = s.split(";");
+            if (data[1] == "*")
+                data[1] = "";
+            return new City(data[0], data[1], data[2]);
         }
     }
 }

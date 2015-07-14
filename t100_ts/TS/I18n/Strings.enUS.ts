@@ -178,6 +178,7 @@
                 return city + ", " + country;            
             return city + ", " + subdiv + ", " + country;
         }
+
         public constructDestNum(num: number): string {
             return "Destination ( Total number: " + num.toString() + " )";
         }
