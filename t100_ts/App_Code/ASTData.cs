@@ -156,5 +156,11 @@ namespace AST {
         public string QueryAllCountry( string locale ) {
             return CountryData.QueryAllCountry( locale );
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAllSubdiv( string locale, string filterCountry ) {
+            return SubdivisionData.QueryAllSubdiv( locale, filterCountry );
+        }
     }
 }

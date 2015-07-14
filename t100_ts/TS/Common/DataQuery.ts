@@ -67,7 +67,7 @@
                     return;
                 }
                 jsonMsg = $.parseJSON(jsonMsg);
-                
+
                 var serveCity = City.parseCity(jsonMsg["fromAirport"]["City"]);
                 var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
                     serveCity.country, "", jsonMsg["fromAirport"]["FullName"],
@@ -248,5 +248,19 @@
             DataQuery.ajaxQuery({ "locale": Localization.locale }, "QueryAllCountry", onSuccessCallback);
         }
 
+        static queryAllSubdiv(callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+            };
+            var filterCountry = "";
+            if (Localization.locale == "ENUS")
+                filterCountry = "US";
+            DataQuery.ajaxQuery({ "filterCountry": filterCountry, "locale": Localization.locale }, "QueryAllSubdiv", onSuccessCallback);
+        }
     }
 }

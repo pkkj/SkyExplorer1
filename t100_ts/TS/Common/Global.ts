@@ -41,6 +41,7 @@
         static airlineInfo: Array<Airline> = null;
         static airlineDict: { [code: string]: Airline; };
         static countryDict: { [code: string]: string };
+        static subdivDict: { [code: string]: string };
 
         static prepareAirlineData(callback) {
             DataQuery.queryAvailableAirlineByDataSrc("", function (data: Array<Airline>) {
@@ -65,6 +66,14 @@
                 callback();
             });
         }
+
+        static prepareSubdivData(callback) {
+            DataQuery.queryAllSubdiv(function (data) {
+                GlobalMetaData.subdivDict = data;
+                callback();
+            });
+        }
+        
 
         static dataFrom = new YearMonth(1990, 1);
         static dataTo = new YearMonth(2014, 4);

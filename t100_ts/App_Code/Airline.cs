@@ -75,6 +75,16 @@ namespace AST {
                     }
 
                 }
+
+                foreach ( string locale in Localization.UiLocale.Keys ) {
+                    if ( locale == "ENUS" ) continue;
+                    foreach ( string key in AirlineDict[locale].Keys ) {
+                        if ( AirlineDict[ locale ][ key ].FullName == "*" )
+                            AirlineDict[ locale ][ key ].FullName = AirlineDict[ "ENUS" ][ key ].FullName;
+                        if ( AirlineDict[ locale ][ key ].Note == "*" )
+                            AirlineDict[ locale ][ key ].Note = AirlineDict[ "ENUS" ][ key ].Note;
+                    }
+                }
             } finally {
                 conn.Close();
             }

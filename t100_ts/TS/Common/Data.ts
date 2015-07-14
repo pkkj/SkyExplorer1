@@ -270,6 +270,19 @@
         }
     }
 
+    export class Subdiv {
+        static localizeSubdiv(location: City): string {
+            var subdiv = "";
+            if (location.subdiv != "*" && location.subdiv != "") {
+                subdiv = location.subdiv;
+                var subdivKey = location.country + ";" + location.subdiv;
+                if (subdivKey in GlobalMetaData.subdivDict)
+                    subdiv = GlobalMetaData.subdivDict[subdivKey];
+            }
+            return subdiv;
+        }
+    }
+
     export class City {
         public country;
         public subdiv;

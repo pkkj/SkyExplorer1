@@ -183,7 +183,7 @@
         public routeStatistic = "路线统计";
 
         public constructPlaceName(country: string, subdiv: string, city: string): string {
-            if (subdiv == "*" || subdiv == "")
+            if (subdiv == "*" || subdiv == "" || subdiv == city)
                 return country + "，" + city;
             return country + ", " + subdiv + ", " + city;
         }

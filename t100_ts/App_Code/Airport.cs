@@ -52,6 +52,7 @@ namespace AST {
             dict[ "Icao" ] = this.Icao;
             dict[ "Iata" ] = this.Iata;
             dict[ "FullName" ] = this.FullName;
+            dict[ "DisplayName" ] = this.DisplayName;
             dict[ "Country" ] = this.Country;
             dict[ "State" ] = "";// TODO 
             dict[ "City" ] = this.ServeCity[ 0 ];
@@ -135,12 +136,28 @@ namespace AST {
                             dr[ "FULLNAME_" + locale ].ToString(),
                             dr[ "DISPLAY_NAME_" + locale ].ToString(),
                             dr[ "NOTE_" + locale ].ToString() );
+                        // TODO: localize all the fields related to city
+                        airport.ServeCity[ 0 ] = City.LocalizeLocation( locale, airport.ServeCity[ 0 ] );
                         AirportDictionary[ locale ][ airport.Code ] = airport;
                     }
 
                 }
             } finally {
                 conn.Close();
+            }
+
+            foreach ( string locale in Localization.UiLocale.Keys ) {
+                if ( locale == "ENUS" ) continue;
+                foreach ( string key in AirportDictionary[ locale ].Keys ) {
+                    if ( AirportDictionary[ locale ][ key ].FullName == "*" )
+                        AirportDictionary[ locale ][ key ].FullName = AirportDictionary[ "ENUS" ][ key ].FullName;
+                    if ( AirportDictionary[ locale ][ key ].DisplayName == "*" )
+                        AirportDictionary[ locale ][ key ].DisplayName = AirportDictionary[ "ENUS" ][ key ].DisplayName;
+                    if ( AirportDictionary[ locale ][ key ].Note == "*" )
+                        AirportDictionary[ locale ][ key ].Note = AirportDictionary[ "ENUS" ][ key ].Note;
+                    if ( AirportDictionary[ locale ][ key ].DisplayName == "*" )
+                        AirportDictionary[ locale ][ key ].DisplayName = AirportDictionary[ "ENUS" ][ key ].DisplayName;
+                }
             }
         }
 

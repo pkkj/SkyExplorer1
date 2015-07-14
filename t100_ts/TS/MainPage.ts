@@ -34,7 +34,9 @@ module AST {
 
         private prepareData() {
             GlobalMetaData.prepareAirlineData(() => {
-                GlobalMetaData.prepareCountryData(this.postDataPreparation);
+                GlobalMetaData.prepareCountryData(() => {
+                    GlobalMetaData.prepareSubdivData(this.postDataPreparation);
+                });
             });
         }
 

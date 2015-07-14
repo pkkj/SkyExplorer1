@@ -346,8 +346,9 @@
                 this._airportName.title = airport.nameEn;
 
                 var country = GlobalMetaData.countryDict[airport.serveCity.country];
-
-                this._airportCity.innerHTML = Localization.strings.constructPlaceName(country, airport.serveCity.subdiv, airport.serveCity.city);
+                var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
+                
+                this._airportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
                 this._airportCity.title = airport.cityEn + ", " + airport.countryEn;
 
             }
@@ -539,7 +540,8 @@
 
             this.destDialogBuddy.setTitleBar(titleBar);
             var country = GlobalMetaData.countryDict[airport.serveCity.country];
-            this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(country, airport.serveCity.subdiv, airport.serveCity.city);
+            var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
+            this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
             this.destAirportCity.title = airport.cityEn + ", " + airport.countryEn;
             this.destAirportName.innerHTML = AST.Utils.compressAirportName(airport.name);
             this.destAirportName.title = airport.nameEn;

@@ -174,7 +174,7 @@
         }
 
         public constructPlaceName(country: string, subdiv: string, city: string): string {
-            if (subdiv == "*" || subdiv == "")
+            if (subdiv == "*" || subdiv == "" || subdiv == city)
                 return city + ", " + country;            
             return city + ", " + subdiv + ", " + country;
         }

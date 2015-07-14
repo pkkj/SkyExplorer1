@@ -136,7 +136,7 @@
     <Content Include="App_Code\ASTData.cs">
       <SubType>Component</SubType>
     </Content>
-    <Content Include="App_Code\Carrier.cs" />
+    <Content Include="App_Code\Airline.cs" />
     <Content Include="App_Code\T100Data.cs" />
     <Content Include="App_Code\Utils.cs" />
   </ItemGroup>
@@ -238,7 +238,7 @@
     <Content Include="App_Code\AirlineAvailabilityActor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Country.cs" />
+    <Content Include="App_Code\GeoData.cs" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>
