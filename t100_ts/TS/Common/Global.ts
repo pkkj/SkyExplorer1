@@ -66,6 +66,9 @@
                 callback();
             });
         }
+        static queryCountryName(code: string): string {
+            return GlobalMetaData.countryDict[code];
+        }
 
         static prepareSubdivData(callback) {
             DataQuery.queryAllSubdiv(function (data) {

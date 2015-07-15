@@ -357,7 +357,7 @@
                 this.summaryRegionSel.clearAllItem();
 
                 var regionItems = [], regionDisplayText = [];
-                this.dataSrcInfo.setAirportReportPageRegion(this.airport.countryEn, year, this.airportStat, regionItems, regionDisplayText);
+                this.dataSrcInfo.setAirportReportPageRegion(this.airport.country, year, this.airportStat, regionItems, regionDisplayText);
 
                 for (var i = 0; i < regionItems.length; i++) {
                     var item = this.summaryRegionSel.createItem(regionDisplayText[i]);

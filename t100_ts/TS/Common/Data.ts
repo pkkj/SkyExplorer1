@@ -14,8 +14,8 @@
         public city: string;
         public serveCity: City;
         public country: string;
-        public name: string;   
-        public countryEn: string; // The English name of country     
+        public name: string;  
+        public displayName: string; 
         public nameEn: string; // The English name of airport name
         public cityEn: string; // The English name of city
         public geom: AST.Point = null;
@@ -38,7 +38,6 @@
             airport.country = json["country"];
             airport.name = json["fullName"];
             airport.geom = new AST.Point(json["geometry"]["x"], json["geometry"]["y"]);
-            airport.countryEn = json["countryEn"];
             airport.nameEn = json["fullNameEn"];
             airport.cityEn = json["cityEn"];
             return airport;
@@ -263,7 +262,7 @@
         }
 
         public getAirportCoverage(airport: Airport): AirportCoverage {
-            if (airport.countryEn == this.country) {
+            if (airport.country == this.country) {
                 return new AirportCoverage(true, true);
             }
             return new AirportCoverage(false, false);

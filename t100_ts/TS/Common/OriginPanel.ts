@@ -121,11 +121,11 @@
                             data = $.parseJSON(data.childNodes[0].textContent);
                             response($.map(data, function (item) {
 
-		                    return {
+                                return {
                                     label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], "", item[1]),
                                     value: item[0]
                                 }
-		                }));
+                            }));
                         }
                     });
                 },
@@ -229,7 +229,7 @@
             var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrc);
             this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.getFullInfoLocalizeName());
             this.createOtherSrcDiv();
-            
+
         }
 
         public registerDestBar(dataSrc: string, destPanel) {
@@ -261,7 +261,7 @@
                     }
                     hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
                 }
-                
+
                 this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: hasNoDataRoute });
                 this.destDialogBuddy.hide();
                 if (panTo) {
@@ -347,9 +347,9 @@
 
                 var country = GlobalMetaData.countryDict[airport.serveCity.country];
                 var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
-                
+
                 this._airportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
-                this._airportCity.title = airport.cityEn + ", " + airport.countryEn;
+                this._airportCity.title = airport.cityEn + ", " + GlobalMetaData.countryDict[airport.country];
 
             }
             else {
@@ -386,14 +386,17 @@
 
         private createDestList(destinations: Array<DestInfo>) {
             var compareAirport = function (a: DestInfo, b: DestInfo) {
-                if (a.airport.country != b.airport.country) {
-                    if (a.airport.country == AST.GlobalStatus.originAirport.country)
+                var countryA = GlobalMetaData.countryDict[a.airport.country];
+                var countryB = GlobalMetaData.countryDict[b.airport.country];
+                var originaAirportCountry = GlobalMetaData.countryDict[AST.GlobalStatus.originAirport.country];
+                if (countryA != countryB) {
+                    if (countryA == originaAirportCountry)
                         return -1;
-                    if (b.airport.country == AST.GlobalStatus.originAirport.country)
+                    if (countryB == originaAirportCountry)
                         return 1;
-                    return Localization.strings.compareStr(a.airport.country, b.airport.country);
+                    return Localization.strings.compareStr(countryA, countryB);
                 }
-                return Localization.strings.compareStr(a.airport.city, b.airport.city);
+                return Localization.strings.compareStr(a.airport.displayName, b.airport.displayName);
             };
 
             destinations.sort(compareAirport);
@@ -405,7 +408,7 @@
                 if (destinations[i].airport.country != preCountry) {
                     preCountry = destinations[i].airport.country;
                     var item = document.createElement("div");
-                    item.innerHTML = preCountry;
+                    item.innerHTML = GlobalMetaData.queryCountryName(preCountry);
                     item.className = "ddCountry";
                     this.destDropDown.insertItem(item, null, {
                         "selectable": false
@@ -432,7 +435,7 @@
             });
             var ddAirportCity = AST.Utils.createElement("span", {
                 "class": "ddAirportCity",
-                "text": dest.airport.city
+                "text": dest.airport.displayName
             });
 
             item.appendChild(ddAirportCode);
@@ -542,7 +545,7 @@
             var country = GlobalMetaData.countryDict[airport.serveCity.country];
             var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
             this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
-            this.destAirportCity.title = airport.cityEn + ", " + airport.countryEn;
+            this.destAirportCity.title = airport.cityEn + ", " + GlobalMetaData.countryDict[airport.country];
             this.destAirportName.innerHTML = AST.Utils.compressAirportName(airport.name);
             this.destAirportName.title = airport.nameEn;
         }

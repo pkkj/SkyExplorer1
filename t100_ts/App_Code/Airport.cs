@@ -56,7 +56,6 @@ namespace AST {
             dict[ "Country" ] = this.Country;
             dict[ "State" ] = "";// TODO 
             dict[ "City" ] = this.ServeCity[ 0 ];
-            dict[ "CountryEn" ] = this.Country; // TODO 
             dict[ "FullNameEn" ] = this.FullName;  // TODO 
             dict[ "CityEn" ] = this.ServeCity[ 0 ];  // TODO 
             dict[ "Geometry" ] = this.Geometry.x.ToString() + ", " + this.Geometry.y.ToString();
@@ -73,7 +72,6 @@ namespace AST {
             dict[ "country" ] = this.Country;
             dict[ "city" ] = this.ServeCity[ 0 ];
             dict[ "state" ] = "";// TODO 
-            dict[ "countryEn" ] = this.Country;// TODO 
             dict[ "fullNameEn" ] = this.FullName;// TODO 
             dict[ "cityEn" ] = this.ServeCity[ 0 ];// TODO 
             dict[ "geometry" ] = new Dictionary<string, double>{ 

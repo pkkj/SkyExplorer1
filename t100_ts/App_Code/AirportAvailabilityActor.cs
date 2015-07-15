@@ -31,7 +31,6 @@ namespace AST {
                         {"city", airport.ServeCity[0]},
                         {"name", airport.FullName},
                         {"note", airport.Note},
-                        {"countryEn", airport.Country},     // TODO
                         {"nameEn", airport.FullName},       // TODO
                         {"cityEn", airport.ServeCity[0]},   // TODO
                         {"yearAvailability", dr[ "AVAILABILITY" ].ToString()}

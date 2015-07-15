@@ -32,7 +32,6 @@
                     var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
                         jsonMsg["fromAirport"]["Country"], jsonMsg["fromAirport"]["City"], jsonMsg["fromAirport"]["FullName"],
                         jsonMsg["fromAirport"]["Geometry"]);
-                    fromAirport.countryEn = jsonMsg["fromAirport"]["CountryEn"];
                     fromAirport.cityEn = jsonMsg["fromAirport"]["CityEn"];
                     fromAirport.nameEn = jsonMsg["fromAirport"]["FullNameEn"];
 
@@ -51,7 +50,6 @@
                             lstDestJson[i]["FullName"],
                             destPoint
                             );
-                        dest.airport.countryEn = lstDestJson[i]["CountryEn"];
                         dest.airport.cityEn = lstDestJson[i]["CityEn"];
                         dest.airport.nameEn = lstDestJson[i]["FullNameEn"];
 
