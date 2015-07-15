@@ -118,14 +118,16 @@
                     return;
                 }
                 this.airport = airport;
-                this.yearAvailability = airport.yearAvailability.split(",");
+                this.yearAvailability = airport.yearAvailability.split(";");
                 if (airport.yearAvailability == "") {
                     airport.note = T100.T100Localization.strings.noOutBoundFlights;
                     this.yearAvailability = [];
                 }
                 document.getElementById("airportNote").innerHTML = airport.note;
                 document.getElementById("aiportName").innerHTML = airport.name;
-                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(airport.country, "",  airport.city);
+
+                var city = City.parseCity(airport.serveCityL);                
+                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
                 document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
                 this.initUi();
             };
@@ -240,7 +242,9 @@
                     var ratio = fFlow / biggestFlow;
                     var flow = Localization.strings.formatBigNumber(rank[i].flow);
                     var textA: string = rank[i] == null ? "" : rank[i].iata + " / " + rank[i].icao;
-                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(rank[i].country, "", rank[i].city);
+
+                    var city = City.parseCity(rank[i].serveCityL);
+                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
                     table.addItem(textA, textB, flow, ratio);
                 }
                 else {

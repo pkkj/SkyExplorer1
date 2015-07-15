@@ -120,7 +120,7 @@
         }
 
         private createAirlineSel() {
-            var country: string = this.countrySel[this.countrySel.selectedIndex].text;
+            var country: string = this.countrySel[this.countrySel.selectedIndex].value;
             var type: string = this.typeSel[this.typeSel.selectedIndex].text;
             this.airlineSel.options.length = 0;
 
@@ -158,11 +158,17 @@
             countryList.sort(function (a, b) {
                 if (a == "All") return -1;
                 if (b == "All") return 1;
-                return Localization.strings.compareStr(a, b);
+                var _a = GlobalMetaData.countryDict[a];
+                var _b = GlobalMetaData.countryDict[b];
+                return Localization.strings.compareStr(_a, _b);
             });
             for (i = 0; i < countryList.length; i++) {
                 var option = document.createElement("option");
-                option.text = countryList[i];
+                if (countryList[i] in GlobalMetaData.countryDict)
+                    option.text = GlobalMetaData.countryDict[countryList[i]];
+                else
+                    option.text = countryList[i];
+                option.value = countryList[i];
                 this.countrySel.add(option, null);
             }
             this.countrySel.onchange = () => {
@@ -221,14 +227,21 @@
             var divB = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemB" });
 
             var fromLabel = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemBInner" });
-            var fromCity = Localization.strings.constructPlaceName(route.originCountry, "", route.originCity);
+
+            var city: City = City.parseCity(route.originCity);
+            var country = GlobalMetaData.queryCountryName(city.country);
+            var subdiv = Subdiv.localizeSubdiv(city);
+            var fromCity = Localization.strings.constructPlaceName(country, subdiv, city.city);
             fromLabel.appendChild(AST.Utils.createElement("div", { "text": Localization.strings._airlineViewRouteTableFrom, "width": "40px", "float": "left" }));
             fromLabel.appendChild(AST.Utils.createElement("div", { "text": fromCity, "float": "left" }));
             fromLabel.appendChild(AST.Utils.createElement("div", { "class": "clear" }));
             divB.appendChild(fromLabel);
 
             var toLabel = AST.Utils.createElement("div", { "class": "t100AirlineRouteItemBInner" });
-            var toCity = Localization.strings.constructPlaceName(route.destCountry, "",route.destCity);
+            var city: City = City.parseCity(route.destCity);
+            var country = GlobalMetaData.queryCountryName(city.country);
+            var subdiv = Subdiv.localizeSubdiv(city);
+            var toCity = Localization.strings.constructPlaceName(country, subdiv, city.city);
             toLabel.appendChild(AST.Utils.createElement("div", { "text": Localization.strings._airlineViewRouteTableTo, "width": "40px", "float": "left" }));
             toLabel.appendChild(AST.Utils.createElement("div", { "text": toCity, "float": "left" }));
             toLabel.appendChild(AST.Utils.createElement("div", { "class": "clear" }));

@@ -29,6 +29,7 @@ namespace AST {
                         {"icao", airport.Icao},
                         {"country", airport.Country},
                         {"city", airport.ServeCity[0]},
+                        {"serveCityL", City.LocalizeCountryAndSubdiv(locale, airport.ServeCity[0])},
                         {"name", airport.FullName},
                         {"note", airport.Note},
                         {"nameEn", airport.FullName},       // TODO
@@ -68,7 +69,7 @@ namespace AST {
                 }
                 while ( dr.Read() ) {
                     string dataSrc = dr[ "DATA_SOURCE" ].ToString();
-                    //if ( dataSrc == "WikiData" ) continue; //TODO
+                    if ( dataSrc == "ConnectionData" ) continue; //TODO
                     if ( dataSrc != primaryDataSrc ) {
                         lstResult.Add( dataSrc );
                     }

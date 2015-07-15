@@ -134,6 +134,7 @@ namespace AST {
                 item[ "icao" ] = airport.Icao;
                 item[ "city" ] = airport.ServeCity[0];
                 item[ "country" ] = airport.Country;
+                item[ "serveCityL" ] = City.LocalizeCountryAndSubdiv( locale, airport.ServeCity[ 0 ] );
                 if ( i != 0 )
                     res += ", ";
                 res += jsoner.Serialize( item );

@@ -53,6 +53,16 @@ namespace AST {
                 return new JavaScriptSerializer().Serialize( CountryDict[ locale ] );
             return new JavaScriptSerializer().Serialize( CountryDict[ "ENUS" ] );
         }
+
+        public static Country QueryCountry( string locale, string key ) {
+            if ( !CountryDict.ContainsKey( locale ) ) {
+                locale = "ENUS";
+            }
+            if ( !CountryDict[ locale ].ContainsKey( key ) ) {
+                return null;
+            }
+            return CountryDict[ locale ][ key ];
+        }
     }
 
 
@@ -154,6 +164,17 @@ namespace AST {
                 city = CityData.QueryCity( "ENUS", location );
             string[] s = location.Split( ';' );
             return string.Join( ";", new string[] { s[ 0 ], s[ 1 ], city.Name } );
+        }
+
+        public static string LocalizeCountryAndSubdiv( string locale, string location ) {            
+            string[] s = location.Split( ';' );
+            string country = s[ 0 ], subdivision = s[ 1 ];
+            if ( subdivision != "*" && !( locale == "ENUS" && country != "US")) {
+                subdivision = SubdivisionData.QuerySubdiv( locale, country + ";" + subdivision ).Name;
+            }
+            country = CountryData.QueryCountry( locale, country ).Name;
+            
+            return string.Join( ";", new string[] { country, subdivision, s[ 2 ] } );
         }
     }
 
