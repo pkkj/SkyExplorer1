@@ -120,12 +120,12 @@
 
                             data = $.parseJSON(data.childNodes[0].textContent);
                             response($.map(data, function (item) {
-
-		                    return {
-                                    label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], item[1]),
+                                var city = City.parseCity(item[1]);
+                                return {
+                                    label: item[0] + ", " + Localization.strings.constructPlaceName(city.country, city.subdiv, city.city),
                                     value: item[0]
                                 }
-		                }));
+                            }));
                         }
                     });
                 },
@@ -173,16 +173,16 @@
                 this.switchDestBar("T100Data");
             } else if (availableData["T100FF"]) {
                 this.switchDestBar("T100FF");
-            } else if (availableData["TwData"]) {
-                this.switchDestBar("TwData");
+            } else if (availableData["TaiwanData"]) {
+                this.switchDestBar("TaiwanData");
             } else if (availableData["UkData"]) {
                 this.switchDestBar("UkData");
-            } else if (availableData["JpData"]) {
-                this.switchDestBar("JpData");
-            } else if (availableData["KrData"]) {
-                this.switchDestBar("KrData");
-            } else if (availableData["WikiData"]) {
-                this.switchDestBar("WikiData");
+            } else if (availableData["JapanData"]) {
+                this.switchDestBar("JapanData");
+            } else if (availableData["KoreaData"]) {
+                this.switchDestBar("KoreaData");
+            } else if (availableData["ConnectionData"]) {
+                this.switchDestBar("ConnectionData");
             }
         }
 
@@ -229,7 +229,7 @@
             var info: DataSourceMetaData = DataSourceRegister.queryInfo(dataSrc);
             this.setDestAirportInfo(AST.GlobalStatus.destAirport, flowDir, info.getFullInfoLocalizeName());
             this.createOtherSrcDiv();
-            
+
         }
 
         public registerDestBar(dataSrc: string, destPanel) {
@@ -261,7 +261,7 @@
                     }
                     hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
                 }
-                
+
                 this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: hasNoDataRoute });
                 this.destDialogBuddy.hide();
                 if (panTo) {
@@ -343,10 +343,15 @@
                 this.createOriginTitleBar(airport);
 
                 this._airportName.innerHTML = Utils.compressAirportName(airport.name);
-                this._airportName.title = airport.nameEn;
-                this._airportCity.innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
-                this._airportCity.title = airport.cityEn + ", " + airport.countryEn;
+                var country = GlobalMetaData.countryDict[airport.serveCity.country];
+                var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
+                this._airportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
 
+                if (Localization.locale != "ENUS") {
+                    this._airportName.title = airport.nameEn;
+                    var cityEn = City.parseCity(airport.cityEn);
+                    this._airportCity.title = Localization.default_strings.constructPlaceName(cityEn.country, cityEn.subdiv, cityEn.city);
+                }
             }
             else {
                 this._originAirportTitleBar.style.display = "none";
@@ -382,14 +387,17 @@
 
         private createDestList(destinations: Array<DestInfo>) {
             var compareAirport = function (a: DestInfo, b: DestInfo) {
-                if (a.airport.country != b.airport.country) {
-                    if (a.airport.country == AST.GlobalStatus.originAirport.country)
+                var countryA = GlobalMetaData.countryDict[a.airport.country];
+                var countryB = GlobalMetaData.countryDict[b.airport.country];
+                var originaAirportCountry = GlobalMetaData.countryDict[AST.GlobalStatus.originAirport.country];
+                if (countryA != countryB) {
+                    if (countryA == originaAirportCountry)
                         return -1;
-                    if (b.airport.country == AST.GlobalStatus.originAirport.country)
+                    if (countryB == originaAirportCountry)
                         return 1;
-                    return Localization.strings.compareStr(a.airport.country, b.airport.country);
+                    return Localization.strings.compareStr(countryA, countryB);
                 }
-                return Localization.strings.compareStr(a.airport.city, b.airport.city);
+                return Localization.strings.compareStr(a.airport.displayName, b.airport.displayName);
             };
 
             destinations.sort(compareAirport);
@@ -401,7 +409,7 @@
                 if (destinations[i].airport.country != preCountry) {
                     preCountry = destinations[i].airport.country;
                     var item = document.createElement("div");
-                    item.innerHTML = preCountry;
+                    item.innerHTML = GlobalMetaData.queryCountryName(preCountry);
                     item.className = "ddCountry";
                     this.destDropDown.insertItem(item, null, {
                         "selectable": false
@@ -428,7 +436,7 @@
             });
             var ddAirportCity = AST.Utils.createElement("span", {
                 "class": "ddAirportCity",
-                "text": dest.airport.city
+                "text": dest.airport.displayName
             });
 
             item.appendChild(ddAirportCode);
@@ -535,10 +543,15 @@
             titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
 
             this.destDialogBuddy.setTitleBar(titleBar);
-            this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
-            this.destAirportCity.title = airport.cityEn + ", " + airport.countryEn;
+            var country = GlobalMetaData.countryDict[airport.serveCity.country];
+            var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
+            this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
             this.destAirportName.innerHTML = AST.Utils.compressAirportName(airport.name);
-            this.destAirportName.title = airport.nameEn;
+            if (Localization.locale != "ENUS") {
+                this.destAirportName.title = airport.nameEn;
+                var cityEn = City.parseCity(airport.cityEn);
+                this.destAirportCity.title = Localization.default_strings.constructPlaceName(cityEn.country, cityEn.subdiv, cityEn.city);
+            }
         }
 
 

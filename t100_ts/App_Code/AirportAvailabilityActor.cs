@@ -12,13 +12,12 @@ namespace AST {
         public static string QueryAirportYearAvailability( string airportCode, string codeType, string dataSrc, string locale ) {
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
-                // Only support IATA code
-                string sqlIata = "SELECT \"AVAILABILITY\" FROM \"AirportAvailability\" WHERE \"IATA\" = " + Utils.SingleQuoteStr( airportCode )
-                    + " AND \"DATA_SOURCE\" = \'" + dataSrc + "\'";
+                string sql = string.Format( @"SELECT ""AVAILABILITY"" FROM ""AirportAvailability"" WHERE ""CODE"" = '{0}' AND ""DATA_SOURCE"" ='{1}'",
+                    airportCode, dataSrc );
 
-                NpgsqlCommand command = new NpgsqlCommand( sqlIata, conn );
+                NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 Airport airport = AirportData.Query( airportCode, locale );
@@ -29,18 +28,18 @@ namespace AST {
                         {"iata", airport.Iata},
                         {"icao", airport.Icao},
                         {"country", airport.Country},
-                        {"city", airport.City},
+                        {"city", airport.ServeCity[0]},
+                        {"countryL", CountryData.QueryCountry(locale, airport.Country).Name},
+                        {"serveCityL", City.LocalizeCountryAndSubdiv(locale, airport.ServeCity[0])},
                         {"name", airport.FullName},
                         {"note", airport.Note},
-                        {"countryEn", airport.CountryEn},
-                        {"nameEn", airport.FullNameEn},
-                        {"cityEn", airport.CityEn},
+                        {"nameEn", airport.FullName},       // TODO
+                        {"cityEn", airport.ServeCity[0]},   // TODO
                         {"yearAvailability", dr[ "AVAILABILITY" ].ToString()}
                     };
                     return new JavaScriptSerializer().Serialize( res );
                 }
 
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
@@ -56,7 +55,7 @@ namespace AST {
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 string sql = string.Format( @"SELECT ""DATA_SOURCE"" FROM ""AirportAvailability"" WHERE ""IATA"" = {0}", Utils.SingleQuoteStr( airportCode ) ); // Only support IATA code
@@ -65,19 +64,18 @@ namespace AST {
 
                 List<string> lstResult = new List<string>();
                 // Determine the primate data source of the given airport
-                string primaryDataSrc = DataSourceRegister.QueryCountryByDataSrc( airport.CountryEn );
+                string primaryDataSrc = DataSourceRegister.QueryCountryByDataSrc( airport.Country );
                 if ( primaryDataSrc != "" ) {
                     lstResult.Add( primaryDataSrc );
                 }
                 while ( dr.Read() ) {
                     string dataSrc = dr[ "DATA_SOURCE" ].ToString();
-                    if ( dataSrc == "WikiData" ) continue;
+                    if ( dataSrc == "ConnectionData" ) continue; //TODO
                     if ( dataSrc != primaryDataSrc ) {
                         lstResult.Add( dataSrc );
                     }
                 }
                 return new JavaScriptSerializer().Serialize( lstResult );
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }

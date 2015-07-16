@@ -10,11 +10,11 @@
                 this.fullInfo = "US BTS T100 Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UsT100.html";
                 this.supportAirportReportPage = true;
-                this.country = "United States";
+                this.country = "US";
                 this.startTime = new YearMonth(1990, 1);
                 this.endTime = new YearMonth(2014, 12);
             }
-            static currentCountry = "United States";
+            static currentCountry = "US";
             static hasMonthData = true;
             static dataFrom = new YearMonth(1990, 1);
             static dataTo = new YearMonth(2014, 12);
@@ -64,7 +64,7 @@
             }
 
             public getAirportReportPageFootnote(airport: Airport): string {
-                var localCountry: boolean = this.country == airport.countryEn;
+                var localCountry: boolean = this.country == airport.country;
                 if (!localCountry) {
                     return Localization.strings.onlyTheDataOfRoutesTowardUS;
                 }
@@ -72,7 +72,7 @@
             }
 
             public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
-                if (originAirport.countryEn != T100.T100MetaData.currentCountry && destAirport.countryEn != T100.T100MetaData.currentCountry)
+                if (originAirport.country != T100.T100MetaData.currentCountry && destAirport.country != T100.T100MetaData.currentCountry)
                     return T100.T100Localization.strings.onlyUSRouteAvailable;
                 return "";
             }

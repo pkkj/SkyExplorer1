@@ -12,9 +12,11 @@
         public iata: string;
         public icao: string;
         public city: string;
+        public serveCityL: string;
+        public serveCity: City;
         public country: string;
-        public name: string;   
-        public countryEn: string; // The English name of country     
+        public name: string;  
+        public displayName: string; 
         public nameEn: string; // The English name of airport name
         public cityEn: string; // The English name of city
         public geom: AST.Point = null;
@@ -33,13 +35,12 @@
             var airport = new Airport();
             airport.icao = json["icao"];
             airport.iata = json["iata"];
-            airport.city = json["city"];
+            airport.serveCityL = json["serveCityL"];
             airport.country = json["country"];
             airport.name = json["fullName"];
             airport.geom = new AST.Point(json["geometry"]["x"], json["geometry"]["y"]);
-            airport.countryEn = json["countryEn"];
             airport.nameEn = json["fullNameEn"];
-            airport.cityEn = json["cityEn"];
+            airport.cityEn = json["serveCity1En"];
             return airport;
         }
     }
@@ -262,10 +263,40 @@
         }
 
         public getAirportCoverage(airport: Airport): AirportCoverage {
-            if (airport.countryEn == this.country) {
+            if (airport.country == this.country) {
                 return new AirportCoverage(true, true);
             }
             return new AirportCoverage(false, false);
+        }
+    }
+
+    export class Subdiv {
+        static localizeSubdiv(location: City): string {
+            var subdiv = "";
+            if (location.subdiv != "*" && location.subdiv != "") {
+                subdiv = location.subdiv;
+                var subdivKey = location.country + ";" + location.subdiv;
+                if (subdivKey in GlobalMetaData.subdivDict)
+                    subdiv = GlobalMetaData.subdivDict[subdivKey];
+            }
+            return subdiv;
+        }
+    }
+
+    export class City {
+        public country;
+        public subdiv;
+        public city;
+        constructor(country: string, subdiv: string, city: string) {
+            this.country = country;
+            this.subdiv = subdiv;
+            this.city = city;
+        }
+        static parseCity(s: string): City {
+            var data = s.split(";");
+            if (data[1] == "*")
+                data[1] = "";
+            return new City(data[0], data[1], data[2]);
         }
     }
 }

@@ -4,17 +4,17 @@
             constructor() {
                 super();
 
-                this.name = "TwData";
+                this.name = "TaiwanData";
                 this.shortInfo = "Taiwan CAA";
                 this.fullInfo = "Taiwan CAA Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/TwData.html";
                 this.supportAirportReportPage = true;
-                this.country = "Taiwan";
+                this.country = "TW";
                 this.startTime = new YearMonth(2010, 1);
                 this.endTime = new YearMonth(2014, 12);
             }
 
-            static currentCountry = "Taiwan";
+            static currentCountry = "TW";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
             static dataTo = new YearMonth(2014, 12);
@@ -71,7 +71,7 @@
             }
 
             public getAirportReportPageFootnote(airport: Airport): string {
-                return Localization.strings.getTaiwanAirportReportPageFootNote(this.country != airport.countryEn);
+                return Localization.strings.getTaiwanAirportReportPageFootNote(this.country != airport.country);
             }
 
             public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {

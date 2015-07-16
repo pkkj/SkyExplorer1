@@ -56,7 +56,7 @@
             httpRequest.send(requestData);
             return httpRequest;
         }
-        
+
         static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
@@ -67,32 +67,33 @@
                     return;
                 }
                 jsonMsg = $.parseJSON(jsonMsg);
+
+                var serveCity = City.parseCity(jsonMsg["fromAirport"]["City"]);
                 var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
-                    jsonMsg["fromAirport"]["Country"], jsonMsg["fromAirport"]["City"], jsonMsg["fromAirport"]["FullName"],
-                    jsonMsg["fromAirport"]["Geometry"]);
-                fromAirport.countryEn = jsonMsg["fromAirport"]["CountryEn"];
-                fromAirport.cityEn = jsonMsg["fromAirport"]["CityEn"];
+                    serveCity.country, "", jsonMsg["fromAirport"]["FullName"],
+                    new AST.Point(jsonMsg["fromAirport"]["X"], jsonMsg["fromAirport"]["Y"]));
+                fromAirport.cityEn = jsonMsg["fromAirport"]["ServeCity1En"];
                 fromAirport.nameEn = jsonMsg["fromAirport"]["FullNameEn"];
+                fromAirport.serveCity = serveCity;
+                fromAirport.displayName = jsonMsg["fromAirport"]["DisplayName"];
 
                 var lstDestJson = jsonMsg["routes"];
                 for (var i = 0; i < lstDestJson.length; i++) {
                     var dest = new DestInfo();
                     var airportJson = lstDestJson[i]["Airport"];
-                    var destPoint = new AST.Point(
-                        parseFloat(airportJson["Geometry"].split(",")[0]),
-                        parseFloat(airportJson["Geometry"].split(",")[1])
-                        );
+                    var destCity = City.parseCity(airportJson["City"]);
                     dest.airport = new Airport(
                         airportJson["Icao"],
                         airportJson["Iata"],
-                        airportJson["Country"],
+                        destCity.country,
                         airportJson["City"],
                         airportJson["FullName"],
-                        destPoint
+                        new AST.Point(airportJson["X"], airportJson["Y"])
                         );
-                    dest.airport.countryEn = airportJson["CountryEn"];
-                    dest.airport.cityEn = airportJson["CityEn"];
+                    dest.airport.cityEn = airportJson["ServeCity1En"];
                     dest.airport.nameEn = airportJson["FullNameEn"];
+                    dest.airport.serveCity = destCity;
+                    dest.airport.displayName = airportJson["DisplayName"];
                     dest.routeGeomS = lstDestJson[i]["RouteGeometry"];
 
                     for (var j = 0; j < lstDestJson[i]["AvailableData"].length; j++) {
@@ -137,7 +138,7 @@
                 if (callback != null)
                     callback(data);
             };
-            var params = { "dataSrc" : dataSrc, year: "", "locale": Localization.locale };
+            var params = { "dataSrc": dataSrc, year: "", "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryAvailableAirlineByDataSource", onSuccessCallback);
             DialogUtils.loadBlockingDialog(Localization.strings.applicationLoadingData);
         }
@@ -168,7 +169,7 @@
 
         static QueryAirlineYearAvailability(dataSrc: string, airline: string, callback: (jsonMsg: any) => any) {
             var onSuccessCallback = function (jsonMsg) {
-                if (jsonMsg == "") 
+                if (jsonMsg == "")
                     callback(null);
                 else
                     callback(jsonMsg);
@@ -213,7 +214,7 @@
                 if (jsonMsg == "") {
                     return;
                 }
-                jsonMsg = $.parseJSON(jsonMsg);                
+                jsonMsg = $.parseJSON(jsonMsg);
                 if (callback != null)
                     callback(Airport.createFromJson(jsonMsg["origin"]), Airport.createFromJson(jsonMsg["dest"]), jsonMsg["dataSrc"]);
             };
@@ -234,6 +235,33 @@
             };
             var params = { "dataSrc": dataSrc, "origin": origin, "dest": dest, "flowType": flowType, "locale": Localization.locale };
             DataQuery.ajaxQuery(params, "QueryRouteTimeSeries", onSuccessCallback);
+        }
+
+        static queryAllCountry(callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+            };
+            DataQuery.ajaxQuery({ "locale": Localization.locale }, "QueryAllCountry", onSuccessCallback);
+        }
+
+        static queryAllSubdiv(callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+            };
+            var filterCountry = "";
+            if (Localization.locale == "ENUS")
+                filterCountry = "US";
+            DataQuery.ajaxQuery({ "filterCountry": filterCountry, "locale": Localization.locale }, "QueryAllSubdiv", onSuccessCallback);
         }
     }
 }

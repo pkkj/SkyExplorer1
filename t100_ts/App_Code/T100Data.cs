@@ -14,17 +14,8 @@ namespace AST {
         public override string Name {
             get { return "T100Data"; }
         }
-        public override string SummaryTableName {
-            get { return "T100Summary"; }
-        }
-        public override string AirportTimeSeriesTableName {
-            get { return "T100AirportTimeSeries"; }
-        }
-        public override string RouteTimeSeriesTableName {
-            get { return "T100RouteTimeSeries"; }
-        }
         public override string Country {
-            get { return "United States"; }
+            get { return "US"; }
         }
         public override bool HasDomesticData {
             get { return true; }
@@ -55,47 +46,7 @@ namespace AST {
 
     public static class T100Data {
 
-        public static string MatchAirport( string input, string locale ) {
-            int limit = 10;
-            NpgsqlConnection conn = null;
-            List<string> lstAirport = new List<string>();
-            try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
-                conn.Open();
-
-                string sqlIata = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"IATA\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
-                NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
-                NpgsqlDataReader drIata = commandIata.ExecuteReader();
-                while ( drIata.Read() ) {
-                    lstAirport.Add( drIata[ "IATA" ].ToString() );
-                }
-
-                if ( input.Length >= 3 ) {
-                    string sqlCity = "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"CITY\" ILIKE " + Utils.SingleQuoteStr( input + "%" );
-                    NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
-                    NpgsqlDataReader drCity = commandCity.ExecuteReader();
-                    while ( drCity.Read() ) {
-                        if ( !lstAirport.Contains( drCity[ "IATA" ].ToString() ) && lstAirport.Count < limit )
-                            lstAirport.Add( drCity[ "IATA" ].ToString() );
-                    }
-                }
-
-            } catch ( NpgsqlException e ) {
-            } finally {
-                conn.Close();
-            }
-            List<string[]> lstRes = new List<string[]>();
-            foreach ( string iata in lstAirport ) {
-                Airport airport = AirportData.Query( iata, locale );
-                if ( airport == null )
-                    continue;
-                lstRes.Add( new string[ 3 ] { airport.Iata, airport.City, airport.Country } );
-            }
-            string res = new JavaScriptSerializer().Serialize( lstRes );
-            return res;
-        }
-
-
+        public static ADataSourceMetaData MetaData = new T100MetaData();
         public static string QueryByRoute( string year, string origin, string dest, string locale ) {
             NpgsqlConnection conn = null;
             string res = "";
@@ -108,16 +59,16 @@ namespace AST {
             double distNm = Math.Round( distKm * 0.539957, 0 );
             distKm = Math.Round( distKm, 0 );
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
+                string where = ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr("AIRLINE"),  Utils.DoubleQuoteStr("DEPARTURE"), 
                 Utils.DoubleQuoteStr("PAX"),  Utils.DoubleQuoteStr("FREIGHT"), 
                 Utils.DoubleQuoteStr("MONTH_DEPARTURE"),  Utils.DoubleQuoteStr("MONTH_PAX"),  Utils.DoubleQuoteStr("MONTH_FREIGHT") };
 
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"T100Summary\"" + where;
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE {2}", fieldStr, MetaData.SummaryTableName, where );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -129,13 +80,12 @@ namespace AST {
                     for ( int i = 0; i < record.FieldCount; i++ ) {
                         item.Add( record.GetName( i ), record[ i ].ToString() );
                     }
-                    Carrier carrier = CarrierData.Query( item[ "AIRLINE" ], locale );
+                    Airline carrier = AirlineData.Query( item[ "AIRLINE" ], locale );
                     item.Add( "AIRLINE_NAME", carrier.FullName );
                     string json = new JavaScriptSerializer().Serialize( item );
                     res += json;
                 }
 
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
@@ -151,31 +101,34 @@ namespace AST {
 
         public static string QueryByAirlines( string year, string airline, string region, string locale, int limit = 100 ) {
             NpgsqlConnection conn = null;
-
+            string currentCountry = DataSourceRegister.GetDataSrc( "T100Data" ).Country;
             try {
                 string res = "";
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 JavaScriptSerializer jsoner = new JavaScriptSerializer();
                 string where = ASTDatabase.MakeWhere( year, airline, "", "" );
-                Carrier carrier = CarrierData.Query( airline, locale );
+                Airline carrier = AirlineData.Query( airline, locale );
                 if ( carrier == null )
                     return "";
                 string flowField = carrier.Type == "Passenger" ? "PAX" : "FREIGHT";
 
+                // TODO: Fix table name
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "ORIGIN" ), Utils.DoubleQuoteStr( "DEST" ),
-                    Utils.DoubleQuoteStr( flowField ), Utils.DoubleQuoteStr( "DEPARTURE" ) , "ST_AsText(\"T100Summary\".\"GEOM\") AS \"GEOM\"",
-                    "\"AP1\".\"COUNTRY\" as \"ORIGIN_COUNTRY\"", "\"AP2\".\"COUNTRY\" as \"DEST_COUNTRY\""
+                    Utils.DoubleQuoteStr( flowField ), Utils.DoubleQuoteStr( "DEPARTURE" ) , @"ST_AsText(""T100DataSummary"".""GEOM"") AS ""GEOM""",
+                    @"""AP1"".""COUNTRY"" as ""ORIGIN_COUNTRY""", @"""AP2"".""COUNTRY"" as ""DEST_COUNTRY"""
                 };
+
                 string fieldStr = String.Join( ",", fields );
-                string sqlFrom = " \"T100Summary\" , \"T100Airport\" AS \"AP1\", \"T100Airport\" AS \"AP2\" ";
                 if ( region == "US" ) {
-                    where += " AND ( \"AP1\".\"COUNTRY\" = \'" + Global.CURRENT_COUNTRY + "\'  AND \"AP2\".\"COUNTRY\" = \'" + Global.CURRENT_COUNTRY + "\' ) ";
+                    where += string.Format(@" AND ( ""AP1"".""COUNTRY"" = '{0}'  AND ""AP2"".""COUNTRY"" = '{1}' ) ", currentCountry, currentCountry);
                 } else if ( region == "Intl" ) {
-                    where += " AND ( \"AP1\".\"COUNTRY\" <> \'" + Global.CURRENT_COUNTRY + "\'  OR \"AP2\".\"COUNTRY\" <> \'" + Global.CURRENT_COUNTRY + "\' ) ";
+                    where += string.Format( @" AND ( ""AP1"".""COUNTRY"" <> '{0}'  OR ""AP2"".""COUNTRY"" <> '{1}' ) ", currentCountry, currentCountry ); 
                 }
-                where += "  AND \"AP1\".\"IATA\" = \"T100Summary\".\"ORIGIN\" AND \"AP2\".\"IATA\" = \"T100Summary\".\"DEST\" ";
-                string sql = "SELECT " + fieldStr + " FROM " + sqlFrom + " WHERE " + where + " ORDER BY " + Utils.DoubleQuoteStr( flowField ) + " DESC LIMIT " + limit.ToString();
+
+                where += "  AND \"AP1\".\"IATA\" = \"T100DataSummary\".\"ORIGIN\" AND \"AP2\".\"IATA\" = \"T100DataSummary\".\"DEST\" ";
+                string sql = string.Format( @"SELECT {0} FROM ""T100DataSummary"" , ""CommonData_Airport"" AS ""AP1"", ""CommonData_Airport"" AS ""AP2"" WHERE {1} ORDER BY ""{2}"" DESC LIMIT {3}", 
+                    fieldStr,  where, flowField, limit );
 
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -187,11 +140,11 @@ namespace AST {
                     if ( flow == 0 ) continue;
 
                     route[ "origin" ] = dr[ "ORIGIN" ].ToString();
-                    route[ "originCity" ] = oAirport.City;
+                    route[ "originCity" ] = oAirport.ServeCity[0];
                     route[ "originCountry" ] = oAirport.Country;
                     route[ "originGeom" ] = oAirport.Geometry;
                     route[ "dest" ] = dr[ "DEST" ].ToString();
-                    route[ "destCity" ] = dAirport.City;
+                    route[ "destCity" ] = dAirport.ServeCity[ 0 ];
                     route[ "destCountry" ] = dAirport.Country;
                     route[ "destGeom" ] = dAirport.Geometry;
                     route[ "flow" ] = Convert.ToInt32( dr[ flowField ] );
@@ -209,9 +162,7 @@ namespace AST {
 
                 }
                 return "[" + res + "]";
-            } catch ( NpgsqlException e ) {
-
-            } finally {
+            }  finally {
                 conn.Close();
             }
 
@@ -224,15 +175,15 @@ namespace AST {
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 // Query T100 Data
-                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
-                string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
+                string where = ASTDatabase.MakeWhere( year, airline, origin, dest );
+                string groupby = " \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\", SUM(\"PAX\") AS \"SUM_PAX\", SUM(\"FREIGHT\") AS \"SUM_FREIGHT\"    ";
-                string sql = "SELECT " + fields + " FROM \"T100Summary\"" + where + groupby;
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE {2} GROUP BY {3}", fields, MetaData.SummaryTableName, where, groupby );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -247,7 +198,8 @@ namespace AST {
                     Airport airport2 = AirportData.Query( origin != "" ? origin : dest);
                     destInfo.RouteGeometry = Utils.ProcessWktGeometryString( dr[ "GEOM" ].ToString() );
 
-                    if ( airport1.CountryEn != Global.CURRENT_COUNTRY && airport2.CountryEn != Global.CURRENT_COUNTRY ) {
+                    if ( airport1.Country != DataSourceRegister.GetDataSrc("T100Data").Country &&
+                        airport2.Country != DataSourceRegister.GetDataSrc( "T100Data" ).Country ) {
                         destInfo.PartialData = true;
                         destInfo.DataSource = "T100FF";
                     } else {
@@ -258,7 +210,6 @@ namespace AST {
                         res.Add( destInfo );
                     }
                 }
-            } catch ( NpgsqlException e ) {
             } finally {
                 conn.Close();
             }
@@ -329,13 +280,13 @@ namespace AST {
             try {
                 int totalPax = 0;
                 int totalFreight = 0;
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 string where = ASTDatabase.MakeWhere( year, "", origin, dest );
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "AIRCRAFT_PAX" ), Utils.DoubleQuoteStr( "AIRCRAFT_FREIGHT" ), 
                     Utils.DoubleQuoteStr( "AIRCRAFT_DEPARTURE" ), Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "FREIGHT" ), Utils.DoubleQuoteStr( "DEPARTURE" )};
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"T100Summary\" WHERE " + where;
+                string sql = "SELECT " + fieldStr + " FROM \"T100DataSummary\" WHERE " + where;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, int> paxSummary = new Dictionary<string, int>();
@@ -346,7 +297,7 @@ namespace AST {
                 while ( dr.Read() ) {
                     Dictionary<string, object> route = new Dictionary<string, object>();
                     route[ "airline" ] = dr[ "AIRLINE" ].ToString();
-                    Carrier carrier = CarrierData.Query( dr[ "AIRLINE" ].ToString(), locale );
+                    Airline carrier = AirlineData.Query( dr[ "AIRLINE" ].ToString(), locale );
                     route[ "airlineName" ] = carrier.FullName;
                     route[ "aircraftPax" ] = ProcessAirlineItem( paxSummary, jsoner.Deserialize<Dictionary<string, int>>( dr[ "AIRCRAFT_PAX" ].ToString() ) );
                     route[ "aircraftFreight" ] = ProcessAirlineItem( freightSummary, jsoner.Deserialize<Dictionary<string, int>>( dr[ "AIRCRAFT_FREIGHT" ].ToString() ) );
@@ -384,9 +335,7 @@ namespace AST {
                 };
                 return jsoner.Serialize( dictRes );
 
-            } catch ( NpgsqlException e ) {
-
-            } finally {
+            }  finally {
                 conn.Close();
             }
             return "";

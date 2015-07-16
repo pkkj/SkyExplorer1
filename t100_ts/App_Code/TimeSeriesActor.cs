@@ -21,7 +21,7 @@ namespace AST {
 
             NpgsqlConnection conn = null;
             try {
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "FLOW_TYPE" ), Utils.DoubleQuoteStr( "TIME_SERIES" ) };
@@ -67,7 +67,7 @@ namespace AST {
             NpgsqlConnection conn = null;
             try {
 
-                conn = new NpgsqlConnection( ASTDatabase.connString );
+                conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
                 string condition = "";
                 if ( flowType == "pax;freight" )
@@ -83,7 +83,7 @@ namespace AST {
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, string> jsonRes = new Dictionary<string, string>() { { "Pax", "" }, { "Freight", "" }, { "Seat", "" } };
                 while ( dr.Read() ) {
-                    Carrier carrier = CarrierData.Query( dr[ "AIRLINE" ].ToString(), locale );
+                    Airline carrier = AirlineData.Query( dr[ "AIRLINE" ].ToString(), locale );
                     string airlineName = dr[ "AIRLINE" ].ToString();
                     if ( airlineName == AnyAirline )
                         airlineName = Localization.QueryLocale( locale )._anyAirline;

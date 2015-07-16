@@ -98,9 +98,9 @@
             DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
-            DataSourceRegister.registerDataSource("TwData", TwData.TwMetaData.instance());
-            DataSourceRegister.registerDataSource("JpData", JpData.JpMetaData.instance());
-            DataSourceRegister.registerDataSource("KrData", KrData.KrMetaData.instance());
+            DataSourceRegister.registerDataSource("TaiwanData", TwData.TwMetaData.instance());
+            DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
+            DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());
         }
 
         private init() {
@@ -118,14 +118,16 @@
                     return;
                 }
                 this.airport = airport;
-                this.yearAvailability = airport.yearAvailability.split(",");
+                this.yearAvailability = airport.yearAvailability.split(";");
                 if (airport.yearAvailability == "") {
                     airport.note = T100.T100Localization.strings.noOutBoundFlights;
                     this.yearAvailability = [];
                 }
                 document.getElementById("airportNote").innerHTML = airport.note;
                 document.getElementById("aiportName").innerHTML = airport.name;
-                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(airport.country, airport.city);
+
+                var city = City.parseCity(airport.serveCityL);                
+                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
                 document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
                 this.initUi();
             };
@@ -240,7 +242,8 @@
                     var ratio = fFlow / biggestFlow;
                     var flow = Localization.strings.formatBigNumber(rank[i].flow);
                     var textA: string = rank[i] == null ? "" : rank[i].iata + " / " + rank[i].icao;
-                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(rank[i].country, rank[i].city);
+
+                    var textB: string = rank[i] == null ? "" : rank[i].displayName;
                     table.addItem(textA, textB, flow, ratio);
                 }
                 else {
@@ -357,7 +360,7 @@
                 this.summaryRegionSel.clearAllItem();
 
                 var regionItems = [], regionDisplayText = [];
-                this.dataSrcInfo.setAirportReportPageRegion(this.airport.countryEn, year, this.airportStat, regionItems, regionDisplayText);
+                this.dataSrcInfo.setAirportReportPageRegion(this.airport.country, year, this.airportStat, regionItems, regionDisplayText);
 
                 for (var i = 0; i < regionItems.length; i++) {
                     var item = this.summaryRegionSel.createItem(regionDisplayText[i]);
@@ -479,8 +482,8 @@
             document.getElementById("paxTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Passenger, timeScale);
             document.getElementById("freightTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Freight, timeScale);
 
-            this.createTimeSeriesChart("paxTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["pax"]["Total"], Localization.strings.largeDivideNum);
-            this.createTimeSeriesChart("freightTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["freight"]["Total"], 1);
+            this.createTimeSeriesChart("paxTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["pax"]["ALL"], Localization.strings.largeDivideNum);
+            this.createTimeSeriesChart("freightTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["freight"]["ALL"], 1);
         }
 
         private queryTimeSeries(airport) {

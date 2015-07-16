@@ -19,19 +19,25 @@ namespace AST {
             _anyAirline = "所有航空公司";
         }
     }
+    public class JAJPLocale : ENUSLocale {
+        public JAJPLocale() {
+
+        }
+    }
     public class Localization {
-        static Dictionary<string, ENUSLocale> UiLocale;
+        public static Dictionary<string, ENUSLocale> UiLocale;
         static Localization() {
             UiLocale = new Dictionary<string, ENUSLocale>();
             UiLocale[ "ENUS" ] = new ENUSLocale();
             UiLocale[ "ZHCN" ] = new ZHCNLocale();
+            UiLocale[ "JAJP" ] = new JAJPLocale();
         }
 
-        public static ENUSLocale QueryLocale(string locale) {
-            
+        public static ENUSLocale QueryLocale( string locale ) {
+
             if ( UiLocale.ContainsKey( locale ) )
                 return UiLocale[ locale ];
             return UiLocale[ "ENUS" ];
-        } 
+        }
     }
 }

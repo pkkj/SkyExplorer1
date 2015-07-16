@@ -4,17 +4,17 @@
             constructor() {
                 super();
 
-                this.name = "JpData";
+                this.name = "JapanData";
                 this.shortInfo = "Japan MLIT";
                 this.fullInfo = "Japan MLIT Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/JpData.html";
                 this.supportAirportReportPage = true;
-                this.country = "Japan";
+                this.country = "JP";
                 this.startTime = new YearMonth(2007, 1);
                 this.endTime = new YearMonth(2013, 12);
             }
 
-            static currentCountry = "Japan";
+            static currentCountry = "JP";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2007, 1);
             static dataTo = new YearMonth(2013, 12);
@@ -48,7 +48,7 @@
                 return Localization.strings.regionJapanDest;
             }
             public getAirportReportPageFootnote(airport: Airport): string {
-                return Localization.strings.getJapanAirportReportPageFootNote(this.country != airport.countryEn);
+                return Localization.strings.getJapanAirportReportPageFootNote(this.country != airport.country);
             }
 
             public getRouteReportPageFootnote(originAirport: Airport, destAirport: Airport): string {
@@ -62,7 +62,7 @@
             }
 
             public getAirportCoverage(airport: Airport): AirportCoverage {
-                if (airport.countryEn = this.country) {
+                if (airport.country = this.country) {
                     return new AirportCoverage(true, false);
                 }
                 return new AirportCoverage(false, false);

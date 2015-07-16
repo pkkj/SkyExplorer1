@@ -62,18 +62,19 @@ namespace AST {
 
     public static class ASTDatabase {
         public static string connString = ConfigurationManager.ConnectionStrings[ "connstr" ].ConnectionString;
+        public static string connStr2 = ConfigurationManager.ConnectionStrings[ "connstr2" ].ConnectionString;
 
         public static string MakeWhere( string year, string airline, string origin, string dest ) {
             string where = "";
             if ( year != "" && airline != "" && origin != "" && dest != "" ) {
                 where = "\"ITEMKEY\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { year, airline, origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { year, airline, origin, dest } ) );
             } else if ( year != "" && origin != "" && dest != "" ) {
                 where = "\"YEAR_ROUTE\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { year, origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { year, origin, dest } ) );
             } else if ( origin != "" && dest != "" ) {
                 where = "\"ROUTE\" = ";
-                where += Utils.SingleQuoteStr( String.Join( ",", new string[] { origin, dest } ) );
+                where += Utils.SingleQuoteStr( String.Join( ";", new string[] { origin, dest } ) );
             } else {
                 if ( year != "" ) {
                     where += " \"YEAR\"  = " + Utils.SingleQuoteStr( year );
@@ -100,14 +101,8 @@ namespace AST {
         public static int CmpRankItem( KeyValuePair<string, int> a, KeyValuePair<string, int> b ) {
             return b.Value.CompareTo( a.Value );
         }
-
-
     }
-
-    public class Global {
-        public static string CURRENT_COUNTRY = "United States";
-        public static string DataDir = @"E:\a302\wwwroot\ServerData\";
-    }
+    
     public class Point {
         public double x;
         public double y;

@@ -9,7 +9,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -136,7 +136,7 @@
     <Content Include="App_Code\ASTData.cs">
       <SubType>Component</SubType>
     </Content>
-    <Content Include="App_Code\Carrier.cs" />
+    <Content Include="App_Code\Airline.cs" />
     <Content Include="App_Code\T100Data.cs" />
     <Content Include="App_Code\Utils.cs" />
   </ItemGroup>
@@ -236,6 +236,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\AirlineAvailabilityActor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\GeoData.cs" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

@@ -4,17 +4,17 @@
             constructor() {
                 super();
 
-                this.name = "KrData";
+                this.name = "KoreaData";
                 this.shortInfo = "Korea KAC";
                 this.fullInfo = "Korea Airport Corporation Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/KrData.html";
                 this.supportAirportReportPage = true;
-                this.country = "South Korea";
+                this.country = "KR";
                 this.startTime = new YearMonth(2010, 1);
                 this.endTime = new YearMonth(2014, 12);
             }
 
-            static currentCountry = "South Korea";
+            static currentCountry = "KR";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
             static dataTo = new YearMonth(2014, 12);
@@ -58,14 +58,14 @@
                 if (airport.iata == "ICN") {
                     return Localization.strings.onlyTheDataOfDomesticRoutesKorea;
                 }
-                var localCountry: boolean = this.country == airport.countryEn;
+                var localCountry: boolean = this.country == airport.country;
                 if (!localCountry) {
                     return Localization.strings.onlyTheDataOfRoutesTowardKorea;
                 }
                 return "";
             }
             public getAirportCoverage(airport: Airport): AirportCoverage {
-                if (airport.countryEn == this.country && airport.iata != "ICN") {
+                if (airport.country == this.country && airport.iata != "ICN") {
                     return new AirportCoverage(true, true);
                 }
                 return new AirportCoverage(false, false);

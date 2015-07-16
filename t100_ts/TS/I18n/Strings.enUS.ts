@@ -173,9 +173,12 @@
             return airline + " summary : ";
         }
 
-        public constructPlaceName(country: string, city: string): string {
-            return city + ", " + country;
+        public constructPlaceName(country: string, subdiv: string, city: string): string {
+            if (subdiv == "*" || subdiv == "" || subdiv == city)
+                return city + ", " + country;            
+            return city + ", " + subdiv + ", " + country;
         }
+
         public constructDestNum(num: number): string {
             return "Destination ( Total number: " + num.toString() + " )";
         }
