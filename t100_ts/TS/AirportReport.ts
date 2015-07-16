@@ -243,8 +243,7 @@
                     var flow = Localization.strings.formatBigNumber(rank[i].flow);
                     var textA: string = rank[i] == null ? "" : rank[i].iata + " / " + rank[i].icao;
 
-                    var city = City.parseCity(rank[i].serveCityL);
-                    var textB: string = rank[i] == null ? "" : Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
+                    var textB: string = rank[i] == null ? "" : rank[i].displayName;
                     table.addItem(textA, textB, flow, ratio);
                 }
                 else {
@@ -483,8 +482,8 @@
             document.getElementById("paxTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Passenger, timeScale);
             document.getElementById("freightTimeSeriesChartSubTitle").innerHTML = Localization.strings.timeSeriesThisChartShowTimeScaleData(FlowType.Freight, timeScale);
 
-            this.createTimeSeriesChart("paxTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["pax"]["Total"], Localization.strings.largeDivideNum);
-            this.createTimeSeriesChart("freightTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["freight"]["Total"], 1);
+            this.createTimeSeriesChart("paxTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["pax"]["ALL"], Localization.strings.largeDivideNum);
+            this.createTimeSeriesChart("freightTimeSeries", timeScale, yearFrom, yearTo, this.timeSeriesData["freight"]["ALL"], 1);
         }
 
         private queryTimeSeries(airport) {

@@ -286,7 +286,7 @@ namespace AST {
                 string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "AIRCRAFT_PAX" ), Utils.DoubleQuoteStr( "AIRCRAFT_FREIGHT" ), 
                     Utils.DoubleQuoteStr( "AIRCRAFT_DEPARTURE" ), Utils.DoubleQuoteStr( "PAX" ), Utils.DoubleQuoteStr( "FREIGHT" ), Utils.DoubleQuoteStr( "DEPARTURE" )};
                 string fieldStr = String.Join( ",", fields );
-                string sql = "SELECT " + fieldStr + " FROM \"T100Summary\" WHERE " + where;
+                string sql = "SELECT " + fieldStr + " FROM \"T100DataSummary\" WHERE " + where;
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 Dictionary<string, int> paxSummary = new Dictionary<string, int>();

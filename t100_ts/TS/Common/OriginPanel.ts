@@ -120,9 +120,9 @@
 
                             data = $.parseJSON(data.childNodes[0].textContent);
                             response($.map(data, function (item) {
-
+                                var city = City.parseCity(item[1]);
                                 return {
-                                    label: item[0] + ", " + Localization.strings.constructPlaceName(item[2], "", item[1]),
+                                    label: item[0] + ", " + Localization.strings.constructPlaceName(city.country, city.subdiv, city.city),
                                     value: item[0]
                                 }
                             }));

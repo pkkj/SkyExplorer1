@@ -12,6 +12,7 @@
         public iata: string;
         public icao: string;
         public city: string;
+        public serveCityL: string;
         public serveCity: City;
         public country: string;
         public name: string;  
@@ -34,7 +35,7 @@
             var airport = new Airport();
             airport.icao = json["icao"];
             airport.iata = json["iata"];
-            airport.city = json["city"];
+            airport.serveCityL = json["serveCityL"];
             airport.country = json["country"];
             airport.name = json["fullName"];
             airport.geom = new AST.Point(json["geometry"]["x"], json["geometry"]["y"]);

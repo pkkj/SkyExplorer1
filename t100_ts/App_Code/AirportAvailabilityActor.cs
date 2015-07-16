@@ -14,8 +14,8 @@ namespace AST {
             try {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
-                string sql = string.Format(@"SELECT ""AVAILABILITY"" FROM ""AirportAvailability"" WHERE ""CODE"" = '{0}' AND ""DATA_SOURCE"" ='{1}'", 
-                    airportCode, dataSrc);
+                string sql = string.Format( @"SELECT ""AVAILABILITY"" FROM ""AirportAvailability"" WHERE ""CODE"" = '{0}' AND ""DATA_SOURCE"" ='{1}'",
+                    airportCode, dataSrc );
 
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -29,6 +29,7 @@ namespace AST {
                         {"icao", airport.Icao},
                         {"country", airport.Country},
                         {"city", airport.ServeCity[0]},
+                        {"countryL", CountryData.QueryCountry(locale, airport.Country).Name},
                         {"serveCityL", City.LocalizeCountryAndSubdiv(locale, airport.ServeCity[0])},
                         {"name", airport.FullName},
                         {"note", airport.Note},

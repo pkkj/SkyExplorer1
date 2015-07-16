@@ -169,7 +169,7 @@ namespace AST {
         public static string LocalizeCountryAndSubdiv( string locale, string location ) {            
             string[] s = location.Split( ';' );
             string country = s[ 0 ], subdivision = s[ 1 ];
-            if ( subdivision != "*" && !( locale == "ENUS" && country != "US")) {
+            if ( subdivision != "*" && !( locale == "ENUS" && country == "US")) {
                 subdivision = SubdivisionData.QuerySubdiv( locale, country + ";" + subdivision ).Name;
             }
             country = CountryData.QueryCountry( locale, country ).Name;

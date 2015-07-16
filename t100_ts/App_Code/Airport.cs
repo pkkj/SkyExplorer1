@@ -64,14 +64,13 @@ namespace AST {
             return dict;
         }
 
-        public Dictionary<string, object> CastToJsonDict() {
+        public Dictionary<string, object> CastToJsonDict( string locale ) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict[ "icao" ] = this.Icao;
             dict[ "iata" ] = this.Iata;
             dict[ "fullName" ] = this.FullName;
             dict[ "country" ] = this.Country;
-            dict[ "city" ] = this.ServeCity[ 0 ];
-            dict[ "state" ] = "";// TODO 
+            dict[ "serveCityL" ] = City.LocalizeCountryAndSubdiv( locale, this.ServeCity[ 0 ] );            ;
             dict[ "fullNameEn" ] = this.FullName;// TODO 
             dict[ "cityEn" ] = this.ServeCity[ 0 ];// TODO 
             dict[ "geometry" ] = new Dictionary<string, double>{ 
@@ -214,7 +213,7 @@ namespace AST {
                 Airport airport = AirportData.Query( iata, locale );
                 if ( airport == null )
                     continue;
-                lstRes.Add( new string[ 3 ] { airport.Code, airport.ServeCity[ 0 ], airport.Country } );
+                lstRes.Add( new string[ 2 ] { airport.Code, City.LocalizeCountryAndSubdiv( locale, airport.ServeCity[ 0 ] ) } );
             }
             string res = new JavaScriptSerializer().Serialize( lstRes );
             return res;

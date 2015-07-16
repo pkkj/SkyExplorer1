@@ -172,7 +172,7 @@
             DataSourceRegister.registerDataSource("TaiwanData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());
-            
+
             this.queryAvailableDataSrc().done(() => {
                 deferred.resolve();
             });
@@ -253,10 +253,10 @@
             document.getElementById("tabTimeSeriesSliderYearRangeText").innerHTML = Localization.strings.yearRange;
 
 
-            document.getElementById("tabSeatTimeSeriesShowChartByText").innerHTML = Localization.strings.showChartBy;           
+            document.getElementById("tabSeatTimeSeriesShowChartByText").innerHTML = Localization.strings.showChartBy;
             document.getElementById("tabSeatTimeSeriesAirlineByText").innerHTML = Localization.strings.airline;
             document.getElementById("tabSeatTimeSeriesSliderYearRangeText").innerHTML = Localization.strings.yearRange;
-            document.getElementById("loadTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.thisChartShowTheLoadFactor;           
+            document.getElementById("loadTimeSeriesChartSubTitle").innerHTML = T100.T100Localization.strings.thisChartShowTheLoadFactor;
         }
 
         private makeAircraftRank(table, type, dataKey) {
@@ -361,11 +361,14 @@
 
         }
         private setTitle() {
+            var city: City;
             document.getElementById("fromAirportCode").innerHTML = this.originAirport.iata + "/" + this.originAirport.icao;
-            document.getElementById("fromAirportCity").innerHTML = this.originAirport.city + ", " + this.originAirport.country;
+            city = City.parseCity(this.originAirport.serveCityL);
+            document.getElementById("fromAirportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
             document.getElementById("fromAirportName").innerHTML = this.originAirport.name;
             document.getElementById("toAirportCode").innerHTML = this.destAirport.iata + "/" + this.destAirport.icao;
-            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(this.destAirport.country, "", this.destAirport.city);
+            city = City.parseCity(this.destAirport.serveCityL);
+            document.getElementById("toAirportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
             document.getElementById("toAirportName").innerHTML = this.destAirport.name;
         }
 
@@ -447,7 +450,7 @@
                     where += "&destIata=" + this.urlParams["destIata"];
                     where += this.urlParams["airline"] ? ("&airline=" + this.urlParams["airline"]) : "";
                     where += "&dataSrc=" + dataSrc[i];
-                    where += this.urlParams["year"] ? ("&year=" + this.urlParams["year"]) : "";                   
+                    where += this.urlParams["year"] ? ("&year=" + this.urlParams["year"]) : "";
                     where += "&locale=" + AST.Localization.getLocale();
                     anchor.href = "RouteReport.html?" + where;
 
@@ -772,7 +775,7 @@
                 if (airlineList[i].indexOf("(") != -1)
                     airlineCode = airlineList[i].substr(airlineList[i].indexOf("(") + 1, airlineList[i].indexOf(")") - airlineList[i].indexOf("(") - 1);
                 airlineMap[airlineCode] = airlineList[i];
-                if(airlineList[i] == Localization.strings.totalAirline)
+                if (airlineList[i] == Localization.strings.totalAirline)
                     airlineSel.insertItem(item, "Total");
                 else if (airlineList[i] == Localization.strings.allAirline)
                     airlineSel.insertItem(item, "All");
@@ -794,7 +797,7 @@
                 this.timeSeriesData = data;
                 this.setupTimeSeriesAirlineList(this.timeSeriesAirlineSel, this.updateTimeSeries, "#timeSeriesSlider", this.airlineMap, this.timeSeriesData, ["pax", "freight"]);
             }
-	        DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "pax;freight", callback);
+            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "pax;freight", callback);
         }
 
         private calcPaxSeatTimeSeries() {
@@ -818,7 +821,7 @@
                 this.setupTimeSeriesAirlineList(this.seatTimeSeriesAirlineSel, this.updateSeatTimeSeries, "#seatTimeSeriesSlider", this.seatDataAirlineMap, this.seatTimeSeriesData, ["seat"]);
 
             }
-	        DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "seat", callback);
+            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "seat", callback);
         }
 
         private updateSeatTimeSeries = (yearFrom, yearTo) => {
@@ -841,7 +844,7 @@
 
         }
 
-        
+
     }
 }
 
