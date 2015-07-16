@@ -40,7 +40,7 @@
             airport.name = json["fullName"];
             airport.geom = new AST.Point(json["geometry"]["x"], json["geometry"]["y"]);
             airport.nameEn = json["fullNameEn"];
-            airport.cityEn = json["cityEn"];
+            airport.cityEn = json["serveCity1En"];
             return airport;
         }
     }

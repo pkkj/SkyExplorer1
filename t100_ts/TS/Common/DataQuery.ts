@@ -72,7 +72,7 @@
                 var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
                     serveCity.country, "", jsonMsg["fromAirport"]["FullName"],
                     new AST.Point(jsonMsg["fromAirport"]["X"], jsonMsg["fromAirport"]["Y"]));
-                fromAirport.cityEn = jsonMsg["fromAirport"]["CityEn"];
+                fromAirport.cityEn = jsonMsg["fromAirport"]["ServeCity1En"];
                 fromAirport.nameEn = jsonMsg["fromAirport"]["FullNameEn"];
                 fromAirport.serveCity = serveCity;
                 fromAirport.displayName = jsonMsg["fromAirport"]["DisplayName"];
@@ -81,17 +81,18 @@
                 for (var i = 0; i < lstDestJson.length; i++) {
                     var dest = new DestInfo();
                     var airportJson = lstDestJson[i]["Airport"];
+                    var destCity = City.parseCity(airportJson["City"]);
                     dest.airport = new Airport(
                         airportJson["Icao"],
                         airportJson["Iata"],
-                        airportJson["Country"],
+                        destCity.country,
                         airportJson["City"],
                         airportJson["FullName"],
                         new AST.Point(airportJson["X"], airportJson["Y"])
                         );
-                    dest.airport.cityEn = airportJson["CityEn"];
+                    dest.airport.cityEn = airportJson["ServeCity1En"];
                     dest.airport.nameEn = airportJson["FullNameEn"];
-                    dest.airport.serveCity = City.parseCity(airportJson["City"]);
+                    dest.airport.serveCity = destCity;
                     dest.airport.displayName = airportJson["DisplayName"];
                     dest.routeGeomS = lstDestJson[i]["RouteGeometry"];
 

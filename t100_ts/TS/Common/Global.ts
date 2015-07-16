@@ -12,6 +12,7 @@
 
     export class Localization {
         static strings: UiStrings = null;
+        static default_strings: UiStrings = null;
         static locale: string = "ENUS";
 
         static init() {
@@ -27,6 +28,7 @@
             if (Localization.strings == null) {
                 Localization.strings = new AST.UiStrings();
             }
+            Localization.default_strings = new AST.UiStrings();
         }
 
 

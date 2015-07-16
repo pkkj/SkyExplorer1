@@ -96,7 +96,7 @@ namespace AST {
             foreach ( DestInfo d in destInfo ) {
                 if ( !destDict.ContainsKey( d.Airport ) ) {
                     DestItem destItem = new DestItem();
-                    destItem.Airport = AirportData.Query( d.Airport, locale ).CastToDict();
+                    destItem.Airport = AirportData.Query( d.Airport, locale ).CastToDict(locale );
                     destItem.RouteGeometry = d.RouteGeometry;
                     destDict[ d.Airport ] = destItem;
                 }
@@ -105,7 +105,7 @@ namespace AST {
 
             Dictionary<string, Object> resDict = new Dictionary<string, object>();
             resDict[ "routes" ] = destDict.Values.ToList();
-            resDict[ "fromAirport" ] = AirportData.Query( keyword, locale ).CastToDict();
+            resDict[ "fromAirport" ] = AirportData.Query( keyword, locale ).CastToDict( locale );
 
             return new JavaScriptSerializer().Serialize( resDict );
         }

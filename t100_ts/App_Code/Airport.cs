@@ -47,20 +47,22 @@ namespace AST {
             return newName;
         }
 
-        public Dictionary<string, object> CastToDict() {
+        public Dictionary<string, object> CastToDict(string locale) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict[ "Icao" ] = this.Icao;
             dict[ "Iata" ] = this.Iata;
             dict[ "FullName" ] = this.FullName;
             dict[ "DisplayName" ] = this.DisplayName;
-            dict[ "Country" ] = this.Country;
-            dict[ "State" ] = "";// TODO 
             dict[ "City" ] = this.ServeCity[ 0 ];
-            dict[ "FullNameEn" ] = this.FullName;  // TODO 
-            dict[ "CityEn" ] = this.ServeCity[ 0 ];  // TODO 
             dict[ "Geometry" ] = this.Geometry.x.ToString() + ", " + this.Geometry.y.ToString();
             dict[ "X" ] = this.Geometry.x;
             dict[ "Y" ] = this.Geometry.y;
+
+            if ( locale != "ENUS" ) {
+                Airport airportEn = AirportData.Query( this.Code, "ENUS" );
+                dict[ "FullNameEn" ] = airportEn.FullName;
+                dict[ "ServeCity1En" ] = City.LocalizeCountryAndSubdiv( "ENUS", airportEn.ServeCity[ 0 ] );
+            }
             return dict;
         }
 
@@ -70,13 +72,17 @@ namespace AST {
             dict[ "iata" ] = this.Iata;
             dict[ "fullName" ] = this.FullName;
             dict[ "country" ] = this.Country;
-            dict[ "serveCityL" ] = City.LocalizeCountryAndSubdiv( locale, this.ServeCity[ 0 ] );            ;
-            dict[ "fullNameEn" ] = this.FullName;// TODO 
-            dict[ "cityEn" ] = this.ServeCity[ 0 ];// TODO 
+            dict[ "serveCityL" ] = City.LocalizeCountryAndSubdiv( locale, this.ServeCity[ 0 ] );
             dict[ "geometry" ] = new Dictionary<string, double>{ 
                 {"x", this.Geometry.x}, 
                 {"y", this.Geometry.y}
             };
+
+            if ( locale != "ENUS" ) {
+                Airport airportEn = AirportData.Query( this.Code, "ENUS" );
+                dict[ "fullNameEn" ] = airportEn.FullName;
+                dict[ "serveCity1En" ] = City.LocalizeCountryAndSubdiv( "ENUS", airportEn.ServeCity[ 0 ] );
+            }
 
             return dict;
         }
@@ -92,12 +98,7 @@ namespace AST {
                 ret = AirportDictionary[ locale ][ code ];
             else if ( AirportDictionary[ "ENUS" ].ContainsKey( code ) ) {
                 ret = AirportDictionary[ "ENUS" ][ code ];
-            }
-            if ( ret != null ) {
-                //ret.CountryEn = AirportDictionary[ "ENUS" ][ code ].Country;
-                //ret.CityEn = AirportDictionary[ "ENUS" ][ code ].City;
-                //ret.FullNameEn = AirportDictionary[ "ENUS" ][ code ].FullName;
-            }
+            }            
             return ret;
         }
 

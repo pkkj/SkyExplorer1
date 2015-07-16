@@ -343,14 +343,15 @@
                 this.createOriginTitleBar(airport);
 
                 this._airportName.innerHTML = Utils.compressAirportName(airport.name);
-                this._airportName.title = airport.nameEn;
-
                 var country = GlobalMetaData.countryDict[airport.serveCity.country];
                 var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
-
                 this._airportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
-                this._airportCity.title = airport.cityEn + ", " + GlobalMetaData.countryDict[airport.country];
 
+                if (Localization.locale != "ENUS") {
+                    this._airportName.title = airport.nameEn;
+                    var cityEn = City.parseCity(airport.cityEn);
+                    this._airportCity.title = Localization.default_strings.constructPlaceName(cityEn.country, cityEn.subdiv, cityEn.city);
+                }
             }
             else {
                 this._originAirportTitleBar.style.display = "none";
@@ -545,9 +546,12 @@
             var country = GlobalMetaData.countryDict[airport.serveCity.country];
             var subdiv = Subdiv.localizeSubdiv(airport.serveCity);
             this.destAirportCity.innerHTML = Localization.strings.constructPlaceName(country, subdiv, airport.serveCity.city);
-            this.destAirportCity.title = airport.cityEn + ", " + GlobalMetaData.countryDict[airport.country];
             this.destAirportName.innerHTML = AST.Utils.compressAirportName(airport.name);
-            this.destAirportName.title = airport.nameEn;
+            if (Localization.locale != "ENUS") {
+                this.destAirportName.title = airport.nameEn;
+                var cityEn = City.parseCity(airport.cityEn);
+                this.destAirportCity.title = Localization.default_strings.constructPlaceName(cityEn.country, cityEn.subdiv, cityEn.city);
+            }
         }
 
 
