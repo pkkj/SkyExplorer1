@@ -2,9 +2,7 @@
     export class GlobalStatus{
         static dataSrc = null;
         static flowDir = null;
-        static originIata: string = null;
         static originAirport: Airport = null;
-        static destIata:string = null;
         static destAirport: Airport = null;
         static dataSource: string = "";
         static year = null;

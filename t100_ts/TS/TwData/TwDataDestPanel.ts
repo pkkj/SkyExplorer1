@@ -15,12 +15,12 @@
                     || AST.GlobalStatus.destAirport == null || AST.GlobalStatus.flowDir == null)
                     return;
 
-                TwData.TwDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
-                    AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
+                TwData.TwDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.code,
+                    AST.GlobalStatus.destAirport.code, (routeData, distInfo) => {
                         this.setRouteData(routeData, distInfo);
                     });
 
-                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
+                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.code);
                 this.tabMetricDataText.onclick = () => {
                     DialogUtils.loadDetailReportDialog("About Taiwan CAA", "AboutT100.html");
                 };

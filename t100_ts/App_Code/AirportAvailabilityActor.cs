@@ -58,7 +58,7 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string sql = string.Format( @"SELECT ""DATA_SOURCE"" FROM ""AirportAvailability"" WHERE ""IATA"" = {0}", Utils.SingleQuoteStr( airportCode ) ); // Only support IATA code
+                string sql = string.Format( @"SELECT ""DATA_SOURCE"" FROM ""AirportAvailability"" WHERE ""CODE"" = {0}", Utils.SingleQuoteStr( airportCode ) );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
 

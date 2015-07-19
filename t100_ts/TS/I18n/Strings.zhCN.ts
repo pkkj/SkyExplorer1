@@ -248,8 +248,8 @@
             return monthTickTemplate;
         }
 
-        public constructViewReverseRouteData(originIata: string, destIata: string) {
-            return "查看反向路线（" + originIata + "往" + destIata + "）的数据";
+        public constructViewReverseRouteData(originCode: string, destCode: string) {
+            return "查看反向路线（" + originCode + "往" + destCode + "）的数据";
         }
 
         public makeChangeLanguageDiv(div: HTMLElement) {

@@ -1,7 +1,7 @@
 ﻿module AST {
     export class RouteReport {
-        private originIata: string = null;
-        private destIata: string = null;
+        private originCode: string = null;
+        private destCode: string = null;
         private originAirport: Airport = null;
         private destAirport: Airport = null;
         private initAirline = null;
@@ -161,8 +161,8 @@
         public initData() {
             var deferred = $.Deferred();
             this.urlParams = Utils.decodeUrlPara();
-            this.originIata = this.urlParams["originIata"];
-            this.destIata = this.urlParams["destIata"];
+            this.originCode = this.urlParams["originCode"];
+            this.destCode = this.urlParams["destCode"];
             this.initAirline = this.urlParams["airline"];
             this.initYear = this.urlParams["year"];
 
@@ -185,10 +185,10 @@
             this.dataSrcFootNote = <HTMLDivElement>document.getElementById("dataSrcFootNote");
 
             // Reverse route link
-            this.linkReverseRoute.innerHTML = Localization.strings.constructViewReverseRouteData(this.destIata, this.originIata);
+            this.linkReverseRoute.innerHTML = Localization.strings.constructViewReverseRouteData(this.destCode, this.originCode);
             this.linkReverseRoute.onclick = () => {
-                var where = "originIata=" + this.destIata;
-                where += "&destIata=" + this.originIata;
+                var where = "originCode=" + this.destCode;
+                where += "&destCode=" + this.originCode;
                 if (this.initAirline)
                     where += "&airline=" + this.initAirline;
                 if (this.initYear)
@@ -405,7 +405,7 @@
                 this.initSelect();
 
             }
-            T100.T100DataQuery.queryRouteAircraftStat(this.summaryYearSel.selectedData, this.originIata, this.destIata, callback);
+            T100.T100DataQuery.queryRouteAircraftStat(this.summaryYearSel.selectedData, this.originCode, this.destCode, callback);
         }
 
         public queryAvailableDataSrc() {
@@ -423,7 +423,7 @@
                     deferred.resolve();
                 }
             };
-            DataQuery.queryRouteAvailableDataSource(this.originIata, this.destIata, callback);
+            DataQuery.queryRouteAvailableDataSource(this.originCode, this.destCode, callback);
             return deferred.promise();
         }
 
@@ -446,8 +446,8 @@
 
                     var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
 
-                    var where: string = "originIata=" + this.urlParams["originIata"];
-                    where += "&destIata=" + this.urlParams["destIata"];
+                    var where: string = "originCode=" + this.urlParams["originCode"];
+                    where += "&destCode=" + this.urlParams["destCode"];
                     where += this.urlParams["airline"] ? ("&airline=" + this.urlParams["airline"]) : "";
                     where += "&dataSrc=" + dataSrc[i];
                     where += this.urlParams["year"] ? ("&year=" + this.urlParams["year"]) : "";
@@ -797,7 +797,7 @@
                 this.timeSeriesData = data;
                 this.setupTimeSeriesAirlineList(this.timeSeriesAirlineSel, this.updateTimeSeries, "#timeSeriesSlider", this.airlineMap, this.timeSeriesData, ["pax", "freight"]);
             }
-            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "pax;freight", callback);
+            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originCode, this.destCode, "pax;freight", callback);
         }
 
         private calcPaxSeatTimeSeries() {
@@ -821,7 +821,7 @@
                 this.setupTimeSeriesAirlineList(this.seatTimeSeriesAirlineSel, this.updateSeatTimeSeries, "#seatTimeSeriesSlider", this.seatDataAirlineMap, this.seatTimeSeriesData, ["seat"]);
 
             }
-            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originIata, this.destIata, "seat", callback);
+            DataQuery.queryRouteTimeSeries(this.curDataSrc.name, this.originCode, this.destCode, "seat", callback);
         }
 
         private updateSeatTimeSeries = (yearFrom, yearTo) => {
@@ -851,10 +851,10 @@
 google.load("visualization", "1", { packages: ["corechart"] });
 google.setOnLoadCallback(function () {
     $(function () {
-        /*if (dialogAirport.originIata == null)
-            dialogAirport.originIata = "LHR";
-        if (dialogAirport.destIata == null)
-            dialogAirport.destIata = "LAX";*/
+        /*if (dialogAirport.originCode == null)
+            dialogAirport.originCode = "LHR";
+        if (dialogAirport.destCode == null)
+            dialogAirport.destCode = "LAX";*/
         AST.Localization.init();
         AST.T100.T100Localization.init();
         var dialogAirport: AST.RouteReport;

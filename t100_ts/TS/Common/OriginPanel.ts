@@ -92,8 +92,8 @@
             this.destDropDown.enable = false;
 
             var btnFindAirport_onclick = () => {
-                var iata = this._txtOriginAirport.value.toUpperCase();
-                this.queryOriginAirport(iata, QueryAirportType.Iata, GlobalStatus.dataSource, true /*panTo*/);
+                var code = this._txtOriginAirport.value.toUpperCase();
+                this.queryOriginAirport(code, QueryAirportType.Code, GlobalStatus.dataSource, true /*panTo*/);
             };
 
             // Find airport button
@@ -366,7 +366,7 @@
                 for (var i = 0; i < this.destDropDown.dataItems.length && destIndex == -1; i++) {
                     if (!this.destDropDown.dataItems[i])
                         continue;
-                    if (this.destDropDown.dataItems[i].airport.iata == GlobalStatus.destAirport.iata) {
+                    if (this.destDropDown.dataItems[i].airport.code == GlobalStatus.destAirport.code) {
                         destIndex = i;
                     }
                 }
@@ -381,7 +381,7 @@
 
         public updateDestList(panTo: boolean) {
             if (GlobalStatus.originAirport) {
-                this.queryOriginAirport(GlobalStatus.originAirport.iata, AST.QueryAirportType.Iata, GlobalStatus.dataSource, panTo);
+                this.queryOriginAirport(GlobalStatus.originAirport.code, AST.QueryAirportType.Code, GlobalStatus.dataSource, panTo);
             }
         }
 
@@ -432,7 +432,7 @@
             }
             var ddAirportCode = AST.Utils.createElement("span", {
                 "class": "ddAirportCode",
-                "text": dest.airport.iata + "/" + dest.airport.icao
+                "text": dest.airport.code
             });
             var ddAirportCity = AST.Utils.createElement("span", {
                 "class": "ddAirportCity",
@@ -518,7 +518,7 @@
             for (var i = 0; i < destinations.length; i++) {
                 var feature: any = new OpenLayers.Feature.Vector(destinations[i].airport.geomO);
                 feature.airport = destinations[i].airport;
-                feature.attributes.iata = destinations[i].airport.iata;
+                feature.attributes.code = destinations[i].airport.code;
                 if (destinations[i].isNoData())
                     this.mapControl.layerDestInactive.addFeatures(feature);
                 else

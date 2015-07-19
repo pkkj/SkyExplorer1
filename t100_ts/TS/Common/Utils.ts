@@ -4,7 +4,7 @@
     }
 
     export class QueryAirportType  {
-        static Iata = "iata";
+        static Code = "code";
         static Geometry = "geometry";
     }
 
@@ -100,6 +100,10 @@
 
         static compressAirportName(name: string): string {
             var newName = name.replace("International", "Intl");
+            var re = /([A-z\s]+)Airport\/([A-z\s]+)Field$/i;;
+            if (re.test(newName)) {
+                newName = newName.split("/")[0];
+            }
             return newName;
         }
 
@@ -125,10 +129,22 @@
                 oldDialog = null;
             }
             var divRoot: HTMLElement = AST.Utils.createElement("div", { "id": "blockingDialog" });
+            divRoot.style.padding = "5px";
             window.document.body.appendChild(divRoot);
 
+            var dialogImg: HTMLImageElement = <any>AST.Utils.createElement("img", { "id": "blockingDialogGif" });
+            dialogImg.src = "../Images/Style/loading.gif";
+            var tmpDiv1: HTMLElement = <any>AST.Utils.createElement("div", { "id": "blockingDialog" });
+            tmpDiv1.style.cssFloat = "left";
+            tmpDiv1.appendChild(dialogImg);
+            divRoot.appendChild(tmpDiv1);            
+
             var dialogText: HTMLElement = AST.Utils.createElement("div", { "text": text });
-            dialogText.style.width = "100%";
+            //dialogText.style.width = "100%";
+            dialogText.style.height = "30px";
+            dialogText.style.lineHeight = "30px";
+            dialogText.style.paddingLeft = "10px";
+            dialogText.style.cssFloat = "left";
             dialogText.style.textAlign = "center";
             divRoot.appendChild(dialogText);
 
@@ -137,8 +153,8 @@
                 closeOnEscape: false,
                 modal: true,
                 resizable: false,
-                height: 70,
-                width: 220,
+                height: 80,
+                width: 260,
                 title: Localization.strings.loading
             });
 
@@ -199,7 +215,8 @@
         static launchAirportStat(originAirport: Airport, year: string, availableDataSrc: string) {
             if (!originAirport)
                 return;
-            var where: string = "iata=" + originAirport.iata;
+            var where: string = "code=" + originAirport.code;
+            where += "&iata=" + originAirport.iata;
             where += "&icao=" + originAirport.icao;
             where += "&name=" + originAirport.name;
             where += "&city=" + originAirport.city;
@@ -212,9 +229,9 @@
             DialogUtils.loadDetailReportDialog(Localization.strings.airportStatistic, src);
         }
 
-        static launchRouteStat(originIata: string, destIata: string, airline: string, year: string) {
-            var where: string = "originIata=" + originIata;
-            where += "&destIata=" + destIata;
+        static launchRouteStat(originCode: string, destCode: string, airline: string, year: string) {
+            var where: string = "originCode=" + originCode;
+            where += "&destCode=" + destCode;
             if (airline)
                 where += "&airline=" + airline;
             if (year)

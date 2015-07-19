@@ -241,8 +241,8 @@
             return monthTickTemplate;
         }
 
-        public constructViewReverseRouteData(originIata: string, destIata: string) {
-            return "See the data of reversed route (" + originIata + " to " + destIata + ")";
+        public constructViewReverseRouteData(originCode: string, destCode: string) {
+            return "See the data of reversed route (" + originCode + " to " + destCode + ")";
         }
 
         public makeChangeLanguageDiv(div: HTMLElement) {
