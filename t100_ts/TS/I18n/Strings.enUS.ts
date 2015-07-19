@@ -157,6 +157,7 @@
         public allFreight = "All freight";
         public allAirline = "All airlines";
         public totalAirline = "Total summary";
+        public availableSeat = "Available Seat";
         public aircraftMarketShareByDeparture = "Aircraft Market Share by Departure";
         public aircraftMarketShareByPassenger = "Aircraft Market Share by Departing Passenger";
         public aircraftMarketShareByFreight = "Aircraft Market Share by Departing Freight";

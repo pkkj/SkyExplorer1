@@ -12,12 +12,12 @@
                 this.supportAirportReportPage = true;
                 this.country = "US";
                 this.startTime = new YearMonth(1990, 1);
-                this.endTime = new YearMonth(2014, 12);
+                this.endTime = new YearMonth(2015, 1);
             }
             static currentCountry = "US";
             static hasMonthData = true;
             static dataFrom = new YearMonth(1990, 1);
-            static dataTo = new YearMonth(2014, 12);
+            static dataTo = new YearMonth(2015, 1);
 
             static availablity: string[] = ["2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999",
                 "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990"];

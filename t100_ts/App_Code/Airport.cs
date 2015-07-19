@@ -47,7 +47,7 @@ namespace AST {
             return newName;
         }
 
-        public Dictionary<string, object> CastToDict(string locale) {
+        public Dictionary<string, object> CastToDict( string locale ) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict[ "Icao" ] = this.Icao;
             dict[ "Iata" ] = this.Iata;
@@ -98,7 +98,7 @@ namespace AST {
                 ret = AirportDictionary[ locale ][ code ];
             else if ( AirportDictionary[ "ENUS" ].ContainsKey( code ) ) {
                 ret = AirportDictionary[ "ENUS" ][ code ];
-            }            
+            }
             return ret;
         }
 
@@ -189,16 +189,18 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string sqlIata = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""IATA"" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                string sqlIata = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""IATA"" ILIKE @CODE";
                 NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
+                commandIata.Parameters.Add( "@CODE", input + '%' );
                 NpgsqlDataReader drIata = commandIata.ExecuteReader();
                 while ( drIata.Read() ) {
                     lstAirport.Add( drIata[ "CODE" ].ToString() );
                 }
 
                 if ( input.Length >= 3 ) {
-                    string sqlCity = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""CITY"" ILIKE " + Utils.SingleQuoteStr( input + "%" );
+                    string sqlCity = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""CITY"" ILIKE @CITY";
                     NpgsqlCommand commandCity = new NpgsqlCommand( sqlCity, conn );
+                    commandCity.Parameters.Add( "@CITY", input + '%' );
                     NpgsqlDataReader drCity = commandCity.ExecuteReader();
                     while ( drCity.Read() ) {
                         if ( !lstAirport.Contains( drCity[ "CODE" ].ToString() ) && lstAirport.Count < limit )

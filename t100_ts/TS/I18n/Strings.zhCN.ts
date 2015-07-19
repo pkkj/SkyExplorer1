@@ -159,10 +159,11 @@
         public allAirlinesSummary = "全部航空公司汇总： ";
 
         public allDeparture = "总出发班次";
-        public allPassenger = "总旅客人次";
+        public allPassenger = "总旅客人数";
         public allFreight = "总货物运量";
         public allAirline = "全部航空公司";
         public totalAirline = "全部航空公司合计";
+        public availableSeat = "供应座位数";
         public aircraftMarketShareByDeparture = "不同机型市场份额（根据出发班次）";
         public aircraftMarketShareByPassenger = "不同机型市场份额（根据旅客人次）";
         public aircraftMarketShareByFreight = "不同机型市场份额（根据货物运量）";

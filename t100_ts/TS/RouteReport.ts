@@ -640,7 +640,7 @@
                 var airlineRank = this.rankAirlineByFlow(timeSeriesData, dataType, yearFrom, yearTo);
                 for (var i = 0; i < airlineRank.length && airlines.length < 8; i++) {
                     // only show top 8
-                    if (airlineRank[i][0] != "Total" && airlineRank[i][1] > 0)
+                    if (airlineRank[i][0] != "ALL" && airlineRank[i][1] > 0)
                         airlines.push(airlineRank[i][0]);
                 }
             } else {
@@ -758,7 +758,7 @@
 
             var airlineList = [Localization.strings.allAirline, Localization.strings.totalAirline];
             for (var key in airlineDict) {
-                if (key != "Total")
+                if (key != "ALL")
                     airlineList.push(key);
             }
             // If only one airline available, just show it.
@@ -776,7 +776,7 @@
                     airlineCode = airlineList[i].substr(airlineList[i].indexOf("(") + 1, airlineList[i].indexOf(")") - airlineList[i].indexOf("(") - 1);
                 airlineMap[airlineCode] = airlineList[i];
                 if (airlineList[i] == Localization.strings.totalAirline)
-                    airlineSel.insertItem(item, "Total");
+                    airlineSel.insertItem(item, "ALL");
                 else if (airlineList[i] == Localization.strings.allAirline)
                     airlineSel.insertItem(item, "All");
                 else
@@ -802,11 +802,11 @@
 
         private calcPaxSeatTimeSeries() {
             var airline;
+            var ava
             for (airline in this.seatTimeSeriesData["seat"]) {
-                this.paxSeatTimeSeries[airline] = {
-                    "Available Seat": this.seatTimeSeriesData["seat"][airline],
-                    "Pax": this.seatTimeSeriesData["pax"][airline]
-                };
+                this.paxSeatTimeSeries[airline] = {};
+                this.paxSeatTimeSeries[airline][Localization.strings.availableSeat] = this.seatTimeSeriesData["seat"][airline];
+                this.paxSeatTimeSeries[airline][Localization.strings.allPassenger] = this.seatTimeSeriesData["pax"][airline];
             }
             this.paxSeatTimeSeries["All"] = {};
             for (airline in this.seatTimeSeriesData["seat"]) {
