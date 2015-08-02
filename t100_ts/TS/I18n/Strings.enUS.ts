@@ -13,6 +13,7 @@
         public aboutAppUrl = "AboutApp.html";
 
         public search = "Search";
+        public searchAirport = "Search airport";
         public ok = "OK";
         public pleaseSelectInputOrigin = "Please select or input an origin";
         public airport = "Airport";

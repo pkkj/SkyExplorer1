@@ -147,6 +147,7 @@
 
         private localizeUi() {
             $("#dataSrcPanelFindAirportBtn").button("option", "label", Localization.strings.search);
+            (<HTMLInputElement> document.getElementById("dataSrcPanelFindAirport")).placeholder = Localization.strings.searchAirport;
             document.getElementById("t100OriginBarAirportLabel").innerHTML = Localization.strings.airport;
             document.getElementById("t100OriginBarYearLabel").innerHTML = Localization.strings.year;
             this._labelFlowDir.innerHTML = Localization.strings.destinations;
@@ -319,7 +320,7 @@
 
             var titleBar = document.createElement("div");
             titleBar.appendChild(titleText);
-            
+
             if (showReportPage) {
                 var detailReportButton: HTMLAnchorElement = <HTMLAnchorElement> Utils.createElement("a", { "text": "(" + Localization.strings.airportDetailReport + ")", "id": "t100AirportDetailReportBtn" });
                 detailReportButton.href = "#";

@@ -22,7 +22,8 @@
         public copyRightText = "版权所有：2014 ";
         public aboutAppUrl = "AboutApp_zhCN.html";
 
-        public search = "&nbsp&nbsp&nbsp搜索&nbsp&nbsp&nbsp";
+        public search = "搜索";
+        public searchAirport = "搜索机场";
         public ok = "确定";
         public pleaseSelectInputOrigin = "请输入或选择起点机场";
         public airport = "机场";
