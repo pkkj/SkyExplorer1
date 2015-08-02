@@ -74,8 +74,12 @@
                 var numItem = 0;
                 for (var i = 0; i < data.length; i++) {
                     var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
-                    tr.appendChild(AST.Utils.createElement("td", { "text": Airline.getDisplayName(data[i].airline)}));
-
+                    var text: string = Airline.getDisplayName(data[i].airline)
+                    if (data[i].seasonal) {
+                        text += Localization.strings.seasonalRoute;
+                    }
+                    tr.appendChild(AST.Utils.createElement("td", { "text": text }));
+                    
                     tableBody.appendChild(tr);
 
                     numItem += 1;

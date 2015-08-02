@@ -21,6 +21,7 @@ namespace AST {
         public string DataSource = "";
         public bool PartialData = false;
         public bool NoData = false;
+        public bool Seasonal = false;
     }
 
     public class DestItem {

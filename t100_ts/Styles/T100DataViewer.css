@@ -181,3 +181,9 @@
     font-size: 11pt;
     width: 310px;
 }
+
+.title-bar-image {
+    border: 1px solid rgb(128, 128, 128); 
+    border-image: none; 
+    float: left;
+}

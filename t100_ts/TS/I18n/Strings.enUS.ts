@@ -313,5 +313,6 @@
         public wikiDataShortInfo = "Wikipedia";
         public wikiDataFullInfo = "Wikipedia Airport Info";
         public wikiAirlinesOperatingThisRoute = "Airlines operating this route:";
+        public seasonalRoute = " - seasonal route";
     }
 }

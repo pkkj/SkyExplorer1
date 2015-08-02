@@ -319,5 +319,6 @@
         public wikiDataShortInfo = "维基百科";
         public wikiDataFullInfo = "维基百科机场信息";
         public wikiAirlinesOperatingThisRoute = "运营该线路的航空公司"
+        public seasonalRoute = " - 季节性服务";
     }
 } 

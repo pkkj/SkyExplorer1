@@ -159,6 +159,7 @@
         public monthDeparture: Array<number> = null;
         public monthPax: Array<number> = null;
         public monthFreight: Array<number> = null;
+        public seasonal: boolean;
     }
 
     export enum AirlineType {

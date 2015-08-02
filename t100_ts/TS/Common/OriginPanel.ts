@@ -319,7 +319,7 @@
 
             var titleBar = document.createElement("div");
             titleBar.appendChild(titleText);
-
+            
             if (showReportPage) {
                 var detailReportButton: HTMLAnchorElement = <HTMLAnchorElement> Utils.createElement("a", { "text": "(" + Localization.strings.airportDetailReport + ")", "id": "t100AirportDetailReportBtn" });
                 detailReportButton.href = "#";
@@ -331,7 +331,7 @@
                 };
                 titleBar.appendChild(detailReportButton);
             }
-
+            //titleBar.innerHTML = '<div id="t100AirportOriginAirportTitleBar" style="display: block;">  <img style="border: 1px solid rgb(128, 128, 128); border-image: none; float: left;" src="../Images/Icon/depart.gif"></img>         <div style="width: 275px; margin-left: 8px; float: left;" >            <div id="t100OriginPanelAirportName">From: Salt Lake City Intl Airport</div>            <div id= "t100OriginPanelCityName" style="color:white"> SLC / KSLC - Salt Lake City, UT, United States</div>            </div>            <div class="clear" > </div>            </div>';
             this.originDialogBuddy.setTitleBar(titleBar);
         }
 

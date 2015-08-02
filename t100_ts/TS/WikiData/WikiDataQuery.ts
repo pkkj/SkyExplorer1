@@ -11,6 +11,7 @@
                     for (var i = 0; i < jsonObj["routes"].length; i++) {
                         var route = new RouteRecord();
                         route.airline = jsonObj["routes"][i]["AIRLINE"];
+                        route.seasonal = jsonObj["routes"][i]["SEASONAL"] == "Y" ? true : false;
                         data.push(route);
                     }
                     var distInfo = new DistInfo(jsonObj["distKm"], jsonObj["distNm"], jsonObj["distMile"]);
