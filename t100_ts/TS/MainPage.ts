@@ -19,9 +19,9 @@ module AST {
         public adjustSize = () => {
             var defaultMargin: number = 5;
             var titleBarHeight: number = 60;
-            var leftBarWidth: number = 340;
+            var leftBarWidth: number = 350;
             document.getElementById("subContainer").style.height = ($(window).height() - defaultMargin * 3 - titleBarHeight).toString() + 'px';
-            document.getElementById("mapContainer").style.width = ($(window).width() - defaultMargin * 3 - leftBarWidth - 8).toString() + 'px';
+            document.getElementById("mapContainer").style.width = ($(window).width() - defaultMargin * 0 - leftBarWidth - 2).toString() + 'px';
 
             if (App.mapControl) {
                 setTimeout(() => App.mapControl.updateSize(), 200);

@@ -99,6 +99,8 @@
         }
 
         static compressAirportName(name: string): string {
+            if (name.length <= 32)
+                return name;
             var newName = name.replace("International", "Intl");
             var re = /([A-z\s]+)Airport\/([A-z\s]+)Field$/i;;
             if (re.test(newName)) {

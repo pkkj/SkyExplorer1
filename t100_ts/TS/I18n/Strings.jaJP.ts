@@ -43,7 +43,7 @@
         public constructPlaceName(country: string, subdiv: string, city: string): string {
             if (subdiv == "*" || subdiv == "" || subdiv == city)
                 return country + "，" + city;
-            return country + ", " + subdiv + ", " + city;
+            return country + "" + subdiv + "" + city;
         }
     }
 } 

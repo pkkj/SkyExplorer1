@@ -1,6 +1,6 @@
 ﻿module AST {
 
-     export interface SummaryTab extends HTMLElement {
+    export interface SummaryTab extends HTMLElement {
         innerTitle;
         summaryTable;
         footnote;
@@ -32,7 +32,7 @@
 
             this._tabSummary.appendChild(AST.Utils.createElement("div", { "height": "4px" }));
             this._tabSummary.innerTitle = AST.Utils.createElement("div", {
-                "class": "t100DataPanelTabTitle", "text": Localization.strings.passengerFlowMonthlyStat
+                "class": "standardDestPanelTabTitle", "text": Localization.strings.passengerFlowMonthlyStat
             });
             this._tabSummary.summaryTable = AST.Utils.createElement("table", { "class": "simpleDestPanelSummaryTable" });
             this._tabSummary.summaryTable.style.display = "block";
@@ -117,10 +117,7 @@
             var routeData: RouteRecord = this.routeData[0];
             data.push(["Month", "Passenger"]);
             for (var i = 0; i < 12; i++) {
-                if (i % 2 == 0)
-                    data.push([Localization.strings.monthName[i], routeData.monthPax[i]]);
-                else
-                    data.push(["", routeData.monthPax[i]]);
+                data.push([Localization.strings.monthName[i], routeData.monthPax[i]]);
             }
 
             var options = {
@@ -140,6 +137,6 @@
             chart.draw(google.visualization.arrayToDataTable(data), options);
             this._tabTimeSeriesTitle.innerHTML = Localization.strings.timeSerierByPassenger;
         }
-        
+
     }
 } 

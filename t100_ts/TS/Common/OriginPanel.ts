@@ -74,7 +74,7 @@
             this.setDataSrcAvailability();
 
             this.destDropDown = new DropDown(this._destSel, {
-                "titleWidth": 305,
+                "titleWidth": 245,
                 "containerMaxHeight": 500
             });
 
@@ -271,10 +271,10 @@
 
                 this.updateMap(destinations);
                 if (this._flowDir == FlowDirection.From) {
-                    this._labelFlowDir.innerHTML = Localization.strings.constructDestNum(destinations.length);
+                    //this._labelFlowDir.innerHTML = Localization.strings.constructDestNum(destinations.length);
                 }
                 else {
-                    this._labelFlowDir.innerHTML = Localization.strings.constructOriginNum(destinations.length);
+                    //this._labelFlowDir.innerHTML = Localization.strings.constructOriginNum(destinations.length);
                 }
 
                 this.setOriginAirport(fromAirport);
@@ -540,7 +540,7 @@
             innerHTML += Utils.createSpace(6);
             var titleBar = document.createElement("div");
             titleBar.appendChild(Utils.createElement("span", { "text": innerHTML }));
-            titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
+            //titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
 
             this.destDialogBuddy.setTitleBar(titleBar);
             var country = GlobalMetaData.countryDict[airport.serveCity.country];

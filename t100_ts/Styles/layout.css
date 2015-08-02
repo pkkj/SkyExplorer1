@@ -5,11 +5,12 @@
 }
 
 #titleBar {
-	border: solid 1px #A8A8A8;
+
 	overflow: hidden;
-	height: 55px;
-	margin: 5px;
-	background-color: rgb(112, 112, 112);
+    padding-top:4px;
+	height: 60px;
+	margin-bottom: 5px;
+	background-color: #333;
 	color: rgb(255, 255, 255);
 	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif, 'Microsoft YaHei', Meiryo;
 }
@@ -76,22 +77,22 @@
 }
 
 #subContainer {
-	margin-left: 5px;
+
 }
 
 .leftBar {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	float: left;
-	width: 340px;
+	width: 350px;
 	height: 100%;
 	margin-top: 0px;
+    z-index:99999;
 }
 
 #mapContainer {
-	border: 2px solid rgb(184, 184, 184);
+    border: 1px solid rgb(184, 184, 184);
 	float: left;
-	margin-left: 8px;
 	height: 100%;
 }
 
@@ -103,8 +104,7 @@
 
 #dataSrcPanelFindAirport
 {
-    margin-left: 10px;
-    width: 50px;
+    width: 110px;
 }
 
 .t100AirlineRouteItemA{
@@ -148,7 +148,7 @@
 }
 
 .rightTopPanel{
-    top:75px;
+    top:85px;
     right:13px;
 	position: absolute;
 	z-index:999;
