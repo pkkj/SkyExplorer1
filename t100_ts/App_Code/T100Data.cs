@@ -126,7 +126,7 @@ namespace AST {
                     where += string.Format( @" AND ( ""AP1"".""COUNTRY"" <> '{0}'  OR ""AP2"".""COUNTRY"" <> '{1}' ) ", currentCountry, currentCountry ); 
                 }
 
-                where += "  AND \"AP1\".\"IATA\" = \"T100DataSummary\".\"ORIGIN\" AND \"AP2\".\"IATA\" = \"T100DataSummary\".\"DEST\" ";
+                where += "  AND \"AP1\".\"CODE\" = \"T100DataSummary\".\"ORIGIN\" AND \"AP2\".\"CODE\" = \"T100DataSummary\".\"DEST\" ";
                 string sql = string.Format( @"SELECT {0} FROM ""T100DataSummary"" , ""CommonData_Airport"" AS ""AP1"", ""CommonData_Airport"" AS ""AP2"" WHERE {1} ORDER BY ""{2}"" DESC LIMIT {3}", 
                     fieldStr,  where, flowField, limit );
 

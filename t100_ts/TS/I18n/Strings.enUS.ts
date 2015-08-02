@@ -241,8 +241,8 @@
             return monthTickTemplate;
         }
 
-        public constructViewReverseRouteData(originIata: string, destIata: string) {
-            return "See the data of reversed route (" + originIata + " to " + destIata + ")";
+        public constructViewReverseRouteData(originCode: string, destCode: string) {
+            return "See the data of reversed route (" + originCode + " to " + destCode + ")";
         }
 
         public makeChangeLanguageDiv(div: HTMLElement) {
@@ -254,7 +254,7 @@
         }
 
         // UK Data Source
-        public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>Some routes might have immediate stop, which is not shown in the map.";
+        public ukDestPanelFootNote = this.allDataAreInBothDirection + "</br>Some routes might have intermediate stop, which is not shown in the map.";
         public ukDataShortInfo = "UK CAA";
         public ukDataFullInfo = "UK CAA Data";
         public onlyTheDataOfRoutesTowardUK = "Note: only the data of routes toward United Kingdom is available. ";
@@ -313,5 +313,6 @@
         public wikiDataShortInfo = "Wikipedia";
         public wikiDataFullInfo = "Wikipedia Airport Info";
         public wikiAirlinesOperatingThisRoute = "Airlines operating this route:";
+        public seasonalRoute = " - seasonal route";
     }
 }

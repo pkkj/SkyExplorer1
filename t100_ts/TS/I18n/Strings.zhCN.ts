@@ -248,8 +248,8 @@
             return monthTickTemplate;
         }
 
-        public constructViewReverseRouteData(originIata: string, destIata: string) {
-            return "查看反向路线（" + originIata + "往" + destIata + "）的数据";
+        public constructViewReverseRouteData(originCode: string, destCode: string) {
+            return "查看反向路线（" + originCode + "往" + destCode + "）的数据";
         }
 
         public makeChangeLanguageDiv(div: HTMLElement) {
@@ -319,5 +319,6 @@
         public wikiDataShortInfo = "维基百科";
         public wikiDataFullInfo = "维基百科机场信息";
         public wikiAirlinesOperatingThisRoute = "运营该线路的航空公司"
+        public seasonalRoute = " - 季节性服务";
     }
 } 

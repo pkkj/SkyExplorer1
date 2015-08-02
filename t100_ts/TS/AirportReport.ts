@@ -2,7 +2,7 @@
 
 
     export class AirportReport {
-        private airportIata = "";
+        private airportCode = "";
         private airport = null;
         private summaryYearSel: DropDown = null;
         private summaryRegionSel: DropDown = null;
@@ -49,7 +49,7 @@
             this.summaryYearSel.onChangeHandler = () => {
                 if (!this.dataReady)
                     return;
-                this.queryAirportStat(this.airportIata);
+                this.queryAirportStat(this.airportCode);
             };
 
             this.paxRank = new RankTable(document.getElementById("paxRank"), { "itemColor": "rgb(144,239,43)" });
@@ -106,7 +106,7 @@
         private init() {
 
             this.urlParams = Utils.decodeUrlPara();
-            this.airportIata = this.urlParams["iata"];
+            this.airportCode = this.urlParams["code"];
             this.initYear = this.urlParams["year"];
             this.curDataSrc = this.urlParams["dataSrc"];
 
@@ -123,18 +123,20 @@
                     airport.note = T100.T100Localization.strings.noOutBoundFlights;
                     this.yearAvailability = [];
                 }
-                document.getElementById("airportNote").innerHTML = airport.note;
+                if (airport.note != "" && airport.note != "*") {
+                    document.getElementById("airportNote").innerHTML = airport.note;
+                }
                 document.getElementById("aiportName").innerHTML = airport.name;
 
-                var city = City.parseCity(airport.serveCityL);                
+                var city = City.parseCity(airport.serveCityL);
                 document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
                 document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
                 this.initUi();
             };
 
-            DataQuery.queryAirportAvailableDataSource(this.airportIata).done((availableDataSrc: Array<string>) => {
+            DataQuery.queryAirportAvailableDataSource(this.airportCode).done((availableDataSrc: Array<string>) => {
                 this.handleDataSource(availableDataSrc);
-                DataQuery.queryAirportYearAvailability(this.airportIata, this.curDataSrc).done(onQueryAirportYearAvailability);
+                DataQuery.queryAirportYearAvailability(this.airportCode, this.curDataSrc).done(onQueryAirportYearAvailability);
             });
 
         }
@@ -165,7 +167,8 @@
 
                     var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
 
-                    var where: string = "iata=" + this.urlParams["iata"];
+                    var where: string = "code=" + this.urlParams["code"];
+                    where += "&iata=" + this.urlParams["iata"];
                     where += "&icao=" + this.urlParams["icao"];
                     where += "&name=" + this.urlParams["name"];
                     where += "&city=" + this.urlParams["city"];
@@ -199,7 +202,7 @@
                         if (this.timeSeriesData != null)
                             this.updateTimeSeries($("#timeSeriesSlider").slider("values", 0), $("#timeSeriesSlider").slider("values", 1));
                         else
-                            this.queryTimeSeries(this.airportIata);
+                            this.queryTimeSeries(this.airportCode);
                     }
                 }
             });
@@ -212,7 +215,7 @@
             }
             // Data ready
             this.dataReady = true;
-            this.queryAirportStat(this.airportIata);
+            this.queryAirportStat(this.airportCode);
 
             this.localizeUi();
         }

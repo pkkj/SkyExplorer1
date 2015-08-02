@@ -49,6 +49,7 @@ namespace AST {
 
         public Dictionary<string, object> CastToDict( string locale ) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict[ "Code" ] = this.Code;
             dict[ "Icao" ] = this.Icao;
             dict[ "Iata" ] = this.Iata;
             dict[ "FullName" ] = this.FullName;
@@ -68,6 +69,7 @@ namespace AST {
 
         public Dictionary<string, object> CastToJsonDict( string locale ) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict[ "code" ] = this.Code;
             dict[ "icao" ] = this.Icao;
             dict[ "iata" ] = this.Iata;
             dict[ "fullName" ] = this.FullName;
@@ -189,7 +191,7 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string sqlIata = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""IATA"" ILIKE @CODE";
+                string sqlIata = @"SELECT DISTINCT ""CODE"" FROM ""AirportAvailability"" WHERE ""CODE"" ILIKE @CODE";
                 NpgsqlCommand commandIata = new NpgsqlCommand( sqlIata, conn );
                 commandIata.Parameters.Add( "@CODE", input + '%' );
                 NpgsqlDataReader drIata = commandIata.ExecuteReader();
@@ -212,8 +214,8 @@ namespace AST {
                 conn.Close();
             }
             List<string[]> lstRes = new List<string[]>();
-            foreach ( string iata in lstAirport ) {
-                Airport airport = AirportData.Query( iata, locale );
+            foreach ( string code in lstAirport ) {
+                Airport airport = AirportData.Query( code, locale );
                 if ( airport == null )
                     continue;
                 lstRes.Add( new string[ 2 ] { airport.Code, City.LocalizeCountryAndSubdiv( locale, airport.ServeCity[ 0 ] ) } );

@@ -21,6 +21,7 @@ namespace AST {
         public string DataSource = "";
         public bool PartialData = false;
         public bool NoData = false;
+        public bool Seasonal = false;
     }
 
     public class DestItem {
@@ -36,7 +37,7 @@ namespace AST {
         public static string QueryByOrigin( string year, string origin, string dest, string airline, string queryType, string dataSource, string locale ) {
             // Verify the parameter
             string keyword = origin != "" ? origin : dest;
-            if ( queryType == "iata" ) {
+            if ( queryType == "code" ) {
                 if ( AirportData.Query( keyword ) == null ) {
                     return "";
                 }
@@ -47,7 +48,7 @@ namespace AST {
                     double y1 = Convert.ToDouble( lstCoordinate[ 1 ] );
                     double x2 = Convert.ToDouble( lstCoordinate[ 2 ] );
                     double y2 = Convert.ToDouble( lstCoordinate[ 3 ] );
-                    keyword = QueryAvailableAirportByGeometry( x1, y1, x2, y2, "iata", locale );
+                    keyword = QueryAvailableAirportByGeometry( x1, y1, x2, y2, "code", locale );
                     if ( keyword == "" )
                         return "";
                 } else {
@@ -117,17 +118,17 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string sql = string.Format( "SELECT DISTINCT \"IATA\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
+                string sql = string.Format( "SELECT DISTINCT \"CODE\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
-                    string iata = dr[ "IATA" ].ToString();
-                    Airport airport = AirportData.Query( iata, locale );
+                    string code = dr[ "CODE" ].ToString();
+                    Airport airport = AirportData.Query( code, locale );
                     if ( airport == null ) {
                         return "";
                     }
-                    if ( returnType == "iata" )
-                        return airport.Iata;
+                    if ( returnType == "code" )
+                        return airport.Code;
                     else
                         return new JavaScriptSerializer().Serialize( airport );
                 }

@@ -19,11 +19,11 @@
                 if (AST.GlobalStatus.year == null || AST.GlobalStatus.originAirport == null
                     || AST.GlobalStatus.destAirport == null)
                     return;
-                UkData.UkDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
-                    AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
+                UkData.UkDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.code,
+                    AST.GlobalStatus.destAirport.code, (routeData, distInfo) => {
                         this.setRouteData(routeData, distInfo);
                     });
-                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
+                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.code);
             }
 
             static createUkDestPanel(): UkDestPanel {

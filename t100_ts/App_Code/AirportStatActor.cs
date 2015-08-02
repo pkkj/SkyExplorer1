@@ -129,8 +129,9 @@ namespace AST {
             for ( int i = 0; i < MaxAirportNumberInRank && i < rank.Count; i++ ) {
                 Dictionary<string, string> item = new Dictionary<string, string>();
                 Airport airport = AirportData.Query( rank[ i ].Key, locale );
-                item[ "iata" ] = rank[ i ].Key;
+                item[ "code" ] = rank[ i ].Key;
                 item[ "flow" ] = rank[ i ].Value.ToString();
+                item[ "iata" ] = airport.Iata;
                 item[ "icao" ] = airport.Icao;
                 item[ "city" ] = airport.ServeCity[0];
                 item[ "country" ] = airport.Country;

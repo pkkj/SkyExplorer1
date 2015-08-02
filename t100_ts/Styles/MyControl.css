@@ -107,7 +107,7 @@
 	padding-left: 4px;
 	padding-top: 1px;
 	padding-bottom: 1px;
-	width: 90px;
+	width: 40px;
 	display: inline-block;
 	white-space: nowrap;
 }
@@ -115,24 +115,28 @@
 .ddAirportCity {
 	padding-top: 1px;
 	padding-bottom: 2px;
-	width: 205px;
+	width: 185px;
 	white-space: nowrap;
 	display: inline-block;
 	
 }
 
 .pinPanelBorder {
-	border: 2px solid rgb(184, 184, 184);
+	/*border: 1px solid rgb(184, 184, 184);*/
 }
 
 .pinPanelContent {
 	margin: 5px 7px 7px 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
 }
 
 .pinPanelTitleBar {
-	height: 26px;
+	padding-top: 3px;
+    padding-bottom: 3px;
 	width: 100%;
-	background-color: rgb(112, 112, 112);
+	background-color: #3E6DB5;
 	color: rgb(255, 255, 255);
 }
 
@@ -141,7 +145,7 @@
 	font-size: 11pt;
 	text-align: left;
 	/*font-weight: bold;*/
-	padding: 3px 10px;
+	padding: 2px 10px;
 }
 
 .pinPanelInnerTitle {

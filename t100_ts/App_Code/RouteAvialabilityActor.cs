@@ -41,7 +41,7 @@ namespace AST {
             try {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
-                string sql = string.Format( @"SELECT ""YEAR"" FROM ""{0}"" WHERE ""ROUTE"" = '{1};{2}'", tableName, origin, dest ); // Only support IATA code
+                string sql = string.Format( @"SELECT ""YEAR"" FROM ""{0}"" WHERE ""ROUTE"" = '{1};{2}'", tableName, origin, dest );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
 

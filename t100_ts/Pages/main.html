@@ -5,7 +5,6 @@
     <meta name="keywords"
           content="Sky Explorer - T100, BTS T100, Aviation Data, US Air Traffic" />
     <title>Sky Explorer - T100</title>
-
     <link rel="stylesheet" href="../styles/layout.css">
     
     <link rel="stylesheet" href="../styles/office.css">
@@ -13,7 +12,6 @@
     <link rel="stylesheet" href="../styles/jquery-ui.css" />
     <link rel="stylesheet" href="../styles/T100DataViewer.css" />
     <link rel="stylesheet" href="../styles/MainPage.css">
-
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../JS/OpenLayers.js"></script>
@@ -39,7 +37,7 @@
 <body>
 
     <div id="mainContainer">
-        <div id="titleBar" class="shadow roundedCorners">
+        <div id="titleBar" class="shadow">
             <div id="curaLogoBar">
                 CENTER FOR <b>URBAN</b> <br /> AND <b>REGIONAL ANALYSIS</b>
             </div>
@@ -49,7 +47,7 @@
             </div>
             
             <div id="dataViewPanel" style="margin-left: 50px; margin-top:4px; float: left">
-                <div id="labelViewDataBy">View data by: &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div id="labelViewDataBy" style="margin-bottom: 2px">View data by: &nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <div>
                     <button id="dataSrcT100Airport" type="button" style="float: left; padding-left: 5px; padding-right: 7px; padding-top: 2px; ">
                         <img src="../Images/Icon/airport.png">&nbsp;&nbsp;<span id="dataSrcT100AirportText">Airport view</span>
@@ -85,9 +83,9 @@
                                 </div>
                                                                 
                                 <div style="height: 5px"></div>
-                                <div style="float: left; line-height:20px" id="t100OriginBarAirportLabel">Airport:</div>
-                                <input style="float: left; height: 21px; margin-right: 5px" type="text" id="dataSrcPanelFindAirport" name="fname" />
-                                <button type="button" style="float: left; height: 21px; margin-right: 25px; margin-left:5px" id="dataSrcPanelFindAirportBtn">Search</button>                                
+                                <div style="float: left; line-height:20px; display:none" id="t100OriginBarAirportLabel">Airport:</div>
+                                <input style="float: left; height: 23px; margin-right: 5px" type="text" id="dataSrcPanelFindAirport" name="fname" placeholder="Search airport" />
+                                <button type="button" style="float: left;  margin-right: 20px; margin-left:5px" id="dataSrcPanelFindAirportBtn" >Search</button>                                
                                 <div style="float: left; margin-right: 10px" id="dataSrcPanelDataSrcSel"></div>
                                 <div style="float: left; margin-right: 10px; line-height: 20px" id="t100OriginBarYearLabel">Year:</div>
                                 <div style="float: left; margin-right: 10px" id="dataSrcPanelYearSel"></div>    
@@ -95,9 +93,9 @@
                                 <div class="clear"></div>
                             </div>
                             <div style="height: 2px"></div>
-                            <div>
-                                <div id="dataSrcPanelFlowDir">Destination:</div>
-                                <div style="float: left" id="dataSrcPanelDestSel"></div>
+                            <div style="margin-top: 8px">
+                                <div id="dataSrcPanelFlowDir" style="float:left; line-height: 20px">Destination:</div>
+                                <div style="float: left; margin-left:7px" id="dataSrcPanelDestSel"></div>
                                 <div class="clear"></div>
                             </div>
                             <div style="height: 5px"></div>
@@ -117,7 +115,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <div id="destBarDistance"></div>
+                            <div id="destBarDistance" style="display:none"></div>
 
                             <div id="t100DestBarInnerDiv">
                                 <!--T100 Destination Panel: Load from external -->
@@ -155,7 +153,7 @@
             </div>
 
 
-            <div id="mapContainer" class="shadow roundedCorners" >
+            <div id="mapContainer" >
                 <div id="openLayerMap"></div>
 
             </div>
@@ -171,7 +169,7 @@
 				<!--<div style="height: 5px"></div>-->
                 <div><span id="developedByText">Developed by </span><a href="#" onclick="window.open('http://www.linkedin.com/pub/kejing-peng/32/867/87a', '_blank'); return false;">Kejing Peng</a></div>
                 <div>
-                    <span id="copyRightText">Copyright 2014, </span><a href="#" onclick="window.open('http://cura.osu.edu', '_blank'); return false;">Center for Urban and Regional Analysis</a>
+                    <span id="copyRightText">Copyright 2015, </span><a href="#" onclick="window.open('http://cura.osu.edu', '_blank'); return false;">Center for Urban and Regional Analysis</a>
                     <br /><a href="#" onclick="window.open('http://www.geography.osu.edu/', '_blank'); return false;"><span id="departmentOfGeographyOSU">Department of Geography, The Ohio State University</span></a>.
                 </div>
                 <div><span id="mapDataText"> Map data: </span><a href="#" onclick="window.open('http://www.esri.com/data/basemaps', '_blank'); return false;">ESRI</a></div>

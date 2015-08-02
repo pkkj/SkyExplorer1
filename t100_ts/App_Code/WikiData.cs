@@ -22,11 +22,11 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string where = " WHERE " + ASTDatabase.MakeWhere( year, airline, origin, dest );
-                string groupby = " GROUP BY \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
-                string fields = origin != "" ? "\"DEST\"" : "\"ORIGIN\"";
+                string where = ASTDatabase.MakeWhere( year, airline, origin, dest );
+                string groupby = " \"GEOM\", " + ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
+                string fields = ( origin != "" ? "\"DEST\"" : "\"ORIGIN\"" );
                 fields += ", ST_AsText(\"GEOM\") AS \"GEOM\"  ";
-                string sql = "SELECT " + fields + " FROM \"" + tableName + "\"" + where + groupby;
+                string sql = string.Format( @"SELECT {0} FROM ""{1}"" WHERE {2} GROUP BY {3}", fields, tableName, where, groupby );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -56,7 +56,7 @@ namespace AST {
                 conn.Open();
 
                 string where = " WHERE " + ASTDatabase.MakeWhere( year, "", origin, dest );
-                string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ) };
+                string[] fields = new string[] { Utils.DoubleQuoteStr( "AIRLINE" ), Utils.DoubleQuoteStr( "SEASONAL" ) };
 
                 string fieldStr = String.Join( ",", fields );
                 string sql = "SELECT " + fieldStr + " FROM \"" + tableName + "\"" + where;

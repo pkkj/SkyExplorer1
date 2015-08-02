@@ -21,19 +21,19 @@
             this.mapControl.panTo(new OpenLayers.LonLat(geom.x, geom.y).transform(MapUtils.projWGS84, MapUtils.projMercator));
         }
 
-        public selectDestAirportFeature(iata: string) {
-            this.selectDestAirportFeatureInternal(this.layerDest, this.destSelectControl,iata);
-            this.selectDestAirportFeatureInternal(this.layerDestInactive, this.destSelectControl, iata);
+        public selectDestAirportFeature(code: string) {
+            this.selectDestAirportFeatureInternal(this.layerDest, this.destSelectControl, code);
+            this.selectDestAirportFeatureInternal(this.layerDestInactive, this.destSelectControl, code);
         }
 
-        public selectDestAirportFeatureInternal(layer: any, selectControl: any, iata: string): boolean {
+        public selectDestAirportFeatureInternal(layer: any, selectControl: any, code: string): boolean {
             if (layer.selectedFeatures.length > 0) {
-                if (layer.selectedFeatures[0].attributes.iata == iata)
+                if (layer.selectedFeatures[0].attributes.code == code)
                     return;
                 else
                     selectControl.unselect(layer.selectedFeatures[0]);
             }
-            var feature = layer.getFeaturesByAttribute("iata", iata)[0];
+            var feature = layer.getFeaturesByAttribute("code", code)[0];
             if (feature) {
                 feature.stop = true;
                 selectControl.select(feature);

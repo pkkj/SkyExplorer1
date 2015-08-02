@@ -74,7 +74,7 @@
             this.setDataSrcAvailability();
 
             this.destDropDown = new DropDown(this._destSel, {
-                "titleWidth": 305,
+                "titleWidth": 245,
                 "containerMaxHeight": 500
             });
 
@@ -92,8 +92,8 @@
             this.destDropDown.enable = false;
 
             var btnFindAirport_onclick = () => {
-                var iata = this._txtOriginAirport.value.toUpperCase();
-                this.queryOriginAirport(iata, QueryAirportType.Iata, GlobalStatus.dataSource, true /*panTo*/);
+                var code = this._txtOriginAirport.value.toUpperCase();
+                this.queryOriginAirport(code, QueryAirportType.Code, GlobalStatus.dataSource, true /*panTo*/);
             };
 
             // Find airport button
@@ -271,10 +271,10 @@
 
                 this.updateMap(destinations);
                 if (this._flowDir == FlowDirection.From) {
-                    this._labelFlowDir.innerHTML = Localization.strings.constructDestNum(destinations.length);
+                    //this._labelFlowDir.innerHTML = Localization.strings.constructDestNum(destinations.length);
                 }
                 else {
-                    this._labelFlowDir.innerHTML = Localization.strings.constructOriginNum(destinations.length);
+                    //this._labelFlowDir.innerHTML = Localization.strings.constructOriginNum(destinations.length);
                 }
 
                 this.setOriginAirport(fromAirport);
@@ -319,7 +319,7 @@
 
             var titleBar = document.createElement("div");
             titleBar.appendChild(titleText);
-
+            
             if (showReportPage) {
                 var detailReportButton: HTMLAnchorElement = <HTMLAnchorElement> Utils.createElement("a", { "text": "(" + Localization.strings.airportDetailReport + ")", "id": "t100AirportDetailReportBtn" });
                 detailReportButton.href = "#";
@@ -331,7 +331,7 @@
                 };
                 titleBar.appendChild(detailReportButton);
             }
-
+            //titleBar.innerHTML = '<div id="t100AirportOriginAirportTitleBar" style="display: block;">  <img style="border: 1px solid rgb(128, 128, 128); border-image: none; float: left;" src="../Images/Icon/depart.gif"></img>         <div style="width: 275px; margin-left: 8px; float: left;" >            <div id="t100OriginPanelAirportName">From: Salt Lake City Intl Airport</div>            <div id= "t100OriginPanelCityName" style="color:white"> SLC / KSLC - Salt Lake City, UT, United States</div>            </div>            <div class="clear" > </div>            </div>';
             this.originDialogBuddy.setTitleBar(titleBar);
         }
 
@@ -366,7 +366,7 @@
                 for (var i = 0; i < this.destDropDown.dataItems.length && destIndex == -1; i++) {
                     if (!this.destDropDown.dataItems[i])
                         continue;
-                    if (this.destDropDown.dataItems[i].airport.iata == GlobalStatus.destAirport.iata) {
+                    if (this.destDropDown.dataItems[i].airport.code == GlobalStatus.destAirport.code) {
                         destIndex = i;
                     }
                 }
@@ -381,7 +381,7 @@
 
         public updateDestList(panTo: boolean) {
             if (GlobalStatus.originAirport) {
-                this.queryOriginAirport(GlobalStatus.originAirport.iata, AST.QueryAirportType.Iata, GlobalStatus.dataSource, panTo);
+                this.queryOriginAirport(GlobalStatus.originAirport.code, AST.QueryAirportType.Code, GlobalStatus.dataSource, panTo);
             }
         }
 
@@ -432,7 +432,7 @@
             }
             var ddAirportCode = AST.Utils.createElement("span", {
                 "class": "ddAirportCode",
-                "text": dest.airport.iata + "/" + dest.airport.icao
+                "text": dest.airport.code
             });
             var ddAirportCity = AST.Utils.createElement("span", {
                 "class": "ddAirportCity",
@@ -518,7 +518,7 @@
             for (var i = 0; i < destinations.length; i++) {
                 var feature: any = new OpenLayers.Feature.Vector(destinations[i].airport.geomO);
                 feature.airport = destinations[i].airport;
-                feature.attributes.iata = destinations[i].airport.iata;
+                feature.attributes.code = destinations[i].airport.code;
                 if (destinations[i].isNoData())
                     this.mapControl.layerDestInactive.addFeatures(feature);
                 else
@@ -540,7 +540,7 @@
             innerHTML += Utils.createSpace(6);
             var titleBar = document.createElement("div");
             titleBar.appendChild(Utils.createElement("span", { "text": innerHTML }));
-            titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
+            //titleBar.appendChild(Utils.createElement("span", { "text": "(" + dataSrc + ")", "class": "destBarTitleDataSrc" }));
 
             this.destDialogBuddy.setTitleBar(titleBar);
             var country = GlobalMetaData.countryDict[airport.serveCity.country];

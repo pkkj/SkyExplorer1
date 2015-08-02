@@ -1,107 +1,134 @@
 ﻿.standardDestPanelTabTitle {
-	font-size: 11pt;
+    font-size: 11pt;
     width: 310px;
-   /* text-align:center;*/
+    color: #2B579A;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    /* text-align:center;*/
 }
 
-
-#destBarAirportName{
-	font-size: 11pt;
-}
-#destBarDistance{
-	font-size: 9pt;
-	font-style: italic;
-	color: #336699;
+#t100OriginPanelCityName {
+    color: #666;
+    font-size: 12px;
 }
 
-.standardDestPanelSummaryTable {
-	font-size: 9pt;
-	width: 310px;
-	border-collapse: collapse;
-	border-spacing: 0;
+#destBarCityName {
+    color: #666;
+    font-size: 12px;
 }
 
-.standardDestPanelSummaryTable .header1 {
-	border-width: 0px;
-}
-
-
-.standardDestPanelSummaryTable .rowName {
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 0px 0px;
-	padding-top: 2px;
-	padding-left: 5px;
-	font-weight: bold;
-}
-
-.standardDestPanelSummaryTable .rowIndex {
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 1px 0px;
-	font-weight: bold;
-	text-align:center;
-}
-
-.standardDestPanelSummaryTable tr.alt .rowIndex {
-	background-color: rgb(211, 211, 211);
-}
-
-.standardDestPanelSummaryTable .rowName:hover {
-	color: rgb(255, 255, 255);
-	background-color: rgb(0, 113, 198);
-	cursor: pointer;
-}
-
-
-.standardDestPanelSummaryTable tr.alt .rowName {
-	background-color: rgb(211, 211, 211);
-}
-
-.standardDestPanelSummaryTable tr.alt .rowName:hover {
-	color: rgb(255, 255, 255);
-	background-color: rgb(0, 113, 198);
-	cursor: pointer;
-}
-
-.standardDestPanelSummaryTable .rowItem {
-	text-align:left;
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 1px 0px;
-	padding-bottom: 2px;
-	padding-left: 5px;
-}
-
-.standardDestPanelSummaryTable .rowItemIndex {
-	text-align:left;
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 1px 0px;
-	padding-left: 5px;
-	font-weight: bold;
-	color: rgb(105, 105, 105);
-}
-
-
-.standardDestPanelSummaryTable tr.alt .rowItem {
-	background-color: rgb(211, 211, 211);
-}
-
-
-.standardDestPanelSummaryTable tr.alt .rowItemIndex {
-	background-color: rgb(211, 211, 211);
-}
-
-#t100AirportDetailReportBtn {
-	font-size: 12px;
-    color: yellow;
-	text-decoration:underline ;
+#destBarAirportName {
+    font-weight: 700;
+    line-height: 16px;
+    padding-bottom: 4px;
+    font-size: 11pt;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #t100OriginPanelAirportName {
+    font-weight: 700;
+    line-height: 16px;
+    padding-bottom: 4px;
     font-size: 11pt;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
+#destBarDistance {
+    font-size: 9pt;
+    font-style: italic;
+    color: #336699;
+}
+
+.standardDestPanelSummaryTable {
+    font-size: 9pt;
+    width: 310px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .standardDestPanelSummaryTable .header1 {
+        border-width: 0px;
+    }
+
+
+    .standardDestPanelSummaryTable .rowName {
+        border-color: rgb(192, 192, 192);
+        border-style: solid;
+        border-width: 0px 0px 0px 0px;
+        padding-top: 2px;
+        padding-left: 5px;
+        font-weight: bold;
+    }
+
+    .standardDestPanelSummaryTable .rowIndex {
+        border-color: rgb(192, 192, 192);
+        border-style: solid;
+        border-width: 0px 0px 1px 0px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .standardDestPanelSummaryTable tr.alt .rowIndex {
+        background-color: rgb(211, 211, 211);
+    }
+
+    .standardDestPanelSummaryTable .rowName:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(0, 113, 198);
+        cursor: pointer;
+    }
+
+
+    .standardDestPanelSummaryTable tr.alt .rowName {
+        background-color: rgb(211, 211, 211);
+    }
+
+        .standardDestPanelSummaryTable tr.alt .rowName:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(0, 113, 198);
+            cursor: pointer;
+        }
+
+    .standardDestPanelSummaryTable .rowItem {
+        text-align: left;
+        border-color: rgb(192, 192, 192);
+        border-style: solid;
+        border-width: 0px 0px 1px 0px;
+        padding-bottom: 2px;
+        padding-left: 5px;
+    }
+
+    .standardDestPanelSummaryTable .rowItemIndex {
+        text-align: left;
+        border-color: rgb(192, 192, 192);
+        border-style: solid;
+        border-width: 0px 0px 1px 0px;
+        padding-left: 5px;
+        font-weight: bold;
+        color: rgb(105, 105, 105);
+    }
+
+
+    .standardDestPanelSummaryTable tr.alt .rowItem {
+        background-color: rgb(211, 211, 211);
+    }
+
+
+    .standardDestPanelSummaryTable tr.alt .rowItemIndex {
+        background-color: rgb(211, 211, 211);
+    }
+
+#t100AirportDetailReportBtn {
+    font-size: 12px;
+    color: yellow;
+    text-decoration: underline;
+}
+
+
 
 .destBarTitleDataSrc {
     font-size: 12px;
@@ -109,48 +136,54 @@
 
 .simpleDestPanelSummaryTable th {
     border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
     text-align: left;
 }
 
-.simpleDestPanelSummaryTable th.leftColumn {
-    text-align: center;
-}
+    .simpleDestPanelSummaryTable th.leftColumn {
+        text-align: center;
+    }
 
 .simpleDestPanelSummaryTable tr.alt .rowName {
-	background-color: rgb(211, 211, 211);
+    background-color: rgb(211, 211, 211);
 }
 
 .simpleDestPanelSummaryTable tr.alt .rowIndex {
-	background-color: rgb(211, 211, 211);
+    background-color: rgb(211, 211, 211);
 }
 
 .simpleDestPanelSummaryTable .rowName {
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 1px 0px;
-	padding-top: 2px;
-	padding-left: 5px;
+    border-color: rgb(192, 192, 192);
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    padding-top: 2px;
+    padding-left: 5px;
 }
 
 .simpleDestPanelSummaryTable .rowIndex {
-	border-color: rgb(192, 192, 192);
-	border-style: solid;
-	border-width: 0px 0px 1px 0px;
-	font-weight: bold;
-	text-align:center;
+    border-color: rgb(192, 192, 192);
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .simpleDestPanelSummaryTable {
-	font-size: 9pt;
-	width: 310px;
-	border-collapse: collapse;
-	border-spacing: 0;
+    font-size: 9pt;
+    width: 310px;
+    border-collapse: collapse;
+    border-spacing: 0;
     border-width: 1px 0px 1px 0px;
 }
 
 .simpleDestPanelTabTitle {
-	font-size: 11pt;
+    font-size: 11pt;
     width: 310px;
+}
+
+.title-bar-image {
+    border: 1px solid rgb(128, 128, 128); 
+    border-image: none; 
+    float: left;
 }

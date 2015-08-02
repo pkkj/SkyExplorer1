@@ -21,11 +21,11 @@
                 if (AST.GlobalStatus.year == null || AST.GlobalStatus.originAirport == null
                     || AST.GlobalStatus.destAirport == null)
                     return;
-                WikiData.WikiDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.iata,
-                    AST.GlobalStatus.destAirport.iata, (routeData, distInfo) => {
+                WikiData.WikiDataQuery.queryRoute(AST.GlobalStatus.year, AST.GlobalStatus.originAirport.code,
+                    AST.GlobalStatus.destAirport.code, (routeData, distInfo) => {
                         this.setRouteData(routeData, distInfo);
                     });
-                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.iata);
+                this.mapBuddy.selectDestAirportFeature(AST.GlobalStatus.destAirport.code);
             }
 
             public onDestChange() {
@@ -74,8 +74,12 @@
                 var numItem = 0;
                 for (var i = 0; i < data.length; i++) {
                     var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
-                    tr.appendChild(AST.Utils.createElement("td", { "text": Airline.getDisplayName(data[i].airline)}));
-
+                    var text: string = Airline.getDisplayName(data[i].airline)
+                    if (data[i].seasonal) {
+                        text += Localization.strings.seasonalRoute;
+                    }
+                    tr.appendChild(AST.Utils.createElement("td", { "text": text }));
+                    
                     tableBody.appendChild(tr);
 
                     numItem += 1;

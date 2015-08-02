@@ -9,6 +9,7 @@
     }
 
     export class Airport {
+        public code: string;
         public iata: string;
         public icao: string;
         public city: string;
@@ -22,7 +23,8 @@
         public geom: AST.Point = null;
         public geomO: OpenLayers.Geometry = null; // OpenLayers geom
 
-        constructor(icao: string = "", iata: string = "", country: string = "", city: string = "", name: string = "", geom: AST.Point = null) {
+        constructor(code: string = "", icao: string = "", iata: string = "", country: string = "", city: string = "", name: string = "", geom: AST.Point = null) {
+            this.code = code;
             this.icao = icao;
             this.iata = iata;            
             this.city = city;
@@ -33,6 +35,7 @@
 
         public static createFromJson(json: Object): Airport {
             var airport = new Airport();
+            airport.code = json["code"];
             airport.icao = json["icao"];
             airport.iata = json["iata"];
             airport.serveCityL = json["serveCityL"];
@@ -156,6 +159,7 @@
         public monthDeparture: Array<number> = null;
         public monthPax: Array<number> = null;
         public monthFreight: Array<number> = null;
+        public seasonal: boolean;
     }
 
     export enum AirlineType {

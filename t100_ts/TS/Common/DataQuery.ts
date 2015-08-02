@@ -69,9 +69,15 @@
                 jsonMsg = $.parseJSON(jsonMsg);
 
                 var serveCity = City.parseCity(jsonMsg["fromAirport"]["City"]);
-                var fromAirport: Airport = new Airport(jsonMsg["fromAirport"]["Icao"], jsonMsg["fromAirport"]["Iata"],
-                    serveCity.country, "", jsonMsg["fromAirport"]["FullName"],
+                var fromAirport: Airport = new Airport(
+                    jsonMsg["fromAirport"]["Code"],
+                    jsonMsg["fromAirport"]["Icao"],
+                    jsonMsg["fromAirport"]["Iata"],
+                    serveCity.country,
+                    "",
+                    jsonMsg["fromAirport"]["FullName"],
                     new AST.Point(jsonMsg["fromAirport"]["X"], jsonMsg["fromAirport"]["Y"]));
+
                 fromAirport.cityEn = jsonMsg["fromAirport"]["ServeCity1En"];
                 fromAirport.nameEn = jsonMsg["fromAirport"]["FullNameEn"];
                 fromAirport.serveCity = serveCity;
@@ -83,6 +89,7 @@
                     var airportJson = lstDestJson[i]["Airport"];
                     var destCity = City.parseCity(airportJson["City"]);
                     dest.airport = new Airport(
+                        airportJson["Code"],
                         airportJson["Icao"],
                         airportJson["Iata"],
                         destCity.country,

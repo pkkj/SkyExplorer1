@@ -128,7 +128,7 @@ module AST {
                 t100DataViewDiv.style.height = (subContainerHeight - barMargin * 2).toString() + 'px';
 
                 var t100DestBar = document.getElementById("t100DestBar");
-                t100DestBar.style.height = (subContainerHeight - t100OriginBarHeight - barMargin * 2).toString() + 'px';
+                t100DestBar.style.height = (subContainerHeight - t100OriginBarHeight - barMargin * 3).toString() + 'px';
                 this.t100DestPanel.onSizeChange();
             }
         }
