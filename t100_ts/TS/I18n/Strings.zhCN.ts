@@ -139,8 +139,6 @@
                     return "单位：万人";
             }
             else {
-                if (timeScale != "Month")
-                    return "单位：万吨";
                 return "单位：吨";
             }
         }
@@ -315,6 +313,13 @@
         public onlyTheDataOfRoutesTowardKorea = "备注：只有前往韩国境内机场（仁川机场除外）的路线的数据";
         public onlyTheDataOfDomesticRoutesKorea = "备注：只有韩国境内目的地的路线的数据";
         public regionKoreaDest = "韩国目的地";
+
+        // CN_CAAC Data
+        public cnCaacShortInfo = "中国民用航空局";
+        public cnCaacDataFullInfo = "中国民用航空局";
+        public getCnCaacAirportReportPageFootNote() {
+            return "ACI数据格式。统计数据为出发、到达以及中转流量三者之和。";
+        }
 
         // Wikipedia Data
         public wikiDataShortInfo = "维基百科";

@@ -8,12 +8,32 @@ namespace AST {
     public class TimeSeriesActor {
 
         public const string AnyAirline = "ANY";
+
+        /// <summary>
+        /// Query which data source could provide the airport time series statistics for the given airport
+        /// </summary>
+        /// <param name="airport"></param>
+        /// <returns>The data source. Currently we only allow one data source to provide airport time series data</returns>
+        public static string QueryAirportTimeSeriesAvailability(string airport) {
+            foreach(KeyValuePair<string, ADataSourceMetaData> item in DataSourceRegister.Register){
+                if ( (item.Value.StatTarget & StatTarget.Airport) == 0 )
+                    continue;
+                if ( item.Value.isAirportTimeSeriesCovered( airport ) )
+                    return item.Key;
+            }
+            return "";
+        }
+
         /// <summary>
         /// Query the time series of an airport
         /// </summary>
         /// <returns></returns>
         public static string QueryAirportTimeSeries( string dataSrc, string origin ) {
-            // Get the meta data of specific data source
+            // Change the behavior. There is no freedom for the client to specify which data source to use for airport time series data.
+            dataSrc = QueryAirportTimeSeriesAvailability( origin );
+            if ( dataSrc == null )
+                return "";
+
             ADataSourceMetaData metaData = null;
             if ( !DataSourceRegister.Register.TryGetValue( dataSrc, out metaData ) ) {
                 return "";

@@ -41,7 +41,13 @@ namespace AST {
         public override bool HasDoubleFlowData {
             get { return true; }
         }
-
+        public virtual StatTarget StatTarget {
+            get { return StatTarget.Airport | StatTarget.Route; }
+        }
+        public override bool isAirportTimeSeriesCovered( string code ) {
+            if ( code == "ICN" ) return false;
+            return base.isAirportTimeSeriesCovered( code );
+        }
     }
 
     public class KrData {

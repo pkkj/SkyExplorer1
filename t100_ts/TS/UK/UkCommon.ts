@@ -27,6 +27,8 @@
                 this.country = "GB";
                 this.startTime = new YearMonth(2010, 1);
                 this.endTime = new YearMonth(2014, 12);
+                this.timeUnit = TimeUnit.Month;
+                this.statTarget = StatTarget.Route;
             }
 
             static currentCountry = "GB";

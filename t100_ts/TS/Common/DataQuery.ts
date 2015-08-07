@@ -270,5 +270,17 @@
                 filterCountry = "US";
             DataQuery.ajaxQuery({ "filterCountry": filterCountry, "locale": Localization.locale }, "QueryAllSubdiv", onSuccessCallback);
         }
+
+        static queryAirportTimeSeriesAvailability(airportCode: string, callback: (jsonMsg: any) => any) {
+            var onSuccessCallback = function (jsonMsg) {
+                if (jsonMsg == "") {
+                    return;
+                }
+                jsonMsg = $.parseJSON(jsonMsg);
+                if (callback != null)
+                    callback(jsonMsg);
+            };
+            DataQuery.ajaxQuery({ "airportCode": airportCode }, "QueryAirportTimeSeriesAvailability", onSuccessCallback);
+        }
     }
 }

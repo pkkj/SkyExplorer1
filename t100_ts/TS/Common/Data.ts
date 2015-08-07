@@ -169,6 +169,12 @@
     export enum FlowType {
         Passenger, Freight
     }
+    export enum StatTarget {
+        Airport, Route
+    }
+    export enum TimeUnit {
+        Year, Month
+    }
     export class DataSourceRegister {
         static nameMap = {};
         static dataSrcList: Array<DataSourceMetaData> = [];
@@ -202,7 +208,8 @@
         public country: string;
         public startTime: YearMonth;
         public endTime: YearMonth;
-
+        public timeUnit: TimeUnit;
+        public statTarget: StatTarget;
         constructor() {
             this.supportAirportReportPage = false;
         }

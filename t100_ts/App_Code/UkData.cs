@@ -26,6 +26,9 @@ namespace AST {
         public override bool HasPaxData {
             get { return true; }
         }
+        public virtual StatTarget StatTarget {
+            get { return StatTarget.Airport | StatTarget.Route; }
+        }
     }
     public static class UkData {
         public static ADataSourceMetaData MetaData = new UkDataMetaData();

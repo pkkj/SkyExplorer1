@@ -131,9 +131,7 @@
                     return "Unit: thousand people.";
             }
             else {
-                if (timeScale != "Month")
-                    return "Unit: thousand tons.";
-                return "Unit: tons.";
+                return "Unit: tonne.";
             }
             return "";
         }
@@ -309,6 +307,13 @@
         public onlyTheDataOfRoutesTowardKorea = "Note: only the data of routes toward South Korea is available";
         public onlyTheDataOfDomesticRoutesKorea = "Note: only the data of routes toward South Korean destinations is available";
         public regionKoreaDest = "South Korea destinations (except ICN)";
+
+        // CN_CAAC Data
+        public cnCaacShortInfo = "China CAAC";
+        public cnCaacDataFullInfo = "Civil Aviation Administration of China";
+        public getCnCaacAirportReportPageFootNote() {
+            return "ACI(Airports Council International) data style. Data is the sum of boarding, disembarking, and flying through without leaving airplane.";
+        }
 
         // Wikipedia Data
         public wikiDataShortInfo = "Wikipedia";

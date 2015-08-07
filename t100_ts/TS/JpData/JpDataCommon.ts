@@ -12,6 +12,8 @@
                 this.country = "JP";
                 this.startTime = new YearMonth(2007, 1);
                 this.endTime = new YearMonth(2013, 12);
+                this.timeUnit = TimeUnit.Month;
+                this.statTarget = StatTarget.Route;
             }
 
             static currentCountry = "JP";

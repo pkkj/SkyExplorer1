@@ -7,6 +7,11 @@ using System.Web;
 /// </summary>
 namespace AST {
 
+    public enum StatTarget {
+        Airport = 1,
+        Route = 2
+    }
+
     /// <summary>
     /// The interface that describe the property of data source
     /// </summary>
@@ -46,7 +51,15 @@ namespace AST {
         public virtual bool HasDoubleFlowData {
             get { return false; }
         }
-
+        public virtual StatTarget StatTarget {
+            get { return StatTarget.Airport | StatTarget.Route; }
+        }
+        public virtual bool isAirportTimeSeriesCovered( string code ) {
+            Airport airport = AirportData.Query( code );
+            if ( airport == null )
+                return false;
+            return airport.Country == Country;
+        }
     }
 
     /// <summary>
@@ -63,6 +76,7 @@ namespace AST {
             RegisterDataSource( "JapanData", new JpDataMetaData() );
             RegisterDataSource( "UkData", new UkDataMetaData() );
             RegisterDataSource( "TaiwanData", new TwDataMetaData() );
+            RegisterDataSource( "CN_CAAC", new CnCaacData() );
         }
 
         private static void RegisterDataSource( string name, ADataSourceMetaData dataSrc ) {

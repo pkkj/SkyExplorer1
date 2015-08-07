@@ -12,6 +12,8 @@
                 this.country = "TW";
                 this.startTime = new YearMonth(2010, 1);
                 this.endTime = new YearMonth(2015, 5);
+                this.timeUnit = TimeUnit.Month;
+                this.statTarget = StatTarget.Route;
             }
 
             static currentCountry = "TW";

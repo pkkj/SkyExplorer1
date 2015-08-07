@@ -27,6 +27,7 @@ tsc --out AirportReport.All.js ^
 .\TwData\TwDataCommon.ts .\TwData\TwDataDataQuery.ts ^
 .\JpData\JpDataCommon.ts .\JpData\JpDataQuery.ts ^
 .\KrData\KrDataCommon.ts .\KrData\KrDataQuery.ts ^
+.\DataSrc\CN_CAAC\CnCaacCommon.ts ^
 ..\Scripts\typings\jquery\jquery.d.ts ^
 ..\Scripts\typings\jquery.ui.layout\jquery.ui.layout.d.ts ^
 ..\Scripts\typings\flot\jquery.flot.d.ts ^

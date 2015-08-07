@@ -63,19 +63,23 @@ namespace AST {
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 List<string> lstResult = new List<string>();
-                // Determine the primate data source of the given airport
+                // Determine the primary data source of the given airport
                 string primaryDataSrc = DataSourceRegister.QueryCountryByDataSrc( airport.Country );
-                if ( primaryDataSrc != "" ) {
-                    lstResult.Add( primaryDataSrc );
-                }
+
                 while ( dr.Read() ) {
                     string dataSrc = dr[ "DATA_SOURCE" ].ToString();
                     if ( dataSrc == "ConnectionData" ) continue; //TODO
                     if ( dataSrc != primaryDataSrc ) {
                         lstResult.Add( dataSrc );
+                    } else {
+                        lstResult.Insert( 0, dataSrc );
                     }
                 }
-                return new JavaScriptSerializer().Serialize( lstResult );
+                Dictionary<string, object> res = new Dictionary<string, object>() {
+                    {"BasicStat", lstResult},
+                    {"TimeSeries", TimeSeriesActor.QueryAirportTimeSeriesAvailability(airportCode)}
+                };
+                return new JavaScriptSerializer().Serialize( res );
             } finally {
                 conn.Close();
             }

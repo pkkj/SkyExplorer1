@@ -162,5 +162,11 @@ namespace AST {
         public string QueryAllSubdiv( string locale, string filterCountry ) {
             return SubdivisionData.QueryAllSubdiv( locale, filterCountry );
         }
+
+        [WebMethod]
+        [ScriptMethod( ResponseFormat = ResponseFormat.Json )]
+        public string QueryAirportTimeSeriesAvailability( string airportCode ) {
+            return TimeSeriesActor.QueryAirportTimeSeriesAvailability( airportCode );
+        }
     }
 }

@@ -33,6 +33,12 @@ namespace AST {
         public override bool HasFlightData {
             get { return true; }
         }
+        public override StatTarget StatTarget {
+            get { 
+                // Since no international data is available, this data source could not provide full airport info.
+                return StatTarget.Route; 
+            }
+        }
     }
 
     public static class JpData {

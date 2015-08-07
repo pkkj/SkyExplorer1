@@ -156,6 +156,7 @@
     <TypeScriptCompile Include="TS\Common\DestPanel.ts" />
     <TypeScriptCompile Include="TS\Common\SimpleDestPanel.ts" />
     <TypeScriptCompile Include="TS\Common\StandardDestPanel.ts" />
+    <TypeScriptCompile Include="TS\DataSrc\CN_CAAC\CnCaacCommon.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\JpData\JpDataCommon.ts" />
@@ -239,6 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\GeoData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\CnCaacData.cs" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

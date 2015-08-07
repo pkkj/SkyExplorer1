@@ -13,6 +13,8 @@
                 this.country = "US";
                 this.startTime = new YearMonth(1990, 1);
                 this.endTime = new YearMonth(2015, 1);
+                this.timeUnit = TimeUnit.Month;
+                this.statTarget = StatTarget.Route;
             }
             static currentCountry = "US";
             static hasMonthData = true;
@@ -100,6 +102,8 @@
                 this.country = "United States";
                 this.startTime = new YearMonth(2003, 1);
                 this.endTime = new YearMonth(2009, 12);
+                this.timeUnit = TimeUnit.Month;
+                this.statTarget = StatTarget.Route;
             }
 
             static currentCountry = "United States";

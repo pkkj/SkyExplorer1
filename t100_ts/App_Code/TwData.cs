@@ -38,7 +38,9 @@ namespace AST {
         public override bool HasDoubleFlowData {
             get { return true; }
         }
-
+        public virtual StatTarget StatTarget {
+            get { return StatTarget.Airport | StatTarget.Route; }
+        }
     }
 
     public class TwData {

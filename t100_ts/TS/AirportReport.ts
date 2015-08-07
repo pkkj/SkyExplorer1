@@ -22,9 +22,14 @@
         private yearAvailability = null;
         private timeSeriesAirlineSel = null;
         private urlParams = null;
-        private availableDataSrc: Array<string> = null;
         private curDataSrc: string;
         private dataSrcInfo: DataSourceMetaData;
+
+        /** The available data sources for Basic Statistics tab */
+        private basicStatDataDrc: Array<string> = null;
+        /** The available data sources for Time Series tab */
+        private timeSeriesDataSrc: DataSourceMetaData = null;
+        private timeSeriesDataSrcName: string = "";
 
         private initSummary() {
             var i, item;
@@ -62,7 +67,8 @@
 
 
         private initTimeSeries() {
-
+            if (this.timeSeriesDataSrc == null)
+                return;
             $("#timeSeriesTimeScale").buttonset();
 
             $("#timeSeriesTimeScale :radio").click((e) => {
@@ -72,9 +78,9 @@
 
             $("#timeSeriesSlider").slider({
                 range: true,
-                min: this.dataSrcInfo.startTime.year,
-                max: this.dataSrcInfo.endTime.year,
-                values: [this.dataSrcInfo.startTime.year, this.dataSrcInfo.endTime.year],
+                min: this.timeSeriesDataSrc.startTime.year,
+                max: this.timeSeriesDataSrc.endTime.year,
+                values: [this.timeSeriesDataSrc.startTime.year, this.timeSeriesDataSrc.endTime.year],
                 slide: (event, ui) => {
                     if (this.timeSeriesData == null)
                         return;
@@ -92,6 +98,11 @@
             $("#timeScaleYear").button("option", "label", Localization.strings.timeScaleYear);
             $("#timeScaleQuarter").button("option", "label", Localization.strings.timeScaleQuarter);
             $("#timeScaleMonth").button("option", "label", Localization.strings.timeScaleMonth);
+            if (this.timeSeriesDataSrc.timeUnit == TimeUnit.Year) {
+                // Disable the "Month" and "Quarter" button if the time unit is year.
+                $("#timeScaleQuarter").button("option", "disabled", true);
+                $("#timeScaleMonth").button("option", "disabled", true);
+            }
         }
 
         private initData() {
@@ -101,6 +112,7 @@
             DataSourceRegister.registerDataSource("TaiwanData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());
+            DataSourceRegister.registerDataSource("CN_CAAC", CnCaacData.CnCaacMetaData.instance());
         }
 
         private init() {
@@ -134,8 +146,12 @@
                 this.initUi();
             };
 
-            DataQuery.queryAirportAvailableDataSource(this.airportCode).done((availableDataSrc: Array<string>) => {
-                this.handleDataSource(availableDataSrc);
+            DataQuery.queryAirportAvailableDataSource(this.airportCode).done((availableDataSrc) => {
+                this.basicStatDataDrc = availableDataSrc["BasicStat"];
+                this.timeSeriesDataSrcName = availableDataSrc["TimeSeries"];
+                if (this.timeSeriesDataSrcName != "")
+                    this.timeSeriesDataSrc = DataSourceRegister.queryInfo(this.timeSeriesDataSrcName);
+                this.handleDataSource(this.basicStatDataDrc);
                 DataQuery.queryAirportYearAvailability(this.airportCode, this.curDataSrc).done(onQueryAirportYearAvailability);
             });
 
@@ -165,7 +181,7 @@
                     else
                         availableDataSrcDiv.appendChild(Utils.createElement("span", { "text": ", " }));
 
-                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName() });
+                    var anchor: HTMLAnchorElement = <HTMLAnchorElement>Utils.createElement("a", { "text": info.getShortInfoLocalizeName(), class: "dataSrcLink" });
 
                     var where: string = "code=" + this.urlParams["code"];
                     where += "&iata=" + this.urlParams["iata"];
@@ -181,18 +197,13 @@
 
                     availableDataSrcDiv.appendChild(anchor);
                 }
-            }
-
-            document.getElementById("metricDataText").innerText = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
-
+            }            
         }
 
         private initUi() {
             // Localize
             var coverage: AirportCoverage = this.dataSrcInfo.getAirportCoverage(this.airport);
-            var showTimeSeries: boolean = coverage.intl && coverage.domestic;
-
-            document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
+            var showTimeSeries: boolean = this.timeSeriesDataSrcName != "";
 
             $("#mainTab").tabs({
                 activate: (event, ui) => {
@@ -221,6 +232,13 @@
         }
 
         private localizeUi() {
+            document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
+            document.getElementById("metricDataText").innerText = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
+            if (this.timeSeriesDataSrc) {
+                document.getElementById("timeSeriesDataSrcFootNote").innerHTML = this.timeSeriesDataSrc.getAirportReportPageFootnote(this.airport);
+                document.getElementById("timeSeriesMetricDataText").innerText = Localization.strings.metricData + this.timeSeriesDataSrc.getFullInfoLocalizeName();
+            }
+
             (<HTMLElement> document.getElementById("liSummary").firstElementChild).innerHTML = Localization.strings.basicStatistic;
             (<HTMLElement> document.getElementById("liTimeSeries").firstElementChild).innerHTML = Localization.strings.timeSeries;
             document.getElementById("tabSummaryYearText").innerHTML = Localization.strings.year;
@@ -382,16 +400,56 @@
         }
 
         private createTimeSeriesChart(divId, timeScale, yearFrom, yearTo, timeData, divideNum: number) {
-            var year;
-            var month;
-
             if (!timeData) {
                 // Show something about no data available
                 document.getElementById(divId).innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + Localization.strings.noDataAvailable + '</span>';
                 return;
             }
 
-            var inputIdx = (yearFrom - this.dataSrcInfo.startTime.year) * 12;;
+            var statData = null;
+            if (this.timeSeriesDataSrc.timeUnit == TimeUnit.Year) {
+                statData = this.prepareAnnualTimeSeries(divId, timeScale, yearFrom, yearTo, timeData, divideNum);
+            } else {
+                statData = this.prepareMonthTimeSeries(divId, timeScale, yearFrom, yearTo, timeData, divideNum);
+            }
+
+            var dataItem = {};
+            dataItem["label"] = T100.T100Localization.strings.timeSeriesFlowByTimeScale(timeScale);
+            dataItem['data'] = statData.data;
+            var _data = [];
+            _data.push(dataItem);
+            $.plot("#" + divId, _data, {
+                xaxis: {
+                    tickDecimals: 0,
+                    ticks: statData.tickIdx,
+                    min: -1,
+                    max: statData.outputIdx + 1
+                }
+            });
+        }
+        private prepareAnnualTimeSeries(divId, timeScale, yearFrom, yearTo, timeData, divideNum: number) {
+            var data = [];
+            var year;
+            var outputIdx = 0;
+            var inputIdx = (yearFrom - this.timeSeriesDataSrc.startTime.year)
+            var tickIdx = [];
+            for (year = yearFrom; year <= yearTo; year++) {
+                data.push([outputIdx, timeData[inputIdx] / divideNum]);
+                tickIdx.push([outputIdx, year.toString()]);
+                outputIdx++;
+                inputIdx++;
+            }
+            return {
+                data: data,
+                tickIdx: tickIdx,
+                outputIdx: outputIdx
+            };            
+        }
+
+        private prepareMonthTimeSeries(divId, timeScale, yearFrom, yearTo, timeData, divideNum: number) {
+            var year, month;            
+
+            var inputIdx = (yearFrom - this.timeSeriesDataSrc.startTime.year) * 12;;
             var outputIdx = 0;
             var tickIdx = [];
 
@@ -399,11 +457,11 @@
             var data = [];
             for (year = yearFrom; year <= yearTo; year++) {
                 var monthStart = 1;
-                if (year == this.dataSrcInfo.startTime.year)
-                    monthStart = this.dataSrcInfo.startTime.month;
+                if (year == this.timeSeriesDataSrc.startTime.year)
+                    monthStart = this.timeSeriesDataSrc.startTime.month;
                 var monthEnd = 12;
-                if (year == this.dataSrcInfo.endTime.year)
-                    monthEnd = this.dataSrcInfo.endTime.month;
+                if (year == this.timeSeriesDataSrc.endTime.year)
+                    monthEnd = this.timeSeriesDataSrc.endTime.month;
 
                 var yearAccumulate = 0;
                 var yearAccumulateMonth = 0;
@@ -461,19 +519,11 @@
                 }
             }
 
-            var dataItem = {};
-            dataItem["label"] = T100.T100Localization.strings.timeSeriesFlowByTimeScale(timeScale);
-            dataItem['data'] = data;
-            var _data = [];
-            _data.push(dataItem);
-            $.plot("#" + divId, _data, {
-                xaxis: {
-                    tickDecimals: 0,
-                    ticks: tickIdx,
-                    min: -1,
-                    max: outputIdx + 1
-                }
-            });
+            return {
+                data: data,
+                tickIdx: tickIdx,
+                outputIdx: outputIdx
+            }; 
         }
 
         private updateTimeSeries(yearFrom, yearTo) {
