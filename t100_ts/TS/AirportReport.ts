@@ -233,10 +233,10 @@
 
         private localizeUi() {
             document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
-            document.getElementById("metricDataText").innerText = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
+            document.getElementById("metricDataText").textContent = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
             if (this.timeSeriesDataSrc) {
                 document.getElementById("timeSeriesDataSrcFootNote").innerHTML = this.timeSeriesDataSrc.getAirportReportPageFootnote(this.airport);
-                document.getElementById("timeSeriesMetricDataText").innerText = Localization.strings.metricData + this.timeSeriesDataSrc.getFullInfoLocalizeName();
+                document.getElementById("timeSeriesMetricDataText").textContent = Localization.strings.metricData + this.timeSeriesDataSrc.getFullInfoLocalizeName();
             }
 
             (<HTMLElement> document.getElementById("liSummary").firstElementChild).innerHTML = Localization.strings.basicStatistic;

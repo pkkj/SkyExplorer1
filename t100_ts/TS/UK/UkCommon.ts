@@ -24,9 +24,10 @@
                 this.shortInfo = "UK CAA";
                 this.fullInfo = "UK CAA Data";
                 this.aboutSrcPageUrl = "DataSourceInfo/UkCaa.html";
+                this.supportAirportReportPage = true;
                 this.country = "GB";
                 this.startTime = new YearMonth(2010, 1);
-                this.endTime = new YearMonth(2014, 12);
+                this.endTime = new YearMonth(2015, 5);
                 this.timeUnit = TimeUnit.Month;
                 this.statTarget = StatTarget.Route;
             }
@@ -34,7 +35,7 @@
             static currentCountry = "GB";
             static hasMonthData = true;
             static dataFrom = new YearMonth(2010, 1);
-            static dataTo = new YearMonth(2014, 12);
+            static dataTo = new YearMonth(2015, 5);
 
             private static _instance = null;
             static instance() {

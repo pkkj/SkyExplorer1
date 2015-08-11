@@ -27,10 +27,10 @@ namespace AST {
             get { return false; }
         }
         public override bool HasPaxData {
-            get { return false; }
+            get { return true; }
         }
         public override bool HasFreightData {
-            get { return false; }
+            get { return true; }
         }
         public override bool HasSeatData {
             get { return false; }
@@ -43,6 +43,12 @@ namespace AST {
         }
         public virtual StatTarget StatTarget {
             get { return StatTarget.Airport; }
+        }
+
+        public override bool isAirportTimeSeriesCovered( string code ) {
+            if ( code == "HKG" || code == "MFM" )
+                return false;
+            return base.isAirportTimeSeriesCovered( code );
         }
     }
 }

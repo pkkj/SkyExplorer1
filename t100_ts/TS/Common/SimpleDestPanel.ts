@@ -99,13 +99,19 @@
             trHeader.style.height = "20px";
             tableBody.appendChild(trHeader);
 
+            var currentYear = GlobalStatus.year;
+
             var data: RouteRecord = this.routeData[0];
             for (var i = 0; i < 12; i++) {
                 var tr = AST.Utils.createElement("tr", { "class": i % 2 == 0 ? "alt" : "" });
                 tr.appendChild(AST.Utils.createElement("td", { "class": "rowIndex", "text": Localization.strings.constructYearMonth(GlobalStatus.year, i) }));
+                var value = Utils.formatNumber(data.monthPax[i]);
+                if (this.dataSourceMetaData.endTime.year.toString() == GlobalStatus.year.toString() && i + 1 > this.dataSourceMetaData.endTime.month)
+                    value = "-";
+
                 tr.appendChild(AST.Utils.createElement("td", {
                     "class": "rowName",
-                    "text": Utils.formatNumber(data.monthPax[i])
+                    "text": value
                 }));
 
                 tableBody.appendChild(tr);

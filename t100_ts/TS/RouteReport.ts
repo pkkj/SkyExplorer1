@@ -198,7 +198,7 @@
             };
 
             // Set the data source
-            this.dataSrcFootNote.innerText = this.curDataSrc.getRouteReportPageFootnote(this.originAirport, this.destAirport);
+            this.dataSrcFootNote.textContent = this.curDataSrc.getRouteReportPageFootnote(this.originAirport, this.destAirport);
 
             $("#mainTab").tabs({
                 activate: (event, ui) => {

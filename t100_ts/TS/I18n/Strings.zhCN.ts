@@ -285,7 +285,7 @@
         // Japan Data Source
         public jpDataShortInfo = "日本MLIT"
         public jpDataFullInfo = "日本国土交通省数据"
-        public onlyTheDataOfRoutesTowardJapan = "备注：只有前往美国境内机场的路线的数据。";
+        public onlyTheDataOfRoutesTowardJapan = "备注：只有前往日本境内机场的路线的数据。";
         public regionJapanDest = "日本目的地";
         public getJapanAirportReportPageFootNote(onlyJapanDest: boolean): string {
             var res: string = "";
