@@ -77,6 +77,10 @@ namespace AST {
             RegisterDataSource( "UkData", new UkDataMetaData() );
             RegisterDataSource( "TaiwanData", new TwDataMetaData() );
             RegisterDataSource( "CN_CAAC", new CnCaacData() );
+            RegisterDataSource( "CN_MIA", new CnMiaData() );
+            RegisterDataSource( "TH_AOT", new ThAotData() );
+            RegisterDataSource( "AU_BITRE", new AuBitreData() );  
+            
         }
 
         private static void RegisterDataSource( string name, ADataSourceMetaData dataSrc ) {

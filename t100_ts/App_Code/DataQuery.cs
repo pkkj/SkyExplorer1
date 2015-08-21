@@ -84,27 +84,33 @@ namespace AST {
             }
             // Query Wiki connection data
             if ( validSrc.Contains( "ConnectionData" ) || dataSource == "" ) {
-                for ( int i = 0; i < destInfo.Count; i++ )
-                    destSet.Add( destInfo[ i ].Airport );
-                // Only show the destinations that don't exist in other data sources
-                List<DestInfo> wikiResult = WikiData.QueryDestByOrigin( year, origin, dest, airline, locale );
-                foreach ( DestInfo _dest in wikiResult ) {
-                    if ( !destSet.Contains( _dest.Airport ) )
-                        destInfo.Add( _dest );
-                }
+                destInfo.AddRange( WikiData.QueryDestByOrigin( year, origin, dest, airline, locale ) );                
             }
             Dictionary<string, DestItem> destDict = new Dictionary<string, DestItem>();
             foreach ( DestInfo d in destInfo ) {
                 if ( !destDict.ContainsKey( d.Airport ) ) {
                     DestItem destItem = new DestItem();
-                    destItem.Airport = AirportData.Query( d.Airport, locale ).CastToDict(locale );
+                    destItem.Airport = AirportData.Query( d.Airport, locale ).CastToDict( locale );
                     destItem.RouteGeometry = d.RouteGeometry;
                     destDict[ d.Airport ] = destItem;
                 }
                 destDict[ d.Airport ].AvailableData.Add( d );
             }
-
+            List<string> timeSeriesDataSrc = new List<string>();
+            if ( DataSourceRegister.GetDataSrc( "CN_CAAC" ).isAirportTimeSeriesCovered( origin ) ) {
+                timeSeriesDataSrc.Add( "CN_CAAC" );
+            }
+            if ( DataSourceRegister.GetDataSrc( "CN_MIA" ).isAirportTimeSeriesCovered( origin ) ) {
+                timeSeriesDataSrc.Add( "CN_MIA" );
+            }
+            if ( DataSourceRegister.GetDataSrc( "TH_AOT" ).isAirportTimeSeriesCovered( origin ) ) {
+                timeSeriesDataSrc.Add( "TH_AOT" );
+            }
+            if ( DataSourceRegister.GetDataSrc( "AU_BITRE" ).isAirportTimeSeriesCovered( origin ) ) {
+                timeSeriesDataSrc.Add( "AU_BITRE" );
+            }
             Dictionary<string, Object> resDict = new Dictionary<string, object>();
+            resDict[ "timeSeriesDataSrc" ] = timeSeriesDataSrc;
             resDict[ "routes" ] = destDict.Values.ToList();
             resDict[ "fromAirport" ] = AirportData.Query( keyword, locale ).CastToDict( locale );
 
@@ -133,7 +139,7 @@ namespace AST {
                         return new JavaScriptSerializer().Serialize( airport );
                 }
 
-            }  finally {
+            } finally {
                 conn.Close();
             }
             return "";

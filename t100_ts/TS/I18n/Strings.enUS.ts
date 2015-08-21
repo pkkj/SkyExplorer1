@@ -315,6 +315,27 @@
             return "ACI(Airports Council International) data style. Data is the sum of boarding, disembarking, and flying through without leaving airplane.";
         }
 
+        // CN_MIA Data
+        public cnMiaShortInfo = "Macau MIA";
+        public cnMiaDataFullInfo = "Macau International Airport";
+        public getCnMiaAirportReportPageFootNote() {
+            return "Airport authority provides no information about how they process the statistics data.";
+        }
+
+        // TH AOT
+        public thAotShortInfo = "Thailand AOT";
+        public thAotDataFullInfo = "Airports of Thailand Public Co.,Ltd.";
+        public getthAotAirportReportPageFootNote() {
+            return "ACI(Airports Council International) data style. Data is the sum of boarding, disembarking, and flying through without leaving airplane.";
+        }
+
+        // AU BITRE
+        public auBitreShortInfo = "Australian BITRE";
+        public auBitreDataFullInfo = "Australian Bureau of Infrastructure, Transport and Regional Economics";
+        public getAuBitreAirportReportPageFootNote() {
+            return "Data is the summation of inbound and outbound traffic";
+        }
+
         // Wikipedia Data
         public wikiDataShortInfo = "Wikipedia";
         public wikiDataFullInfo = "Wikipedia Airport Info";

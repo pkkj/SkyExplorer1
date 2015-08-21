@@ -137,6 +137,8 @@
             if (dataType == FlowType.Passenger) {
                 if (timeScale != "Month")
                     return "单位：万人";
+                else
+                    return "";
             }
             else {
                 return "单位：吨";
@@ -321,6 +323,26 @@
             return "ACI数据格式。统计数据为出发、到达以及中转流量三者之和。";
         }
 
+        // CN_MIA Data
+        public cnMiaShortInfo = "澳门MIA";
+        public cnMiaDataFullInfo = "澳门国际机场";
+        public getCnMiaAirportReportPageFootNote() {
+            return "机场当局没有提供任何关于这些数据的详细信息。";
+        }
+
+        // TH AOT
+        public thAotShortInfo = "泰国AOT";
+        public thAotDataFullInfo = "泰国公共机场有限公司";
+        public getthAotAirportReportPageFootNote() {
+            return "ACI数据格式。统计数据为出发、到达以及中转流量三者之和。";
+        }
+
+        // AU BITRE
+        public auBitreShortInfo = "澳大利亚BITRE";
+        public auBitreDataFullInfo = "澳大利亚建设交通与区域经济办公室";
+        public getAuBitreAirportReportPageFootNote() {
+            return "统计数据为出发及到达之和。";
+        }
         // Wikipedia Data
         public wikiDataShortInfo = "维基百科";
         public wikiDataFullInfo = "维基百科机场信息";

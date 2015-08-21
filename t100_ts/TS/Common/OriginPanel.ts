@@ -239,7 +239,7 @@
 
         public queryOriginAirport(keyword, queryAirportType, dataSrc: string, panTo: boolean) {
 
-            var callback = (fromAirport: Airport, destinations: Array<DestInfo>) => {
+            var callback = (fromAirport: Airport, destinations: Array<DestInfo>, timeSeriesDataSrc: Array<string>) => {
 
                 if (!fromAirport) {
                     this.clearOriginAirport();
@@ -261,6 +261,11 @@
                         supportAirportReportPage = supportAirportReportPage || DataSourceRegister.queryInfo(destinations[i].availableData[j].dataSrcName).supportAirportReportPage;
                     }
                     hasPartialDataRoute = hasPartialDataRoute || isPartialDataDest;
+                }
+
+                // If this airport has time series data, Airport Report Page will be available.
+                if (timeSeriesDataSrc.length > 0) {
+                    supportAirportReportPage = true;
                 }
 
                 this.airportContent.setRouteLegend({ hasPartialDataRoute: hasPartialDataRoute, hasNoDataRoute: hasNoDataRoute });

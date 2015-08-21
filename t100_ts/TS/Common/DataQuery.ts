@@ -57,13 +57,13 @@
             return httpRequest;
         }
 
-        static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>) => any) {
+        static queryDestByOrigin(year: string, origin: string, airline: string, queryType: string, dataSrc: string, callback: (fromAirport: Airport, destinations: Array<DestInfo>, timeSeriesDataSrc: Array<string>) => any) {
             var onSuccessCallback = function (jsonMsg) {
                 setTimeout(function () { DialogUtils.closeBlockingDialog(); }, 150);
 
                 var destinations: Array<DestInfo> = [];
                 if (jsonMsg == "") {
-                    callback(null, []);
+                    callback(null, [], []);
                     return;
                 }
                 jsonMsg = $.parseJSON(jsonMsg);
@@ -115,8 +115,9 @@
                     }
                     destinations.push(dest);
                 }
+                var timeSeriesDataSrc = jsonMsg["timeSeriesDataSrc"];
                 if (callback != null)
-                    callback(fromAirport, destinations);
+                    callback(fromAirport, destinations, timeSeriesDataSrc);
 
             };
             var params = { "year": year, "origin": origin, "dest": "", "airline": airline, "queryType": queryType, "dataSource": dataSrc, "locale": Localization.locale };

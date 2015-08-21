@@ -156,7 +156,10 @@
     <TypeScriptCompile Include="TS\Common\DestPanel.ts" />
     <TypeScriptCompile Include="TS\Common\SimpleDestPanel.ts" />
     <TypeScriptCompile Include="TS\Common\StandardDestPanel.ts" />
+    <TypeScriptCompile Include="TS\DataSrc\AU_BITRE\AuBitreCommon.ts" />
     <TypeScriptCompile Include="TS\DataSrc\CN_CAAC\CnCaacCommon.ts" />
+    <TypeScriptCompile Include="TS\DataSrc\CN_MIA\CnMiaCommon.ts" />
+    <TypeScriptCompile Include="TS\DataSrc\TH_AOT\ThAotCommon.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.enUS.ts" />
     <TypeScriptCompile Include="TS\I18n\Strings.zhCN.ts" />
     <TypeScriptCompile Include="TS\JpData\JpDataCommon.ts" />
@@ -242,7 +245,8 @@
     <Content Include="App_Code\GeoData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\CnCaacData.cs" />
+    <Content Include="App_Code\SimpleAirportStatDataSrc.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

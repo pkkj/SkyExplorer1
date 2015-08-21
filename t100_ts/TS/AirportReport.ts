@@ -16,7 +16,7 @@
         private paxRank = null;
         private freightRank = null;
         private airportStat = null;
-        private dataReady = false;
+        private basicStatDataReady = false;
         private timeSeriesData = null;
         private initYear = null;
         private yearAvailability = null;
@@ -52,7 +52,7 @@
                 this.summaryYearSel.setSelectedIndex(yearIdx);
 
             this.summaryYearSel.onChangeHandler = () => {
-                if (!this.dataReady)
+                if (!this.basicStatDataReady)
                     return;
                 this.queryAirportStat(this.airportCode);
             };
@@ -113,6 +113,9 @@
             DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());
             DataSourceRegister.registerDataSource("CN_CAAC", CnCaacData.CnCaacMetaData.instance());
+            DataSourceRegister.registerDataSource("CN_MIA", CnMiaData.CnMiaMetaData.instance());
+            DataSourceRegister.registerDataSource("TH_AOT", ThAotData.ThAotMetaData.instance());
+            DataSourceRegister.registerDataSource("AU_BITRE", AuBitreData.AuBitreMetaData.instance());
         }
 
         private init() {
@@ -125,34 +128,58 @@
             this.initData();
 
             var onQueryAirportYearAvailability = (airport: any) => {
-                if (airport == null) {
+                if (airport == null && this.timeSeriesDataSrcName == "") {
                     document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + Localization.strings.noAvailableDataForThisAirport + '</span>';
                     return;
                 }
-                this.airport = airport;
-                this.yearAvailability = airport.yearAvailability.split(";");
-                if (airport.yearAvailability == "") {
-                    airport.note = T100.T100Localization.strings.noOutBoundFlights;
-                    this.yearAvailability = [];
-                }
-                if (airport.note != "" && airport.note != "*") {
-                    document.getElementById("airportNote").innerHTML = airport.note;
-                }
-                document.getElementById("aiportName").innerHTML = airport.name;
+                
+                if (airport.yearAvailability) {
+                    this.yearAvailability = airport.yearAvailability.split(";");
+                    if (airport.yearAvailability == "") {
+                        airport.note = T100.T100Localization.strings.noOutBoundFlights;
+                        this.yearAvailability = [];
+                    }
+                }                
 
-                var city = City.parseCity(airport.serveCityL);
-                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
-                document.getElementById("airportCode").innerHTML = airport.iata + " / " + airport.icao;
-                this.initUi();
+                this.initSummary();
+                
+                // Data ready
+                this.basicStatDataReady = true;
+                this.queryAirportStat(this.airportCode);
             };
 
             DataQuery.queryAirportAvailableDataSource(this.airportCode).done((availableDataSrc) => {
+                this.airport = availableDataSrc["Airport"];
+                if (this.airport.note != "" && this.airport.note != "*") {
+                    document.getElementById("airportNote").innerHTML = this.airport.note;
+                }
+                document.getElementById("aiportName").innerHTML = this.airport.name;
+
+                var city = City.parseCity(this.airport.serveCityL);
+                document.getElementById("airportCity").innerHTML = Localization.strings.constructPlaceName(city.country, city.subdiv, city.city);
+                document.getElementById("airportCode").innerHTML = this.airport.iata + " / " + this.airport.icao;
+
                 this.basicStatDataDrc = availableDataSrc["BasicStat"];
                 this.timeSeriesDataSrcName = availableDataSrc["TimeSeries"];
-                if (this.timeSeriesDataSrcName != "")
+
+                if (this.basicStatDataDrc.length == 0 && this.timeSeriesDataSrcName == "") {
+                    document.getElementById("mainTab").innerHTML = '<span style="font-size: 40pt; color: #D0D0D0">' + Localization.strings.noAvailableDataForThisAirport + '</span>';
+                    return;
+                }
+
+                if (this.timeSeriesDataSrcName != "") {
                     this.timeSeriesDataSrc = DataSourceRegister.queryInfo(this.timeSeriesDataSrcName);
-                this.handleDataSource(this.basicStatDataDrc);
-                DataQuery.queryAirportYearAvailability(this.airportCode, this.curDataSrc).done(onQueryAirportYearAvailability);
+                }
+                
+                this.initUi();
+                this.localizeUi();
+                if (this.basicStatDataDrc.length > 0) {
+                    this.handleDataSource(this.basicStatDataDrc);
+                    DataQuery.queryAirportYearAvailability(this.airportCode, this.curDataSrc).done(onQueryAirportYearAvailability);
+                } else if (this.timeSeriesDataSrcName != "") {
+                    // No basic statistic data is available
+                    $("#mainTab").tabs("option", "active", 1);
+                }
             });
 
         }
@@ -197,14 +224,15 @@
 
                     availableDataSrcDiv.appendChild(anchor);
                 }
-            }            
+            }
+            document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
+            document.getElementById("metricDataText").textContent = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
         }
 
         private initUi() {
             // Localize
-            var coverage: AirportCoverage = this.dataSrcInfo.getAirportCoverage(this.airport);
             var showTimeSeries: boolean = this.timeSeriesDataSrcName != "";
-
+            var showBasicStat: boolean = this.basicStatDataDrc.length > 0;
             $("#mainTab").tabs({
                 activate: (event, ui) => {
                     if (ui.newTab[0].id == "liSummary") {
@@ -218,22 +246,20 @@
                 }
             });
 
-            this.initSummary();
+            if (!showBasicStat) {
+                $("#mainTab").tabs({ disabled: [0] });
+            }
+
             if (showTimeSeries) {
                 this.initTimeSeries();
             } else {
                 $("#mainTab").tabs({ disabled: [1] });
             }
-            // Data ready
-            this.dataReady = true;
-            this.queryAirportStat(this.airportCode);
-
-            this.localizeUi();
+            
         }
 
         private localizeUi() {
-            document.getElementById("dataSrcFootNote").innerHTML = this.dataSrcInfo.getAirportReportPageFootnote(this.airport);
-            document.getElementById("metricDataText").textContent = Localization.strings.metricData + this.dataSrcInfo.getFullInfoLocalizeName();
+
             if (this.timeSeriesDataSrc) {
                 document.getElementById("timeSeriesDataSrcFootNote").innerHTML = this.timeSeriesDataSrc.getAirportReportPageFootnote(this.airport);
                 document.getElementById("timeSeriesMetricDataText").textContent = Localization.strings.metricData + this.timeSeriesDataSrc.getFullInfoLocalizeName();
