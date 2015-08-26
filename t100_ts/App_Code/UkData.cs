@@ -26,10 +26,32 @@ namespace AST {
         public override bool HasPaxData {
             get { return true; }
         }
-        public virtual StatTarget StatTarget {
-            get { return StatTarget.Airport | StatTarget.Route; }
+        public override StatTarget StatTarget {
+            get { return StatTarget.Route; }
         }
     }
+
+    public class UkAirportDataMetaData : ADataSourceMetaData {
+        public override string Name {
+            get { return "UkData"; }
+        }
+        public override string Country {
+            get { return "GB"; }
+        }
+        public override bool HasDomesticData {
+            get { return true; }
+        }
+        public override bool HasInternationalData {
+            get { return true; }
+        }
+        public override bool HasPaxData {
+            get { return true; }
+        }
+        public override StatTarget StatTarget {
+            get { return StatTarget.Airport; }
+        }
+    }
+
     public static class UkData {
         public static ADataSourceMetaData MetaData = new UkDataMetaData();
 

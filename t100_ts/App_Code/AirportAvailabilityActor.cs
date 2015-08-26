@@ -53,8 +53,6 @@ namespace AST {
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 List<string> lstResult = new List<string>();
-                // Determine the primary data source of the given airport
-                string primaryDataSrc = DataSourceRegister.QueryCountryByDataSrc( airport.Country );
 
                 while ( dr.Read() ) {
                     string dataSrc = dr[ "DATA_SOURCE" ].ToString();
@@ -62,10 +60,11 @@ namespace AST {
                     ADataSourceMetaData metaData = DataSourceRegister.GetDataSrc( dataSrc );
                     if ( metaData == null || metaData.StatTarget == StatTarget.Airport )
                         continue;
-                    if ( dataSrc != primaryDataSrc ) {
-                        lstResult.Add( dataSrc );
+                    if ( metaData.Country == airport.Country ) {
+                        // Primary data source
+                        lstResult.Insert( 0, dataSrc ); 
                     } else {
-                        lstResult.Insert( 0, dataSrc );
+                        lstResult.Add( dataSrc );
                     }
                 }
                 Dictionary<string, object> res = new Dictionary<string, object>() {

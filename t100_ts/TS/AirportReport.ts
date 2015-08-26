@@ -109,6 +109,7 @@
             DataSourceRegister.registerDataSource("T100Data", T100.T100MetaData.instance());
             DataSourceRegister.registerDataSource("T100FF", T100.T100FFMetaData.instance());
             DataSourceRegister.registerDataSource("UkData", UkData.UkMetaData.instance());
+            DataSourceRegister.registerDataSource("UkAirportData", UkData.UKAirportMetaData.instance());
             DataSourceRegister.registerDataSource("TaiwanData", TwData.TwMetaData.instance());
             DataSourceRegister.registerDataSource("JapanData", JpData.JpMetaData.instance());
             DataSourceRegister.registerDataSource("KoreaData", KrData.KrMetaData.instance());

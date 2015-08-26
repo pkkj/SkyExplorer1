@@ -10,7 +10,7 @@
                 this.aboutSrcPageUrl = ""; // TODO
                 this.supportAirportReportPage = true;
                 this.country = "TH";
-                this.startTime = new YearMonth(2012, 1);
+                this.startTime = new YearMonth(2010, 1);
                 this.endTime = new YearMonth(2014, 12);
                 this.timeUnit = TimeUnit.Month;
                 this.statTarget = StatTarget.Airport;
@@ -18,7 +18,7 @@
 
             static currentCountry = "TH";
             static hasMonthData = true;
-            static dataFrom = new YearMonth(2012, 1);
+            static dataFrom = new YearMonth(2010, 1);
             static dataTo = new YearMonth(2014, 3);
 
             private static _instance = null;

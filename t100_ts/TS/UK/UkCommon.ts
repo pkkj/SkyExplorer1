@@ -73,5 +73,22 @@
                 return Localization.strings.allStatConsistInboundOutboundTraffic;
             }
         }
+
+        export class UKAirportMetaData extends UkMetaData {
+            constructor() {
+                super();
+                this.name = "UkAirportData";
+                this.startTime = new YearMonth(2003, 1);
+                this.endTime = new YearMonth(2015, 6);
+                this.statTarget = StatTarget.Airport;
+            }
+
+            private static _ukAirportDataInstance = null;
+            static instance() {
+                if (!UKAirportMetaData._ukAirportDataInstance)
+                    UKAirportMetaData._ukAirportDataInstance = new UKAirportMetaData();
+                return UKAirportMetaData._ukAirportDataInstance;
+            }
+        }
     }
 } 

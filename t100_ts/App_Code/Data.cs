@@ -75,6 +75,7 @@ namespace AST {
             RegisterDataSource( "KoreaData", new KrDataMetaData() );
             RegisterDataSource( "JapanData", new JpDataMetaData() );
             RegisterDataSource( "UkData", new UkDataMetaData() );
+            RegisterDataSource( "UkAirportData", new UkAirportDataMetaData() );
             RegisterDataSource( "TaiwanData", new TwDataMetaData() );
             RegisterDataSource( "CN_CAAC", new CnCaacData() );
             RegisterDataSource( "CN_MIA", new CnMiaData() );
@@ -86,14 +87,6 @@ namespace AST {
         private static void RegisterDataSource( string name, ADataSourceMetaData dataSrc ) {
             Register[ name ] = dataSrc;
             CountryToDataSrc[ dataSrc.Country ] = name;
-        }
-
-        public static string QueryCountryByDataSrc( string country ) {
-            string dataSrc = "";
-            if ( CountryToDataSrc.TryGetValue( country, out dataSrc ) ) {
-                return dataSrc;
-            }
-            return "";
         }
 
         public static ADataSourceMetaData GetDataSrc( string dataSrc ) {

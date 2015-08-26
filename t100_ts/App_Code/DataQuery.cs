@@ -124,7 +124,7 @@ namespace AST {
                 conn = new NpgsqlConnection( ASTDatabase.connStr2 );
                 conn.Open();
 
-                string sql = string.Format( "SELECT DISTINCT \"CODE\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326)", x1, y1, x2, y2 );
+                string sql = string.Format( "SELECT DISTINCT \"CODE\", \"CONN_CNT\" FROM \"AirportAvailability\" WHERE \"GEOM\" && ST_MakeEnvelope({0}, {1}, {2}, {3}, 4326) ORDER BY \"CONN_CNT\" DESC", x1, y1, x2, y2 );
                 NpgsqlCommand command = new NpgsqlCommand( sql, conn );
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while ( dr.Read() ) {
